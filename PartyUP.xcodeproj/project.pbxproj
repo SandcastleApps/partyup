@@ -14,6 +14,7 @@
 		1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */; };
 		1F427A161BA59F4C00E622CF /* PartyUPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A151BA59F4C00E622CF /* PartyUPTests.swift */; };
 		1F427A211BA59F4C00E622CF /* PartyUPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */; };
+		7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PartyUP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F4279FD1BA59F4C00E622CF /* PartyUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A001BA59F4C00E622CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F427A021BA59F4C00E622CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +49,8 @@
 		1F427A1C1BA59F4C00E622CF /* PartyUPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyUPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyUPUITests.swift; sourceTree = "<group>"; };
 		1F427A221BA59F4C00E622CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
+		E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AA4866CCC751B01696E2D72 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1F4279F41BA59F4C00E622CF = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +94,8 @@
 				1F427A141BA59F4C00E622CF /* PartyUPTests */,
 				1F427A1F1BA59F4C00E622CF /* PartyUPUITests */,
 				1F4279FE1BA59F4C00E622CF /* Products */,
+				F45C5C08936EE0B946D71CE9 /* Pods */,
+				1AA4866CCC751B01696E2D72 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +140,15 @@
 			path = PartyUPUITests;
 			sourceTree = "<group>";
 		};
+		F45C5C08936EE0B946D71CE9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */,
+				32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F427A251BA59F4C00E622CF /* Build configuration list for PBXNativeTarget "PartyUP" */;
 			buildPhases = (
+				291D82C92F95935A10796D6B /* Check Pods Manifest.lock */,
 				1F4279F91BA59F4C00E622CF /* Sources */,
 				1F4279FA1BA59F4C00E622CF /* Frameworks */,
 				1F4279FB1BA59F4C00E622CF /* Resources */,
+				D406C41E4BF32F7A8002EA8B /* Embed Pods Frameworks */,
+				F85F7E22C476F7FF283C6632 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +277,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		291D82C92F95935A10796D6B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D406C41E4BF32F7A8002EA8B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F85F7E22C476F7FF283C6632 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1F4279F91BA59F4C00E622CF /* Sources */ = {
@@ -397,6 +472,7 @@
 		};
 		1F427A261BA59F4C00E622CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -410,6 +486,7 @@
 		};
 		1F427A271BA59F4C00E622CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -488,6 +565,7 @@
 				1F427A271BA59F4C00E622CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F427A281BA59F4C00E622CF /* Build configuration list for PBXNativeTarget "PartyUPTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +574,7 @@
 				1F427A2A1BA59F4C00E622CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F427A2B1BA59F4C00E622CF /* Build configuration list for PBXNativeTarget "PartyUPUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +583,7 @@
 				1F427A2D1BA59F4C00E622CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
