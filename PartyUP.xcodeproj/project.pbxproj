@@ -192,6 +192,7 @@
 				TargetAttributes = {
 					1F4279FC1BA59F4C00E622CF = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = C35UTK9M6Q;
 					};
 					1F427A101BA59F4C00E622CF = {
 						CreatedOnToolsVersion = 7.0;
@@ -398,7 +399,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PartyUP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sandcastleapps.PartyUP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -409,7 +412,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PartyUP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sandcastleapps.PartyUP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
