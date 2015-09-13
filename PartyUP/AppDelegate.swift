@@ -10,12 +10,17 @@ import UIKit
 import AWSCore
 import AWSS3
 
+struct PartyUpConstants
+{
+	static let StorageBucket = "com.sandcastleapps.partyup"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	struct AwsConstants
+	private struct AwsConstants
 	{
 		static let RegionType = AWSRegionType.USEast1
 		static let IdentityPool = "***REMOVED***"
