@@ -10,9 +10,26 @@ import UIKit
 import AWSCore
 import AWSS3
 
-struct PartyUpConstants
+struct PartyUpStatic
 {
 	static let StorageBucket = "com.sandcastleapps.partyup"
+	static let PartyUUID: NSUUID = {
+		var uuid: NSUUID?
+		let idUrl = try! NSFileManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true).URLByAppendingPathComponent("partyUUID.dat")
+		if let data = NSData(contentsOfURL: idUrl) {
+			uuid = NSUUID(UUIDBytes: UnsafePointer<UInt8>(data.bytes))
+		} else {
+			uuid = NSUUID()
+			var raw: [UInt8] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+			uuid!.getUUIDBytes(&raw)
+			let data = NSData(bytesNoCopy: &raw, length: 16, freeWhenDone: false)
+			data.writeToURL(idUrl, atomically: true)
+		}
+
+		return uuid!
+	}()
+
+
 }
 
 @UIApplicationMain
@@ -37,6 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			credentialsProvider: credentialProvider)
 
 		AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+
+		let uuid = PartyUpStatic.PartyUUID
 
 		return true
 	}
