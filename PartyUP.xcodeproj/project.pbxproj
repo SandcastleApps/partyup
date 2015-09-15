@@ -87,6 +87,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1F03C3711BA84C5E0037D7D8 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				1F427A071BA59F4C00E622CF /* Assets.xcassets */,
+				1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */,
+				1F427A0C1BA59F4C00E622CF /* Info.plist */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 		1F4279F41BA59F4C00E622CF = {
 			isa = PBXGroup;
 			children = (
@@ -115,9 +125,7 @@
 				1F427A001BA59F4C00E622CF /* AppDelegate.swift */,
 				1F427A021BA59F4C00E622CF /* ViewController.swift */,
 				1F427A041BA59F4C00E622CF /* Main.storyboard */,
-				1F427A071BA59F4C00E622CF /* Assets.xcassets */,
-				1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */,
-				1F427A0C1BA59F4C00E622CF /* Info.plist */,
+				1F03C3711BA84C5E0037D7D8 /* Support */,
 			);
 			path = PartyUP;
 			sourceTree = "<group>";
