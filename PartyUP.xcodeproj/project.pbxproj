@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F03C3741BA84E680037D7D8 /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3731BA84E680037D7D8 /* Party.swift */; settings = {ASSET_TAGS = (); }; };
+		1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3751BA84F290037D7D8 /* Venue.swift */; settings = {ASSET_TAGS = (); }; };
+		1F03C3781BA8500F0037D7D8 /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3771BA8500F0037D7D8 /* Observation.swift */; settings = {ASSET_TAGS = (); }; };
+		1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */; settings = {ASSET_TAGS = (); }; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
-		1F427A031BA59F4C00E622CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A021BA59F4C00E622CF /* ViewController.swift */; };
 		1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A041BA59F4C00E622CF /* Main.storyboard */; };
 		1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A071BA59F4C00E622CF /* Assets.xcassets */; };
 		1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */; };
@@ -36,9 +39,12 @@
 
 /* Begin PBXFileReference section */
 		128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PartyUP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F03C3731BA84E680037D7D8 /* Party.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
+		1F03C3751BA84F290037D7D8 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		1F03C3771BA8500F0037D7D8 /* Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
+		1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyPickerController.swift; sourceTree = "<group>"; };
 		1F4279FD1BA59F4C00E622CF /* PartyUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A001BA59F4C00E622CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F427A021BA59F4C00E622CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1F427A051BA59F4C00E622CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F427A071BA59F4C00E622CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F427A0A1BA59F4C00E622CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -97,6 +103,16 @@
 			name = Support;
 			sourceTree = "<group>";
 		};
+		1F03C3721BA84DDC0037D7D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F03C3731BA84E680037D7D8 /* Party.swift */,
+				1F03C3751BA84F290037D7D8 /* Venue.swift */,
+				1F03C3771BA8500F0037D7D8 /* Observation.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		1F4279F41BA59F4C00E622CF = {
 			isa = PBXGroup;
 			children = (
@@ -122,10 +138,11 @@
 		1F4279FF1BA59F4C00E622CF /* PartyUP */ = {
 			isa = PBXGroup;
 			children = (
+				1F03C3721BA84DDC0037D7D8 /* Model */,
 				1F427A001BA59F4C00E622CF /* AppDelegate.swift */,
-				1F427A021BA59F4C00E622CF /* ViewController.swift */,
 				1F427A041BA59F4C00E622CF /* Main.storyboard */,
 				1F03C3711BA84C5E0037D7D8 /* Support */,
+				1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */,
 			);
 			path = PartyUP;
 			sourceTree = "<group>";
@@ -339,8 +356,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F427A031BA59F4C00E622CF /* ViewController.swift in Sources */,
+				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
+				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
+				1F03C3741BA84E680037D7D8 /* Party.swift in Sources */,
+				1F03C3781BA8500F0037D7D8 /* Observation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
