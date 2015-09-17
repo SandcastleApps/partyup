@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F03C3741BA84E680037D7D8 /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3731BA84E680037D7D8 /* Party.swift */; settings = {ASSET_TAGS = (); }; };
 		1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3751BA84F290037D7D8 /* Venue.swift */; settings = {ASSET_TAGS = (); }; };
-		1F03C3781BA8500F0037D7D8 /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3771BA8500F0037D7D8 /* Observation.swift */; settings = {ASSET_TAGS = (); }; };
+		1F03C3781BA8500F0037D7D8 /* Sampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3771BA8500F0037D7D8 /* Sampler.swift */; settings = {ASSET_TAGS = (); }; };
 		1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */; settings = {ASSET_TAGS = (); }; };
 		1F03C37C1BA8E1950037D7D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
@@ -42,7 +42,7 @@
 		128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PartyUP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F03C3731BA84E680037D7D8 /* Party.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 		1F03C3751BA84F290037D7D8 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
-		1F03C3771BA8500F0037D7D8 /* Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
+		1F03C3771BA8500F0037D7D8 /* Sampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sampler.swift; sourceTree = "<group>"; };
 		1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyPickerController.swift; sourceTree = "<group>"; };
 		1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1F03C37D1BA9FBFD0037D7D8 /* Home.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Home.gpx; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 			children = (
 				1F03C3731BA84E680037D7D8 /* Party.swift */,
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
-				1F03C3771BA8500F0037D7D8 /* Observation.swift */,
+				1F03C3771BA8500F0037D7D8 /* Sampler.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -366,7 +366,7 @@
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
 				1F03C3741BA84E680037D7D8 /* Party.swift in Sources */,
-				1F03C3781BA8500F0037D7D8 /* Observation.swift in Sources */,
+				1F03C3781BA8500F0037D7D8 /* Sampler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

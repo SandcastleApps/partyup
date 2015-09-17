@@ -1,5 +1,5 @@
 //
-//  Observation.swift
+//  Sampler
 //  PartyUP
 //
 //  Created by Fritz Vander Heide on 2015-09-15.
@@ -9,24 +9,22 @@
 import Foundation
 import AWSDynamoDB
 
-class Observation: AWSDynamoDBObjectModel, AWSDynamoDBModeling
+class Sampler: AWSDynamoDBObjectModel, AWSDynamoDBModeling
 {
 	var id: NSData?
 	var event: NSNumber?
-	var user: NSData?
 	var time: NSNumber?
-	var video: String?
 	var comment: String?
 
 	static func dynamoDBTableName() -> String {
-		return "Observations"
+		return "Sampler"
 	}
 
 	static func hashKeyAttribute() -> String! {
-		return "id"
+		return "event"
 	}
 
 	static func rangeKeyAttribute() -> String! {
-		return "event"
+		return "id"
 	}
 }
