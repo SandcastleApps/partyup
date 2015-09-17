@@ -11,6 +11,7 @@
 		1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3751BA84F290037D7D8 /* Venue.swift */; settings = {ASSET_TAGS = (); }; };
 		1F03C3781BA8500F0037D7D8 /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3771BA8500F0037D7D8 /* Observation.swift */; settings = {ASSET_TAGS = (); }; };
 		1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */; settings = {ASSET_TAGS = (); }; };
+		1F03C37C1BA8E1950037D7D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
 		1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A041BA59F4C00E622CF /* Main.storyboard */; };
 		1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A071BA59F4C00E622CF /* Assets.xcassets */; };
@@ -43,6 +44,8 @@
 		1F03C3751BA84F290037D7D8 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		1F03C3771BA8500F0037D7D8 /* Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
 		1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyPickerController.swift; sourceTree = "<group>"; };
+		1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1F03C37D1BA9FBFD0037D7D8 /* Home.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Home.gpx; sourceTree = "<group>"; };
 		1F4279FD1BA59F4C00E622CF /* PartyUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A001BA59F4C00E622CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F427A051BA59F4C00E622CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F03C37C1BA8E1950037D7D8 /* CoreLocation.framework in Frameworks */,
 				7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,6 +92,7 @@
 		1AA4866CCC751B01696E2D72 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */,
 				128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */,
 			);
 			name = Frameworks;
@@ -116,6 +121,7 @@
 		1F4279F41BA59F4C00E622CF = {
 			isa = PBXGroup;
 			children = (
+				1F03C37D1BA9FBFD0037D7D8 /* Home.gpx */,
 				1F4279FF1BA59F4C00E622CF /* PartyUP */,
 				1F427A141BA59F4C00E622CF /* PartyUPTests */,
 				1F427A1F1BA59F4C00E622CF /* PartyUPUITests */,

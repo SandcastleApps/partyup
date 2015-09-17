@@ -8,8 +8,9 @@
 
 import UIKit
 import AWSDynamoDB
+import CoreLocation
 
-class PartyPickerController: UITableViewController {
+class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 
 	private var parties: [Party] = [] {
 		didSet {
@@ -18,13 +19,44 @@ class PartyPickerController: UITableViewController {
 		}
 	}
 
+	private var venues: [Venue] = []
+
+	private let locationManager: CLLocationManager = {
+		let manager = CLLocationManager()
+		manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+		return manager
+	}()
+
+	private var location: CLLocation?
+
 	@IBOutlet var partyTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		fetchPartyList()
+		if CLLocationManager.locationServicesEnabled() {
+			locationManager.delegate = self
+
+			if CLLocationManager.authorizationStatus() == .NotDetermined {
+				locationManager.requestWhenInUseAuthorization()
+			}
+
+			NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: nil, usingBlock: { (notification) -> Void in
+				self.locationManager.startUpdatingLocation()
+			})
+
+			NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidEnterBackgroundNotification, object: nil, queue: nil, usingBlock: { (notification) -> Void in
+				self.locationManager.stopUpdatingLocation()
+			})
+
+			fetchPartyList()
+		}
     }
+
+	override func viewWillDisappear(animated: Bool) {
+//		locationManager.stopMonitoringSignificantLocationChanges()
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
 
 	@IBAction func refreshParties() {
 		fetchPartyList()
@@ -87,5 +119,17 @@ class PartyPickerController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+	// MARK: - Location Servicing
+
+	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+		if status == .AuthorizedAlways || status == .AuthorizedWhenInUse {
+			locationManager.startUpdatingLocation()
+		}
+	}
+
+	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		location = locations.last
+	}
 
 }
