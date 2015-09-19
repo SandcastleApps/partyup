@@ -101,6 +101,7 @@
 		1F03C3711BA84C5E0037D7D8 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				1F9509941BACACE8005BDC18 /* UrlUtilities.swift */,
 				1F427A071BA59F4C00E622CF /* Assets.xcassets */,
 				1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */,
 				1F427A0C1BA59F4C00E622CF /* Info.plist */,
@@ -365,6 +366,7 @@
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
+				1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */,
 				1F03C3741BA84E680037D7D8 /* Party.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sampler.swift in Sources */,
 			);
