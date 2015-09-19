@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSDynamoDB
+import AWSS3
 import CoreLocation
 
 class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
@@ -20,6 +21,9 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 	}
 
 	private var venues: [Venue] = []
+
+	private var attendingIndex: Int? = 0
+	private var sampleCount: UInt16 = 0
 
 	private let locationManager: CLLocationManager = {
 		let manager = CLLocationManager()
@@ -58,8 +62,8 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
-	@IBAction func refreshParties() {
-		fetchPartyList()
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return .LightContent
 	}
 
 	func fetchPartyList() {
@@ -100,25 +104,55 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath)
-
-        cell.textLabel?.text = parties[indexPath.row].name
-		cell.detailTextLabel?.text = parties[indexPath.row].details
+        let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! ShindigCell
+        cell.title.text = parties[indexPath.row].name
 
         return cell
 	}
 
-
-
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+		if segue.identifier == "Sample Segue" {
+			let recorderVC = segue.destinationViewController as! SamplingController
+			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("media_\(sampleCount).mp4")
+		}
     }
-    */
+
+	@IBAction func sequeFromSampling(segue: UIStoryboardSegue) {
+		//if segue.identifier == "Accept Sample" {
+			if let srcVC = segue.sourceViewController as? SamplingController {
+				let sample = Sample.generateSample(parties[attendingIndex!].id!.integerValue, comment: srcVC.comment)
+
+				if let outputUrl = srcVC.recordingFile {
+					if let transfer = AWSS3TransferUtility.defaultS3TransferUtility() {
+						transfer.uploadFile(outputUrl,
+							bucket: PartyUpConstants.StorageBucket,
+							key: sample.id!.base64EncodedStringWithOptions(.EncodingEndLineWithLineFeed) + "." + outputUrl.pathExtension!,
+							contentType: outputUrl.mime,
+							expression: nil,
+							completionHander: nil).continueWithSuccessBlock({ (task) in return AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(sample) }).continueWithBlock({ (task) in
+								if let error = task.error
+								{
+									NSLog("Sample Submission Error: %@", error)
+								}
+
+								if let except = task.exception
+								{
+									NSLog("Sample Submission Exception: %@", except)
+								}
+
+								try! NSFileManager.defaultManager().removeItemAtURL(outputUrl)
+
+								return nil
+							})
+
+					}
+
+					}
+				}
+	}
+
 
 	// MARK: - Location Servicing
 
