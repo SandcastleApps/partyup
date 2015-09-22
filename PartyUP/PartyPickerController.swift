@@ -22,7 +22,7 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 
 	private var venues: [Venue] = []
 
-	private var attendingIndex: Int? = 0
+	private var attendingIndex: Int?
 	private var sampleCount: UInt16 = 0
 
 	private let locationManager: CLLocationManager = {
@@ -58,7 +58,6 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     }
 
 	override func viewWillDisappear(animated: Bool) {
-//		locationManager.stopMonitoringSignificantLocationChanges()
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
@@ -67,24 +66,9 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 	}
 
 	func fetchPartyList() {
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().scan(Party.self, expression: AWSDynamoDBScanExpression()).continueWithBlock { (task) in
-			if let error = task.error {
-				NSLog("Scan Error: \(error.description)")
-			}
-
-			if let except = task.exception {
-				NSLog("Scan Exception: \(except.description)")
-			}
-
-			if let result = task.result as? AWSDynamoDBPaginatedOutput {
-				var parties: [Party] = []
-				if let items = result.items as? [Party] {
-					parties = items.sort { $0.startTime!.doubleValue < $1.startTime!.doubleValue }
-				}
-				dispatch_async(dispatch_get_main_queue()) { self.parties = parties }
-			}
-
-			return nil
+		fetch() { (parties: [Party]) in
+			let sorted = parties.sort{ $0.start.compare($1.start) == .OrderedAscending}
+			dispatch_async(dispatch_get_main_queue()) { self.parties = sorted }
 		}
 	}
 
@@ -115,42 +99,36 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Sample Segue" {
 			let recorderVC = segue.destinationViewController as! SamplingController
-			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("media_\(sampleCount).mp4")
+			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("media_\(sampleCount++).mp4")
 		}
     }
 
 	@IBAction func sequeFromSampling(segue: UIStoryboardSegue) {
-		//if segue.identifier == "Accept Sample" {
+		if segue.identifier == "Accept Sample" {
 			if let srcVC = segue.sourceViewController as? SamplingController {
-				let sample = Sample.generateSample(parties[attendingIndex!].id!.integerValue, comment: srcVC.comment)
+				let sample = Sample(comment: srcVC.comment)
 
 				if let outputUrl = srcVC.recordingFile {
 					if let transfer = AWSS3TransferUtility.defaultS3TransferUtility() {
 						transfer.uploadFile(outputUrl,
 							bucket: PartyUpConstants.StorageBucket,
-							key: sample.id!.base64EncodedStringWithOptions(.EncodingEndLineWithLineFeed) + "." + outputUrl.pathExtension!,
+							key: sample.media.path!,
 							contentType: outputUrl.mime,
 							expression: nil,
-							completionHander: nil).continueWithSuccessBlock({ (task) in return AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(sample) }).continueWithBlock({ (task) in
-								if let error = task.error
-								{
-									NSLog("Sample Submission Error: %@", error)
-								}
-
-								if let except = task.exception
-								{
-									NSLog("Sample Submission Exception: %@", except)
-								}
-
+							completionHander: nil).continueWithBlock({ (task) in
 								try! NSFileManager.defaultManager().removeItemAtURL(outputUrl)
+								
+								guard task.error == nil else { NSLog("Error Uploading: \(task.error)"); return nil }
+								guard task.exception == nil else { NSLog("Exception Uploading: \(task.exception)"); return nil }
 
 								return nil
 							})
 
-					}
-
+						push(sample, key: 1)
 					}
 				}
+			}
+		}
 	}
 
 

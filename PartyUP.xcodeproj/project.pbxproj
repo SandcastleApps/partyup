@@ -21,6 +21,7 @@
 		1F95098F1BAB5492005BDC18 /* ShindigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95098E1BAB5492005BDC18 /* ShindigCell.swift */; settings = {ASSET_TAGS = (); }; };
 		1F9509931BAC3A99005BDC18 /* SampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509921BAC3A99005BDC18 /* SampleController.swift */; settings = {ASSET_TAGS = (); }; };
 		1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* UrlUtilities.swift */; settings = {ASSET_TAGS = (); }; };
+		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; settings = {ASSET_TAGS = (); }; };
 		7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		1F95098E1BAB5492005BDC18 /* ShindigCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShindigCell.swift; sourceTree = "<group>"; };
 		1F9509921BAC3A99005BDC18 /* SampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleController.swift; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* UrlUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlUtilities.swift; sourceTree = "<group>"; };
+		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
 		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
 		E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +123,7 @@
 				1F03C3731BA84E680037D7D8 /* Party.swift */,
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
 				1F03C3771BA8500F0037D7D8 /* Sample.swift */,
+				1F9509961BAF81FB005BDC18 /* Dynamo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
+				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
 				1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */,
 				1F03C3741BA84E680037D7D8 /* Party.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
