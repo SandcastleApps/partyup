@@ -17,6 +17,9 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 		didSet {
 			partyTable.reloadData()
 			self.refreshControl?.endRefreshing()
+			for party in parties {
+				party.fetchSamples()
+			}
 		}
 	}
 
