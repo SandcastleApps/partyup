@@ -25,9 +25,6 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 
 	private var venues: [Venue] = []
 
-	private var attendingIndex: Int?
-	private var sampleCount: UInt16 = 0
-
 	private let locationManager: CLLocationManager = {
 		let manager = CLLocationManager()
 		manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -68,7 +65,7 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 		return .LightContent
 	}
 
-	func fetchPartyList() {
+	@IBAction func fetchPartyList() {
 		fetch() { (parties: [Party]) in
 			let sorted = parties.sort{ $0.start.compare($1.start) == .OrderedAscending}
 			dispatch_async(dispatch_get_main_queue()) { self.parties = sorted }
@@ -102,7 +99,12 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Sample Segue" {
 			let recorderVC = segue.destinationViewController as! SamplingController
-			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("media_\(sampleCount++).mp4")
+			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("media.mp4")
+		} else if segue.identifier == "FirstSampleSegue" {
+			if let selection = partyTable.indexPathForSelectedRow, sample = parties[selection.row].samples?.last {
+				let viewerVC = segue.destinationViewController as! ObserveSampleController
+				viewerVC.sample = sample
+			}
 		}
     }
 
@@ -132,6 +134,10 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 				}
 			}
 		}
+	}
+
+	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
+
 	}
 
 

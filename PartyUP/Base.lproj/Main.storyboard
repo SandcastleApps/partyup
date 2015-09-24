@@ -67,7 +67,7 @@
                                 <connections>
                                     <outlet property="observer" destination="aF4-Tw-AZn" id="ZGk-HT-UqY"/>
                                     <outlet property="title" destination="Lft-Da-Dqb" id="XUE-vb-DB8"/>
-                                    <segue destination="6MK-Qy-sSq" kind="showDetail" identifier="SamplerSegue" id="YhQ-CM-res"/>
+                                    <segue destination="KPq-4d-i2K" kind="showDetail" identifier="FirstSampleSegue" id="NUI-UC-RPm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -89,7 +89,7 @@
                             </fragment>
                         </attributedString>
                         <connections>
-                            <action selector="refreshParties" destination="r5F-kz-7J0" eventType="valueChanged" id="1bV-Qw-PoN"/>
+                            <action selector="fetchPartyList" destination="r5F-kz-7J0" eventType="valueChanged" id="p4U-za-CEA"/>
                         </connections>
                     </refreshControl>
                     <connections>
@@ -107,6 +107,82 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PG5-RY-9hV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1970" y="958"/>
+        </scene>
+        <!--Observe Sample-->
+        <scene sceneID="end-pm-3EP">
+            <objects>
+                <viewController storyboardIdentifier="ObserveSample" title="Observe Sample" id="KPq-4d-i2K" customClass="ObserveSampleController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ViW-go-UUx"/>
+                        <viewControllerLayoutGuide type="bottom" id="5dg-ra-UQq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nFD-1s-vJo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vvy-qA-qxQ" userLabel="Movie View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRh-Yv-MSR">
+                                <rect key="frame" x="0.0" y="580" width="600" height="20"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TQX-nv-vdG">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4O-YW-uaM">
+                                            <rect key="frame" x="285" y="-5" width="30" height="30"/>
+                                            <animations/>
+                                            <state key="normal" title="Exit"/>
+                                            <connections>
+                                                <segue destination="F2M-LT-GPe" kind="unwind" identifier="Exit Tasting" unwindAction="segueFromTasting:" id="n4W-SK-yUr"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstItem="n4O-YW-uaM" firstAttribute="centerY" secondItem="TQX-nv-vdG" secondAttribute="centerY" id="JWr-tE-Bm9"/>
+                                        <constraint firstItem="n4O-YW-uaM" firstAttribute="centerX" secondItem="TQX-nv-vdG" secondAttribute="centerX" id="Wab-nI-ZbZ"/>
+                                    </constraints>
+                                </view>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="tFK-lm-4FL"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="centerY" secondItem="nFD-1s-vJo" secondAttribute="centerY" id="24Y-zk-yLO"/>
+                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="top" secondItem="nFD-1s-vJo" secondAttribute="topMargin" id="50u-CU-zsK"/>
+                            <constraint firstAttribute="bottom" secondItem="vvy-qA-qxQ" secondAttribute="bottom" id="Ckg-1q-XkV"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="lRh-Yv-MSR" secondAttribute="bottom" id="IpM-Ro-gZ9"/>
+                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="centerX" secondItem="nFD-1s-vJo" secondAttribute="centerX" id="Q8Z-Ri-luS"/>
+                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="height" secondItem="nFD-1s-vJo" secondAttribute="height" id="QyJ-Bd-fk9"/>
+                            <constraint firstAttribute="topMargin" secondItem="vvy-qA-qxQ" secondAttribute="top" id="SP2-Mn-A5y"/>
+                            <constraint firstItem="lRh-Yv-MSR" firstAttribute="leading" secondItem="nFD-1s-vJo" secondAttribute="leading" id="dcW-en-O3D"/>
+                            <constraint firstItem="lRh-Yv-MSR" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" id="o5j-mp-Obj"/>
+                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" id="xV8-8a-AXI"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="50u-CU-zsK"/>
+                                <exclude reference="Ckg-1q-XkV"/>
+                                <exclude reference="SP2-Mn-A5y"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="movieView" destination="vvy-qA-qxQ" id="iS0-Wa-h6f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P5E-KX-XA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="F2M-LT-GPe" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2813" y="958"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HOt-fe-NMd">
