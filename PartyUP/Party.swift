@@ -18,9 +18,9 @@ final class Party: DynamoObjectWrapper, CustomDebugStringConvertible
 	let venue: Venue
 	let name: String
 	let details: String?
-	lazy var samples: [Sample] = []
+	var samples: [Sample]?
 
-	init(identifier: Int, start: NSDate, end: NSDate, venue: Venue, name: String, details: String?, samples: [Sample] = []) {
+	init(identifier: Int, start: NSDate, end: NSDate, venue: Venue, name: String, details: String?, samples: [Sample]? = nil) {
 		self.identifier = identifier
 		self.start = start
 		self.end = end
@@ -28,6 +28,12 @@ final class Party: DynamoObjectWrapper, CustomDebugStringConvertible
 		self.name = name
 		self.details = details
 		self.samples = samples
+	}
+
+	func fetchSamples() {
+		fetch(identifier) { (samples: [Sample]) in
+			dispatch_async(dispatch_get_main_queue()) { self.samples = samples }
+		}
 	}
 
 	var debugDescription: String {
