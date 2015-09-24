@@ -112,7 +112,7 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 					if let transfer = AWSS3TransferUtility.defaultS3TransferUtility() {
 						transfer.uploadFile(outputUrl,
 							bucket: PartyUpConstants.StorageBucket,
-							key: sample.media.path!,
+							key: PartyUpConstants.StorageKeyPrefix + sample.media.path!,
 							contentType: outputUrl.mime,
 							expression: nil,
 							completionHander: nil).continueWithBlock({ (task) in
