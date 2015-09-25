@@ -67,7 +67,7 @@
                                 <connections>
                                     <outlet property="observer" destination="aF4-Tw-AZn" id="ZGk-HT-UqY"/>
                                     <outlet property="title" destination="Lft-Da-Dqb" id="XUE-vb-DB8"/>
-                                    <segue destination="ZcT-Fn-GTh" kind="showDetail" identifier="Sample Tasting Segue" id="xvG-kO-FXm"/>
+                                    <segue destination="ZcT-Fn-GTh" kind="show" identifier="Sample Tasting Segue" id="xvG-kO-FXm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -76,7 +76,9 @@
                             <outlet property="delegate" destination="r5F-kz-7J0" id="d25-2Q-gof"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="PartyUP" id="ynK-qn-hR3"/>
+                    <navigationItem key="navigationItem" title="PartyUP" id="ynK-qn-hR3">
+                        <barButtonItem key="backBarButtonItem" title=" " id="2us-ah-9tt"/>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="a9A-6g-dD2">
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
@@ -113,41 +115,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Vm-PKO">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="528"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="Tnu-BU-9Zn" kind="embed" id="gM5-Mr-Lda"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJJ-zV-KhC">
-                                <rect key="frame" x="20" y="20" width="30" height="48"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="✘">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BjR-sd-2LQ" kind="unwind" unwindAction="segueFromTasting:" id="OIt-32-gcO"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="width" secondItem="isp-Rs-W1K" secondAttribute="width" id="45L-EJ-gC9"/>
-                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="9zh-82-Mwa"/>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="height" secondItem="isp-Rs-W1K" secondAttribute="height" id="NIR-8O-Djv"/>
-                            <constraint firstItem="xJJ-zV-KhC" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leadingMargin" id="SB4-ct-8dj"/>
-                            <constraint firstItem="xJJ-zV-KhC" firstAttribute="top" secondItem="NsN-s1-SY6" secondAttribute="bottom" id="atv-N7-7cY"/>
-                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="sn1-bd-244"/>
+                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leading" id="eJH-iS-MfQ"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Nzd-Vm-PKO" secondAttribute="bottom" id="rF3-sX-OAz"/>
+                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="top" secondItem="NsN-s1-SY6" secondAttribute="bottom" constant="8" symbolic="YES" id="tf3-ug-Xii"/>
+                            <constraint firstAttribute="trailing" secondItem="Nzd-Vm-PKO" secondAttribute="trailing" id="zTs-9S-to6"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="NIR-8O-Djv"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="hkN-k3-x7W">
-                        <barButtonItem key="backBarButtonItem" title="✘" id="89t-zN-VbQ"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Title" id="dCM-JW-bfo"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B2h-8L-w9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="BjR-sd-2LQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1937" y="958"/>
         </scene>
@@ -239,6 +231,7 @@
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="27"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>

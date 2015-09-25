@@ -35,6 +35,8 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+
 		if CLLocationManager.locationServicesEnabled() {
 			locationManager.delegate = self
 
@@ -98,9 +100,10 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 			let recorderVC = segue.destinationViewController as! SamplingController
 			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("media.mp4")
 		} else if segue.identifier == "Sample Tasting Segue" {
-			if let selection = partyTable.indexPathForSelectedRow, eventIdentifier = parties?[selection.row].identifier {
+			if let selection = partyTable.indexPathForSelectedRow, party = parties?[selection.row] {
 				let viewerVC = segue.destinationViewController as! SampleTastingContoller
-				viewerVC.eventIdentifier = eventIdentifier
+				viewerVC.eventIdentifier = party.identifier
+				viewerVC.title = party.name
 			}
 		}
     }

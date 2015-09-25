@@ -12,7 +12,8 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 
 	var eventIdentifier: Int = 0 {
 		didSet {
-			fetch(eventIdentifier) { (samples: [Sample]) in
+			fetch(eventIdentifier) { (var samples: [Sample]) in
+				samples.sortInPlace{ $0.time.compare($1.time) == .OrderedDescending }
 				dispatch_async(dispatch_get_main_queue()) {self.samples = samples}
 			}
 		}
@@ -21,26 +22,19 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 	private var samples: [Sample]? {
 		didSet {
 			if let page = dequeTastePageController(0) {
+				navigator?.dataSource = self
 				navigator?.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+			} else {
+				navigator?.dataSource = nil
 			}
 		}
 	}
 
 	private var navigator: UIPageViewController?
 
-	private var pages: [SampleTastePageController] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-		for _ in 0..<2 {
-			pages.append(storyboard!.instantiateViewControllerWithIdentifier("Sample Taste Page Controller") as! SampleTastePageController)
-		}
     }
-
-	override func prefersStatusBarHidden() -> Bool {
-		return true
-	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -48,23 +42,18 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
     }
 
 	func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-
 		var toVC: SampleTastePageController?
-
 		if let fromVC = viewController as? SampleTastePageController {
 			toVC = dequeTastePageController(fromVC.page + 1)
 		}
-
 		return toVC
 	}
 
 	func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
 		var toVC: SampleTastePageController?
-
 		if let fromVC = viewController as? SampleTastePageController {
 			toVC = dequeTastePageController(fromVC.page - 1)
 		}
-
 		return toVC
 	}
 
@@ -86,7 +75,6 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if let toVC = segue.destinationViewController as? UIPageViewController {
 			navigator = toVC
-			navigator?.dataSource = self
 		}
     }
 
