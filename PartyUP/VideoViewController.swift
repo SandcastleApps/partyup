@@ -35,7 +35,13 @@ class VideoViewController: UIViewController {
 		play()
     }
 
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		playControl?.play()
+	}
+
 	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
 		playControl?.pause()
 	}
 
