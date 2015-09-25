@@ -32,8 +32,21 @@ class VideoViewController: UIViewController {
 			name: AVPlayerItemDidPlayToEndTimeNotification,
 			object: nil)
 
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationDidBecomeActiveNotification:"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationWillResignActiveNotification:"), name: UIApplicationWillResignActiveNotification, object: nil)
+
 		play()
     }
+
+	@objc
+	func applicationDidBecomeActiveNotification(note: NSNotification) {
+		play(1.0)
+	}
+
+	@objc
+	func applicationWillResignActiveNotification(note: NSNotification) {
+		play(0.0)
+	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
@@ -60,12 +73,12 @@ class VideoViewController: UIViewController {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
-	func play() {
+	func play(rate: Float = 1.0) {
 
 		if let player = playControl {
 			switch player.status {
 			case .ReadyToPlay:
-				player.play()
+				player.rate = rate
 			case .Failed:
 				resetPlayer()
 			case .Unknown:
