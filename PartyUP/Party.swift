@@ -18,22 +18,14 @@ final class Party: DynamoObjectWrapper, CustomDebugStringConvertible
 	let venue: Venue
 	let name: String
 	let details: String?
-	var samples: [Sample]?
 
-	init(identifier: Int, start: NSDate, end: NSDate, venue: Venue, name: String, details: String?, samples: [Sample]? = nil) {
+	init(identifier: Int, start: NSDate, end: NSDate, venue: Venue, name: String, details: String?) {
 		self.identifier = identifier
 		self.start = start
 		self.end = end
 		self.venue = venue
 		self.name = name
 		self.details = details
-		self.samples = samples
-	}
-
-	func fetchSamples() {
-		fetch(identifier) { (samples: [Sample]) in
-			dispatch_async(dispatch_get_main_queue()) { self.samples = samples }
-		}
 	}
 
 	var debugDescription: String {
