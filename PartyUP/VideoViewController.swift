@@ -1,5 +1,5 @@
 //
-//  ObserveSampleController.swift
+//  VideoViewController.swift
 //  PartyUP
 //
 //  Created by Fritz Vander Heide on 2015-09-22.
@@ -9,25 +9,23 @@
 import UIKit
 import AVFoundation
 
-class ObserveSampleController: UIViewController {
+class VideoViewController: UIViewController {
 
 	private let playLayer = AVPlayerLayer()
 	private var playControl: AVPlayer?
 
-	var sample: Sample? {
+	var url: NSURL? {
 		didSet {
 			resetPlayer()
 		}
 	}
 
-	@IBOutlet weak var movieView: UIView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		playLayer.frame = movieView.layer.bounds
+		playLayer.frame = view.layer.bounds
 		playLayer.videoGravity = AVLayerVideoGravityResizeAspect
-		movieView.layer.addSublayer(playLayer)
+		view.layer.addSublayer(playLayer)
 
 		NSNotificationCenter.defaultCenter().addObserver(self,
 			selector: Selector("playbackReachedEndNotification:"),
@@ -37,12 +35,14 @@ class ObserveSampleController: UIViewController {
 		play()
     }
 
+	override func viewWillDisappear(animated: Bool) {
+		playControl?.pause()
+	}
+
 	func resetPlayer() {
 		playControl?.removeObserver(self, forKeyPath: "status", context: UnsafeMutablePointer<Void>())
-		playControl = nil
 
-		if let sample = sample {
-			let url = PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!)
+		if let url = url {
 			playControl = AVPlayer(URL: url)
 			playControl?.addObserver(self, forKeyPath: "status", options: .Initial, context: UnsafeMutablePointer<Void>())
 			playLayer.player = playControl
@@ -50,16 +50,21 @@ class ObserveSampleController: UIViewController {
 	}
 
 	deinit {
-		sample = nil
-		resetPlayer()
+		playControl?.removeObserver(self, forKeyPath: "status", context: UnsafeMutablePointer<Void>())
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
 	func play() {
-		if playControl?.status == .ReadyToPlay {
-			playControl?.play()
-		} else if playControl?.status == .Failed {
-			NSLog("Failed to load")
+
+		if let player = playControl {
+			switch player.status {
+			case .ReadyToPlay:
+				player.play()
+			case .Failed:
+				resetPlayer()
+			case .Unknown:
+				break
+			}
 		}
 	}
 
@@ -69,7 +74,7 @@ class ObserveSampleController: UIViewController {
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		playLayer.frame = movieView.bounds
+		playLayer.frame = view.bounds
 	}
 
     override func didReceiveMemoryWarning() {

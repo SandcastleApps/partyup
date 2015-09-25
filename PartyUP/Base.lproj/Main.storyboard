@@ -7,10 +7,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--PartyUP-->
+        <!--Party Selection-->
         <scene sceneID="8EJ-Ig-N00">
             <objects>
-                <tableViewController id="r5F-kz-7J0" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="r5F-kz-7J0" userLabel="Party Selection" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QhV-Jl-Gi4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,7 +67,7 @@
                                 <connections>
                                     <outlet property="observer" destination="aF4-Tw-AZn" id="ZGk-HT-UqY"/>
                                     <outlet property="title" destination="Lft-Da-Dqb" id="XUE-vb-DB8"/>
-                                    <segue destination="KPq-4d-i2K" kind="showDetail" identifier="FirstSampleSegue" id="NUI-UC-RPm"/>
+                                    <segue destination="ZcT-Fn-GTh" kind="showDetail" identifier="Sample Tasting Segue" id="xvG-kO-FXm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -100,18 +100,117 @@
             </objects>
             <point key="canvasLocation" x="1224" y="958"/>
         </scene>
-        <!--Page View Controller-->
-        <scene sceneID="PIW-TJ-9ch">
+        <!--Sample Viewing Root-->
+        <scene sceneID="fN0-jL-4wB">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="6MK-Qy-sSq" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PG5-RY-9hV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController title="Sample Viewing Root" id="ZcT-Fn-GTh" customClass="SampleTastingContoller" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NsN-s1-SY6"/>
+                        <viewControllerLayoutGuide type="bottom" id="xzm-k1-wwA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="isp-Rs-W1K">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Vm-PKO">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="Tnu-BU-9Zn" kind="embed" id="gM5-Mr-Lda"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJJ-zV-KhC">
+                                <rect key="frame" x="20" y="20" width="30" height="48"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="✘">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BjR-sd-2LQ" kind="unwind" unwindAction="segueFromTasting:" id="OIt-32-gcO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="width" secondItem="isp-Rs-W1K" secondAttribute="width" id="45L-EJ-gC9"/>
+                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="9zh-82-Mwa"/>
+                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="height" secondItem="isp-Rs-W1K" secondAttribute="height" id="NIR-8O-Djv"/>
+                            <constraint firstItem="xJJ-zV-KhC" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leadingMargin" id="SB4-ct-8dj"/>
+                            <constraint firstItem="xJJ-zV-KhC" firstAttribute="top" secondItem="NsN-s1-SY6" secondAttribute="bottom" id="atv-N7-7cY"/>
+                            <constraint firstItem="Nzd-Vm-PKO" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="sn1-bd-244"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hkN-k3-x7W">
+                        <barButtonItem key="backBarButtonItem" title="✘" id="89t-zN-VbQ"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B2h-8L-w9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="BjR-sd-2LQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1970" y="958"/>
+            <point key="canvasLocation" x="1937" y="958"/>
         </scene>
-        <!--Observe Sample-->
+        <!--Sample Taste Page Controller-->
+        <scene sceneID="f9S-ED-iiO">
+            <objects>
+                <viewController storyboardIdentifier="Sample Taste Page Controller" id="qqy-na-3Zk" customClass="SampleTastePageController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ilR-tH-076"/>
+                        <viewControllerLayoutGuide type="bottom" id="1ZI-if-Z26"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EGl-He-1VL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cib-K2-d0r">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="KPq-4d-i2K" kind="embed" identifier="Video View Segue" id="wk5-eU-bES"/>
+                                </connections>
+                            </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA">
+                                <rect key="frame" x="275" y="28" width="49" height="24"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13y-LZ-M88">
+                                <rect key="frame" x="275.5" y="555.5" width="49" height="24"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="3rR-MA-V0x"/>
+                            <constraint firstItem="13y-LZ-M88" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="H0t-K9-FzN"/>
+                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="JF4-ks-T2w"/>
+                            <constraint firstItem="cib-K2-d0r" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leading" id="aUh-vJ-u37"/>
+                            <constraint firstItem="cib-K2-d0r" firstAttribute="top" secondItem="EGl-He-1VL" secondAttribute="topMargin" id="cCA-j8-BHw"/>
+                            <constraint firstItem="cib-K2-d0r" firstAttribute="height" secondItem="EGl-He-1VL" secondAttribute="height" id="dDG-CT-2BO"/>
+                            <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="13y-LZ-M88" secondAttribute="bottom" constant="20.5" id="g2D-lw-WcM"/>
+                            <constraint firstItem="cib-K2-d0r" firstAttribute="width" secondItem="EGl-He-1VL" secondAttribute="width" id="yKA-Xv-RK6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="commentLabel" destination="13y-LZ-M88" id="s0B-Zb-T3C"/>
+                        <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RVY-ok-WMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2577" y="958"/>
+        </scene>
+        <!--Video Viewer-->
         <scene sceneID="end-pm-3EP">
             <objects>
-                <viewController storyboardIdentifier="ObserveSample" title="Observe Sample" id="KPq-4d-i2K" customClass="ObserveSampleController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ObserveSample" title="Video Viewer" id="KPq-4d-i2K" customClass="VideoViewController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ViW-go-UUx"/>
                         <viewControllerLayoutGuide type="bottom" id="5dg-ra-UQq"/>
@@ -119,75 +218,18 @@
                     <view key="view" contentMode="scaleToFill" id="nFD-1s-vJo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vvy-qA-qxQ" userLabel="Movie View">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRh-Yv-MSR">
-                                <rect key="frame" x="0.0" y="580" width="600" height="20"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TQX-nv-vdG">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4O-YW-uaM">
-                                            <rect key="frame" x="285" y="-5" width="30" height="30"/>
-                                            <animations/>
-                                            <state key="normal" title="Exit"/>
-                                            <connections>
-                                                <segue destination="F2M-LT-GPe" kind="unwind" identifier="Exit Tasting" unwindAction="segueFromTasting:" id="n4W-SK-yUr"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <animations/>
-                                    <constraints>
-                                        <constraint firstItem="n4O-YW-uaM" firstAttribute="centerY" secondItem="TQX-nv-vdG" secondAttribute="centerY" id="JWr-tE-Bm9"/>
-                                        <constraint firstItem="n4O-YW-uaM" firstAttribute="centerX" secondItem="TQX-nv-vdG" secondAttribute="centerX" id="Wab-nI-ZbZ"/>
-                                    </constraints>
-                                </view>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="tFK-lm-4FL"/>
-                                </constraints>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
-                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="centerY" secondItem="nFD-1s-vJo" secondAttribute="centerY" id="24Y-zk-yLO"/>
-                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="top" secondItem="nFD-1s-vJo" secondAttribute="topMargin" id="50u-CU-zsK"/>
-                            <constraint firstAttribute="bottom" secondItem="vvy-qA-qxQ" secondAttribute="bottom" id="Ckg-1q-XkV"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="lRh-Yv-MSR" secondAttribute="bottom" id="IpM-Ro-gZ9"/>
-                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="centerX" secondItem="nFD-1s-vJo" secondAttribute="centerX" id="Q8Z-Ri-luS"/>
-                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="height" secondItem="nFD-1s-vJo" secondAttribute="height" id="QyJ-Bd-fk9"/>
-                            <constraint firstAttribute="topMargin" secondItem="vvy-qA-qxQ" secondAttribute="top" id="SP2-Mn-A5y"/>
-                            <constraint firstItem="lRh-Yv-MSR" firstAttribute="leading" secondItem="nFD-1s-vJo" secondAttribute="leading" id="dcW-en-O3D"/>
-                            <constraint firstItem="lRh-Yv-MSR" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" id="o5j-mp-Obj"/>
-                            <constraint firstItem="vvy-qA-qxQ" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" id="xV8-8a-AXI"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="50u-CU-zsK"/>
-                                <exclude reference="Ckg-1q-XkV"/>
-                                <exclude reference="SP2-Mn-A5y"/>
-                            </mask>
-                        </variation>
                     </view>
-                    <connections>
-                        <outlet property="movieView" destination="vvy-qA-qxQ" id="iS0-Wa-h6f"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P5E-KX-XA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="F2M-LT-GPe" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2813" y="958"/>
+            <point key="canvasLocation" x="3269" y="958"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Root Navigator-->
         <scene sceneID="HOt-fe-NMd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YPM-4j-oTK" sceneMemberID="viewController">
+                <navigationController title="Root Navigator" automaticallyAdjustsScrollViewInsets="NO" id="YPM-4j-oTK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="WQi-nM-LKn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -333,6 +375,14 @@
                 <exit id="tlh-yj-AiP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1970" y="267"/>
+        </scene>
+        <!--Sample Page Navigator-->
+        <scene sceneID="azK-Hg-Bow">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" title="Sample Page Navigator" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Tnu-BU-9Zn" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v3K-Fn-gAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1937" y="1665"/>
         </scene>
     </scenes>
     <resources>

@@ -13,13 +13,10 @@ import CoreLocation
 
 class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 
-	private var parties: [Party] = [] {
+	private var parties: [Party]? {
 		didSet {
 			partyTable.reloadData()
 			self.refreshControl?.endRefreshing()
-			for party in parties {
-				party.fetchSamples()
-			}
 		}
 	}
 
@@ -84,12 +81,12 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return parties.count
+        return parties?.count ?? 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! ShindigCell
-        cell.title.text = parties[indexPath.row].name
+        cell.title.text = parties?[indexPath.row].name ?? "Unknown"
 
         return cell
 	}
@@ -100,10 +97,10 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 		if segue.identifier == "Sample Segue" {
 			let recorderVC = segue.destinationViewController as! SamplingController
 			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("media.mp4")
-		} else if segue.identifier == "FirstSampleSegue" {
-			if let selection = partyTable.indexPathForSelectedRow, sample = parties[selection.row].samples?.last {
-				let viewerVC = segue.destinationViewController as! ObserveSampleController
-				viewerVC.sample = sample
+		} else if segue.identifier == "Sample Tasting Segue" {
+			if let selection = partyTable.indexPathForSelectedRow, eventIdentifier = parties?[selection.row].identifier {
+				let viewerVC = segue.destinationViewController as! SampleTastingContoller
+				viewerVC.eventIdentifier = eventIdentifier
 			}
 		}
     }
