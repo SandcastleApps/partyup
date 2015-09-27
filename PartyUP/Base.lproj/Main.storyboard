@@ -239,9 +239,24 @@
                     <view key="view" contentMode="scaleToFill" id="nFD-1s-vJo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBv-5E-LmW" userLabel="Video Target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bBv-5E-LmW" firstAttribute="top" secondItem="nFD-1s-vJo" secondAttribute="topMargin" id="Aka-jj-sGV"/>
+                            <constraint firstItem="bBv-5E-LmW" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" id="R6Y-gj-Kq5"/>
+                            <constraint firstItem="bBv-5E-LmW" firstAttribute="leading" secondItem="nFD-1s-vJo" secondAttribute="leading" id="kAO-hF-tBo"/>
+                            <constraint firstItem="bBv-5E-LmW" firstAttribute="height" secondItem="nFD-1s-vJo" secondAttribute="height" id="xnJ-bt-wFp"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="videoView" destination="bBv-5E-LmW" id="URE-Wf-98d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P5E-KX-XA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

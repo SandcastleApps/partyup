@@ -31,14 +31,16 @@ class VideoViewController: UIViewController {
 	var loop: Bool = false
 	var rate: Float = 0.0
 
+	@IBOutlet weak var videoView: UIView!
+
 	private let playLayer = AVPlayerLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		playLayer.frame = view.layer.bounds
+		playLayer.frame = videoView.layer.bounds
 		playLayer.videoGravity = AVLayerVideoGravityResizeAspect
-		view.layer.addSublayer(playLayer)
+		videoView.layer.addSublayer(playLayer)
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationDidBecomeActiveNotification"), name: UIApplicationDidBecomeActiveNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationWillResignActiveNotification"), name: UIApplicationWillResignActiveNotification, object: nil)
