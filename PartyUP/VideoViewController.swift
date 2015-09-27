@@ -11,21 +11,27 @@ import AVFoundation
 
 class VideoViewController: UIViewController {
 
-	private let playLayer = AVPlayerLayer()
-	private var playControl: AVPlayer?
+	var player: AVPlayer? {
+		willSet {
+			player?.removeObserver(self, forKeyPath: "status", context: UnsafeMutablePointer<Void>())
+			NSNotificationCenter.defaultCenter().removeObserver(self, name: "playbackReachedEndNotification", object: player?.currentItem)
+		}
 
-	var url: NSURL? {
 		didSet {
-			resetPlayer()
+			player?.addObserver(self, forKeyPath: "status", options: .Initial, context: UnsafeMutablePointer<Void>())
+			playLayer.player = player
+
+			NSNotificationCenter.defaultCenter().addObserver(self,
+				selector: Selector("playbackReachedEndNotification"),
+				name: AVPlayerItemDidPlayToEndTimeNotification,
+				object: player?.currentItem)
 		}
 	}
 
-	var rate: Float = 1.0 {
-		didSet {
-			play(rate)
-		}
-	}
 	var loop: Bool = false
+	var rate: Float = 0.0
+
+	private let playLayer = AVPlayerLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +40,15 @@ class VideoViewController: UIViewController {
 		playLayer.videoGravity = AVLayerVideoGravityResizeAspect
 		view.layer.addSublayer(playLayer)
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationDidBecomeActiveNotification:"), name: UIApplicationDidBecomeActiveNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationWillResignActiveNotification:"), name: UIApplicationWillResignActiveNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationDidBecomeActiveNotification"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationWillResignActiveNotification"), name: UIApplicationWillResignActiveNotification, object: nil)
     }
 
-	@objc
-	func applicationDidBecomeActiveNotification(note: NSNotification) {
+	func applicationDidBecomeActiveNotification() {
 		play(rate)
 	}
 
-	@objc
-	func applicationWillResignActiveNotification(note: NSNotification) {
+	func applicationWillResignActiveNotification() {
 		play(0.0)
 	}
 
@@ -58,35 +62,20 @@ class VideoViewController: UIViewController {
 		play(0.0)
 	}
 
-	func resetPlayer() {
-		playControl?.removeObserver(self, forKeyPath: "status", context: UnsafeMutablePointer<Void>())
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: "playbackReachedEndNotification", object: playControl?.currentItem)
-
-		if let url = url {
-			playControl = AVPlayer(URL: url)
-			playControl?.addObserver(self, forKeyPath: "status", options: .Initial, context: UnsafeMutablePointer<Void>())
-			playLayer.player = playControl
-
-			NSNotificationCenter.defaultCenter().addObserver(self,
-				selector: Selector("playbackReachedEndNotification"),
-				name: AVPlayerItemDidPlayToEndTimeNotification,
-				object: playControl?.currentItem)
-		}
-	}
-
 	deinit {
-		playControl?.removeObserver(self, forKeyPath: "status", context: UnsafeMutablePointer<Void>())
+		player?.removeObserver(self, forKeyPath: "status", context: UnsafeMutablePointer<Void>())
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
 	private func play(rate: Float = 1.0) {
 
-		if let player = playControl {
+		if let player = player {
 			switch player.status {
 			case .ReadyToPlay:
 				player.rate = rate
 			case .Failed:
-				resetPlayer()
+				//handle appropriately
+				break
 			case .Unknown:
 				break
 			}
@@ -115,8 +104,8 @@ class VideoViewController: UIViewController {
 	}
 
 	func playbackReachedEndNotification() {
-		playControl?.seekToTime(kCMTimeZero)
 		if loop {
+			player?.seekToTime(kCMTimeZero)
 			play(rate)
 		}
 	}

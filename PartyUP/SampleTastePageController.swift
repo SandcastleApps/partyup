@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SampleTastePageController: UIViewController {
 
@@ -39,8 +40,9 @@ class SampleTastePageController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if let videoVC = segue.destinationViewController as? VideoViewController {
-			videoVC.url = PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!)
 			videoVC.loop = true
+			videoVC.rate = 1.0
+			videoVC.player = AVPlayer(URL: PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!))
 		}
     }
 
