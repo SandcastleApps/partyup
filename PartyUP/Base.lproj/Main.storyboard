@@ -162,6 +162,26 @@
                                     <segue destination="KPq-4d-i2K" kind="embed" identifier="Video View Segue" id="wk5-eU-bES"/>
                                 </connections>
                             </containerView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sFY-sq-83s" userLabel="Visual Effect Time">
+                                <rect key="frame" x="275" y="28" width="49" height="24"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="HQK-1U-8zy">
+                                    <rect key="frame" x="0.0" y="0.0" width="49" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOC-uf-Rqx" userLabel="Visual Effect Comment">
+                                <rect key="frame" x="275" y="555" width="49" height="24"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="f5t-Zf-CBS">
+                                    <rect key="frame" x="0.0" y="0.0" width="49" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA">
                                 <rect key="frame" x="275" y="28" width="49" height="24"/>
                                 <animations/>
@@ -170,7 +190,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13y-LZ-M88">
-                                <rect key="frame" x="275.5" y="555.5" width="49" height="24"/>
+                                <rect key="frame" x="275" y="555" width="49" height="24"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -180,17 +200,26 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="3rR-MA-V0x"/>
+                            <constraint firstItem="sFY-sq-83s" firstAttribute="height" secondItem="Sy6-pN-RsA" secondAttribute="height" id="GVZ-6p-CSH"/>
                             <constraint firstItem="13y-LZ-M88" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="H0t-K9-FzN"/>
-                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="JF4-ks-T2w"/>
+                            <constraint firstItem="dOC-uf-Rqx" firstAttribute="height" secondItem="13y-LZ-M88" secondAttribute="height" id="HQc-ML-NBM"/>
+                            <constraint firstItem="dOC-uf-Rqx" firstAttribute="width" secondItem="13y-LZ-M88" secondAttribute="width" id="JdW-k4-4O0"/>
+                            <constraint firstItem="dOC-uf-Rqx" firstAttribute="leading" secondItem="13y-LZ-M88" secondAttribute="leading" id="PrQ-Lv-vDX"/>
+                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="SDX-pV-7PL"/>
+                            <constraint firstItem="sFY-sq-83s" firstAttribute="top" secondItem="Sy6-pN-RsA" secondAttribute="top" id="UvL-Z5-Z6s"/>
                             <constraint firstItem="cib-K2-d0r" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leading" id="aUh-vJ-u37"/>
                             <constraint firstItem="cib-K2-d0r" firstAttribute="top" secondItem="EGl-He-1VL" secondAttribute="topMargin" id="cCA-j8-BHw"/>
                             <constraint firstItem="cib-K2-d0r" firstAttribute="height" secondItem="EGl-He-1VL" secondAttribute="height" id="dDG-CT-2BO"/>
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="13y-LZ-M88" secondAttribute="bottom" constant="20.5" id="g2D-lw-WcM"/>
+                            <constraint firstItem="sFY-sq-83s" firstAttribute="width" secondItem="Sy6-pN-RsA" secondAttribute="width" id="ld6-bh-gZu"/>
+                            <constraint firstItem="dOC-uf-Rqx" firstAttribute="top" secondItem="13y-LZ-M88" secondAttribute="top" id="o5y-OE-yad"/>
+                            <constraint firstItem="sFY-sq-83s" firstAttribute="leading" secondItem="Sy6-pN-RsA" secondAttribute="leading" id="sfj-Ud-Skg"/>
                             <constraint firstItem="cib-K2-d0r" firstAttribute="width" secondItem="EGl-He-1VL" secondAttribute="width" id="yKA-Xv-RK6"/>
+                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="zot-Po-hFB"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="commentBackdrop" destination="dOC-uf-Rqx" id="yPP-9a-j9G"/>
                         <outlet property="commentLabel" destination="13y-LZ-M88" id="s0B-Zb-T3C"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
                     </connections>

@@ -17,6 +17,7 @@ class SampleTastePageController: UIViewController {
 
 	@IBOutlet weak var commentLabel: UILabel!
 	@IBOutlet weak var timeLabel: UILabel!
+	@IBOutlet weak var commentBackdrop: UIVisualEffectView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class SampleTastePageController: UIViewController {
 		if let comment = sample.comment {
 			commentLabel.text = comment
 			commentLabel.hidden = false
+			commentBackdrop.hidden = false
 		}
     }
 
@@ -32,14 +34,13 @@ class SampleTastePageController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
 
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if let videoVC = segue.destinationViewController as? VideoViewController {
 			videoVC.url = PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!)
+			videoVC.loop = true
 		}
     }
 
