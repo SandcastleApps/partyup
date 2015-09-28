@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Party Selection-->
@@ -245,16 +246,32 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bac-AD-oFK">
+                                <rect key="frame" x="150" y="590" width="300" height="2"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="qUy-8m-5BW"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qUy-8m-5BW"/>
+                                    </mask>
+                                </variation>
+                            </progressView>
                         </subviews>
                         <animations/>
                         <constraints>
-                            <constraint firstItem="bBv-5E-LmW" firstAttribute="top" secondItem="nFD-1s-vJo" secondAttribute="topMargin" id="Aka-jj-sGV"/>
+                            <constraint firstItem="bBv-5E-LmW" firstAttribute="centerY" secondItem="nFD-1s-vJo" secondAttribute="centerY" id="1CZ-Ws-75p"/>
+                            <constraint firstItem="bac-AD-oFK" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" multiplier="0.5" id="2tV-e9-vzf"/>
+                            <constraint firstItem="5dg-ra-UQq" firstAttribute="top" secondItem="bac-AD-oFK" secondAttribute="bottom" constant="8" symbolic="YES" id="3LT-i5-fPC"/>
+                            <constraint firstItem="bBv-5E-LmW" firstAttribute="height" secondItem="nFD-1s-vJo" secondAttribute="height" id="GHO-ak-l7n"/>
                             <constraint firstItem="bBv-5E-LmW" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" id="R6Y-gj-Kq5"/>
+                            <constraint firstItem="bac-AD-oFK" firstAttribute="centerX" secondItem="nFD-1s-vJo" secondAttribute="centerX" id="cMz-u6-szx"/>
                             <constraint firstItem="bBv-5E-LmW" firstAttribute="leading" secondItem="nFD-1s-vJo" secondAttribute="leading" id="kAO-hF-tBo"/>
-                            <constraint firstItem="bBv-5E-LmW" firstAttribute="height" secondItem="nFD-1s-vJo" secondAttribute="height" id="xnJ-bt-wFp"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="videoProgress" destination="bac-AD-oFK" id="1q9-0g-di4"/>
                         <outlet property="videoView" destination="bBv-5E-LmW" id="URE-Wf-98d"/>
                     </connections>
                 </viewController>

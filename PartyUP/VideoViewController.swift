@@ -13,11 +13,18 @@ class VideoViewController: UIViewController {
 
 	var player: AVPlayer? {
 		willSet {
+			if let time = timeObserver {
+				player?.removeTimeObserver(time)
+			}
 			player?.removeObserver(self, forKeyPath: "status", context: UnsafeMutablePointer<Void>())
 			NSNotificationCenter.defaultCenter().removeObserver(self, name: "playbackReachedEndNotification", object: player?.currentItem)
 		}
 
 		didSet {
+			player?.addPeriodicTimeObserverForInterval(CMTime(seconds: 1, preferredTimescale: 1), queue: nil, usingBlock: { (time) in
+				if let player = self.player, item = player.currentItem {
+					self.videoProgress.setProgress(Float(player.currentTime().seconds / CMTimeGetSeconds(item.duration)), animated: false)
+				}})
 			player?.addObserver(self, forKeyPath: "status", options: .Initial, context: UnsafeMutablePointer<Void>())
 			playLayer.player = player
 
@@ -32,8 +39,10 @@ class VideoViewController: UIViewController {
 	var rate: Float = 0.0
 
 	@IBOutlet weak var videoView: UIView!
+	@IBOutlet weak var videoProgress: UIProgressView!
 
 	private let playLayer = AVPlayerLayer()
+	private var timeObserver: AnyObject?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +74,9 @@ class VideoViewController: UIViewController {
 	}
 
 	deinit {
+		if let time = timeObserver {
+			player?.removeTimeObserver(time)
+		}
 		player?.removeObserver(self, forKeyPath: "status", context: UnsafeMutablePointer<Void>())
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
