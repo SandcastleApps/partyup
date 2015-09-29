@@ -120,7 +120,8 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 							key: PartyUpConstants.StorageKeyPrefix + sample.media.path!,
 							contentType: outputUrl.mime,
 							expression: nil,
-							completionHander: nil).continueWithBlock({ (task) in
+							completionHander: nil).continueWithSuccessBlock({ (task) in return push(sample, key: 1) }).continueWithBlock({ (task) in
+
 								try! NSFileManager.defaultManager().removeItemAtURL(outputUrl)
 								
 								guard task.error == nil else { NSLog("Error Uploading: \(task.error)"); return nil }
@@ -128,8 +129,6 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 
 								return nil
 							})
-
-						push(sample, key: 1)
 					}
 				}
 			}

@@ -7,6 +7,7 @@
 //
 
 import AWSDynamoDB
+import AWSCore
 
 protocol DynamoObjectWrapper
 {
@@ -16,16 +17,11 @@ protocol DynamoObjectWrapper
 	var dynamo: DynamoRep { get }
 }
 
-func push<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBObjectModel, Wrap.DynamoRep: AWSDynamoDBModeling, Wrap.DynamoKey: NSObject>(wrapper: Wrap, key: Wrap.DynamoKey) {
+func push<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBObjectModel, Wrap.DynamoRep: AWSDynamoDBModeling, Wrap.DynamoKey: NSObject>(wrapper: Wrap, key: Wrap.DynamoKey) -> AWSTask {
 	let db = wrapper.dynamo
 	db.setValue(key, forKey: Wrap.DynamoRep.hashKeyAttribute())
 
-	AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db).continueWithBlock { (task) in
-		guard task.error == nil else { NSLog("Error Pushing \(Wrap.self): \(task.error)"); return nil }
-		guard task.exception == nil else { NSLog("Exception Pushing \(Wrap.self): \(task.exception)"); return nil }
-
-		return nil
-	}
+	return AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db)
 }
 
 func pull<Wrap: DynamoObjectWrapper where Wrap.DynamoRep == AWSDynamoDBObjectModel>(wrapper: Wrap) {
