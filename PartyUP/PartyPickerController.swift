@@ -20,7 +20,10 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 		}
 	}
 
-	private var venues: [Venue] = []
+	private var venues = [Venue]()
+	private let sampler = SampleManager()
+	private var candidate: SampleManager.SampleSubmission?
+
 
 	private let locationManager: CLLocationManager = {
 		let manager = CLLocationManager()
@@ -98,7 +101,8 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Sample Segue" {
 			let recorderVC = segue.destinationViewController as! SamplingController
-			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("media.mp4")
+			candidate = (Sample(comment: nil), (parties?[(sender as? UITableView)?.indexPathForSelectedRow?.row ?? 0].identifier)!)
+			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(candidate!.sample.media.path!)
 		} else if segue.identifier == "Sample Tasting Segue" {
 			if let selection = partyTable.indexPathForSelectedRow, party = parties?[selection.row] {
 				let viewerVC = segue.destinationViewController as! SampleTastingContoller
@@ -111,25 +115,9 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 	@IBAction func sequeFromSampling(segue: UIStoryboardSegue) {
 		if segue.identifier == "Accept Sample" {
 			if let srcVC = segue.sourceViewController as? SamplingController {
-				let sample = Sample(comment: srcVC.comment)
-
-				if let outputUrl = srcVC.recordingFile {
-					if let transfer = AWSS3TransferUtility.defaultS3TransferUtility() {
-						transfer.uploadFile(outputUrl,
-							bucket: PartyUpConstants.StorageBucket,
-							key: PartyUpConstants.StorageKeyPrefix + sample.media.path!,
-							contentType: outputUrl.mime,
-							expression: nil,
-							completionHander: nil).continueWithSuccessBlock({ (task) in return push(sample, key: 1) }).continueWithBlock({ (task) in
-
-								try! NSFileManager.defaultManager().removeItemAtURL(outputUrl)
-								
-								guard task.error == nil else { NSLog("Error Uploading: \(task.error)"); return nil }
-								guard task.exception == nil else { NSLog("Exception Uploading: \(task.exception)"); return nil }
-
-								return nil
-							})
-					}
+				if let submission = candidate {
+					submission.sample.comment = srcVC.comment
+					sampler.submit(submission.sample, event: submission.event)
 				}
 			}
 		}

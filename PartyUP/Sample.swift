@@ -14,7 +14,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 
 	let user: NSUUID
 	let time: NSDate
-	let comment: String?
+	var comment: String?
 
 	var media: NSURL {
 		get { return NSURL(fileURLWithPath: user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4") }
