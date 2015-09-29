@@ -13,7 +13,7 @@ import AWSS3
 struct PartyUpConstants
 {
 	static let StorageKeyPrefix = "media"
-	static let ContentDistribution = NSURL(scheme: "http", host: "d3b7y2ghbvmiv9.cloudfront.net", path: "/" + StorageKeyPrefix)!
+	static let ContentDistribution = NSURL(scheme: "http", host: "drh93nkfgtaww.cloudfront.net", path: "/" + StorageKeyPrefix)!
 	static let StorageBucket = "com.sandcastleapps.partyup"
 }
 

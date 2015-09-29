@@ -38,8 +38,8 @@ final class Party: DynamoObjectWrapper, CustomDebugStringConvertible
 	internal convenience init(data: PartyDB) {
 		self.init(
 			identifier: data.id!.integerValue,
-			start: NSDate(timeIntervalSinceReferenceDate: data.startTime?.doubleValue ?? 0),
-			end: NSDate(timeIntervalSinceReferenceDate: data.endTime?.doubleValue ?? 0),
+			start: NSDate(timeIntervalSinceReferenceDate: data.start?.doubleValue ?? 0),
+			end: NSDate(timeIntervalSinceReferenceDate: data.end?.doubleValue ?? 0),
 			venue: Venue(identifier: 3, open: 0, close: 0, name: "old triangle", details: nil, location: CLLocationCoordinate2D(latitude: 0,longitude: 0)),
 			name: data.name ?? "Unknown",
 			details: data.details
@@ -50,8 +50,8 @@ final class Party: DynamoObjectWrapper, CustomDebugStringConvertible
 		get {
 			let db = PartyDB()
 			db.id = identifier
-			db.startTime = start.timeIntervalSinceReferenceDate
-			db.endTime = end.timeIntervalSinceReferenceDate
+			db.start = start.timeIntervalSinceReferenceDate
+			db.end = end.timeIntervalSinceReferenceDate
 			db.venue = venue.identifier
 			db.name = name
 			db.details = details
@@ -63,8 +63,8 @@ final class Party: DynamoObjectWrapper, CustomDebugStringConvertible
 	class PartyDB: AWSDynamoDBObjectModel, AWSDynamoDBModeling
 	{
 		var id: NSNumber?
-		var startTime: NSNumber?
-		var endTime: NSNumber?
+		var start: NSNumber?
+		var end: NSNumber?
 		var venue: NSNumber?
 		var name: String?
 		var details: String?

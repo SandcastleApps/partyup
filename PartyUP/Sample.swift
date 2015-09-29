@@ -72,7 +72,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		var comment: String?
 
 		@objc static func dynamoDBTableName() -> String {
-			return "Sampler"
+			return "Samples"
 		}
 
 		@objc static func hashKeyAttribute() -> String! {
