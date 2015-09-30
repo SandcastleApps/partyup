@@ -1,5 +1,5 @@
 //
-//  PartyPickerController.swift
+//  PartyPickeryController.swift
 //  PartyUP
 //
 //  Created by Fritz Vander Heide on 2015-09-15.
