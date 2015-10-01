@@ -11,6 +11,7 @@ import AWSS3
 import AWSDynamoDB
 import AWSCore
 
+
 class SampleManager
 {
 	enum SampleManagerError: ErrorType
@@ -22,6 +23,12 @@ class SampleManager
 	typealias SampleSubmission = (sample:Sample, event:Int)
 	private var queue = [(SampleSubmission)]()
 	private var active: SampleSubmission?
+
+	private static let sharedManager = SampleManager()
+
+	static func defaultManager() -> SampleManager {
+		return sharedManager
+	}
 
 	func submit(sample: Sample, event: Int) {
 		queue.append((sample, event))
@@ -62,7 +69,7 @@ class SampleManager
 
 	}
 
-	func upload(submission: SampleSubmission) throws {
+	private func upload(submission: SampleSubmission) throws {
 		guard let transfer = AWSS3TransferUtility.defaultS3TransferUtility() else { throw SampleManagerError.TransferUtilityUnavailable }
 
 		guard let videoFile = submission.sample.media.path else { throw SampleManagerError.InvalidFileName(url: submission.sample.media) }

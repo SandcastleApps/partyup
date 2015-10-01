@@ -21,9 +21,6 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 	}
 
 	private var venues = [Venue]()
-	private let sampler = SampleManager()
-	private var candidate: SampleManager.SampleSubmission?
-
 
 	private let locationManager: CLLocationManager = {
 		let manager = CLLocationManager()
@@ -99,11 +96,7 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Sample Segue" {
-			let recorderVC = segue.destinationViewController as! SamplingController
-			candidate = (Sample(comment: nil), (parties?[(sender as? UITableView)?.indexPathForSelectedRow?.row ?? 0].identifier)!)
-			recorderVC.recordingFile = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(candidate!.sample.media.path!)
-		} else if segue.identifier == "Sample Tasting Segue" {
+		if segue.identifier == "Sample Tasting Segue" {
 			if let selection = partyTable.indexPathForSelectedRow, party = parties?[selection.row] {
 				let viewerVC = segue.destinationViewController as! SampleTastingContoller
 				viewerVC.eventIdentifier = party.identifier
@@ -113,14 +106,7 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     }
 
 	@IBAction func sequeFromSampling(segue: UIStoryboardSegue) {
-		if segue.identifier == "Accept Sample" {
-			if let srcVC = segue.sourceViewController as? SamplingController {
-				if let submission = candidate {
-					submission.sample.comment = srcVC.comment
-					sampler.submit(submission.sample, event: submission.event)
-				}
-			}
-		}
+
 	}
 
 	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
