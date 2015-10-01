@@ -27,7 +27,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		self.stamp = stamp
 	}
 
-	convenience init(comment: String?) {
+	convenience init(comment: String? = nil) {
 		self.init(
 			user: UIDevice.currentDevice().identifierForVendor!,
 			time: NSDate(),
