@@ -123,11 +123,25 @@
                                 <rect key="frame" x="20" y="28" width="31" height="55"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <state key="normal" title="✖︎">
+                                <state key="normal" title="✘">
                                     <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
                                 </state>
                                 <connections>
                                     <segue destination="la2-3E-ZdR" kind="unwind" unwindAction="sequeFromSampling:" id="YT9-Yc-2u7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcL-8R-2uI" userLabel="Record">
+                                <rect key="frame" x="250" y="492" width="100" height="100"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="iYg-sJ-lHf"/>
+                                    <constraint firstAttribute="width" constant="100" id="m0Q-d5-6Ba"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="record"/>
+                                <state key="selected" title="Record" image="recording"/>
+                                <connections>
+                                    <action selector="startRecording:" destination="8VR-ye-Fdg" eventType="touchDown" id="J9y-Ec-Jxg"/>
+                                    <action selector="stopRecording:" destination="8VR-ye-Fdg" eventType="touchUpInside" id="y4T-C5-WES"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -136,6 +150,8 @@
                         <constraints>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="height" secondItem="rgs-gn-jA0" secondAttribute="height" id="CF6-rH-0xa"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="NaI-cg-ee0"/>
+                            <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="TH1-zN-bej"/>
+                            <constraint firstItem="Bdw-A6-2N4" firstAttribute="top" secondItem="FcL-8R-2uI" secondAttribute="bottom" constant="8" symbolic="YES" id="aNz-Nj-EbO"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="centerX" secondItem="27X-S7-8Y4" secondAttribute="centerX" id="iJK-nY-ccm"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="jPT-dE-dbz"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="27X-S7-8Y4" secondAttribute="top" id="m1J-90-8Ym"/>
@@ -146,6 +162,9 @@
                             <constraint firstItem="27X-S7-8Y4" firstAttribute="height" secondItem="Zgg-6O-QEv" secondAttribute="height" id="zW6-ao-rHl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47u-Gd-lAd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="la2-3E-ZdR" userLabel="Exit" sceneMemberID="exit"/>
@@ -364,20 +383,6 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btS-MB-H21" userLabel="Record">
-                                <rect key="frame" x="250" y="492" width="100" height="100"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="JGc-Wq-P42"/>
-                                    <constraint firstAttribute="height" constant="100" id="XYd-zu-HHQ"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="record"/>
-                                <state key="selected" title="Record" image="recording"/>
-                                <connections>
-                                    <action selector="recordClose:" destination="Wem-Xz-3AL" eventType="touchUpInside" id="7uQ-Oo-Waw"/>
-                                    <action selector="recordOpen:" destination="Wem-Xz-3AL" eventType="touchDown" id="dsQ-f4-Pnw"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -386,13 +391,10 @@
                             <constraint firstItem="gRm-fX-1Ou" firstAttribute="height" secondItem="Ah2-Ov-rTl" secondAttribute="height" id="Slw-Bx-6fS"/>
                             <constraint firstItem="gRm-fX-1Ou" firstAttribute="width" secondItem="Ah2-Ov-rTl" secondAttribute="width" id="Xh7-3T-jEv"/>
                             <constraint firstItem="gRm-fX-1Ou" firstAttribute="centerX" secondItem="Ah2-Ov-rTl" secondAttribute="centerX" id="gsB-nj-yP7"/>
-                            <constraint firstItem="Cnz-xa-bI7" firstAttribute="top" secondItem="btS-MB-H21" secondAttribute="bottom" constant="8" symbolic="YES" id="k63-D8-qUg"/>
-                            <constraint firstItem="btS-MB-H21" firstAttribute="centerX" secondItem="Ah2-Ov-rTl" secondAttribute="centerX" id="pDe-gl-iUj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="movieView" destination="gRm-fX-1Ou" id="FYq-Aw-14q"/>
-                        <outlet property="recordButton" destination="btS-MB-H21" id="YS7-7o-Zw7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDB-pz-Qme" userLabel="First Responder" sceneMemberID="firstResponder"/>

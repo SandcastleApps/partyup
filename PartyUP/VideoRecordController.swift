@@ -30,8 +30,7 @@ class VideoRecordController: UIViewController {
 	private let sessionQueue = dispatch_queue_create("capture", DISPATCH_QUEUE_SERIAL)
 
 	var delegate: VideoRecorderDelegate?
-	
-	@IBOutlet weak var recordButton: UIButton!
+
 	@IBOutlet weak var movieView: UIView!
 	
 	override func viewDidLoad() {
@@ -66,10 +65,10 @@ class VideoRecordController: UIViewController {
 
 					self.feedSession.startRunning()
 				} else {
-					throw NSError(domain: "VideoRecorder", code: 0, userInfo: nil)
+					throw NSError(domain: "Video Recorder", code: 0, userInfo: nil)
 				}
 			} catch {
-				dispatch_async(dispatch_get_main_queue()) {self.recordButton.enabled = false; self.delegate?.deviceError(error) }
+				dispatch_async(dispatch_get_main_queue()) { self.delegate?.deviceError(error) }
 			}
 		}
 
@@ -108,14 +107,6 @@ class VideoRecordController: UIViewController {
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		dispatch_async(sessionQueue) { self.feedSession.stopRunning() }
-	}
-
-	@IBAction func recordOpen(sender: UIButton) {
-		start()
-	}
-
-	@IBAction func recordClose(sender: UIButton) {
-		stop()
 	}
 	
 	func start() {
