@@ -9,14 +9,13 @@
 import UIKit
 import AVFoundation
 
-protocol VideoRecorderDelegate
+protocol VideoRecorderDelegate: class
 {
 	var targetUrl: NSURL { get }
 
-	func beganRecording()
-	func endedRecording(error: ErrorType?)
-
-	func deviceError(error: ErrorType)
+	func videoRecorder(recorder: VideoRecordController, beganRecordingTo target: NSURL)
+	func videoRecorder(recorder: VideoRecordController, endedRecordingTo target: NSURL, withError error: ErrorType?)
+	func videoRecorder(recorder: VideoRecordController, reportedInitializationError error: ErrorType)
 }
 
 class VideoRecordController: UIViewController {
@@ -29,7 +28,7 @@ class VideoRecordController: UIViewController {
 	private var previewLayer: AVCaptureVideoPreviewLayer! = nil
 	private let sessionQueue = dispatch_queue_create("capture", DISPATCH_QUEUE_SERIAL)
 
-	var delegate: VideoRecorderDelegate?
+	weak var delegate: VideoRecorderDelegate?
 
 	@IBOutlet weak var movieView: UIView!
 	
@@ -68,7 +67,7 @@ class VideoRecordController: UIViewController {
 					throw NSError(domain: "Video Recorder", code: 0, userInfo: nil)
 				}
 			} catch {
-				dispatch_async(dispatch_get_main_queue()) { self.delegate?.deviceError(error) }
+				dispatch_async(dispatch_get_main_queue()) { self.delegate?.videoRecorder(self, reportedInitializationError:error) }
 			}
 		}
 
@@ -123,11 +122,11 @@ class VideoRecordController: UIViewController {
 extension VideoRecordController: AVCaptureFileOutputRecordingDelegate {
 	
 	func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
-		dispatch_async(dispatch_get_main_queue()) { self.delegate?.beganRecording() }
+		dispatch_async(dispatch_get_main_queue()) { self.delegate?.videoRecorder(self, beganRecordingTo: fileURL) }
 	}
 	
 	func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError?) {
-		dispatch_async(dispatch_get_main_queue()) { self.delegate?.endedRecording(error) }
+		dispatch_async(dispatch_get_main_queue()) { self.delegate?.videoRecorder(self, endedRecordingTo: outputFileURL, withError: error) }
 	}
 }
 

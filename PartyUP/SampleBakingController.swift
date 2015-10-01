@@ -50,21 +50,21 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 
 	var targetUrl = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("Recording.mp4")
 
-	func beganRecording() {
+	func videoRecorder(recorder: VideoRecordController, beganRecordingTo target: NSURL) {
 		//do something
 	}
 
-	func endedRecording(error: ErrorType?) {
+	func videoRecorder(recorder: VideoRecordController, endedRecordingTo target: NSURL, withError error: ErrorType?) {
 		if let error = error {
 			NSLog("Error Recording Video: \(error)")
 		} else {
 			let candidate = Sample(comment: "hello")
-			try! NSFileManager.defaultManager().moveItemAtURL(targetUrl, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(candidate.media.path!))
+			try! NSFileManager.defaultManager().moveItemAtURL(target, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(candidate.media.path!))
 			SampleManager.defaultManager().submit(candidate, event: 1)
 		}
 	}
 
-	func deviceError(error: ErrorType) {
+	func videoRecorder(recorder: VideoRecordController, reportedInitializationError error: ErrorType) {
 		recordButton.enabled = false
 		UIAlertView(title: "Camera Unavailable", message: "\(error)", delegate: nil, cancelButtonTitle: "Shit!").show()
 	}
