@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -109,6 +110,14 @@
                                     <segue destination="Wem-Xz-3AL" kind="embed" identifier="Recorder Segue" id="viF-L8-sdW"/>
                                 </connections>
                             </containerView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IQy-Kc-kEc">
+                                <rect key="frame" x="-80" y="299" width="200" height="2"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="r89-zr-0k1"/>
+                                </constraints>
+                                <color key="progressTintColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.47265523669999998" alpha="1" colorSpace="deviceRGB"/>
+                            </progressView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27X-S7-8Y4">
                                 <rect key="frame" x="15" y="28" width="41" height="55"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5Hi-xs-pNs">
@@ -124,7 +133,7 @@
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <state key="normal" title="✘">
-                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="la2-3E-ZdR" kind="unwind" unwindAction="sequeFromSampling:" id="YT9-Yc-2u7"/>
@@ -140,18 +149,21 @@
                                 <state key="normal" title="Button" image="record"/>
                                 <state key="selected" title="Record" image="recording"/>
                                 <connections>
-                                    <action selector="startRecording:" destination="8VR-ye-Fdg" eventType="touchDown" id="J9y-Ec-Jxg"/>
-                                    <action selector="stopRecording:" destination="8VR-ye-Fdg" eventType="touchUpInside" id="y4T-C5-WES"/>
+                                    <action selector="startRecording" destination="8VR-ye-Fdg" eventType="touchDown" id="LVD-pD-ud2"/>
+                                    <action selector="stopRecording" destination="8VR-ye-Fdg" eventType="touchUpInside" id="izF-sP-n8N"/>
                                 </connections>
                             </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Bdw-A6-2N4" firstAttribute="top" secondItem="IQy-Kc-kEc" secondAttribute="bottom" constant="50" id="4vn-iA-CLr"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="height" secondItem="rgs-gn-jA0" secondAttribute="height" id="CF6-rH-0xa"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="NaI-cg-ee0"/>
+                            <constraint firstItem="IQy-Kc-kEc" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="Osj-Qv-dqy"/>
                             <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="TH1-zN-bej"/>
                             <constraint firstItem="Bdw-A6-2N4" firstAttribute="top" secondItem="FcL-8R-2uI" secondAttribute="bottom" constant="8" symbolic="YES" id="aNz-Nj-EbO"/>
+                            <constraint firstItem="IQy-Kc-kEc" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="leadingMargin" id="dlF-mG-58f"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="centerX" secondItem="27X-S7-8Y4" secondAttribute="centerX" id="iJK-nY-ccm"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="jPT-dE-dbz"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="27X-S7-8Y4" secondAttribute="top" id="m1J-90-8Ym"/>
@@ -161,9 +173,15 @@
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" constant="8" symbolic="YES" id="xdA-lx-25k"/>
                             <constraint firstItem="27X-S7-8Y4" firstAttribute="height" secondItem="Zgg-6O-QEv" secondAttribute="height" id="zW6-ao-rHl"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4vn-iA-CLr"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>
+                        <outlet property="timerBar" destination="IQy-Kc-kEc" id="fc8-PS-1xR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47u-Gd-lAd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -249,14 +267,14 @@
                                 <rect key="frame" x="275" y="28" width="49" height="24"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13y-LZ-M88">
                                 <rect key="frame" x="275" y="555" width="49" height="24"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -354,7 +372,7 @@
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="27"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="textShadowColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <color key="textShadowColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
