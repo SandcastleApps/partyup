@@ -100,8 +100,8 @@ class VideoRecordController: UIViewController {
 			avOrientation = .Portrait
 		}
 
-		previewLayer.connection.videoOrientation = avOrientation
-		movieOutput.connectionWithMediaType(AVMediaTypeVideo).videoOrientation = avOrientation
+		previewLayer.connection?.videoOrientation = avOrientation
+		movieOutput.connectionWithMediaType(AVMediaTypeVideo)?.videoOrientation = avOrientation
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
