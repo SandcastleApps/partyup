@@ -14,7 +14,6 @@ class SampleAcceptingController: UIViewController {
 	var videoUrl: NSURL!
 
 	@IBOutlet weak var commentField: UITextField!
-	@IBOutlet weak var commentScroller: UIScrollView!
 
 	override func prefersStatusBarHidden() -> Bool {
 		return true
@@ -60,7 +59,6 @@ class SampleAcceptingController: UIViewController {
 			distantBottom.constant = 30
 			UIView.animateWithDuration(kbAnimationDuration) { self.view.layoutIfNeeded() }
 		}
-		
 	}
 
 	@IBAction func editingEnded(sender: UITextField) {
@@ -76,7 +74,9 @@ class SampleAcceptingController: UIViewController {
 			viewerVC.rate = 1.0
 			viewerVC.player = AVPlayer(URL: videoUrl)
 		} else if segue.identifier == "Accept Unwind" {
-			//save sample and animate out
+			let sample = Sample(comment: commentField.text)
+			try! NSFileManager.defaultManager().moveItemAtURL(videoUrl, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
+			SampleManager.defaultManager().submit(sample, event: 1)
 		} else if segue.identifier == "Reject Unwind" {
 			//animate out
 		}
