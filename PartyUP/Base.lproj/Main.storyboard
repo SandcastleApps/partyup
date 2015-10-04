@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B22c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -182,12 +183,100 @@
                     <connections>
                         <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>
                         <outlet property="timerBar" destination="IQy-Kc-kEc" id="fc8-PS-1xR"/>
+                        <segue destination="RAd-iG-AkU" kind="presentation" identifier="Bake Accept Segue" modalTransitionStyle="crossDissolve" id="VIj-jn-Egz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47u-Gd-lAd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="la2-3E-ZdR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1925" y="229"/>
+        </scene>
+        <!--Sample Acceptance-->
+        <scene sceneID="Va5-qe-swp">
+            <objects>
+                <viewController title="Sample Acceptance" id="RAd-iG-AkU" customClass="SampleAcceptingController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EUn-mv-0NU"/>
+                        <viewControllerLayoutGuide type="bottom" id="jPO-st-b8s"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JgB-7N-lNo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLv-fq-c2u">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="KPq-4d-i2K" kind="embed" identifier="Acceptor Segue" id="mvS-fn-udt"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXR-TM-6lb">
+                                <rect key="frame" x="505" y="523" width="64" height="64"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.094117647060000004" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hXR-TM-6lb" secondAttribute="height" multiplier="1:1" id="uGd-nd-rKC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="✔︎">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="5pi-I8-ds9" kind="unwind" identifier="Accept Unwind" unwindAction="sequeFromBaking:" id="WYX-np-Gzl"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="f6P-2H-G0L" userLabel="Comment">
+                                <rect key="frame" x="105" y="540" width="390" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="editingEnded:" destination="RAd-iG-AkU" eventType="editingDidEndOnExit" id="tyD-Js-Zbb"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4B-oY-0UU">
+                                <rect key="frame" x="35" y="525" width="60" height="60"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.88315331375838924" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="i4B-oY-0UU" secondAttribute="height" multiplier="1:1" id="bvf-1O-y5a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="✘">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="5pi-I8-ds9" kind="unwind" identifier="Reject Unwind" unwindAction="segueFromAccepting:" id="M8Q-NC-5VK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PLv-fq-c2u" firstAttribute="width" secondItem="JgB-7N-lNo" secondAttribute="width" id="16Z-s5-hYN"/>
+                            <constraint firstItem="i4B-oY-0UU" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leadingMargin" constant="15" id="2OM-f6-aOK"/>
+                            <constraint firstItem="PLv-fq-c2u" firstAttribute="height" secondItem="JgB-7N-lNo" secondAttribute="height" id="4ta-vg-vkH"/>
+                            <constraint firstItem="hXR-TM-6lb" firstAttribute="leading" secondItem="f6P-2H-G0L" secondAttribute="trailing" constant="10" id="8lG-K3-Kpt"/>
+                            <constraint firstItem="i4B-oY-0UU" firstAttribute="trailing" secondItem="f6P-2H-G0L" secondAttribute="leading" constant="-10" id="Fl4-8g-Eax"/>
+                            <constraint firstItem="PLv-fq-c2u" firstAttribute="centerY" secondItem="JgB-7N-lNo" secondAttribute="centerY" id="JiM-jf-WfW"/>
+                            <constraint firstItem="i4B-oY-0UU" firstAttribute="centerY" secondItem="f6P-2H-G0L" secondAttribute="centerY" id="Jiv-rK-qdQ"/>
+                            <constraint firstItem="f6P-2H-G0L" firstAttribute="width" relation="lessThanOrEqual" secondItem="JgB-7N-lNo" secondAttribute="width" multiplier="3:4" id="KEI-1n-j41"/>
+                            <constraint firstItem="PLv-fq-c2u" firstAttribute="centerX" secondItem="JgB-7N-lNo" secondAttribute="centerX" id="Pxq-RH-2s6"/>
+                            <constraint firstItem="jPO-st-b8s" firstAttribute="top" secondItem="f6P-2H-G0L" secondAttribute="bottom" constant="30" id="Y6C-5Z-uid"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hXR-TM-6lb" secondAttribute="trailing" constant="11" id="h6i-Gk-nZy"/>
+                            <constraint firstItem="f6P-2H-G0L" firstAttribute="centerX" secondItem="JgB-7N-lNo" secondAttribute="centerX" id="hcW-cd-Cci"/>
+                            <constraint firstItem="hXR-TM-6lb" firstAttribute="centerY" secondItem="f6P-2H-G0L" secondAttribute="centerY" id="pNQ-iN-AYM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="commentField" destination="f6P-2H-G0L" id="dFO-ng-G5M"/>
+                        <outlet property="distantBottom" destination="Y6C-5Z-uid" id="U6h-YG-8ba"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="von-cM-OnH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="5pi-I8-ds9" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2590" y="231"/>
         </scene>
         <!--Sample Viewing Root-->
         <scene sceneID="fN0-jL-4wB">
@@ -357,7 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P5E-KX-XA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2577" y="229"/>
+            <point key="canvasLocation" x="3296" y="231"/>
         </scene>
         <!--Root Navigator-->
         <scene sceneID="HOt-fe-NMd">
@@ -432,4 +521,7 @@
         <image name="record" width="1280" height="1167"/>
         <image name="recording" width="1280" height="1167"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="mvS-fn-udt"/>
+    </inferredMetricsTieBreakers>
 </document>
