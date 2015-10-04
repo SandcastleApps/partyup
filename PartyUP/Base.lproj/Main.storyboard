@@ -65,7 +65,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="ak0-9c-qWH">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="8VR-ye-Fdg" kind="showDetail" identifier="Sample Baking Segue" id="8Y3-fW-aBD"/>
+                                <segue destination="8VR-ye-Fdg" kind="presentation" identifier="Sample Baking Segue" id="8Y3-fW-aBD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -129,7 +129,7 @@
                                 <animations/>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zgg-6O-QEv">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zgg-6O-QEv" userLabel="Dismiss">
                                 <rect key="frame" x="20" y="28" width="31" height="55"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
@@ -137,7 +137,16 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="la2-3E-ZdR" kind="unwind" unwindAction="sequeFromSampling:" id="YT9-Yc-2u7"/>
+                                    <segue destination="la2-3E-ZdR" kind="unwind" unwindAction="sequeFromBaking:" id="JNf-q6-mCd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijw-pv-9eI" userLabel="Torch">
+                                <rect key="frame" x="550" y="28" width="30" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="🔆"/>
+                                <connections>
+                                    <action selector="torchControl:" destination="8VR-ye-Fdg" eventType="touchUpInside" id="XIG-K3-0C5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcL-8R-2uI" userLabel="Record">
@@ -159,6 +168,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Bdw-A6-2N4" firstAttribute="top" secondItem="IQy-Kc-kEc" secondAttribute="bottom" constant="50" id="4vn-iA-CLr"/>
+                            <constraint firstItem="ijw-pv-9eI" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" constant="8" symbolic="YES" id="9Jd-mT-R4L"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="height" secondItem="rgs-gn-jA0" secondAttribute="height" id="CF6-rH-0xa"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="NaI-cg-ee0"/>
                             <constraint firstItem="IQy-Kc-kEc" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="Osj-Qv-dqy"/>
@@ -167,6 +177,7 @@
                             <constraint firstItem="IQy-Kc-kEc" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="leadingMargin" id="dlF-mG-58f"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="centerX" secondItem="27X-S7-8Y4" secondAttribute="centerX" id="iJK-nY-ccm"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="jPT-dE-dbz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ijw-pv-9eI" secondAttribute="trailing" id="kKu-0G-p1r"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="27X-S7-8Y4" secondAttribute="top" id="m1J-90-8Ym"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="width" secondItem="rgs-gn-jA0" secondAttribute="width" id="oAL-Gd-GDe"/>
                             <constraint firstItem="27X-S7-8Y4" firstAttribute="width" secondItem="Zgg-6O-QEv" secondAttribute="width" constant="10" id="rCh-YF-l7Q"/>

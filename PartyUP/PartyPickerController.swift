@@ -105,7 +105,7 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 		}
     }
 
-	@IBAction func sequeFromSampling(segue: UIStoryboardSegue) {
+	@IBAction func sequeFromBaking(segue: UIStoryboardSegue) {
 
 	}
 

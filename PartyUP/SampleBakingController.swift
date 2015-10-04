@@ -31,6 +31,9 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 	}
 
     // MARK: - Navigation
+	@IBAction func torchControl(sender: UIButton) {
+//		performSegueWithIdentifier("Bake Accept Segue", sender: nil)
+	}
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Recorder Segue" {
@@ -38,8 +41,14 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 				recordingController = recorderVC
 				recordingController.delegate = self
 			}
+		} else if segue.identifier == "Bake Accept Segue" {
+			let acceptVC = segue.destinationViewController as! SampleAcceptingController
+			acceptVC.videoUrl = targetUrl
 		}
     }
+
+	@IBAction func segueFromAccepting(segue: UIStoryboardSegue) {
+	}
 
 	// MARK: - Recording
 
@@ -76,9 +85,7 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 		if let error = error {
 			NSLog("Error Recording Video: \(error)")
 		} else {
-			let candidate = Sample(comment: "hello")
-			try! NSFileManager.defaultManager().moveItemAtURL(target, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(candidate.media.path!))
-			SampleManager.defaultManager().submit(candidate, event: 1)
+			performSegueWithIdentifier("Bake Accept Segue", sender: nil)
 		}
 	}
 
