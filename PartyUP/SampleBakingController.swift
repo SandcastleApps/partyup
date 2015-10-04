@@ -83,7 +83,7 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 
 	func videoRecorder(recorder: VideoRecordController, endedRecordingTo target: NSURL, withError error: ErrorType?) {
 		if let error = error {
-			NSLog("Error Recording Video: \(error)")
+			UIAlertView(title: "Recording Error", message: "\(error)", delegate: nil, cancelButtonTitle: "Crap!").show()
 		} else {
 			performSegueWithIdentifier("Bake Accept Segue", sender: nil)
 		}
