@@ -55,9 +55,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-PartyUP/AWSCore.framework'
   install_framework 'Pods-PartyUP/AWSDynamoDB.framework'
   install_framework 'Pods-PartyUP/AWSS3.framework'
+  install_framework 'Pods-PartyUP/CircleProgressBar.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-PartyUP/AWSCore.framework'
   install_framework 'Pods-PartyUP/AWSDynamoDB.framework'
   install_framework 'Pods-PartyUP/AWSS3.framework'
+  install_framework 'Pods-PartyUP/CircleProgressBar.framework'
 fi
