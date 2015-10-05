@@ -5,7 +5,7 @@ use_frameworks!
 target 'PartyUP' do
 	pod 'AWSS3', '~> 2.2'
 	pod 'AWSDynamoDB', '~> 2.2'
-	pod 'CircleProgressBar', '~> 0.21'
+	pod 'DACircularProgress'
 end
 
 target 'PartyUPTests' do
