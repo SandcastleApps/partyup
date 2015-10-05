@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -111,14 +110,6 @@
                                     <segue destination="Wem-Xz-3AL" kind="embed" identifier="Recorder Segue" id="viF-L8-sdW"/>
                                 </connections>
                             </containerView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IQy-Kc-kEc">
-                                <rect key="frame" x="-80" y="299" width="200" height="2"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="r89-zr-0k1"/>
-                                </constraints>
-                                <color key="progressTintColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.47265523669999998" alpha="1" colorSpace="deviceRGB"/>
-                            </progressView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27X-S7-8Y4">
                                 <rect key="frame" x="15" y="28" width="41" height="55"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5Hi-xs-pNs">
@@ -149,6 +140,11 @@
                                     <action selector="torchControl:" destination="8VR-ye-Fdg" eventType="touchUpInside" id="XIG-K3-0C5"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhj-Vi-QG8" customClass="DACircularProgressView">
+                                <rect key="frame" x="245" y="487" width="110" height="110"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcL-8R-2uI" userLabel="Record">
                                 <rect key="frame" x="250" y="492" width="100" height="100"/>
                                 <animations/>
@@ -167,17 +163,18 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Bdw-A6-2N4" firstAttribute="top" secondItem="IQy-Kc-kEc" secondAttribute="bottom" constant="50" id="4vn-iA-CLr"/>
                             <constraint firstItem="ijw-pv-9eI" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" constant="8" symbolic="YES" id="9Jd-mT-R4L"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="height" secondItem="rgs-gn-jA0" secondAttribute="height" id="CF6-rH-0xa"/>
+                            <constraint firstItem="lhj-Vi-QG8" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="1.1" id="Fzf-1z-Xwk"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="NaI-cg-ee0"/>
-                            <constraint firstItem="IQy-Kc-kEc" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="Osj-Qv-dqy"/>
                             <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="TH1-zN-bej"/>
                             <constraint firstItem="Bdw-A6-2N4" firstAttribute="top" secondItem="FcL-8R-2uI" secondAttribute="bottom" constant="8" symbolic="YES" id="aNz-Nj-EbO"/>
-                            <constraint firstItem="IQy-Kc-kEc" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="leadingMargin" id="dlF-mG-58f"/>
+                            <constraint firstItem="lhj-Vi-QG8" firstAttribute="centerX" secondItem="FcL-8R-2uI" secondAttribute="centerX" id="ddX-Za-Tjf"/>
+                            <constraint firstItem="lhj-Vi-QG8" firstAttribute="centerY" secondItem="FcL-8R-2uI" secondAttribute="centerY" id="dps-Cr-UcE"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="centerX" secondItem="27X-S7-8Y4" secondAttribute="centerX" id="iJK-nY-ccm"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="jPT-dE-dbz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ijw-pv-9eI" secondAttribute="trailing" id="kKu-0G-p1r"/>
+                            <constraint firstItem="lhj-Vi-QG8" firstAttribute="height" secondItem="FcL-8R-2uI" secondAttribute="height" multiplier="1.1" id="klJ-35-EJg"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="27X-S7-8Y4" secondAttribute="top" id="m1J-90-8Ym"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="width" secondItem="rgs-gn-jA0" secondAttribute="width" id="oAL-Gd-GDe"/>
                             <constraint firstItem="27X-S7-8Y4" firstAttribute="width" secondItem="Zgg-6O-QEv" secondAttribute="width" constant="10" id="rCh-YF-l7Q"/>
@@ -185,15 +182,10 @@
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" constant="8" symbolic="YES" id="xdA-lx-25k"/>
                             <constraint firstItem="27X-S7-8Y4" firstAttribute="height" secondItem="Zgg-6O-QEv" secondAttribute="height" id="zW6-ao-rHl"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="4vn-iA-CLr"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>
-                        <outlet property="timerBar" destination="IQy-Kc-kEc" id="fc8-PS-1xR"/>
+                        <outlet property="timerBar" destination="lhj-Vi-QG8" id="A5l-CV-jBL"/>
                         <segue destination="RAd-iG-AkU" kind="showDetail" identifier="Accept Sample Segue" id="LEC-Vb-eiz"/>
                     </connections>
                 </viewController>
@@ -427,32 +419,27 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bac-AD-oFK">
-                                <rect key="frame" x="150" y="590" width="300" height="2"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLX-lX-VU3" customClass="DACircularProgressView">
+                                <rect key="frame" x="565" y="8" width="15" height="15"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="qUy-8m-5BW"/>
+                                    <constraint firstAttribute="height" constant="15" id="Nrq-gc-tIn"/>
+                                    <constraint firstAttribute="width" constant="15" id="nqk-Fq-16B"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="qUy-8m-5BW"/>
-                                    </mask>
-                                </variation>
-                            </progressView>
+                            </view>
                         </subviews>
                         <animations/>
                         <constraints>
                             <constraint firstItem="bBv-5E-LmW" firstAttribute="centerY" secondItem="nFD-1s-vJo" secondAttribute="centerY" id="1CZ-Ws-75p"/>
-                            <constraint firstItem="bac-AD-oFK" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" multiplier="0.5" id="2tV-e9-vzf"/>
-                            <constraint firstItem="5dg-ra-UQq" firstAttribute="top" secondItem="bac-AD-oFK" secondAttribute="bottom" constant="8" symbolic="YES" id="3LT-i5-fPC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oLX-lX-VU3" secondAttribute="trailing" id="9b3-f5-Tdb"/>
                             <constraint firstItem="bBv-5E-LmW" firstAttribute="height" secondItem="nFD-1s-vJo" secondAttribute="height" id="GHO-ak-l7n"/>
                             <constraint firstItem="bBv-5E-LmW" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" id="R6Y-gj-Kq5"/>
-                            <constraint firstItem="bac-AD-oFK" firstAttribute="centerX" secondItem="nFD-1s-vJo" secondAttribute="centerX" id="cMz-u6-szx"/>
                             <constraint firstItem="bBv-5E-LmW" firstAttribute="leading" secondItem="nFD-1s-vJo" secondAttribute="leading" id="kAO-hF-tBo"/>
+                            <constraint firstItem="oLX-lX-VU3" firstAttribute="top" secondItem="ViW-go-UUx" secondAttribute="bottom" constant="8" symbolic="YES" id="wH6-Qo-ns2"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="videoProgress" destination="bac-AD-oFK" id="1q9-0g-di4"/>
+                        <outlet property="videoProgress" destination="oLX-lX-VU3" id="QAx-V4-SpF"/>
                         <outlet property="videoView" destination="bBv-5E-LmW" id="URE-Wf-98d"/>
                     </connections>
                 </viewController>

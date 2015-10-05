@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import DACircularProgress
 
 class VideoViewController: UIViewController {
 
@@ -21,9 +22,9 @@ class VideoViewController: UIViewController {
 		}
 
 		didSet {
-			player?.addPeriodicTimeObserverForInterval(CMTime(seconds: 1, preferredTimescale: 1), queue: nil, usingBlock: { (time) in
+			player?.addPeriodicTimeObserverForInterval(CMTime(value: 1, timescale: 10), queue: nil, usingBlock: { (time) in
 				if let player = self.player, item = player.currentItem {
-					self.videoProgress.setProgress(Float(player.currentTime().seconds / CMTimeGetSeconds(item.duration)), animated: false)
+					self.videoProgress.setProgress(CGFloat(player.currentTime().seconds / CMTimeGetSeconds(item.duration)), animated: false)
 				}})
 			player?.addObserver(self, forKeyPath: "status", options: .Initial, context: UnsafeMutablePointer<Void>())
 			playLayer.player = player
@@ -39,7 +40,7 @@ class VideoViewController: UIViewController {
 	var rate: Float = 0.0
 
 	@IBOutlet weak var videoView: UIView!
-	@IBOutlet weak var videoProgress: UIProgressView!
+	@IBOutlet weak var videoProgress: DACircularProgressView!
 
 	private let playLayer = AVPlayerLayer()
 	private var timeObserver: AnyObject?

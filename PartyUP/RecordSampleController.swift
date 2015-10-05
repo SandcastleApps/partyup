@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import DACircularProgress
 
 class RecordSampleController: UIViewController, VideoRecorderDelegate {
 
 	@IBOutlet weak var recordButton: UIButton!
-	@IBOutlet weak var timerBar: UIProgressView!
-
+	@IBOutlet weak var timerBar: DACircularProgressView!
+	
 	var timer: NSTimer!
 
 	var recordingController: VideoRecordController!
@@ -20,10 +21,7 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		timerBar.transform = CGAffineTransformScale(timerBar.transform, 1.5, 1.75)
-        timerBar.transform = CGAffineTransformRotate(timerBar.transform, CGFloat(3*M_PI/2))
-
-		timer = NSTimer(timeInterval: 1.0, target: self, selector: Selector("observeTimerInterval"), userInfo: nil, repeats: true)
+		resetTimerBar()
     }
 
 	override func prefersStatusBarHidden() -> Bool {
@@ -48,6 +46,12 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
     }
 
 	@IBAction func segueFromAccepting(segue: UIStoryboardSegue) {
+		resetTimerBar()
+	}
+
+	func resetTimerBar() {
+		timerBar.progress = 0.0
+		timerBar.progressTintColor = UIColor.yellowColor()
 	}
 
 	// MARK: - Recording
@@ -65,7 +69,7 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
 
 	@IBAction func startRecording() {
 		recordingController.start()
-		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+		timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("observeTimerInterval"), userInfo: nil, repeats: true)
 	}
 
 	@IBAction func stopRecording() {
@@ -85,7 +89,7 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
 		if let error = error {
 			UIAlertView(title: "Recording Error", message: "\(error)", delegate: nil, cancelButtonTitle: "Rats!").show()
 		} else {
-			performSegueWithIdentifier("Bake Accept Segue", sender: nil)
+			performSegueWithIdentifier("Accept Sample Segue", sender: nil)
 		}
 	}
 
