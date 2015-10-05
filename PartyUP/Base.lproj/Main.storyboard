@@ -9,10 +9,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Party Selection-->
+        <!--Select Party-->
         <scene sceneID="8EJ-Ig-N00">
             <objects>
-                <tableViewController id="r5F-kz-7J0" userLabel="Party Selection" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Select Party" id="r5F-kz-7J0" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QhV-Jl-Gi4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,7 +65,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="ak0-9c-qWH">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="8VR-ye-Fdg" kind="presentation" identifier="Sample Baking Segue" id="8Y3-fW-aBD"/>
+                                <segue destination="8VR-ye-Fdg" kind="presentation" identifier="Bake Sample Segue" id="cYl-TD-0EI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -90,12 +90,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ8-vF-11W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1224" y="958"/>
+            <point key="canvasLocation" x="1188" y="-714"/>
         </scene>
-        <!--Sample Baking Root-->
+        <!--Record Sample-->
         <scene sceneID="L7j-zQ-GKY">
             <objects>
-                <viewController title="Sample Baking Root" id="8VR-ye-Fdg" customClass="SampleBakingController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Record Sample" id="8VR-ye-Fdg" customClass="RecordSampleController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mpx-EC-7eU"/>
                         <viewControllerLayoutGuide type="bottom" id="Bdw-A6-2N4"/>
@@ -194,18 +194,18 @@
                     <connections>
                         <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>
                         <outlet property="timerBar" destination="IQy-Kc-kEc" id="fc8-PS-1xR"/>
-                        <segue destination="RAd-iG-AkU" kind="presentation" identifier="Bake Accept Segue" modalTransitionStyle="crossDissolve" id="VIj-jn-Egz"/>
+                        <segue destination="RAd-iG-AkU" kind="showDetail" identifier="Accept Sample Segue" id="LEC-Vb-eiz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47u-Gd-lAd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="la2-3E-ZdR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1925" y="229"/>
+            <point key="canvasLocation" x="2060" y="-714"/>
         </scene>
-        <!--Sample Acceptance-->
+        <!--Accept Sample-->
         <scene sceneID="Va5-qe-swp">
             <objects>
-                <viewController title="Sample Acceptance" id="RAd-iG-AkU" customClass="SampleAcceptingController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Accept Sample" id="RAd-iG-AkU" customClass="AcceptSampleController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EUn-mv-0NU"/>
                         <viewControllerLayoutGuide type="bottom" id="jPO-st-b8s"/>
@@ -218,7 +218,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                                 <connections>
-                                    <segue destination="KPq-4d-i2K" kind="embed" identifier="Acceptor Segue" id="mvS-fn-udt"/>
+                                    <segue destination="KPq-4d-i2K" kind="embed" identifier="Reviewer Segue" id="mvS-fn-udt"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXR-TM-6lb">
@@ -236,9 +236,10 @@
                                     <segue destination="5pi-I8-ds9" kind="unwind" identifier="Accept Unwind" unwindAction="sequeFromBaking:" id="WYX-np-Gzl"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="f6P-2H-G0L" userLabel="Comment">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="f6P-2H-G0L" userLabel="Comment">
                                 <rect key="frame" x="105" y="540" width="390" height="30"/>
                                 <animations/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
@@ -287,12 +288,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="von-cM-OnH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5pi-I8-ds9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2590" y="231"/>
+            <point key="canvasLocation" x="2737" y="-714"/>
         </scene>
-        <!--Sample Viewing Root-->
+        <!--Taste Sample Root-->
         <scene sceneID="fN0-jL-4wB">
             <objects>
-                <viewController title="Sample Viewing Root" id="ZcT-Fn-GTh" customClass="SampleTastingContoller" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Taste Sample Root" id="ZcT-Fn-GTh" customClass="SampleTastingContoller" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NsN-s1-SY6"/>
                         <viewControllerLayoutGuide type="bottom" id="xzm-k1-wwA"/>
@@ -324,10 +325,10 @@
             </objects>
             <point key="canvasLocation" x="1937" y="958"/>
         </scene>
-        <!--Sample Taste Page Controller-->
+        <!--Taste Sample Page-->
         <scene sceneID="f9S-ED-iiO">
             <objects>
-                <viewController storyboardIdentifier="Sample Taste Page Controller" id="qqy-na-3Zk" customClass="SampleTastePageController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Sample Taste Page Controller" title="Taste Sample Page" id="qqy-na-3Zk" customClass="SampleTastePageController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ilR-tH-076"/>
                         <viewControllerLayoutGuide type="bottom" id="1ZI-if-Z26"/>
@@ -407,7 +408,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVY-ok-WMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2577" y="958"/>
+            <point key="canvasLocation" x="3145" y="1606"/>
         </scene>
         <!--Video Viewer-->
         <scene sceneID="end-pm-3EP">
@@ -457,12 +458,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P5E-KX-XA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3296" y="231"/>
+            <point key="canvasLocation" x="2737" y="3"/>
         </scene>
-        <!--Root Navigator-->
+        <!--PartyUP Navigator-->
         <scene sceneID="HOt-fe-NMd">
             <objects>
-                <navigationController title="Root Navigator" automaticallyAdjustsScrollViewInsets="NO" id="YPM-4j-oTK" sceneMemberID="viewController">
+                <navigationController title="PartyUP Navigator" automaticallyAdjustsScrollViewInsets="NO" id="YPM-4j-oTK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="WQi-nM-LKn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -482,7 +483,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSZ-qO-xkb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="412" y="958"/>
+            <point key="canvasLocation" x="500" y="-714"/>
         </scene>
         <!--Video Recorder-->
         <scene sceneID="69l-o1-keG">
@@ -517,15 +518,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDB-pz-Qme" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1209" y="235"/>
+            <point key="canvasLocation" x="2060" y="3"/>
         </scene>
-        <!--Sample Page Navigator-->
+        <!--Taste Pages Navigator-->
         <scene sceneID="azK-Hg-Bow">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" title="Sample Page Navigator" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Tnu-BU-9Zn" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" title="Taste Pages Navigator" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Tnu-BU-9Zn" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v3K-Fn-gAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1937" y="1665"/>
+            <point key="canvasLocation" x="2641" y="958"/>
         </scene>
     </scenes>
     <resources>

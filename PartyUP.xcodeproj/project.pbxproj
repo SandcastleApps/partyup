@@ -26,9 +26,9 @@
 		1F9997411BB1C89F003457E2 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997401BB1C89F003457E2 /* VideoViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		1F9997451BB323D5003457E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9997441BB323D5003457E2 /* AVFoundation.framework */; };
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; settings = {ASSET_TAGS = (); }; };
-		1F9997491BB61939003457E2 /* SampleBakingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* SampleBakingController.swift */; settings = {ASSET_TAGS = (); }; };
+		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; settings = {ASSET_TAGS = (); }; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; settings = {ASSET_TAGS = (); }; };
-		1FEF51111BBF4D1500710948 /* SampleAcceptingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* SampleAcceptingController.swift */; settings = {ASSET_TAGS = (); }; };
+		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; settings = {ASSET_TAGS = (); }; };
 		7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -77,9 +77,9 @@
 		1F9997401BB1C89F003457E2 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		1F9997441BB323D5003457E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
-		1F9997481BB61939003457E2 /* SampleBakingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleBakingController.swift; sourceTree = "<group>"; };
+		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
-		1FEF51101BBF4D1500710948 /* SampleAcceptingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleAcceptingController.swift; sourceTree = "<group>"; };
+		1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptSampleController.swift; sourceTree = "<group>"; };
 		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
 		E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,10 +173,12 @@
 			children = (
 				1F427A001BA59F4C00E622CF /* AppDelegate.swift */,
 				1F427A041BA59F4C00E622CF /* Main.storyboard */,
-				1FDA2F281BB191D500D33540 /* Sample Collection */,
-				1FDA2F261BB1914100D33540 /* Shindig Selection */,
-				1FDA2F271BB1916D00D33540 /* Sample Consumption */,
+				1FDA2F281BB191D500D33540 /* Bake Sample */,
+				1FDA2F261BB1914100D33540 /* Party */,
+				1FDA2F271BB1916D00D33540 /* Taste Sample */,
 				1F03C3721BA84DDC0037D7D8 /* Model */,
+				1FD96A301BC1B17C00F19668 /* Generic Controllers */,
+				1FD96A331BC1F3D400F19668 /* Widgets */,
 				1F03C3711BA84C5E0037D7D8 /* Support */,
 			);
 			path = PartyUP;
@@ -200,33 +202,47 @@
 			path = PartyUPUITests;
 			sourceTree = "<group>";
 		};
-		1FDA2F261BB1914100D33540 /* Shindig Selection */ = {
+		1FD96A301BC1B17C00F19668 /* Generic Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1F9997401BB1C89F003457E2 /* VideoViewController.swift */,
+				1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */,
+			);
+			name = "Generic Controllers";
+			sourceTree = "<group>";
+		};
+		1FD96A331BC1F3D400F19668 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Widgets;
+			sourceTree = "<group>";
+		};
+		1FDA2F261BB1914100D33540 /* Party */ = {
 			isa = PBXGroup;
 			children = (
 				1F95098E1BAB5492005BDC18 /* ShindigCell.swift */,
 				1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */,
 			);
-			name = "Shindig Selection";
+			name = Party;
 			sourceTree = "<group>";
 		};
-		1FDA2F271BB1916D00D33540 /* Sample Consumption */ = {
+		1FDA2F271BB1916D00D33540 /* Taste Sample */ = {
 			isa = PBXGroup;
 			children = (
 				1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */,
-				1F9997401BB1C89F003457E2 /* VideoViewController.swift */,
 				1F9997461BB48A99003457E2 /* SampleTastePageController.swift */,
 			);
-			name = "Sample Consumption";
+			name = "Taste Sample";
 			sourceTree = "<group>";
 		};
-		1FDA2F281BB191D500D33540 /* Sample Collection */ = {
+		1FDA2F281BB191D500D33540 /* Bake Sample */ = {
 			isa = PBXGroup;
 			children = (
-				1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */,
-				1F9997481BB61939003457E2 /* SampleBakingController.swift */,
-				1FEF51101BBF4D1500710948 /* SampleAcceptingController.swift */,
+				1F9997481BB61939003457E2 /* RecordSampleController.swift */,
+				1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */,
 			);
-			name = "Sample Collection";
+			name = "Bake Sample";
 			sourceTree = "<group>";
 		};
 		F45C5C08936EE0B946D71CE9 /* Pods */ = {
@@ -429,11 +445,11 @@
 				1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */,
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
 				1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */,
-				1FEF51111BBF4D1500710948 /* SampleAcceptingController.swift in Sources */,
+				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,
 				1F9997411BB1C89F003457E2 /* VideoViewController.swift in Sources */,
 				1F03C3741BA84E680037D7D8 /* Party.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
-				1F9997491BB61939003457E2 /* SampleBakingController.swift in Sources */,
+				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
 				1F9509931BAC3A99005BDC18 /* VideoRecordController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

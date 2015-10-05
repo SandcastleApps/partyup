@@ -1,5 +1,5 @@
 //
-//  SampleAcceptingController.swift
+//  AcceptSampleController.swift
 //  PartyUP
 //
 //  Created by Fritz Vander Heide on 2015-10-02.
@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class SampleAcceptingController: UIViewController {
+class AcceptSampleController: UIViewController {
 
 	var videoUrl: NSURL!
 
@@ -68,17 +68,26 @@ class SampleAcceptingController: UIViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Acceptor Segue" {
+		if segue.identifier == "Reviewer Segue" {
 			let viewerVC = segue.destinationViewController as! VideoViewController
 			viewerVC.loop = true
 			viewerVC.rate = 1.0
 			viewerVC.player = AVPlayer(URL: videoUrl)
 		} else if segue.identifier == "Accept Unwind" {
-			let sample = Sample(comment: commentField.text)
-			try! NSFileManager.defaultManager().moveItemAtURL(videoUrl, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-			SampleManager.defaultManager().submit(sample, event: 1)
+			do {
+				let sample = Sample(comment: commentField.text)
+				try NSFileManager.defaultManager().moveItemAtURL(videoUrl, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
+				SampleManager.defaultManager().submit(sample, event: 1)
+			} catch {
+				NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
+			}
+
 		} else if segue.identifier == "Reject Unwind" {
-			//animate out
+			do {
+				try NSFileManager.defaultManager().removeItemAtURL(videoUrl)
+			} catch {
+				NSLog("Failed to delete rejected video: \(videoUrl) with error: \(error)")
+			}
 		}
     }
 

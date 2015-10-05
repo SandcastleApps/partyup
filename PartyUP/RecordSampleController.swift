@@ -1,5 +1,5 @@
 //
-//  SampleBakingController.swift
+//  RecordSampleController.swift
 //  PartyUP
 //
 //  Created by Fritz Vander Heide on 2015-09-25.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SampleBakingController: UIViewController, VideoRecorderDelegate {
+class RecordSampleController: UIViewController, VideoRecorderDelegate {
 
 	@IBOutlet weak var recordButton: UIButton!
 	@IBOutlet weak var timerBar: UIProgressView!
@@ -32,7 +32,7 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 
     // MARK: - Navigation
 	@IBAction func torchControl(sender: UIButton) {
-//		performSegueWithIdentifier("Bake Accept Segue", sender: nil)
+		performSegueWithIdentifier("Accept Sample Segue", sender: nil)
 	}
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -41,8 +41,8 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 				recordingController = recorderVC
 				recordingController.delegate = self
 			}
-		} else if segue.identifier == "Bake Accept Segue" {
-			let acceptVC = segue.destinationViewController as! SampleAcceptingController
+		} else if segue.identifier == "Accept Sample Segue" {
+			let acceptVC = segue.destinationViewController as! AcceptSampleController
 			acceptVC.videoUrl = targetUrl
 		}
     }
@@ -83,7 +83,7 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 
 	func videoRecorder(recorder: VideoRecordController, endedRecordingTo target: NSURL, withError error: ErrorType?) {
 		if let error = error {
-			UIAlertView(title: "Recording Error", message: "\(error)", delegate: nil, cancelButtonTitle: "Crap!").show()
+			UIAlertView(title: "Recording Error", message: "\(error)", delegate: nil, cancelButtonTitle: "Rats!").show()
 		} else {
 			performSegueWithIdentifier("Bake Accept Segue", sender: nil)
 		}
@@ -91,7 +91,7 @@ class SampleBakingController: UIViewController, VideoRecorderDelegate {
 
 	func videoRecorder(recorder: VideoRecordController, reportedInitializationError error: ErrorType) {
 		recordButton.enabled = false
-		UIAlertView(title: "Camera Unavailable", message: "\(error)", delegate: nil, cancelButtonTitle: "Shit!").show()
+		UIAlertView(title: "Camera Unavailable", message: "\(error)", delegate: nil, cancelButtonTitle: "Rats!").show()
 	}
 
 }
