@@ -8,6 +8,7 @@
 
 import UIKit
 import DACircularProgress
+import CoreLocation
 
 class RecordSampleController: UIViewController, VideoRecorderDelegate {
 
@@ -15,8 +16,9 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
 	@IBOutlet weak var timerBar: DACircularProgressView!
 	
 	var timer: NSTimer!
-
 	var recordingController: VideoRecordController!
+	var venues: [Venue]?
+	var locationManager: CLLocationManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,8 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
 		} else if segue.identifier == "Accept Sample Segue" {
 			let acceptVC = segue.destinationViewController as! AcceptSampleController
 			acceptVC.videoUrl = targetUrl
+			acceptVC.venues = venues
+			acceptVC.locationManager = locationManager
 		}
     }
 

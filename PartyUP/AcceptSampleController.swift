@@ -8,15 +8,33 @@
 
 import UIKit
 import AVFoundation
+import CoreLocation
 
-class AcceptSampleController: UIViewController {
+class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
 	var videoUrl: NSURL!
+	var venues: [Venue]?
+	var locationManager: CLLocationManager?
+	var locals = [Venue]()
 
 	@IBOutlet weak var commentField: UITextField!
+	@IBOutlet weak var venuePicker: UIPickerView!
 
 	override func prefersStatusBarHidden() -> Bool {
 		return true
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		if let location = locationManager?.location, venues = venues {
+			self.locals = venues.filter { venue in return location.distanceFromLocation(venue.location) <= 50 + location.horizontalAccuracy }
+		}
+
+		venuePicker.dataSource = self
+		venuePicker.delegate = self
+
+		venuePicker.reloadComponent(0)
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -39,6 +57,20 @@ class AcceptSampleController: UIViewController {
 
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
+
+	// MARK: - Venue Picker
+
+	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+		return 1
+	}
+
+	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+		return locals.count
+	}
+
+	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+		return locals[row].name
 	}
 
 	// MARK: - Keyboard
@@ -77,7 +109,8 @@ class AcceptSampleController: UIViewController {
 			do {
 				let sample = Sample(comment: commentField.text)
 				try NSFileManager.defaultManager().moveItemAtURL(videoUrl, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-				SampleManager.defaultManager().submit(sample, event: 1)
+				SampleManager.defaultManager().submit(sample, event: locals[venuePicker.selectedRowInComponent(0)].unique)
+
 			} catch {
 				NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
 			}

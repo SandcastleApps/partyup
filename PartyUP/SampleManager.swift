@@ -20,7 +20,7 @@ class SampleManager
 		case InvalidFileName(url: NSURL)
 	}
 
-	typealias SampleSubmission = (sample:Sample, event:Int)
+	typealias SampleSubmission = (sample: Sample, event: String)
 	private var queue = [(SampleSubmission)]()
 	private var active: SampleSubmission?
 
@@ -30,7 +30,7 @@ class SampleManager
 		return sharedManager
 	}
 
-	func submit(sample: Sample, event: Int) {
+	func submit(sample: Sample, event: String) {
 		queue.append((sample, event))
 		if active == nil {
 			process(nil)

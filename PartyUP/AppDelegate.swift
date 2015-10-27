@@ -18,6 +18,12 @@ struct PartyUpConstants
 	static let StorageBucket = "com.sandcastleapps.partyup"
 }
 
+struct FourSquareConstants
+{
+	static let identifier = "***REMOVED***"
+	static let secret = "***REMOVED***"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

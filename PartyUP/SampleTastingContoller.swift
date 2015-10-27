@@ -10,11 +10,13 @@ import UIKit
 
 class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 
-	var eventIdentifier: Int = 0 {
+	var partyId: String? {
 		didSet {
-			fetch(eventIdentifier) { (var samples: [Sample]) in
-				samples.sortInPlace{ $0.time.compare($1.time) == .OrderedDescending }
-				dispatch_async(dispatch_get_main_queue()) {self.samples = samples}
+			if let party = partyId {
+				fetch(party) { (var samples: [Sample]) in
+					samples.sortInPlace{ $0.time.compare($1.time) == .OrderedDescending }
+					dispatch_async(dispatch_get_main_queue()) {self.samples = samples}
+				}
 			}
 		}
 	}

@@ -67,7 +67,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	internal class SampleDB: AWSDynamoDBObjectModel, AWSDynamoDBModeling
 	{
 		var id: NSData?
-		var event: NSNumber?
+		var event: String?
 		var time: NSNumber?
 		var comment: String?
 
@@ -85,7 +85,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	}
 
 	typealias DynamoRep = SampleDB
-	typealias DynamoKey = NSNumber
+	typealias DynamoKey = NSString
 
 	private var identifier: NSData {
 		get {

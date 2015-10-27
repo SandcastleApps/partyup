@@ -7,30 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F03C3741BA84E680037D7D8 /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3731BA84E680037D7D8 /* Party.swift */; settings = {ASSET_TAGS = (); }; };
-		1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3751BA84F290037D7D8 /* Venue.swift */; settings = {ASSET_TAGS = (); }; };
-		1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3771BA8500F0037D7D8 /* Sample.swift */; settings = {ASSET_TAGS = (); }; };
-		1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */; settings = {ASSET_TAGS = (); }; };
+		1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3751BA84F290037D7D8 /* Venue.swift */; };
+		1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3771BA8500F0037D7D8 /* Sample.swift */; };
+		1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */; };
 		1F03C37C1BA8E1950037D7D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */; };
-		1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F06C7821BBB10F0006444DF /* SampleManager.swift */; settings = {ASSET_TAGS = (); }; };
+		1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F06C7821BBB10F0006444DF /* SampleManager.swift */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
 		1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A041BA59F4C00E622CF /* Main.storyboard */; };
 		1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A071BA59F4C00E622CF /* Assets.xcassets */; };
 		1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */; };
 		1F427A161BA59F4C00E622CF /* PartyUPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A151BA59F4C00E622CF /* PartyUPTests.swift */; };
 		1F427A211BA59F4C00E622CF /* PartyUPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */; };
-		1F95098F1BAB5492005BDC18 /* ShindigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95098E1BAB5492005BDC18 /* ShindigCell.swift */; settings = {ASSET_TAGS = (); }; };
-		1F9509931BAC3A99005BDC18 /* VideoRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */; settings = {ASSET_TAGS = (); }; };
-		1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* UrlUtilities.swift */; settings = {ASSET_TAGS = (); }; };
-		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; settings = {ASSET_TAGS = (); }; };
-		1F9997411BB1C89F003457E2 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997401BB1C89F003457E2 /* VideoViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		1F95098F1BAB5492005BDC18 /* ShindigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95098E1BAB5492005BDC18 /* ShindigCell.swift */; };
+		1F9509931BAC3A99005BDC18 /* VideoRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */; };
+		1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* UrlUtilities.swift */; };
+		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; };
+		1F9997411BB1C89F003457E2 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997401BB1C89F003457E2 /* VideoViewController.swift */; };
 		1F9997451BB323D5003457E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9997441BB323D5003457E2 /* AVFoundation.framework */; };
-		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; settings = {ASSET_TAGS = (); }; };
-		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; settings = {ASSET_TAGS = (); }; };
-		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; settings = {ASSET_TAGS = (); }; };
-		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; settings = {ASSET_TAGS = (); }; };
+		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
+		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
+		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
+		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; };
 		1FF2BA9A1BCAC7A200336651 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF2BA991BCAC7A200336651 /* CoreData.framework */; };
-		1FF2BA9D1BCAC82600336651 /* PartyAnimal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2BA9B1BCAC82600336651 /* PartyAnimal.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
+		1FF2BA9D1BCAC82600336651 /* PartyAnimal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2BA9B1BCAC82600336651 /* PartyAnimal.xcdatamodeld */; };
 		7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -53,7 +52,6 @@
 
 /* Begin PBXFileReference section */
 		128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PartyUP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F03C3731BA84E680037D7D8 /* Party.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 		1F03C3751BA84F290037D7D8 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		1F03C3771BA8500F0037D7D8 /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyPickerController.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				1F06C7821BBB10F0006444DF /* SampleManager.swift */,
-				1F03C3731BA84E680037D7D8 /* Party.swift */,
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
 				1F03C3771BA8500F0037D7D8 /* Sample.swift */,
 				1F9509961BAF81FB005BDC18 /* Dynamo.swift */,
@@ -455,7 +452,6 @@
 				1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */,
 				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,
 				1F9997411BB1C89F003457E2 /* VideoViewController.swift in Sources */,
-				1F03C3741BA84E680037D7D8 /* Party.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
 				1F9509931BAC3A99005BDC18 /* VideoRecordController.swift in Sources */,
