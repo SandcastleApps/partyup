@@ -22,6 +22,8 @@
 		1F9509931BAC3A99005BDC18 /* VideoRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */; };
 		1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* UrlUtilities.swift */; };
 		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; };
+		1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */; };
+		1F95B7EA1BDFC168007B9D24 /* Locator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95B7E91BDFC168007B9D24 /* Locator.swift */; };
 		1F9997411BB1C89F003457E2 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997401BB1C89F003457E2 /* VideoViewController.swift */; };
 		1F9997451BB323D5003457E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9997441BB323D5003457E2 /* AVFoundation.framework */; };
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
@@ -29,7 +31,6 @@
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
 		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; };
 		1FF2BA9A1BCAC7A200336651 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF2BA991BCAC7A200336651 /* CoreData.framework */; };
-		1FF2BA9D1BCAC82600336651 /* PartyAnimal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2BA9B1BCAC82600336651 /* PartyAnimal.xcdatamodeld */; };
 		7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -56,7 +57,6 @@
 		1F03C3771BA8500F0037D7D8 /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyPickerController.swift; sourceTree = "<group>"; };
 		1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		1F03C37D1BA9FBFD0037D7D8 /* Home.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Home.gpx; sourceTree = "<group>"; };
 		1F06C7821BBB10F0006444DF /* SampleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleManager.swift; sourceTree = "<group>"; };
 		1F4279FD1BA59F4C00E622CF /* PartyUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A001BA59F4C00E622CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +74,8 @@
 		1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoRecordController.swift; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* UrlUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlUtilities.swift; sourceTree = "<group>"; };
 		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
+		1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueManager.swift; sourceTree = "<group>"; };
+		1F95B7E91BDFC168007B9D24 /* Locator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locator.swift; sourceTree = "<group>"; };
 		1F9997401BB1C89F003457E2 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		1F9997441BB323D5003457E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
@@ -81,7 +83,6 @@
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
 		1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptSampleController.swift; sourceTree = "<group>"; };
 		1FF2BA991BCAC7A200336651 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		1FF2BA9C1BCAC82600336651 /* PartyAnimal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PartyAnimal.xcdatamodel; sourceTree = "<group>"; };
 		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
 		E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,7 +145,8 @@
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
 				1F03C3771BA8500F0037D7D8 /* Sample.swift */,
 				1F9509961BAF81FB005BDC18 /* Dynamo.swift */,
-				1FF2BA9B1BCAC82600336651 /* PartyAnimal.xcdatamodeld */,
+				1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */,
+				1F95B7E91BDFC168007B9D24 /* Locator.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -152,7 +154,6 @@
 		1F4279F41BA59F4C00E622CF = {
 			isa = PBXGroup;
 			children = (
-				1F03C37D1BA9FBFD0037D7D8 /* Home.gpx */,
 				1F4279FF1BA59F4C00E622CF /* PartyUP */,
 				1F427A141BA59F4C00E622CF /* PartyUPTests */,
 				1F427A1F1BA59F4C00E622CF /* PartyUPUITests */,
@@ -442,7 +443,6 @@
 			files = (
 				1F95098F1BAB5492005BDC18 /* ShindigCell.swift in Sources */,
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
-				1FF2BA9D1BCAC82600336651 /* PartyAnimal.xcdatamodeld in Sources */,
 				1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
@@ -453,6 +453,8 @@
 				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,
 				1F9997411BB1C89F003457E2 /* VideoViewController.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
+				1F95B7EA1BDFC168007B9D24 /* Locator.swift in Sources */,
+				1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
 				1F9509931BAC3A99005BDC18 /* VideoRecordController.swift in Sources */,
 			);
@@ -708,19 +710,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		1FF2BA9B1BCAC82600336651 /* PartyAnimal.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				1FF2BA9C1BCAC82600336651 /* PartyAnimal.xcdatamodel */,
-			);
-			currentVersion = 1FF2BA9C1BCAC82600336651 /* PartyAnimal.xcdatamodel */;
-			path = PartyAnimal.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 1F4279F51BA59F4C00E622CF /* Project object */;
 }

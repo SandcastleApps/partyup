@@ -45,7 +45,6 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
 			let acceptVC = segue.destinationViewController as! AcceptSampleController
 			acceptVC.videoUrl = targetUrl
 			acceptVC.venues = venues
-			acceptVC.locationManager = locationManager
 		}
     }
 

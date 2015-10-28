@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
+class PartyPickerController: UITableViewController {
 
 	private var venues: [Venue]? {
 		didSet {
@@ -20,28 +20,21 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 		}
 	}
 
-	private let locationManager: CLLocationManager = {
-		let manager = CLLocationManager()
-		return manager
-	}()
+	private var lastLocation = CLLocation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), altitude: -1, horizontalAccuracy: -1, verticalAccuracy: -1, course: -1, speed: -1, timestamp: NSDate(timeIntervalSinceReferenceDate: 0))
 
 	@IBOutlet var partyTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updatePartyList"), name: Locator.LocatorNotifications.LocatorUpdateNotification, object: nil)
+
 		navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 
-		if CLLocationManager.locationServicesEnabled() {
-			locationManager.delegate = self
-
-			if CLLocationManager.authorizationStatus() == .NotDetermined {
-				locationManager.requestWhenInUseAuthorization()
-			}
-		}
+		Locator.sharedLocator.update()
     }
 
-	override func viewWillDisappear(animated: Bool) {
+	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
@@ -50,26 +43,39 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 	}
 
 	@IBAction func fetchPartyList() {
-		if let location = locationManager.location {
-			let params = ["ll" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
-				"client_id" : FourSquareConstants.identifier,
-				"client_secret" : FourSquareConstants.secret,
-				"categoryId" : "4d4b7105d754a06376d81259",
-				"v" : "20140118"]
+		Locator.sharedLocator.update()
+	}
 
-			Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params).responseJSON { response in
-				if response.result.isSuccess {
-					var vens = [Venue]()
-					let json = JSON(data: response.data!)
-					for venue in json["response"]["venues"].arrayValue {
-						vens.append(Venue(venue: venue))
+	func updatePartyList() {
+		if let location = Locator.sharedLocator.location {
+			if location.distanceFromLocation(lastLocation) > 100 || location.timestamp.timeIntervalSinceDate(lastLocation.timestamp) > 60 {
+				lastLocation = location
+				let params = ["ll" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
+					"client_id" : FourSquareConstants.identifier,
+					"client_secret" : FourSquareConstants.secret,
+					"categoryId" : "4d4b7105d754a06376d81259",
+					"v" : "20140118"]
+
+				Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params).responseJSON { response in
+					if response.result.isSuccess {
+						var vens = [Venue]()
+						let json = JSON(data: response.data!)
+						for venue in json["response"]["venues"].arrayValue {
+							vens.append(Venue(venue: venue))
+						}
+
+						dispatch_async(dispatch_get_main_queue()) {self.venues = vens}
 					}
-
-					dispatch_async(dispatch_get_main_queue()) {self.venues = vens}
 				}
+			} else {
+				refreshControl?.endRefreshing()
 			}
+		} else {
+			refreshControl?.endRefreshing()
+			let alert = UIAlertController(title: "Location Unknown", message: "Party list refresh failed because the location in unknown.", preferredStyle: UIAlertControllerStyle.Alert)
+			alert.addAction(UIAlertAction(title: "Rats!", style: .Default, handler: nil))
+			presentViewController(alert, animated: true, completion: nil)
 		}
-
 	}
 
     override func didReceiveMemoryWarning() {
@@ -99,9 +105,8 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Bake Sample Segue" {
 			let bakerVC = segue.destinationViewController as! RecordSampleController
-			locationManager.startUpdatingLocation()
+			Locator.sharedLocator.update()
 			bakerVC.venues = venues
-			bakerVC.locationManager = locationManager
 		}
 		if segue.identifier == "Sample Tasting Segue" {
 			if let selection = partyTable.indexPathForSelectedRow, party = venues?[selection.row] {
@@ -119,24 +124,4 @@ class PartyPickerController: UITableViewController, CLLocationManagerDelegate {
 	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
 
 	}
-
-
-	// MARK: - Location Servicing
-
-	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-		if status == .AuthorizedAlways || status == .AuthorizedWhenInUse {
-			locationManager.startUpdatingLocation()
-		}
-	}
-
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		if let location = manager.location where location.horizontalAccuracy < 1000 {
-			fetchPartyList()
-
-			if location.horizontalAccuracy < 10 {
-				manager.stopUpdatingLocation()
-			}
-		}
-	}
-
 }

@@ -14,7 +14,6 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 
 	var videoUrl: NSURL!
 	var venues: [Venue]?
-	var locationManager: CLLocationManager?
 	var locals = [Venue]()
 
 	@IBOutlet weak var commentField: UITextField!
@@ -27,7 +26,7 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if let location = locationManager?.location, venues = venues {
+		if let location = Locator.sharedLocator.location, venues = venues {
 			self.locals = venues.filter { venue in return location.distanceFromLocation(venue.location) <= 50 + location.horizontalAccuracy }
 		}
 

@@ -34,15 +34,6 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 
 	private var navigator: UIPageViewController?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 	func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
 		var toVC: SampleTastePageController?
 		if let fromVC = viewController as? SampleTastePageController {
