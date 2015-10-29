@@ -49,22 +49,25 @@ class PartyPickerController: UITableViewController {
 	func updatePartyList() {
 		if let location = Locator.sharedLocator.location {
 			if location.distanceFromLocation(lastLocation) > 100 || location.timestamp.timeIntervalSinceDate(lastLocation.timestamp) > 60 {
-				lastLocation = location
-				let params = ["ll" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
-					"client_id" : FourSquareConstants.identifier,
-					"client_secret" : FourSquareConstants.secret,
-					"categoryId" : "4d4b7105d754a06376d81259",
-					"v" : "20140118"]
+				if let categories = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.VenueCategories) as? [String] {
+					let params = ["ll" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
+						"client_id" : FourSquareConstants.identifier,
+						"client_secret" : FourSquareConstants.secret,
+						"categoryId" : categories.joinWithSeparator(","),
+						"v" : "20140118"]
 
-				Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params).responseJSON { response in
-					if response.result.isSuccess {
-						var vens = [Venue]()
-						let json = JSON(data: response.data!)
-						for venue in json["response"]["venues"].arrayValue {
-							vens.append(Venue(venue: venue))
-						}
+					Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params)
+						.validate()
+						.responseJSON { response in
+							if response.result.isSuccess {
+								var vens = [Venue]()
+								let json = JSON(data: response.data!)
+								for venue in json["response"]["venues"].arrayValue {
+									vens.append(Venue(venue: venue))
+								}
 
-						dispatch_async(dispatch_get_main_queue()) {self.venues = vens}
+								dispatch_async(dispatch_get_main_queue()) {self.venues = vens; self.lastLocation = location}
+							}
 					}
 				}
 			} else {

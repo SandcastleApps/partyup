@@ -27,7 +27,8 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 		super.viewDidLoad()
 
 		if let location = Locator.sharedLocator.location, venues = venues {
-			self.locals = venues.filter { venue in return location.distanceFromLocation(venue.location) <= 50 + location.horizontalAccuracy }
+			let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
+			locals = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
 		}
 
 		venuePicker.dataSource = self
