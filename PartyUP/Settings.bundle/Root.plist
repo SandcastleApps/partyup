@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Distance Limits</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSSliderSpecifier</string>
+			<key>Key</key>
+			<string>SampleRadius</string>
+			<key>DefaultValue</key>
+			<real>50</real>
+			<key>MinimumValue</key>
+			<real>10</real>
+			<key>MaximumValue</key>
+			<integer>100</integer>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Sample acceptance venue radius padding (beyond the location accuracy radius).</string>
+			<key>Key</key>
+			<string></string>
+		</dict>
+	</array>
+</dict>
+</plist>

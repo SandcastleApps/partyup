@@ -13,6 +13,7 @@
 		1F03C37C1BA8E1950037D7D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */; };
 		1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F06C7821BBB10F0006444DF /* SampleManager.swift */; };
 		1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */; };
+		1F263C821BE39A53009A3565 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C811BE39A53009A3565 /* Settings.bundle */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
 		1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A041BA59F4C00E622CF /* Main.storyboard */; };
 		1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A071BA59F4C00E622CF /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1F06C7821BBB10F0006444DF /* SampleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleManager.swift; sourceTree = "<group>"; };
 		1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyDefaults.plist; sourceTree = "<group>"; };
+		1F263C811BE39A53009A3565 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1F4279FD1BA59F4C00E622CF /* PartyUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A001BA59F4C00E622CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F427A051BA59F4C00E622CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				1FD96A301BC1B17C00F19668 /* Generic Controllers */,
 				1FD96A331BC1F3D400F19668 /* Widgets */,
 				1F03C3711BA84C5E0037D7D8 /* Support */,
+				1F263C811BE39A53009A3565 /* Settings.bundle */,
 			);
 			path = PartyUP;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 			files = (
 				1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */,
 				1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */,
+				1F263C821BE39A53009A3565 /* Settings.bundle in Resources */,
 				1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */,
 				1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */,
 			);
