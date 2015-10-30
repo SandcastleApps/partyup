@@ -20,6 +20,11 @@ class PartyPickerController: UITableViewController {
 		}
 	}
 
+	let partyAlert: UIAlertController = { let alert = UIAlertController(title: "Party Refresh Failed", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+		alert.addAction(UIAlertAction(title: "Rats!", style: .Default, handler: nil))
+		return alert
+	}()
+
 	private var lastLocation = CLLocation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), altitude: -1, horizontalAccuracy: -1, verticalAccuracy: -1, course: -1, speed: -1, timestamp: NSDate(timeIntervalSinceReferenceDate: 0))
 
 	@IBOutlet var partyTable: UITableView!
@@ -67,6 +72,13 @@ class PartyPickerController: UITableViewController {
 								}
 
 								dispatch_async(dispatch_get_main_queue()) {self.venues = vens; self.lastLocation = location}
+							} else {
+								dispatch_async(dispatch_get_main_queue()) {
+									if !self.partyAlert.isBeingPresented() {
+										self.partyAlert.message = "Failed to retrieve venues from Foursquare."
+										self.presentViewController(self.partyAlert, animated: true, completion: nil)
+									}
+								}
 							}
 					}
 				}
@@ -75,9 +87,10 @@ class PartyPickerController: UITableViewController {
 			}
 		} else {
 			refreshControl?.endRefreshing()
-			let alert = UIAlertController(title: "Location Unknown", message: "Party list refresh failed because the location in unknown.", preferredStyle: UIAlertControllerStyle.Alert)
-			alert.addAction(UIAlertAction(title: "Rats!", style: .Default, handler: nil))
-			presentViewController(alert, animated: true, completion: nil)
+			if !partyAlert.isBeingPresented() {
+				partyAlert.message = "Your location is unknown."
+				presentViewController(partyAlert, animated: true, completion: nil)
+			}
 		}
 	}
 
