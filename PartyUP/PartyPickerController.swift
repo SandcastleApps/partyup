@@ -112,6 +112,7 @@ class PartyPickerController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! ShindigCell
         cell.title.text = venues?[indexPath.row].name ?? "Unknown"
+		cell.detail.text = venues?[indexPath.row].details
 
         return cell
 	}
