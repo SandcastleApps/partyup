@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import CoreLocation
+import UIImageView_Letters
 
 class PartyPickerController: UITableViewController {
 
@@ -110,9 +111,11 @@ class PartyPickerController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! ShindigCell
-        cell.title.text = venues?[indexPath.row].name ?? "Unknown"
-		cell.detail.text = venues?[indexPath.row].details
+        let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath)
+        cell.textLabel!.text = venues?[indexPath.row].name ?? "Mysterious Venue"
+		cell.detailTextLabel!.text = venues?[indexPath.row].details
+		cell.imageView?.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+		cell.imageView?.setImageWithString(cell.textLabel!.text, color: UIColor.orangeColor(), circular:  true)
 
         return cell
 	}
