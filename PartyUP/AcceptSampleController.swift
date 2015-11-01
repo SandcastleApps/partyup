@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import CoreLocation
+import SwiftLocation
 
 class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
@@ -26,9 +27,20 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if let location = Locator.sharedLocator.location, venues = venues {
-			let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
-			locals = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
+		do {
+			try SwiftLocation.shared.currentLocation(.Block, timeout: 20,
+				onSuccess: { (location) in
+					dispatch_async(dispatch_get_main_queue()) {
+					if let location = location, venues = self.venues {
+						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
+						self.locals = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy } }
+					}
+				},
+				onFail: { (error) in
+					//handle
+			})
+		} catch {
+			//handle error
 		}
 
 		venuePicker.dataSource = self

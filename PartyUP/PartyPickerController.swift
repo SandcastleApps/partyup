@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SwiftLocation
 import CoreLocation
 import UIImageView_Letters
 
@@ -33,11 +34,9 @@ class PartyPickerController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updatePartyList"), name: Locator.LocatorNotifications.LocatorUpdateNotification, object: nil)
-
 		navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 
-		Locator.sharedLocator.update()
+		fetchPartyList()
     }
 
 	deinit {
@@ -49,49 +48,56 @@ class PartyPickerController: UITableViewController {
 	}
 
 	@IBAction func fetchPartyList() {
-		Locator.sharedLocator.update()
-	}
-
-	func updatePartyList() {
-		if let location = Locator.sharedLocator.location {
-			if location.distanceFromLocation(lastLocation) > 100 || location.timestamp.timeIntervalSinceDate(lastLocation.timestamp) > 60 {
-				if let categories = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.VenueCategories) as? [String] {
-					let params = ["ll" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
-						"client_id" : FourSquareConstants.identifier,
-						"client_secret" : FourSquareConstants.secret,
-						"categoryId" : categories.joinWithSeparator(","),
-						"v" : "20140118"]
-
-					Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params)
-						.validate()
-						.responseJSON { response in
-							if response.result.isSuccess {
-								var vens = [Venue]()
-								let json = JSON(data: response.data!)
-								for venue in json["response"]["venues"].arrayValue {
-									vens.append(Venue(venue: venue))
-								}
-
-								dispatch_async(dispatch_get_main_queue()) {self.venues = vens; self.lastLocation = location}
-							} else {
-								dispatch_async(dispatch_get_main_queue()) {
-									if !self.partyAlert.isBeingPresented() {
-										self.partyAlert.message = "Failed to retrieve venues from Foursquare."
-										self.presentViewController(self.partyAlert, animated: true, completion: nil)
-									}
-								}
-							}
-					}
-				}
-			} else {
-				refreshControl?.endRefreshing()
-			}
-		} else {
+		do {
+			try SwiftLocation.shared.currentLocation(.City, timeout: 20,
+				onSuccess: { (location) in dispatch_async(dispatch_get_main_queue()) { self.updatePartyList(location!) } },
+				onFail: { (error) in
+//					self.refreshControl?.endRefreshing()
+//					if !partyAlert.isBeingPresented() {
+//						partyAlert.message = "Your location is unknown."
+//						presentViewController(partyAlert, animated: true, completion: nil
+					})
+		} catch {
 			refreshControl?.endRefreshing()
 			if !partyAlert.isBeingPresented() {
 				partyAlert.message = "Your location is unknown."
 				presentViewController(partyAlert, animated: true, completion: nil)
 			}
+		}
+	}
+
+	func updatePartyList(location: CLLocation) {
+		if location.distanceFromLocation(lastLocation) > 100 || location.timestamp.timeIntervalSinceDate(lastLocation.timestamp) > 60 {
+			if let categories = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.VenueCategories) as? [String] {
+				let params = ["ll" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
+					"client_id" : FourSquareConstants.identifier,
+					"client_secret" : FourSquareConstants.secret,
+					"categoryId" : categories.joinWithSeparator(","),
+					"v" : "20140118"]
+
+				Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params)
+					.validate()
+					.responseJSON { response in
+						if response.result.isSuccess {
+							var vens = [Venue]()
+							let json = JSON(data: response.data!)
+							for venue in json["response"]["venues"].arrayValue {
+								vens.append(Venue(venue: venue))
+							}
+
+							dispatch_async(dispatch_get_main_queue()) {self.venues = vens; self.lastLocation = location}
+						} else {
+							dispatch_async(dispatch_get_main_queue()) {
+								if !self.partyAlert.isBeingPresented() {
+									self.partyAlert.message = "Failed to retrieve venues from Foursquare."
+									self.presentViewController(self.partyAlert, animated: true, completion: nil)
+								}
+							}
+						}
+				}
+			}
+		} else {
+			refreshControl?.endRefreshing()
 		}
 	}
 
@@ -105,7 +111,6 @@ class PartyPickerController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return "Venues provided by FourSquare"
@@ -130,7 +135,6 @@ class PartyPickerController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Bake Sample Segue" {
 			let bakerVC = segue.destinationViewController as! RecordSampleController
-			Locator.sharedLocator.update()
 			bakerVC.venues = venues
 		}
 		if segue.identifier == "Sample Tasting Segue" {
