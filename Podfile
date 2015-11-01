@@ -7,6 +7,7 @@ target 'PartyUP' do
 	pod 'DACircularProgress'
 	pod 'Alamofire', '~> 3.1'
 	pod 'SwiftyJSON', '~> 2.3'
+	pod 'UIImageView-Letters', '~> 1.1'
 end
 
 target 'PartyUPTests' do

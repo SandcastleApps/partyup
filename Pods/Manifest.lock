@@ -7,6 +7,7 @@ PODS:
     - AWSCore (= 2.2.6)
   - DACircularProgress (2.3.1)
   - SwiftyJSON (2.3.0)
+  - UIImageView-Letters (1.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 3.1)
@@ -14,6 +15,7 @@ DEPENDENCIES:
   - AWSS3 (~> 2.2)
   - DACircularProgress
   - SwiftyJSON (~> 2.3)
+  - UIImageView-Letters (~> 1.1)
 
 SPEC CHECKSUMS:
   Alamofire: 415bd7f56197722978759078486689f7ef913dce
@@ -22,5 +24,6 @@ SPEC CHECKSUMS:
   AWSS3: a8aeb5f8224236c2b1b46fdab14add3eff971fc4
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
+  UIImageView-Letters: f62db28076797adf3560ab7410647dc6899b9eef
 
 COCOAPODS: 0.38.2
