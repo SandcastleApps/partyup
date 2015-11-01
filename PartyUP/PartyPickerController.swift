@@ -106,6 +106,11 @@ class PartyPickerController: UITableViewController {
         return 1
     }
 
+
+	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return "Venues provided by FourSquare"
+	}
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return venues?.count ?? 0
     }
