@@ -45,6 +45,7 @@
                                     <animations/>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <segue destination="ZcT-Fn-GTh" kind="show" identifier="Sample Tasting Segue" id="xvG-kO-FXm"/>
@@ -56,10 +57,10 @@
                             <outlet property="delegate" destination="r5F-kz-7J0" id="d25-2Q-gof"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="PartyUP" id="ynK-qn-hR3">
+                    <navigationItem key="navigationItem" id="ynK-qn-hR3">
                         <barButtonItem key="backBarButtonItem" title=" " id="2us-ah-9tt"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="ak0-9c-qWH">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="8VR-ye-Fdg" kind="presentation" identifier="Bake Sample Segue" id="cYl-TD-0EI"/>
                             </connections>
@@ -138,19 +139,24 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhj-Vi-QG8" customClass="DACircularProgressView">
-                                <rect key="frame" x="245" y="487" width="110" height="110"/>
+                                <rect key="frame" x="250.5" y="492.5" width="99" height="99"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcL-8R-2uI" userLabel="Record">
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcL-8R-2uI" userLabel="Record">
                                 <rect key="frame" x="250" y="492" width="100" height="100"/>
                                 <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="iYg-sJ-lHf"/>
                                     <constraint firstAttribute="width" constant="100" id="m0Q-d5-6Ba"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="record"/>
-                                <state key="selected" title="Record" image="recording"/>
+                                <state key="selected" title="Record"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="startRecording" destination="8VR-ye-Fdg" eventType="touchDown" id="LVD-pD-ud2"/>
                                     <action selector="stopRecording" destination="8VR-ye-Fdg" eventType="touchUpInside" id="izF-sP-n8N"/>
@@ -162,7 +168,7 @@
                         <constraints>
                             <constraint firstItem="ijw-pv-9eI" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" constant="8" symbolic="YES" id="9Jd-mT-R4L"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="height" secondItem="rgs-gn-jA0" secondAttribute="height" id="CF6-rH-0xa"/>
-                            <constraint firstItem="lhj-Vi-QG8" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="1.1" id="Fzf-1z-Xwk"/>
+                            <constraint firstItem="lhj-Vi-QG8" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="1:1.01" id="Fzf-1z-Xwk"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="NaI-cg-ee0"/>
                             <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="TH1-zN-bej"/>
                             <constraint firstItem="Bdw-A6-2N4" firstAttribute="top" secondItem="FcL-8R-2uI" secondAttribute="bottom" constant="8" symbolic="YES" id="aNz-Nj-EbO"/>
@@ -171,7 +177,7 @@
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="centerX" secondItem="27X-S7-8Y4" secondAttribute="centerX" id="iJK-nY-ccm"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="jPT-dE-dbz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ijw-pv-9eI" secondAttribute="trailing" id="kKu-0G-p1r"/>
-                            <constraint firstItem="lhj-Vi-QG8" firstAttribute="height" secondItem="FcL-8R-2uI" secondAttribute="height" multiplier="1.1" id="klJ-35-EJg"/>
+                            <constraint firstItem="lhj-Vi-QG8" firstAttribute="height" secondItem="FcL-8R-2uI" secondAttribute="height" multiplier="1:1.01" id="klJ-35-EJg"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="27X-S7-8Y4" secondAttribute="top" id="m1J-90-8Ym"/>
                             <constraint firstItem="DHw-ju-0gg" firstAttribute="width" secondItem="rgs-gn-jA0" secondAttribute="width" id="oAL-Gd-GDe"/>
                             <constraint firstItem="27X-S7-8Y4" firstAttribute="width" secondItem="Zgg-6O-QEv" secondAttribute="width" constant="10" id="rCh-YF-l7Q"/>
@@ -457,15 +463,15 @@
             <objects>
                 <navigationController title="PartyUP Navigator" automaticallyAdjustsScrollViewInsets="NO" id="YPM-4j-oTK" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="WQi-nM-LKn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WQi-nM-LKn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
-                        <color key="barTintColor" red="0.094117647058823528" green="0.73725490196078436" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="27"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="textShadowColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -521,10 +527,6 @@
             <point key="canvasLocation" x="2641" y="958"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="record" width="1280" height="1167"/>
-        <image name="recording" width="1280" height="1167"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mvS-fn-udt"/>
     </inferredMetricsTieBreakers>

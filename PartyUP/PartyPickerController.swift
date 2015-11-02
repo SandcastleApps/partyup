@@ -34,17 +34,11 @@ class PartyPickerController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-
 		fetchPartyList()
     }
 
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
-	}
-
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .LightContent
 	}
 
 	@IBAction func fetchPartyList() {
