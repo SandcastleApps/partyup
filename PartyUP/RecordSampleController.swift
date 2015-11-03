@@ -8,23 +8,49 @@
 
 import UIKit
 import DACircularProgress
-import CoreLocation
+import PBJVision
 
-class RecordSampleController: UIViewController, VideoRecorderDelegate {
+class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	@IBOutlet weak var recordButton: UIButton!
 	@IBOutlet weak var timerBar: DACircularProgressView!
-	
+	@IBOutlet weak var preview: UIView!
+
+	let vision = PBJVision.sharedInstance()
 	var timer: NSTimer!
-	var recordingController: VideoRecordController!
 	var venues: [Venue]?
-	var locationManager: CLLocationManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		let pvLayer = vision.previewLayer
+		pvLayer.frame = preview.bounds
+		pvLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+		preview.layer.addSublayer(pvLayer)
+
+		vision.delegate = self
+		vision.cameraMode = .Video
+		vision.cameraOrientation = .Portrait
+		vision.focusMode = .ContinuousAutoFocus
+		vision.outputFormat = .Square
+
 		resetTimerBar()
     }
+
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		vision.startPreview()
+	}
+
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		vision.stopPreview()
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		vision.previewLayer.frame = preview.bounds
+	}
 
 	override func prefersStatusBarHidden() -> Bool {
 		return true
@@ -36,14 +62,9 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
 	}
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Recorder Segue" {
-			if let recorderVC = segue.destinationViewController as? VideoRecordController {
-				recordingController = recorderVC
-				recordingController.delegate = self
-			}
-		} else if segue.identifier == "Accept Sample Segue" {
+		if segue.identifier == "Accept Sample Segue" {
 			let acceptVC = segue.destinationViewController as! AcceptSampleController
-			acceptVC.videoUrl = targetUrl
+			acceptVC.videoUrl = lastVideoUrl
 			acceptVC.venues = venues
 		}
     }
@@ -71,34 +92,29 @@ class RecordSampleController: UIViewController, VideoRecorderDelegate {
 	}
 
 	@IBAction func startRecording() {
-		recordingController.start()
+		vision.startVideoCapture()
 		timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("observeTimerInterval"), userInfo: nil, repeats: true)
 	}
 
 	@IBAction func stopRecording() {
-		recordingController.stop()
+		vision.endVideoCapture()
 		timer.invalidate()
 	}
 
-	// MARK: - Video Recorder Delegate
+	// mark: PBJ Delegate
 
-	var targetUrl = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("Recording.mp4")
+	private var lastVideoUrl: NSURL?
 
-	func videoRecorder(recorder: VideoRecordController, beganRecordingTo target: NSURL) {
-		//do something
-	}
-
-	func videoRecorder(recorder: VideoRecordController, endedRecordingTo target: NSURL, withError error: ErrorType?) {
+	func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
 		if let error = error {
-			UIAlertView(title: "Recording Error", message: "\(error)", delegate: nil, cancelButtonTitle: "Rats!").show()
+			NSLog("Video Capture Error: \(error)")
 		} else {
-			performSegueWithIdentifier("Accept Sample Segue", sender: nil)
+			if let out = videoDict?[PBJVisionVideoPathKey] as? String {
+				lastVideoUrl = NSURL(fileURLWithPath: out)
+				performSegueWithIdentifier("Accept Sample Segue", sender: nil)
+			}
+			
 		}
-	}
-
-	func videoRecorder(recorder: VideoRecordController, reportedInitializationError error: ErrorType) {
-		recordButton.enabled = false
-		UIAlertView(title: "Camera Unavailable", message: "\(error)", delegate: nil, cancelButtonTitle: "Rats!").show()
 	}
 
 }

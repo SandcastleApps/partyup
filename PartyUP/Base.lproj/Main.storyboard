@@ -101,13 +101,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHw-ju-0gg">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TZp-pU-snf" userLabel="Preview">
+                                <rect key="frame" x="0.0" y="20" width="600" height="600"/>
                                 <animations/>
-                                <connections>
-                                    <segue destination="Wem-Xz-3AL" kind="embed" identifier="Recorder Segue" id="viF-L8-sdW"/>
-                                </connections>
-                            </containerView>
+                                <color key="backgroundColor" red="0.094117647060000004" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="TZp-pU-snf" secondAttribute="height" multiplier="1:1" id="Mzf-ey-Gea"/>
+                                </constraints>
+                            </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27X-S7-8Y4">
                                 <rect key="frame" x="15" y="28" width="41" height="55"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5Hi-xs-pNs">
@@ -139,7 +140,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhj-Vi-QG8" customClass="DACircularProgressView">
-                                <rect key="frame" x="250.5" y="492.5" width="99" height="99"/>
+                                <rect key="frame" x="250" y="492" width="99" height="99"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -166,20 +167,19 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="TZp-pU-snf" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" id="75W-SY-Rmf"/>
                             <constraint firstItem="ijw-pv-9eI" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" constant="8" symbolic="YES" id="9Jd-mT-R4L"/>
-                            <constraint firstItem="DHw-ju-0gg" firstAttribute="height" secondItem="rgs-gn-jA0" secondAttribute="height" id="CF6-rH-0xa"/>
+                            <constraint firstItem="TZp-pU-snf" firstAttribute="width" secondItem="rgs-gn-jA0" secondAttribute="width" id="AlO-25-skZ"/>
                             <constraint firstItem="lhj-Vi-QG8" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="1:1.01" id="Fzf-1z-Xwk"/>
-                            <constraint firstItem="DHw-ju-0gg" firstAttribute="centerY" secondItem="rgs-gn-jA0" secondAttribute="centerY" id="NaI-cg-ee0"/>
+                            <constraint firstItem="TZp-pU-snf" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="PR2-jl-2Es"/>
                             <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="TH1-zN-bej"/>
                             <constraint firstItem="Bdw-A6-2N4" firstAttribute="top" secondItem="FcL-8R-2uI" secondAttribute="bottom" constant="8" symbolic="YES" id="aNz-Nj-EbO"/>
                             <constraint firstItem="lhj-Vi-QG8" firstAttribute="centerX" secondItem="FcL-8R-2uI" secondAttribute="centerX" id="ddX-Za-Tjf"/>
                             <constraint firstItem="lhj-Vi-QG8" firstAttribute="centerY" secondItem="FcL-8R-2uI" secondAttribute="centerY" id="dps-Cr-UcE"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="centerX" secondItem="27X-S7-8Y4" secondAttribute="centerX" id="iJK-nY-ccm"/>
-                            <constraint firstItem="DHw-ju-0gg" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="jPT-dE-dbz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ijw-pv-9eI" secondAttribute="trailing" id="kKu-0G-p1r"/>
                             <constraint firstItem="lhj-Vi-QG8" firstAttribute="height" secondItem="FcL-8R-2uI" secondAttribute="height" multiplier="1:1.01" id="klJ-35-EJg"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="27X-S7-8Y4" secondAttribute="top" id="m1J-90-8Ym"/>
-                            <constraint firstItem="DHw-ju-0gg" firstAttribute="width" secondItem="rgs-gn-jA0" secondAttribute="width" id="oAL-Gd-GDe"/>
                             <constraint firstItem="27X-S7-8Y4" firstAttribute="width" secondItem="Zgg-6O-QEv" secondAttribute="width" constant="10" id="rCh-YF-l7Q"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="leading" secondItem="rgs-gn-jA0" secondAttribute="leadingMargin" id="wSC-gO-Wa7"/>
                             <constraint firstItem="Zgg-6O-QEv" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" constant="8" symbolic="YES" id="xdA-lx-25k"/>
@@ -187,6 +187,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="preview" destination="TZp-pU-snf" id="Svs-BO-dEA"/>
                         <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>
                         <outlet property="timerBar" destination="lhj-Vi-QG8" id="A5l-CV-jBL"/>
                         <segue destination="RAd-iG-AkU" kind="showDetail" identifier="Accept Sample Segue" id="LEC-Vb-eiz"/>
@@ -216,11 +217,6 @@
                                     <segue destination="KPq-4d-i2K" kind="embed" identifier="Reviewer Segue" id="mvS-fn-udt"/>
                                 </connections>
                             </containerView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykc-MS-gtd">
-                                <rect key="frame" x="260" y="28" width="320" height="216"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXR-TM-6lb">
                                 <rect key="frame" x="505" y="523" width="64" height="64"/>
                                 <animations/>
@@ -261,6 +257,11 @@
                                     <segue destination="5pi-I8-ds9" kind="unwind" identifier="Reject Unwind" unwindAction="segueFromAccepting:" id="M8Q-NC-5VK"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykc-MS-gtd">
+                                <rect key="frame" x="260" y="28" width="320" height="216"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </pickerView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -482,41 +483,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSZ-qO-xkb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="500" y="-714"/>
-        </scene>
-        <!--Video Recorder-->
-        <scene sceneID="69l-o1-keG">
-            <objects>
-                <viewController title="Recorder" id="Wem-Xz-3AL" userLabel="Video Recorder" customClass="VideoRecordController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Z3t-I0-9w4"/>
-                        <viewControllerLayoutGuide type="bottom" id="Cnz-xa-bI7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ah2-Ov-rTl">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRm-fX-1Ou">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="gRm-fX-1Ou" firstAttribute="centerY" secondItem="Ah2-Ov-rTl" secondAttribute="centerY" id="IqF-aC-6mD"/>
-                            <constraint firstItem="gRm-fX-1Ou" firstAttribute="height" secondItem="Ah2-Ov-rTl" secondAttribute="height" id="Slw-Bx-6fS"/>
-                            <constraint firstItem="gRm-fX-1Ou" firstAttribute="width" secondItem="Ah2-Ov-rTl" secondAttribute="width" id="Xh7-3T-jEv"/>
-                            <constraint firstItem="gRm-fX-1Ou" firstAttribute="centerX" secondItem="Ah2-Ov-rTl" secondAttribute="centerX" id="gsB-nj-yP7"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="movieView" destination="gRm-fX-1Ou" id="FYq-Aw-14q"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mDB-pz-Qme" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2060" y="3"/>
         </scene>
         <!--Taste Pages Navigator-->
         <scene sceneID="azK-Hg-Bow">

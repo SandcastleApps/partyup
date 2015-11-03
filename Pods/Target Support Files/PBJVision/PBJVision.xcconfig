@@ -1,0 +1,1 @@
+PBJVISION_OTHER_LDFLAGS = -framework "AVFoundation" -framework "CoreGraphics" -framework "CoreImage" -framework "CoreMedia" -framework "CoreVideo" -framework "Foundation" -framework "ImageIO" -framework "MobileCoreServices" -framework "OpenGLES" -framework "QuartzCore" -framework "UIKit"

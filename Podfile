@@ -9,6 +9,7 @@ target 'PartyUP' do
 	pod 'SwiftyJSON', '~> 2.3'
 	pod 'UIImageView-Letters', '~> 1.1'
 	pod 'SwiftLocation', '~> 0.2'
+	pod 'PBJVision', '~> 0.4'
 end
 
 target 'PartyUPTests' do
