@@ -15,7 +15,11 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 
 	var videoUrl: NSURL!
 	var venues: [Venue]?
-	var locals = [Venue]()
+	var locals = [Venue]() {
+		didSet {
+			venuePicker.reloadComponent(0)
+		}
+	}
 
 	@IBOutlet weak var commentField: UITextField!
 	@IBOutlet weak var venuePicker: UIPickerView!
@@ -27,13 +31,16 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		venuePicker.dataSource = self
+		venuePicker.delegate = self
+
 		do {
 			try SwiftLocation.shared.currentLocation(.Block, timeout: 20,
 				onSuccess: { (location) in
-					dispatch_async(dispatch_get_main_queue()) {
 					if let location = location, venues = self.venues {
 						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
-						self.locals = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy } }
+						let locs = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
+						dispatch_async(dispatch_get_main_queue()) { self.locals = locs }
 					}
 				},
 				onFail: { (error) in
@@ -42,11 +49,6 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 		} catch {
 			//handle error
 		}
-
-		venuePicker.dataSource = self
-		venuePicker.delegate = self
-
-		venuePicker.reloadComponent(0)
 	}
 
 	override func viewWillAppear(animated: Bool) {
