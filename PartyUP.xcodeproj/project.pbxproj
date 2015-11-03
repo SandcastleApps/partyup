@@ -20,7 +20,6 @@
 		1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */; };
 		1F427A161BA59F4C00E622CF /* PartyUPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A151BA59F4C00E622CF /* PartyUPTests.swift */; };
 		1F427A211BA59F4C00E622CF /* PartyUPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */; };
-		1F9509931BAC3A99005BDC18 /* VideoRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */; };
 		1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* UrlUtilities.swift */; };
 		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; };
 		1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */; };
@@ -72,7 +71,6 @@
 		1F427A1C1BA59F4C00E622CF /* PartyUPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyUPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyUPUITests.swift; sourceTree = "<group>"; };
 		1F427A221BA59F4C00E622CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoRecordController.swift; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* UrlUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlUtilities.swift; sourceTree = "<group>"; };
 		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
 		1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueManager.swift; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				1F9997401BB1C89F003457E2 /* VideoViewController.swift */,
-				1F9509921BAC3A99005BDC18 /* VideoRecordController.swift */,
 			);
 			name = "Generic Controllers";
 			sourceTree = "<group>";
@@ -456,7 +453,6 @@
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
 				1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
-				1F9509931BAC3A99005BDC18 /* VideoRecordController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
