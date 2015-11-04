@@ -210,13 +210,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLv-fq-c2u">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                                <connections>
-                                    <segue destination="KPq-4d-i2K" kind="embed" identifier="Reviewer Segue" id="mvS-fn-udt"/>
-                                </connections>
-                            </containerView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXR-TM-6lb">
                                 <rect key="frame" x="505" y="523" width="64" height="64"/>
                                 <animations/>
@@ -266,15 +259,11 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PLv-fq-c2u" firstAttribute="width" secondItem="JgB-7N-lNo" secondAttribute="width" id="16Z-s5-hYN"/>
                             <constraint firstItem="i4B-oY-0UU" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leadingMargin" constant="15" id="2OM-f6-aOK"/>
-                            <constraint firstItem="PLv-fq-c2u" firstAttribute="height" secondItem="JgB-7N-lNo" secondAttribute="height" id="4ta-vg-vkH"/>
                             <constraint firstItem="hXR-TM-6lb" firstAttribute="leading" secondItem="f6P-2H-G0L" secondAttribute="trailing" constant="10" id="8lG-K3-Kpt"/>
                             <constraint firstItem="i4B-oY-0UU" firstAttribute="trailing" secondItem="f6P-2H-G0L" secondAttribute="leading" constant="-10" id="Fl4-8g-Eax"/>
-                            <constraint firstItem="PLv-fq-c2u" firstAttribute="centerY" secondItem="JgB-7N-lNo" secondAttribute="centerY" id="JiM-jf-WfW"/>
                             <constraint firstItem="i4B-oY-0UU" firstAttribute="centerY" secondItem="f6P-2H-G0L" secondAttribute="centerY" id="Jiv-rK-qdQ"/>
                             <constraint firstItem="f6P-2H-G0L" firstAttribute="width" relation="lessThanOrEqual" secondItem="JgB-7N-lNo" secondAttribute="width" multiplier="3:4" id="KEI-1n-j41"/>
-                            <constraint firstItem="PLv-fq-c2u" firstAttribute="centerX" secondItem="JgB-7N-lNo" secondAttribute="centerX" id="Pxq-RH-2s6"/>
                             <constraint firstItem="jPO-st-b8s" firstAttribute="top" secondItem="f6P-2H-G0L" secondAttribute="bottom" constant="30" id="Y6C-5Z-uid"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ykc-MS-gtd" secondAttribute="trailing" id="cUO-A4-cUm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hXR-TM-6lb" secondAttribute="trailing" constant="11" id="h6i-Gk-nZy"/>
@@ -341,13 +330,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cib-K2-d0r">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNJ-K7-UNE" userLabel="Video Progress" customClass="DACircularProgressView">
+                                <rect key="frame" x="560" y="28" width="20" height="20"/>
                                 <animations/>
-                                <connections>
-                                    <segue destination="KPq-4d-i2K" kind="embed" identifier="Video View Segue" id="wk5-eU-bES"/>
-                                </connections>
-                            </containerView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="1Ud-H6-JTU"/>
+                                    <constraint firstAttribute="height" constant="20" id="L1S-vw-1up"/>
+                                </constraints>
+                            </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sFY-sq-83s" userLabel="Visual Effect Time">
                                 <rect key="frame" x="275" y="28" width="49" height="24"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="HQK-1U-8zy">
@@ -386,6 +377,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="DNJ-K7-UNE" secondAttribute="trailing" id="6jq-UW-D35"/>
                             <constraint firstItem="sFY-sq-83s" firstAttribute="height" secondItem="Sy6-pN-RsA" secondAttribute="height" id="GVZ-6p-CSH"/>
                             <constraint firstItem="13y-LZ-M88" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="H0t-K9-FzN"/>
                             <constraint firstItem="dOC-uf-Rqx" firstAttribute="height" secondItem="13y-LZ-M88" secondAttribute="height" id="HQc-ML-NBM"/>
@@ -393,14 +385,11 @@
                             <constraint firstItem="dOC-uf-Rqx" firstAttribute="leading" secondItem="13y-LZ-M88" secondAttribute="leading" id="PrQ-Lv-vDX"/>
                             <constraint firstItem="Sy6-pN-RsA" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="SDX-pV-7PL"/>
                             <constraint firstItem="sFY-sq-83s" firstAttribute="top" secondItem="Sy6-pN-RsA" secondAttribute="top" id="UvL-Z5-Z6s"/>
-                            <constraint firstItem="cib-K2-d0r" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leading" id="aUh-vJ-u37"/>
-                            <constraint firstItem="cib-K2-d0r" firstAttribute="top" secondItem="EGl-He-1VL" secondAttribute="topMargin" id="cCA-j8-BHw"/>
-                            <constraint firstItem="cib-K2-d0r" firstAttribute="height" secondItem="EGl-He-1VL" secondAttribute="height" id="dDG-CT-2BO"/>
+                            <constraint firstItem="DNJ-K7-UNE" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="XNO-B8-HIg"/>
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="13y-LZ-M88" secondAttribute="bottom" constant="20.5" id="g2D-lw-WcM"/>
                             <constraint firstItem="sFY-sq-83s" firstAttribute="width" secondItem="Sy6-pN-RsA" secondAttribute="width" id="ld6-bh-gZu"/>
                             <constraint firstItem="dOC-uf-Rqx" firstAttribute="top" secondItem="13y-LZ-M88" secondAttribute="top" id="o5y-OE-yad"/>
                             <constraint firstItem="sFY-sq-83s" firstAttribute="leading" secondItem="Sy6-pN-RsA" secondAttribute="leading" id="sfj-Ud-Skg"/>
-                            <constraint firstItem="cib-K2-d0r" firstAttribute="width" secondItem="EGl-He-1VL" secondAttribute="width" id="yKA-Xv-RK6"/>
                             <constraint firstItem="Sy6-pN-RsA" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="zot-Po-hFB"/>
                         </constraints>
                     </view>
@@ -408,56 +397,12 @@
                         <outlet property="commentBackdrop" destination="dOC-uf-Rqx" id="yPP-9a-j9G"/>
                         <outlet property="commentLabel" destination="13y-LZ-M88" id="s0B-Zb-T3C"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
+                        <outlet property="videoProgress" destination="DNJ-K7-UNE" id="rTi-ge-ElP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVY-ok-WMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3145" y="1606"/>
-        </scene>
-        <!--Video Viewer-->
-        <scene sceneID="end-pm-3EP">
-            <objects>
-                <viewController storyboardIdentifier="ObserveSample" title="Video Viewer" id="KPq-4d-i2K" customClass="VideoViewController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ViW-go-UUx"/>
-                        <viewControllerLayoutGuide type="bottom" id="5dg-ra-UQq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="nFD-1s-vJo">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBv-5E-LmW" userLabel="Video Target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLX-lX-VU3" customClass="DACircularProgressView">
-                                <rect key="frame" x="565" y="8" width="15" height="15"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="Nrq-gc-tIn"/>
-                                    <constraint firstAttribute="width" constant="15" id="nqk-Fq-16B"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <animations/>
-                        <constraints>
-                            <constraint firstItem="bBv-5E-LmW" firstAttribute="centerY" secondItem="nFD-1s-vJo" secondAttribute="centerY" id="1CZ-Ws-75p"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="oLX-lX-VU3" secondAttribute="trailing" id="9b3-f5-Tdb"/>
-                            <constraint firstItem="bBv-5E-LmW" firstAttribute="height" secondItem="nFD-1s-vJo" secondAttribute="height" id="GHO-ak-l7n"/>
-                            <constraint firstItem="bBv-5E-LmW" firstAttribute="width" secondItem="nFD-1s-vJo" secondAttribute="width" id="R6Y-gj-Kq5"/>
-                            <constraint firstItem="bBv-5E-LmW" firstAttribute="leading" secondItem="nFD-1s-vJo" secondAttribute="leading" id="kAO-hF-tBo"/>
-                            <constraint firstItem="oLX-lX-VU3" firstAttribute="top" secondItem="ViW-go-UUx" secondAttribute="bottom" constant="8" symbolic="YES" id="wH6-Qo-ns2"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="videoProgress" destination="oLX-lX-VU3" id="QAx-V4-SpF"/>
-                        <outlet property="videoView" destination="bBv-5E-LmW" id="URE-Wf-98d"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P5E-KX-XA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2737" y="3"/>
         </scene>
         <!--PartyUP Navigator-->
         <scene sceneID="HOt-fe-NMd">
@@ -493,7 +438,4 @@
             <point key="canvasLocation" x="2641" y="958"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="mvS-fn-udt"/>
-    </inferredMetricsTieBreakers>
 </document>

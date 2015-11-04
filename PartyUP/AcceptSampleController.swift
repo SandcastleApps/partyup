@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import AVFoundation
 import CoreLocation
 import SwiftLocation
+import Player
 
-class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class AcceptSampleController: UIViewController, PlayerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
 	var videoUrl: NSURL!
 	var venues: [Venue]?
@@ -23,7 +23,10 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 
 	@IBOutlet weak var commentField: UITextField!
 	@IBOutlet weak var venuePicker: UIPickerView!
+	@IBOutlet weak var videoReview: UIView!
 
+	let player = Player()
+	
 	override func prefersStatusBarHidden() -> Bool {
 		return true
 	}
@@ -49,6 +52,53 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 		} catch {
 			//handle error
 		}
+
+		player.delegate = self
+		player.view.translatesAutoresizingMaskIntoConstraints = false
+
+		addChildViewController(player)
+		view.insertSubview(player.view, atIndex: 0)
+		player.didMoveToParentViewController(self)
+
+		view.addConstraint(NSLayoutConstraint(
+			item: player.view,
+			attribute: .CenterX,
+			relatedBy: .Equal,
+			toItem: view,
+			attribute: .CenterX,
+			multiplier: 1.0,
+			constant: 0))
+
+		view.addConstraint(NSLayoutConstraint(
+			item: player.view,
+			attribute: .Width,
+			relatedBy: .Equal,
+			toItem: view,
+			attribute: .Width,
+			multiplier: 1.0,
+			constant: 0))
+
+		view.addConstraint(NSLayoutConstraint(
+			item: player.view,
+			attribute: .Height,
+			relatedBy: .Equal,
+			toItem: player.view,
+			attribute: .Width,
+			multiplier: 1.0,
+			constant: 0))
+
+		view.addConstraint(NSLayoutConstraint(
+			item: player.view,
+			attribute: .Top,
+			relatedBy: .Equal,
+			toItem: view,
+			attribute: .Top,
+			multiplier: 1.0,
+			constant: 0))
+
+		player.setUrl(videoUrl)
+		player.playbackLoops = true
+		player.playFromBeginning()
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -114,12 +164,7 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Reviewer Segue" {
-			let viewerVC = segue.destinationViewController as! VideoViewController
-			viewerVC.loop = true
-			viewerVC.rate = 1.0
-			viewerVC.player = AVPlayer(URL: videoUrl)
-		} else if segue.identifier == "Accept Unwind" {
+		if segue.identifier == "Accept Unwind" {
 			do {
 				let sample = Sample(comment: commentField.text)
 				try NSFileManager.defaultManager().moveItemAtURL(videoUrl, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
@@ -137,5 +182,22 @@ class AcceptSampleController: UIViewController, UIPickerViewDataSource, UIPicker
 			}
 		}
     }
+
+	// mark: Player
+
+	func playerPlaybackWillStartFromBeginning(player: Player) {
+	}
+
+	func playerPlaybackDidEnd(player: Player) {
+	}
+
+	func playerReady(player: Player) {
+	}
+
+	func playerPlaybackStateDidChange(player: Player) {
+	}
+
+	func playerBufferingStateDidChange(player: Player) {
+	}
 
 }

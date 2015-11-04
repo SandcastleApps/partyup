@@ -10,6 +10,7 @@ target 'PartyUP' do
 	pod 'UIImageView-Letters', '~> 1.1'
 	pod 'SwiftLocation', '~> 0.2'
 	pod 'PBJVision', '~> 0.4'
+	pod 'Player', '~> 0.0'
 end
 
 target 'PartyUPTests' do

@@ -7,6 +7,7 @@ PODS:
     - AWSCore (= 2.2.6)
   - DACircularProgress (2.3.1)
   - PBJVision (0.4.2)
+  - Player (0.0.8)
   - SwiftLocation (0.2.0)
   - SwiftyJSON (2.3.0)
   - UIImageView-Letters (1.1.4)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - AWSS3 (~> 2.2)
   - DACircularProgress
   - PBJVision (~> 0.4)
+  - Player (~> 0.0)
   - SwiftLocation (~> 0.2)
   - SwiftyJSON (~> 2.3)
   - UIImageView-Letters (~> 1.1)
@@ -28,6 +30,7 @@ SPEC CHECKSUMS:
   AWSS3: a8aeb5f8224236c2b1b46fdab14add3eff971fc4
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
+  Player: 31becc185d219b96dac5419ce90745095940ab92
   SwiftLocation: ea78ae4a822581bde7379d98c8513273723c8840
   SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
   UIImageView-Letters: f62db28076797adf3560ab7410647dc6899b9eef
