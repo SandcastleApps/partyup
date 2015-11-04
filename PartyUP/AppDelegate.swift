@@ -45,12 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
+		window?.tintColor = UIColor.orangeColor()
+
 		if let defaultsUrl = NSBundle.mainBundle().URLForResource("PartyDefaults", withExtension: "plist") {
 			if let defaultsDictionary = NSDictionary(contentsOfURL: defaultsUrl) as? [String:AnyObject] {
 				NSUserDefaults.standardUserDefaults().registerDefaults(defaultsDictionary)
 			}
 		}
-
 
 		let credentialProvider = AWSCognitoCredentialsProvider(
 			regionType: AwsConstants.RegionType,
