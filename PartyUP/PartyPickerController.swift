@@ -126,7 +126,7 @@ class PartyPickerController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Bake Sample Segue" {
-			let bakerVC = segue.destinationViewController as! RecordSampleController
+			let bakerVC = segue.destinationViewController as! BakeRootController
 			bakerVC.venues = venues
 		}
 		if segue.identifier == "Sample Tasting Segue" {

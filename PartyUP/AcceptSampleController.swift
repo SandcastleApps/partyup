@@ -10,32 +10,33 @@ import UIKit
 import CoreLocation
 import SwiftLocation
 import Player
+import ActionSheetPicker_3_0
 
-class AcceptSampleController: UIViewController, PlayerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDelegate {
 
-	var videoUrl: NSURL!
+	var videoUrl: NSURL?
 	var venues: [Venue]?
-	var locals = [Venue]() {
+
+	private var locals = [Venue](){
 		didSet {
-			venuePicker.reloadComponent(0)
+			venue.setTitle(locals.first?.name ?? "No Venues Available", forState: .Normal)
 		}
 	}
 
-	@IBOutlet weak var commentField: UITextField!
-	@IBOutlet weak var venuePicker: UIPickerView!
-	@IBOutlet weak var videoReview: UIView!
+	private var selectedLocal = 0
 
-	let player = Player()
-	
-	override func prefersStatusBarHidden() -> Bool {
-		return true
+	@IBOutlet weak var comment: UITextField! {
+		didSet {
+			comment.delegate = self
+		}
 	}
+
+	@IBOutlet weak var venue: UIButton!
+
+	private let player = Player()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		venuePicker.dataSource = self
-		venuePicker.delegate = self
 
 		do {
 			try SwiftLocation.shared.currentLocation(.Block, timeout: 20,
@@ -89,101 +90,76 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UIPickerViewData
 
 		view.addConstraint(NSLayoutConstraint(
 			item: player.view,
-			attribute: .Top,
+			attribute: .Bottom,
 			relatedBy: .Equal,
 			toItem: view,
-			attribute: .Top,
+			attribute: .Bottom,
 			multiplier: 1.0,
 			constant: 0))
 
-		player.setUrl(videoUrl)
-		player.playbackLoops = true
-		player.playFromBeginning()
-	}
+		if let url = videoUrl {
+			player.setUrl(url)
+			player.playbackLoops = true
+			player.playFromBeginning()
+		}
 
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-
-		let nc = NSNotificationCenter.defaultCenter()
-
-		nc.addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-		nc.addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-	}
-
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
-
-		let nc = NSNotificationCenter.defaultCenter()
-
-		nc.removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-		nc.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-	}
-
-	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
 	// MARK: - Venue Picker
 
-	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-		return 1
-	}
-
-	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-		return locals.count
-	}
-
-	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-		return locals[row].name
+	@IBAction func selectVenue(sender: UIButton) {
+		ActionSheetStringPicker.showPickerWithTitle("Venue", rows: locals.map { $0.name }, initialSelection: 0,
+			doneBlock: { (picker, row, value) in
+				self.selectedLocal = row
+				sender.titleLabel?.text = value as! String
+			},
+			cancelBlock: { (picker) in
+				// cancelled
+			},
+			origin: view)
 	}
 
 	// MARK: - Keyboard
 
-	@IBOutlet weak var distantBottom: NSLayoutConstraint!
-
-	func keyboardWillShow(note: NSNotification) {
-		if let kbSize = note.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size,
-		kbAnimationDuration = note.userInfo?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue {
-			distantBottom.constant = kbSize.height + 10
-			UIView.animateWithDuration(kbAnimationDuration) { self.view.layoutIfNeeded() }
-		}
+	func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+		return true
 	}
 
-	func keyboardWillHide(note: NSNotification) {
-
-		if let kbAnimationDuration = note.userInfo?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue {
-			distantBottom.constant = 30
-			UIView.animateWithDuration(kbAnimationDuration) { self.view.layoutIfNeeded() }
-		}
-	}
-
-	@IBAction func editingEnded(sender: UITextField) {
-		sender.resignFirstResponder()
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		return true
 	}
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Accept Unwind" {
-			do {
-				let sample = Sample(comment: commentField.text)
-				try NSFileManager.defaultManager().moveItemAtURL(videoUrl, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-				SampleManager.defaultManager().submit(sample, event: locals[venuePicker.selectedRowInComponent(0)].unique)
-
-			} catch {
-				NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
+	@IBAction func rejectSample(sender: UIBarButtonItem) {
+		do {
+			if let url = videoUrl {
+				try NSFileManager.defaultManager().removeItemAtURL(url)
 			}
-
-		} else if segue.identifier == "Reject Unwind" {
-			do {
-				try NSFileManager.defaultManager().removeItemAtURL(videoUrl)
-			} catch {
-				NSLog("Failed to delete rejected video: \(videoUrl) with error: \(error)")
-			}
+		} catch {
+			NSLog("Failed to delete rejected video: \(videoUrl) with error: \(error)")
 		}
-    }
 
-	// mark: Player
+		host?.rejectedSample()
+	}
+
+	@IBAction func acceptSample(sender: UIBarButtonItem) {
+		do {
+			if let url = videoUrl {
+				let sample = Sample(comment: comment.text)
+				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
+				SampleManager.defaultManager().submit(sample, event: locals[selectedLocal].unique)
+			}
+
+		} catch {
+			NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
+		}
+
+		host?.acceptedSample()
+	}
+
+	// MARK: - Player
 
 	func playerPlaybackWillStartFromBeginning(player: Player) {
 	}
@@ -200,4 +176,16 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UIPickerViewData
 	func playerBufferingStateDidChange(player: Player) {
 	}
 
+	// MARK: - Hosted
+
+	var host: BakeRootController?
+
+	override func didMoveToParentViewController(parent: UIViewController?) {
+		host = parent as? BakeRootController
+		if let host = host {
+			comment.text = ""
+		} else {
+			// moved out of parent
+		}
+	}
 }

@@ -33,8 +33,6 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		vision.cameraOrientation = .Portrait
 		vision.focusMode = .ContinuousAutoFocus
 		vision.outputFormat = .Square
-
-		resetTimerBar()
     }
 
 	override func viewWillAppear(animated: Bool) {
@@ -52,25 +50,9 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		vision.previewLayer.frame = preview.bounds
 	}
 
-	override func prefersStatusBarHidden() -> Bool {
-		return true
-	}
-
     // MARK: - Navigation
-	@IBAction func torchControl(sender: UIButton) {
-		performSegueWithIdentifier("Accept Sample Segue", sender: nil)
-	}
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Accept Sample Segue" {
-			let acceptVC = segue.destinationViewController as! AcceptSampleController
-			acceptVC.videoUrl = lastVideoUrl
-			acceptVC.venues = venues
-		}
-    }
-
-	@IBAction func segueFromAccepting(segue: UIStoryboardSegue) {
-		resetTimerBar()
+	@IBAction func torchControl(sender: UIBarButtonItem) {
+		vision.flashMode = vision.flashMode == .Off ? .On : .Off
 	}
 
 	func resetTimerBar() {
@@ -101,20 +83,30 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		timer.invalidate()
 	}
 
-	// mark: PBJ Delegate
+	// MARK: - PBJ Delegate
 
-	private var lastVideoUrl: NSURL?
+	private var videoUrl: NSURL?
 
 	func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
 		if let error = error {
 			NSLog("Video Capture Error: \(error)")
 		} else {
 			if let out = videoDict?[PBJVisionVideoPathKey] as? String {
-				lastVideoUrl = NSURL(fileURLWithPath: out)
-				performSegueWithIdentifier("Accept Sample Segue", sender: nil)
+				host?.recordedSample(NSURL(fileURLWithPath: out))
 			}
-			
 		}
 	}
 
+	// MARK: - Hosted
+
+	var host: BakeRootController?
+
+	override func didMoveToParentViewController(parent: UIViewController?) {
+		host = parent as? BakeRootController
+		if let host = host {
+			resetTimerBar()
+		} else {
+			//moving out of parent
+		}
+	}
 }
