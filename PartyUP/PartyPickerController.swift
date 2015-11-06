@@ -34,6 +34,9 @@ class PartyPickerController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		navigationItem.titleView = UIImageView(image: UIImage(named: "Logo"))
+		navigationItem.titleView?.bounds = CGRect(x: 0, y: 0, width: 24, height: 30)
+
 		fetchPartyList()
     }
 
