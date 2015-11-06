@@ -11,6 +11,7 @@ target 'PartyUP' do
 	pod 'SwiftLocation', '~> 0.2'
 	pod 'PBJVision', '~> 0.4'
 	pod 'Player', '~> 0.0'
+	pod 'ActionSheetPicker-3.0', '~> 2.0'
 end
 
 target 'PartyUPTests' do

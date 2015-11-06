@@ -1,4 +1,5 @@
 PODS:
+  - ActionSheetPicker-3.0 (2.0.3)
   - Alamofire (3.1.0)
   - AWSCore (2.2.6)
   - AWSDynamoDB (2.2.6):
@@ -13,6 +14,7 @@ PODS:
   - UIImageView-Letters (1.1.4)
 
 DEPENDENCIES:
+  - ActionSheetPicker-3.0 (~> 2.0)
   - Alamofire (~> 3.1)
   - AWSDynamoDB (~> 2.2)
   - AWSS3 (~> 2.2)
@@ -24,6 +26,7 @@ DEPENDENCIES:
   - UIImageView-Letters (~> 1.1)
 
 SPEC CHECKSUMS:
+  ActionSheetPicker-3.0: 11f2053085d3088dc1ef9d38a9f11c18b528dd9e
   Alamofire: 415bd7f56197722978759078486689f7ef913dce
   AWSCore: dd05203bf44d45b58b7667754ce4fa6f1bdb1c3e
   AWSDynamoDB: d0eb38a6bcaaee5931e5168478c409a39b0a9066
