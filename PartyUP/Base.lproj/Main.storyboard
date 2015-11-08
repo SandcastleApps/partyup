@@ -168,7 +168,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Title" id="dSe-6C-185">
-                                        <barButtonItem key="leftBarButtonItem" image="Back" id="W1V-xg-kkl">
+                                        <barButtonItem key="leftBarButtonItem" image="Hamburger" id="W1V-xg-kkl">
                                             <connections>
                                                 <segue destination="la2-3E-ZdR" kind="unwind" unwindAction="sequeFromBaking:" id="cPF-8q-Ouk"/>
                                             </connections>
@@ -355,7 +355,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="von-cM-OnH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="eW9-O7-kiU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3241" y="-1297"/>
+            <point key="canvasLocation" x="3241" y="-1303"/>
         </scene>
         <!--Bake Root Controller-->
         <scene sceneID="tgB-hv-I9j">
@@ -424,15 +424,15 @@
                         <viewControllerLayoutGuide type="bottom" id="1ZI-if-Z26"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EGl-He-1VL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-Cg-5eP" userLabel="Review">
-                                <rect key="frame" x="5" y="28" width="310" height="320"/>
+                                <rect key="frame" x="5" y="28" width="404" height="414"/>
                                 <animations/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dots" translatesAutoresizingMaskIntoConstraints="NO" id="gth-hB-4CF" userLabel="Dots">
-                                <rect key="frame" x="246" y="356" width="58" height="12"/>
+                                <rect key="frame" x="336" y="450" width="58" height="12"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="x5y-sq-BnP"/>
@@ -444,20 +444,20 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA">
-                                <rect key="frame" x="16" y="350" width="44.5" height="24"/>
+                                <rect key="frame" x="20" y="444" width="44.5" height="24"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="250" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
-                                <rect key="frame" x="16" y="382" width="288" height="90"/>
+                                <rect key="frame" x="20" y="476" width="374" height="252"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNJ-K7-UNE" userLabel="Video Progress" customClass="DACircularProgressView">
-                                <rect key="frame" x="290" y="33" width="20" height="20"/>
+                                <rect key="frame" x="384" y="33" width="20" height="20"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -485,7 +485,7 @@
                             <constraint firstItem="e0F-a8-syX" firstAttribute="top" secondItem="Sy6-pN-RsA" secondAttribute="bottom" constant="8" symbolic="YES" id="xUl-uD-L3y"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
@@ -536,6 +536,7 @@
         <image name="Camera" width="35" height="29"/>
         <image name="Dots" width="58" height="12"/>
         <image name="Flash" width="23" height="36"/>
+        <image name="Hamburger" width="33" height="32"/>
         <image name="Send" width="44" height="36"/>
     </resources>
 </document>
