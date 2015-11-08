@@ -17,7 +17,7 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	var page: Int!
 	var sample: Sample!
 
-	@IBOutlet weak var commentLabel: UILabel!
+	@IBOutlet weak var commentLabel: UITextView!
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
 	@IBOutlet weak var videoReview: UIView!
@@ -25,7 +25,7 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	private let player = Player()
 	private var timer: NSTimer!
 	private var tick: Double = 0.0
-	private let tickInc: Double = 0.5
+	private let tickInc: Double = 0.10
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,52 +33,52 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 		timeLabel.text = SampleTastePageController.timeFormatter.stringFromDate(sample.time)
 		if let comment = sample.comment {
 			commentLabel.text = comment
-			commentLabel.hidden = false
 		}
 
 		player.delegate = self
-		//player.view.translatesAutoresizingMaskIntoConstraints = false
+		player.view.translatesAutoresizingMaskIntoConstraints = false
+		player.view.layer.cornerRadius = 10
+		player.view.layer.masksToBounds = true
 
 		addChildViewController(player)
-		player.view.frame = videoReview.bounds
-		videoReview.insertSubview(player.view, atIndex: 0)
+		videoReview.addSubview(player.view)
 		player.didMoveToParentViewController(self)
 
-//		view.addConstraint(NSLayoutConstraint(
-//			item: player.view,
-//			attribute: .CenterX,
-//			relatedBy: .Equal,
-//			toItem: view,
-//			attribute: .CenterX,
-//			multiplier: 1.0,
-//			constant: 0))
-//
-//		view.addConstraint(NSLayoutConstraint(
-//			item: player.view,
-//			attribute: .Width,
-//			relatedBy: .Equal,
-//			toItem: view,
-//			attribute: .Width,
-//			multiplier: 1.0,
-//			constant: 0))
-//
-//		view.addConstraint(NSLayoutConstraint(
-//			item: player.view,
-//			attribute: .Height,
-//			relatedBy: .Equal,
-//			toItem: player.view,
-//			attribute: .Width,
-//			multiplier: 1.0,
-//			constant: 0))
-//
-//		view.addConstraint(NSLayoutConstraint(
-//			item: player.view,
-//			attribute: .Top,
-//			relatedBy: .Equal,
-//			toItem: view,
-//			attribute: .Top,
-//			multiplier: 1.0,
-//			constant: 0))
+		videoReview.addConstraint(NSLayoutConstraint(
+			item: player.view,
+			attribute: .CenterX,
+			relatedBy: .Equal,
+			toItem: videoReview,
+			attribute: .CenterX,
+			multiplier: 1.0,
+			constant: 0))
+
+		videoReview.addConstraint(NSLayoutConstraint(
+			item: player.view,
+			attribute: .Width,
+			relatedBy: .Equal,
+			toItem: videoReview,
+			attribute: .Width,
+			multiplier: 1.0,
+			constant: 0))
+
+		videoReview.addConstraint(NSLayoutConstraint(
+			item: player.view,
+			attribute: .Height,
+			relatedBy: .Equal,
+			toItem: player.view,
+			attribute: .Width,
+			multiplier: 1.0,
+			constant: 0))
+
+		videoReview.addConstraint(NSLayoutConstraint(
+			item: player.view,
+			attribute: .Top,
+			relatedBy: .Equal,
+			toItem: videoReview,
+			attribute: .Top,
+			multiplier: 1.0,
+			constant: 0))
 
 		player.setUrl(PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!))
     }

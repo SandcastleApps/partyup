@@ -424,16 +424,15 @@
                         <viewControllerLayoutGuide type="bottom" id="1ZI-if-Z26"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EGl-He-1VL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-Cg-5eP" userLabel="Review">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="5" y="28" width="310" height="320"/>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dots" translatesAutoresizingMaskIntoConstraints="NO" id="gth-hB-4CF" userLabel="Dots">
-                                <rect key="frame" x="522" y="608" width="58" height="12"/>
+                                <rect key="frame" x="246" y="356" width="58" height="12"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="x5y-sq-BnP"/>
@@ -445,20 +444,20 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA">
-                                <rect key="frame" x="277" y="628" width="44.5" height="24"/>
+                                <rect key="frame" x="16" y="350" width="44.5" height="24"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13y-LZ-M88">
-                                <rect key="frame" x="256" y="660" width="88.5" height="24"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="250" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
+                                <rect key="frame" x="16" y="382" width="288" height="90"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNJ-K7-UNE" userLabel="Video Progress" customClass="DACircularProgressView">
-                                <rect key="frame" x="560" y="28" width="20" height="20"/>
+                                <rect key="frame" x="290" y="33" width="20" height="20"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -470,42 +469,25 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="WNy-Cg-5eP" secondAttribute="trailing" id="2La-Hl-Zum"/>
-                            <constraint firstAttribute="bottom" secondItem="WNy-Cg-5eP" secondAttribute="bottom" constant="600" id="4Cz-hV-JEs"/>
-                            <constraint firstItem="gth-hB-4CF" firstAttribute="centerY" secondItem="EGl-He-1VL" secondAttribute="centerY" id="58v-8n-RS0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="DNJ-K7-UNE" secondAttribute="trailing" id="6jq-UW-D35"/>
+                            <constraint firstItem="e0F-a8-syX" firstAttribute="trailing" secondItem="EGl-He-1VL" secondAttribute="trailingMargin" id="1qq-4q-dXd"/>
+                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="centerY" secondItem="gth-hB-4CF" secondAttribute="centerY" id="2Sh-bO-2E2"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="9vd-yg-KC7"/>
-                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="top" secondItem="gth-hB-4CF" secondAttribute="bottom" constant="8" symbolic="YES" id="GiD-5g-2qV"/>
-                            <constraint firstItem="gth-hB-4CF" firstAttribute="leading" secondItem="WNy-Cg-5eP" secondAttribute="leading" id="Izn-BW-1O3"/>
-                            <constraint firstItem="13y-LZ-M88" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="Ks9-6Q-Yt0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="gth-hB-4CF" secondAttribute="trailing" id="P3A-Y0-GCh"/>
-                            <constraint firstItem="WNy-Cg-5eP" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leading" id="QNW-Lt-4rU"/>
-                            <constraint firstItem="gth-hB-4CF" firstAttribute="leading" secondItem="WNy-Cg-5eP" secondAttribute="trailing" constant="-600" id="TCQ-aN-Xth"/>
-                            <constraint firstAttribute="topMargin" secondItem="WNy-Cg-5eP" secondAttribute="top" id="Vmu-yo-asz"/>
-                            <constraint firstItem="DNJ-K7-UNE" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="XNO-B8-HIg"/>
+                            <constraint firstItem="WNy-Cg-5eP" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="EiK-hs-lL9"/>
+                            <constraint firstItem="gth-hB-4CF" firstAttribute="trailing" secondItem="EGl-He-1VL" secondAttribute="trailingMargin" id="P3A-Y0-GCh"/>
                             <constraint firstItem="gth-hB-4CF" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="bottom" constant="8" symbolic="YES" id="ZbE-fI-2ae"/>
-                            <constraint firstItem="WNy-Cg-5eP" firstAttribute="width" secondItem="EGl-He-1VL" secondAttribute="width" id="a4D-hs-Ipc"/>
-                            <constraint firstItem="gth-hB-4CF" firstAttribute="centerY" secondItem="Sy6-pN-RsA" secondAttribute="centerY" id="bKm-Pz-2SA"/>
-                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="gRX-Lr-9Nj"/>
-                            <constraint firstItem="gth-hB-4CF" firstAttribute="leading" secondItem="WNy-Cg-5eP" secondAttribute="trailing" constant="-600" id="k6c-Xq-ddu"/>
+                            <constraint firstItem="WNy-Cg-5eP" firstAttribute="width" secondItem="EGl-He-1VL" secondAttribute="width" constant="-10" id="a4D-hs-Ipc"/>
+                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leadingMargin" id="i1b-Jb-TZI"/>
+                            <constraint firstItem="e0F-a8-syX" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leadingMargin" id="kQn-Cc-dja"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="height" secondItem="EGl-He-1VL" secondAttribute="width" id="kjD-cg-CK9"/>
-                            <constraint firstItem="13y-LZ-M88" firstAttribute="top" secondItem="Sy6-pN-RsA" secondAttribute="bottom" constant="8" symbolic="YES" id="sk0-UW-RbQ"/>
+                            <constraint firstItem="DNJ-K7-UNE" firstAttribute="trailing" secondItem="WNy-Cg-5eP" secondAttribute="trailing" constant="-5" id="noT-CU-HiI"/>
+                            <constraint firstItem="DNJ-K7-UNE" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="top" constant="5" id="rIS-w6-1v9"/>
+                            <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="e0F-a8-syX" secondAttribute="bottom" constant="8" symbolic="YES" id="tGy-Ys-kGe"/>
+                            <constraint firstItem="e0F-a8-syX" firstAttribute="top" secondItem="Sy6-pN-RsA" secondAttribute="bottom" constant="8" symbolic="YES" id="xUl-uD-L3y"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="2La-Hl-Zum"/>
-                                <exclude reference="4Cz-hV-JEs"/>
-                                <exclude reference="QNW-Lt-4rU"/>
-                                <exclude reference="58v-8n-RS0"/>
-                                <exclude reference="Izn-BW-1O3"/>
-                                <exclude reference="TCQ-aN-Xth"/>
-                                <exclude reference="bKm-Pz-2SA"/>
-                                <exclude reference="k6c-Xq-ddu"/>
-                            </mask>
-                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="commentLabel" destination="13y-LZ-M88" id="s0B-Zb-T3C"/>
+                        <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
                         <outlet property="videoProgress" destination="DNJ-K7-UNE" id="rTi-ge-ElP"/>
                         <outlet property="videoReview" destination="WNy-Cg-5eP" id="mXZ-Sg-DrE"/>
