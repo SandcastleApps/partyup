@@ -23,6 +23,12 @@ struct PartyUpConstants
 	static let StorageKeyPrefix = "media"
 	static let ContentDistribution = NSURL(scheme: "http", host: "drh93nkfgtaww.cloudfront.net", path: "/" + StorageKeyPrefix)!
 	static let StorageBucket = "com.sandcastleapps.partyup"
+	static let TitleLogo: ()->UIImageView = {
+		let logoView = UIImageView(image: UIImage(named: "Logo"))
+		logoView.contentMode = .ScaleAspectFit
+		logoView.bounds = CGRect(x: 0, y: 0, width: 24, height: 30)
+		return logoView
+	}
 }
 
 struct FourSquareConstants
@@ -46,6 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
 		window?.tintColor = UIColor.orangeColor()
+		UINavigationBar.appearance().backgroundColor = UIColor.whiteColor()
+		UINavigationBar.appearance().backIndicatorImage = UIImage(named: "Back")
+		UINavigationBar.appearance().translucent = false
 
 		if let defaultsUrl = NSBundle.mainBundle().URLForResource("PartyDefaults", withExtension: "plist") {
 			if let defaultsDictionary = NSDictionary(contentsOfURL: defaultsUrl) as? [String:AnyObject] {

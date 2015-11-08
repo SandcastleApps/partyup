@@ -38,6 +38,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		navigationItem.titleView = PartyUpConstants.TitleLogo()
+
 		do {
 			try SwiftLocation.shared.currentLocation(.Block, timeout: 20,
 				onSuccess: { (location) in
@@ -182,10 +184,10 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 
 	override func didMoveToParentViewController(parent: UIViewController?) {
 		host = parent as? BakeRootController
-		if let host = host {
-			comment.text = ""
+		if host != nil {
+
 		} else {
-			// moved out of parent
+			comment.text = ""
 		}
 	}
 }

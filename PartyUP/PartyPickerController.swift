@@ -15,7 +15,7 @@ import UIImageView_Letters
 
 class PartyPickerController: UITableViewController {
 
-	private var venues: [Venue]? {
+	var venues: [Venue]? {
 		didSet {
 			partyTable.reloadData()
 			self.refreshControl?.endRefreshing()
@@ -33,9 +33,6 @@ class PartyPickerController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-		navigationItem.titleView = UIImageView(image: UIImage(named: "Logo"))
-		navigationItem.titleView?.bounds = CGRect(x: 0, y: 0, width: 24, height: 30)
 
 		fetchPartyList()
     }
@@ -104,10 +101,6 @@ class PartyPickerController: UITableViewController {
         return 1
     }
 
-	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return "Venues provided by FourSquare"
-	}
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return venues?.count ?? 0
     }
@@ -125,10 +118,6 @@ class PartyPickerController: UITableViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Bake Sample Segue" {
-			let bakerVC = segue.destinationViewController as! BakeRootController
-			bakerVC.venues = venues
-		}
 		if segue.identifier == "Sample Tasting Segue" {
 			if let selection = partyTable.indexPathForSelectedRow, party = venues?[selection.row] {
 				let viewerVC = segue.destinationViewController as! SampleTastingContoller
@@ -137,12 +126,4 @@ class PartyPickerController: UITableViewController {
 			}
 		}
     }
-
-	@IBAction func sequeFromBaking(segue: UIStoryboardSegue) {
-
-	}
-
-	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
-
-	}
 }

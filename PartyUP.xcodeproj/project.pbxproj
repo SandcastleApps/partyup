@@ -28,6 +28,7 @@
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
 		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
+		1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */; };
 		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; };
 		1FF2BA9A1BCAC7A200336651 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF2BA991BCAC7A200336651 /* CoreData.framework */; };
 		7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -79,6 +80,7 @@
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
 		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
+		1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyRootController.swift; sourceTree = "<group>"; };
 		1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptSampleController.swift; sourceTree = "<group>"; };
 		1FF2BA991BCAC7A200336651 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */,
+				1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */,
 			);
 			name = Party;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 			files = (
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
 				1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */,
+				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,

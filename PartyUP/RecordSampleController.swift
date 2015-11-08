@@ -15,6 +15,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	@IBOutlet weak var recordButton: UIButton!
 	@IBOutlet weak var timerBar: DACircularProgressView!
 	@IBOutlet weak var preview: UIView!
+	@IBOutlet weak var naviBar: UINavigationBar!
 
 	let vision = PBJVision.sharedInstance()
 	var timer: NSTimer!
@@ -22,6 +23,8 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
 		let pvLayer = vision.previewLayer
 		pvLayer.frame = preview.bounds
@@ -103,10 +106,10 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	override func didMoveToParentViewController(parent: UIViewController?) {
 		host = parent as? BakeRootController
-		if let host = host {
-			resetTimerBar()
+		if host != nil {
+
 		} else {
-			//moving out of parent
+			resetTimerBar()
 		}
 	}
 }
