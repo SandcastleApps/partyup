@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window?.tintColor = UIColor.orangeColor()
 		UINavigationBar.appearance().backgroundColor = UIColor.whiteColor()
 		UINavigationBar.appearance().backIndicatorImage = UIImage(named: "Back")
+		UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "Back")
 		UINavigationBar.appearance().translucent = false
 
 		if let defaultsUrl = NSBundle.mainBundle().URLForResource("PartyDefaults", withExtension: "plist") {

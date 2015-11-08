@@ -62,6 +62,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
+                        <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
                         <barButtonItem key="rightBarButtonItem" image="Camera" id="Taz-OV-mPg">
                             <connections>
                                 <segue destination="DRD-vV-Ai8" kind="presentation" identifier="Bake Sample Segue" id="C9R-4D-6zA"/>
