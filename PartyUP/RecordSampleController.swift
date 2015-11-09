@@ -91,8 +91,8 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	private var videoUrl: NSURL?
 
 	func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
-		if let error = error {
-			NSLog("Video Capture Error: \(error)")
+		if error != nil {
+			//handle error
 		} else {
 			if let out = videoDict?[PBJVisionVideoPathKey] as? String {
 				host?.recordedSample(NSURL(fileURLWithPath: out))

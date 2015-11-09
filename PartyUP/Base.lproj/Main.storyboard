@@ -316,6 +316,14 @@
                                     <action selector="selectVenue:" destination="RAd-iG-AkU" eventType="touchUpInside" id="cxu-RA-bP6"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcg-n1-3Re" userLabel="Review Video">
+                                <rect key="frame" x="5" y="0.0" width="590" height="590"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pcg-n1-3Re" secondAttribute="height" multiplier="1:1" id="vxR-RL-NHu"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -323,20 +331,23 @@
                         <constraints>
                             <constraint firstItem="3aO-yg-IwN" firstAttribute="top" secondItem="EUn-mv-0NU" secondAttribute="bottom" symbolic="YES" id="31B-wP-urx"/>
                             <constraint firstItem="sYu-gP-YdX" firstAttribute="top" secondItem="3aO-yg-IwN" secondAttribute="bottom" constant="8" id="3t3-a5-Z27"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="sYu-gP-YdX" secondAttribute="leading" id="7dc-3N-wHQ"/>
+                            <constraint firstItem="sYu-gP-YdX" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leadingMargin" id="7dc-3N-wHQ"/>
+                            <constraint firstItem="pcg-n1-3Re" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leading" id="9Jj-aV-MFk"/>
                             <constraint firstItem="qgR-vF-K22" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leadingMargin" id="9U1-8k-5Sf"/>
-                            <constraint firstAttribute="topMargin" secondItem="3aO-yg-IwN" secondAttribute="top" id="Dsp-Zx-mW3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="sYu-gP-YdX" secondAttribute="trailing" id="Ebg-1U-qBE"/>
+                            <constraint firstItem="sYu-gP-YdX" firstAttribute="trailing" secondItem="JgB-7N-lNo" secondAttribute="trailingMargin" id="Ebg-1U-qBE"/>
                             <constraint firstItem="qgR-vF-K22" firstAttribute="top" secondItem="sYu-gP-YdX" secondAttribute="bottom" constant="8" symbolic="YES" id="Hxz-kW-BHX"/>
-                            <constraint firstAttribute="trailing" secondItem="3aO-yg-IwN" secondAttribute="trailing" symbolic="YES" id="LvW-kL-LJh"/>
-                            <constraint firstItem="sYu-gP-YdX" firstAttribute="top" secondItem="EUn-mv-0NU" secondAttribute="bottom" constant="8" id="S90-rH-8ls"/>
+                            <constraint firstItem="3aO-yg-IwN" firstAttribute="trailing" secondItem="JgB-7N-lNo" secondAttribute="trailing" symbolic="YES" id="LvW-kL-LJh"/>
+                            <constraint firstItem="pcg-n1-3Re" firstAttribute="trailing" secondItem="JgB-7N-lNo" secondAttribute="trailing" id="Qdp-bv-hSr"/>
+                            <constraint firstItem="pcg-n1-3Re" firstAttribute="bottom" secondItem="JgB-7N-lNo" secondAttribute="bottomMargin" constant="-10" id="URr-WR-OTQ"/>
+                            <constraint firstItem="pcg-n1-3Re" firstAttribute="centerX" secondItem="JgB-7N-lNo" secondAttribute="centerX" id="i5U-ue-3rb"/>
                             <constraint firstItem="3aO-yg-IwN" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leading" id="iqu-UT-Wf6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qgR-vF-K22" secondAttribute="trailing" id="pxL-V3-20m"/>
+                            <constraint firstItem="qgR-vF-K22" firstAttribute="trailing" secondItem="JgB-7N-lNo" secondAttribute="trailingMargin" id="pxL-V3-20m"/>
+                            <constraint firstItem="pcg-n1-3Re" firstAttribute="width" secondItem="JgB-7N-lNo" secondAttribute="width" constant="-10" id="zpC-R8-GdJ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Dsp-Zx-mW3"/>
-                                <exclude reference="S90-rH-8ls"/>
+                                <exclude reference="9Jj-aV-MFk"/>
+                                <exclude reference="Qdp-bv-hSr"/>
                             </mask>
                         </variation>
                     </view>
@@ -350,6 +361,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="comment" destination="sYu-gP-YdX" id="Osg-IG-3W1"/>
+                        <outlet property="review" destination="pcg-n1-3Re" id="AVq-rr-CWU"/>
                         <outlet property="venue" destination="qgR-vF-K22" id="fim-Lg-bRE"/>
                     </connections>
                 </viewController>

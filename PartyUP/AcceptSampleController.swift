@@ -31,6 +31,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 		}
 	}
 
+	@IBOutlet weak var review: UIView!
 	@IBOutlet weak var venue: UIButton!
 
 	private let player = Player()
@@ -58,30 +59,32 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 
 		player.delegate = self
 		player.view.translatesAutoresizingMaskIntoConstraints = false
+		player.view.layer.cornerRadius = 10
+		player.view.layer.masksToBounds = true
 
 		addChildViewController(player)
-		view.insertSubview(player.view, atIndex: 0)
+		review.insertSubview(player.view, atIndex: 0)
 		player.didMoveToParentViewController(self)
 
-		view.addConstraint(NSLayoutConstraint(
+		review.addConstraint(NSLayoutConstraint(
 			item: player.view,
 			attribute: .CenterX,
 			relatedBy: .Equal,
-			toItem: view,
+			toItem: review,
 			attribute: .CenterX,
 			multiplier: 1.0,
 			constant: 0))
 
-		view.addConstraint(NSLayoutConstraint(
+		review.addConstraint(NSLayoutConstraint(
 			item: player.view,
 			attribute: .Width,
 			relatedBy: .Equal,
-			toItem: view,
+			toItem: review,
 			attribute: .Width,
 			multiplier: 1.0,
 			constant: 0))
 
-		view.addConstraint(NSLayoutConstraint(
+		review.addConstraint(NSLayoutConstraint(
 			item: player.view,
 			attribute: .Height,
 			relatedBy: .Equal,
@@ -90,11 +93,11 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 			multiplier: 1.0,
 			constant: 0))
 
-		view.addConstraint(NSLayoutConstraint(
+		review.addConstraint(NSLayoutConstraint(
 			item: player.view,
 			attribute: .Bottom,
 			relatedBy: .Equal,
-			toItem: view,
+			toItem: review,
 			attribute: .Bottom,
 			multiplier: 1.0,
 			constant: 0))
