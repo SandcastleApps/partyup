@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
+import SwiftLocation
 
 class BakeRootController: UIViewController {
 	private var recordController: RecordSampleController!
@@ -14,8 +16,26 @@ class BakeRootController: UIViewController {
 
 	var venues: [Venue]?
 
+	private var locals = [Venue]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		do {
+			try SwiftLocation.shared.currentLocation(.Block, timeout: 20,
+				onSuccess: { (location) in
+					if let location = location, venues = self.venues {
+						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
+						let locs = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
+						dispatch_async(dispatch_get_main_queue()) { self.locals = locs }
+					}
+				},
+				onFail: { (error) in
+					//handle
+			})
+		} catch {
+			//handle error
+		}
 
 		recordController = storyboard!.instantiateViewControllerWithIdentifier("RecordSample") as! RecordSampleController
 		acceptController = storyboard!.instantiateViewControllerWithIdentifier("AcceptSample") as! AcceptSampleController
@@ -28,7 +48,7 @@ class BakeRootController: UIViewController {
 	func recordedSample(videoUrl: NSURL?) {
 		if let url = videoUrl {
 			acceptController.videoUrl = url
-			acceptController.venues = venues
+			acceptController.venues = locals
 			swapControllers(from: recordController, to: acceptController)
 		} else {
 			performSegueWithIdentifier("Sampling Done Segue", sender: nil)

@@ -19,7 +19,6 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	let vision = PBJVision.sharedInstance()
 	var timer: NSTimer!
-	var venues: [Venue]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,8 +86,6 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	}
 
 	// MARK: - PBJ Delegate
-
-	private var videoUrl: NSURL?
 
 	func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
 		if error != nil {

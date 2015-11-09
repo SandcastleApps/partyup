@@ -7,19 +7,16 @@
 //
 
 import UIKit
-import CoreLocation
-import SwiftLocation
 import Player
 import ActionSheetPicker_3_0
 
 class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDelegate {
 
 	var videoUrl: NSURL?
-	var venues: [Venue]?
 
-	private var locals = [Venue](){
+	var venues = [Venue]() {
 		didSet {
-			venue.setTitle(locals.first?.name ?? "No Venues Available", forState: .Normal)
+			venue?.setTitle(venues.first?.name ?? "No Venues Available", forState: .Normal)
 		}
 	}
 
@@ -31,31 +28,22 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 		}
 	}
 
+	@IBOutlet weak var venue: UIButton! {
+		didSet {
+			venue.setTitle(venues.first?.name ?? "No Venues Available", forState: .Normal)
+		}
+	}
+
+	@IBOutlet weak var naviBar: UINavigationBar!
 	@IBOutlet weak var review: UIView!
-	@IBOutlet weak var venue: UIButton!
+	
 
 	private let player = Player()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		navigationItem.titleView = PartyUpConstants.TitleLogo()
-
-		do {
-			try SwiftLocation.shared.currentLocation(.Block, timeout: 20,
-				onSuccess: { (location) in
-					if let location = location, venues = self.venues {
-						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
-						let locs = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
-						dispatch_async(dispatch_get_main_queue()) { self.locals = locs }
-					}
-				},
-				onFail: { (error) in
-					//handle
-			})
-		} catch {
-			//handle error
-		}
+		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
 		player.delegate = self
 		player.view.translatesAutoresizingMaskIntoConstraints = false
@@ -113,10 +101,10 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 	// MARK: - Venue Picker
 
 	@IBAction func selectVenue(sender: UIButton) {
-		ActionSheetStringPicker.showPickerWithTitle("Venue", rows: locals.map { $0.name }, initialSelection: 0,
+		ActionSheetStringPicker.showPickerWithTitle("Venue", rows: venues.map { $0.name }, initialSelection: 0,
 			doneBlock: { (picker, row, value) in
 				self.selectedLocal = row
-				sender.titleLabel?.text = value as! String
+				sender.titleLabel?.text = (value as! String)
 			},
 			cancelBlock: { (picker) in
 				// cancelled
@@ -154,7 +142,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 			if let url = videoUrl {
 				let sample = Sample(comment: comment.text)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-				SampleManager.defaultManager().submit(sample, event: locals[selectedLocal].unique)
+				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique)
 			}
 
 		} catch {

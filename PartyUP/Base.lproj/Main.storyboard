@@ -27,8 +27,8 @@
                                     <segue destination="r5F-kz-7J0" kind="embed" identifier="Party Embed Segue" id="7iQ-eP-NRF"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Venues by Foursquare" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eb9-qS-WJN">
-                                <rect key="frame" x="0.0" y="575" width="600" height="25"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venues by Foursquare" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eb9-qS-WJN">
+                                <rect key="frame" x="215" y="575" width="170.5" height="25"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="cZi-3U-YTp"/>
@@ -361,6 +361,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="comment" destination="sYu-gP-YdX" id="Osg-IG-3W1"/>
+                        <outlet property="naviBar" destination="3aO-yg-IwN" id="pJu-ku-vfN"/>
                         <outlet property="review" destination="pcg-n1-3Re" id="AVq-rr-CWU"/>
                         <outlet property="venue" destination="qgR-vF-K22" id="fim-Lg-bRE"/>
                     </connections>
