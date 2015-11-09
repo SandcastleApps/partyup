@@ -10,6 +10,8 @@ import UIKit
 
 class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 
+	@IBOutlet weak var container: UIView!
+
 	var partyId: String? {
 		didSet {
 			if let party = partyId {
@@ -28,6 +30,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 				navigator?.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
 			} else {
 				navigator?.dataSource = nil
+				container.hidden = true
 			}
 		}
 	}
