@@ -27,14 +27,14 @@ class BakeRootController: UIViewController {
 					if let location = location, venues = self.venues {
 						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
 						let locs = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
-						dispatch_async(dispatch_get_main_queue()) { self.locals = locs }
+						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }
 					}
 				},
 				onFail: { (error) in
-					//handle
+					dispatch_async(dispatch_get_main_queue()) { self.collectSample([Venue]()) }
 			})
 		} catch {
-			//handle error
+			collectSample([Venue]())
 		}
 
 		recordController = storyboard!.instantiateViewControllerWithIdentifier("RecordSample") as! RecordSampleController
@@ -44,6 +44,18 @@ class BakeRootController: UIViewController {
 		view.addSubview(recordController.view)
 		recordController.didMoveToParentViewController(self)
     }
+
+	func collectSample(filteredVenues: [Venue]) {
+		locals = filteredVenues
+
+		if locals.count > 0 {
+			recordController.recordButton.enabled = true
+		} else {
+			let alert = UIAlertController(title: "Unsupported Venue", message: "The ability to record a video is unavalable because you are not at a supported venue.", preferredStyle: UIAlertControllerStyle.Alert)
+			alert.addAction(UIAlertAction(title: "Rats!", style: .Default, handler: { (action) in self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }))
+			presentViewController(alert, animated: true, completion: nil )
+		}
+	}
 
 	func recordedSample(videoUrl: NSURL?) {
 		if let url = videoUrl {

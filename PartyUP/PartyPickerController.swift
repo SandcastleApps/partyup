@@ -54,7 +54,7 @@ class PartyPickerController: UITableViewController {
 		} catch {
 			refreshControl?.endRefreshing()
 			if !partyAlert.isBeingPresented() {
-				partyAlert.message = "Your location is unknown."
+				partyAlert.message = "Nearby venues are unavailable because you location is unknown"
 				presentViewController(partyAlert, animated: true, completion: nil)
 			}
 		}
@@ -83,7 +83,7 @@ class PartyPickerController: UITableViewController {
 						} else {
 							dispatch_async(dispatch_get_main_queue()) {
 								if !self.partyAlert.isBeingPresented() {
-									self.partyAlert.message = "Failed to retrieve venues from Foursquare."
+									self.partyAlert.message = "Nearby venues are unavailable because FourSquare is unreachable."
 									self.presentViewController(self.partyAlert, animated: true, completion: nil)
 								}
 							}
