@@ -16,7 +16,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 
 	var venues = [Venue]() {
 		didSet {
-			venue?.setTitle(venues.first?.name ?? "No Venues Available", forState: .Normal)
+			venueButtonState()
 		}
 	}
 
@@ -30,7 +30,24 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 
 	@IBOutlet weak var venue: UIButton! {
 		didSet {
-			venue.setTitle(venues.first?.name ?? "No Venues Available", forState: .Normal)
+			venueButtonState()
+		}
+	}
+
+	private func venueButtonState() {
+		var label = "No Venues Available"
+
+		if selectedLocal < venues.count {
+			label = venues[selectedLocal].name
+		}
+
+		venue?.setTitle(label, forState: .Disabled)
+
+		if venues.count > 1 {
+			label += " ▼"
+			venue?.setTitle(label, forState: .Normal)
+		} else {
+			venue?.enabled = false
 		}
 	}
 
@@ -104,7 +121,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 		ActionSheetStringPicker.showPickerWithTitle("Venue", rows: venues.map { $0.name }, initialSelection: 0,
 			doneBlock: { (picker, row, value) in
 				self.selectedLocal = row
-				sender.titleLabel?.text = (value as! String)
+				self.venueButtonState()
 			},
 			cancelBlock: { (picker) in
 				// cancelled
