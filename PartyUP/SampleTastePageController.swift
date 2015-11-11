@@ -23,7 +23,7 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	@IBOutlet weak var videoReview: UIView!
 
 	private let player = Player()
-	private var timer: NSTimer!
+	private var timer: NSTimer?
 	private var tick: Double = 0.0
 	private let tickInc: Double = 0.10
 
@@ -35,7 +35,6 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 			commentLabel.text = comment
 		}
 
-		player.delegate = self
 		player.view.translatesAutoresizingMaskIntoConstraints = false
 		player.view.layer.cornerRadius = 10
 		player.view.layer.masksToBounds = true
@@ -85,12 +84,15 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		player.delegate = self
 		player.playFromBeginning()
 	}
 
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(animated)
 		player.stop()
+		timer?.invalidate()
+		player.delegate = nil
 	}
 
 	// MARK: Player
@@ -98,12 +100,12 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	func playerPlaybackWillStartFromBeginning(player: Player) {
 		tick = 0.0
 		videoProgress.setProgress(CGFloat(tick), animated: false)
+		timer?.invalidate()
 		timer = NSTimer.scheduledTimerWithTimeInterval(tickInc, target: self, selector: Selector("playerTimer"), userInfo: nil, repeats: true)
 	}
 
 	func playerPlaybackDidEnd(player: Player) {
 		videoProgress.setProgress(1.0, animated: false)
-		timer.invalidate()
 		player.playFromBeginning()
 	}
 
@@ -111,9 +113,6 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	}
 
 	func playerPlaybackStateDidChange(player: Player) {
-		if player.playbackState != .Playing {
-			timer.invalidate()
-		}
 	}
 
 	func playerBufferingStateDidChange(player: Player) {

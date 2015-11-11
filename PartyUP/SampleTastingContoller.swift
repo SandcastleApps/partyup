@@ -35,7 +35,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 		}
 	}
 
-	private var navigator: UIPageViewController?
+	private weak var navigator: UIPageViewController?
 
 	func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
 		var toVC: SampleTastePageController?
