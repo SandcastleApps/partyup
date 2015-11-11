@@ -99,7 +99,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	// MARK: - Hosted
 
-	var host: BakeRootController?
+	private weak var host: BakeRootController?
 
 	override func didMoveToParentViewController(parent: UIViewController?) {
 		host = parent as? BakeRootController

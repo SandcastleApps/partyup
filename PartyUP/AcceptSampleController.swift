@@ -62,7 +62,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
-		player.delegate = self
+//		player.delegate = self
 		player.view.translatesAutoresizingMaskIntoConstraints = false
 		player.view.layer.cornerRadius = 10
 		player.view.layer.masksToBounds = true
@@ -188,7 +188,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 
 	// MARK: - Hosted
 
-	var host: BakeRootController?
+	private weak var host: BakeRootController?
 
 	override func didMoveToParentViewController(parent: UIViewController?) {
 		host = parent as? BakeRootController
