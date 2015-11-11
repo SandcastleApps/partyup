@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,22 +19,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="EHf-eD-Sw2">
-                                <rect key="frame" x="262" y="252" width="77" height="96"/>
+                                <rect key="frame" x="262" y="177" width="77" height="96"/>
                                 <animations/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="PartyUP" translatesAutoresizingMaskIntoConstraints="NO" id="fG8-ZW-MPZ">
-                                <rect key="frame" x="214.5" y="396" width="172" height="46"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="PartyUP Black" translatesAutoresizingMaskIntoConstraints="NO" id="tze-8D-Bde">
+                                <rect key="frame" x="75.5" y="281" width="450" height="183"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="183" id="6X0-IB-Asa"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EHf-eD-Sw2" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="XPw-NG-E88"/>
-                            <constraint firstItem="fG8-ZW-MPZ" firstAttribute="centerX" secondItem="EHf-eD-Sw2" secondAttribute="centerX" id="iTe-eh-hdk"/>
-                            <constraint firstItem="fG8-ZW-MPZ" firstAttribute="top" secondItem="EHf-eD-Sw2" secondAttribute="bottom" constant="48" id="m2z-cf-ACU"/>
+                            <constraint firstItem="tze-8D-Bde" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="3:4" id="ETh-8L-SPd"/>
+                            <constraint firstItem="EHf-eD-Sw2" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="3:4" id="XPw-NG-E88"/>
+                            <constraint firstItem="tze-8D-Bde" firstAttribute="centerX" secondItem="EHf-eD-Sw2" secondAttribute="centerX" id="XZH-8M-MRr"/>
+                            <constraint firstItem="tze-8D-Bde" firstAttribute="top" secondItem="EHf-eD-Sw2" secondAttribute="bottom" constant="8" symbolic="YES" id="n22-g9-uaB"/>
+                            <constraint firstItem="tze-8D-Bde" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="pb3-oi-ec7"/>
                             <constraint firstItem="EHf-eD-Sw2" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vXz-zS-tL8"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="XZH-8M-MRr"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -43,6 +54,6 @@
     </scenes>
     <resources>
         <image name="Logo" width="77" height="96"/>
-        <image name="PartyUP" width="172" height="46"/>
+        <image name="PartyUP Black" width="669" height="183"/>
     </resources>
 </document>
