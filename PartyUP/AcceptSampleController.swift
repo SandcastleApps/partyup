@@ -118,6 +118,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 	// MARK: - Venue Picker
 
 	@IBAction func selectVenue(sender: UIButton) {
+		view.endEditing(false)
+		
 		ActionSheetStringPicker.showPickerWithTitle("Venue", rows: venues.map { $0.name }, initialSelection: 0,
 			doneBlock: { (picker, row, value) in
 				self.selectedLocal = row
@@ -136,8 +138,12 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 	}
 
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		textField.resignFirstResponder()
+		view.endEditing(false)
 		return true
+	}
+
+	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		view.endEditing(false)
 	}
 
     // MARK: - Navigation
