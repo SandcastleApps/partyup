@@ -56,7 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UINavigationBar.appearance().backIndicatorImage = UIImage(named: "Back")
 		UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "Back")
 		UINavigationBar.appearance().translucent = false
-		UITextField.appearance().tintColor = UIColor.orangeColor()
+		UITextView.appearance().tintColor = UIColor.orangeColor()
+		UIButton.appearance().tintColor = UIColor.orangeColor()
 
 		if let defaultsUrl = NSBundle.mainBundle().URLForResource("PartyDefaults", withExtension: "plist") {
 			if let defaultsDictionary = NSDictionary(contentsOfURL: defaultsUrl) as? [String:AnyObject] {

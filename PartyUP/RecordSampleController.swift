@@ -99,6 +99,9 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	// MARK: - Hosted
 
+	@IBAction func cancelRecording(sender: UIBarButtonItem) {
+		host?.recordedSample(nil)
+	}
 	private weak var host: BakeRootController?
 
 	override func didMoveToParentViewController(parent: UIViewController?) {

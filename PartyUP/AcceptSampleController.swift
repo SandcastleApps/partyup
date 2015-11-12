@@ -10,7 +10,7 @@ import UIKit
 import Player
 import ActionSheetPicker_3_0
 
-class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDelegate {
+class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelegate {
 
 	var videoUrl: NSURL?
 
@@ -22,9 +22,15 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 
 	private var selectedLocal = 0
 
-	@IBOutlet weak var comment: UITextField! {
+	@IBOutlet weak var comment: UITextView! {
 		didSet {
 			comment.delegate = self
+
+			comment.layer.borderColor = UIColor.lightGrayColor().CGColor
+			comment.layer.borderWidth = 0.8
+			comment.layer.cornerRadius = 5
+
+			setCommentPlaceholder()
 		}
 	}
 
@@ -66,6 +72,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 		player.view.translatesAutoresizingMaskIntoConstraints = false
 		player.view.layer.cornerRadius = 10
 		player.view.layer.masksToBounds = true
+		player.playbackLoops = true
 
 		addChildViewController(player)
 		review.insertSubview(player.view, atIndex: 0)
@@ -106,13 +113,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 			attribute: .Bottom,
 			multiplier: 1.0,
 			constant: 0))
-
-		if let url = videoUrl {
-			player.setUrl(url)
-			player.playbackLoops = true
-			player.playFromBeginning()
-		}
-
 	}
 
 	// MARK: - Venue Picker
@@ -131,15 +131,22 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 			origin: view)
 	}
 
-	// MARK: - Keyboard
+	// MARK: - Text View
 
-	func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-		return true
+	private func setCommentPlaceholder() {
+		comment.text = "How goes the party?"
+		comment.textColor = UIColor.lightGrayColor()
 	}
 
-	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		view.endEditing(false)
-		return true
+	func textViewDidBeginEditing(textView: UITextView) {
+		textView.text.removeAll()
+		textView.textColor = UIColor.blackColor()
+	}
+
+	func textViewDidEndEditing(textView: UITextView) {
+		if comment.text.isEmpty {
+			setCommentPlaceholder()
+		}
 	}
 
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -195,13 +202,20 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextFieldDeleg
 	// MARK: - Hosted
 
 	private weak var host: BakeRootController?
+	
 
 	override func didMoveToParentViewController(parent: UIViewController?) {
-		host = parent as? BakeRootController
-		if host != nil {
+		super.didMoveToParentViewController(parent)
 
+		host = parent as? BakeRootController
+		if host == nil {
+			selectedLocal = 0
+			setCommentPlaceholder()
 		} else {
-			comment.text = ""
+			if let url = videoUrl {
+				player.setUrl(url)
+				player.playFromBeginning()
+			}
 		}
 	}
 }
