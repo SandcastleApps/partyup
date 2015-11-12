@@ -132,7 +132,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                         <attributedString key="attributedTitle">
-                            <fragment content="Don't Panic!">
+                            <fragment content="No matter where you go, there you are!">
                                 <attributes>
                                     <font key="NSFont" metaFont="smallSystem"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
