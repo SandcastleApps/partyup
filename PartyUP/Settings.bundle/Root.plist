@@ -22,7 +22,7 @@
 			<key>MinimumValue</key>
 			<real>10</real>
 			<key>MaximumValue</key>
-			<integer>100</integer>
+			<integer>5000</integer>
 		</dict>
 		<dict>
 			<key>Type</key>
