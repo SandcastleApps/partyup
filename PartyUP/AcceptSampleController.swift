@@ -25,11 +25,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBOutlet weak var comment: UITextView! {
 		didSet {
 			comment.delegate = self
-
-			comment.layer.borderColor = UIColor.lightGrayColor().CGColor
-			comment.layer.borderWidth = 0.8
-			comment.layer.cornerRadius = 5
-
 			setCommentPlaceholder()
 		}
 	}
@@ -59,7 +54,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 
 	@IBOutlet weak var naviBar: UINavigationBar!
 	@IBOutlet weak var review: UIView!
-	
+
 
 	private let player = Player()
 

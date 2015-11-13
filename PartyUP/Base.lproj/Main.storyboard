@@ -191,6 +191,11 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TZp-pU-snf" secondAttribute="height" multiplier="1:1" id="Mzf-ey-Gea"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhj-Vi-QG8" customClass="DACircularProgressView">
                                 <rect key="frame" x="250" y="492" width="99" height="99"/>
@@ -222,9 +227,13 @@
                         <constraints>
                             <constraint firstItem="TZp-pU-snf" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" id="75W-SY-Rmf"/>
                             <constraint firstItem="Aq5-uh-elp" firstAttribute="top" secondItem="mpx-EC-7eU" secondAttribute="bottom" symbolic="YES" id="7le-vB-xfx"/>
-                            <constraint firstItem="TZp-pU-snf" firstAttribute="width" secondItem="rgs-gn-jA0" secondAttribute="width" id="AlO-25-skZ"/>
+                            <constraint firstItem="TZp-pU-snf" firstAttribute="width" secondItem="rgs-gn-jA0" secondAttribute="width" id="AlO-25-skZ">
+                                <variation key="heightClass=regular" constant="-10"/>
+                            </constraint>
                             <constraint firstItem="lhj-Vi-QG8" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="1:1.01" id="Fzf-1z-Xwk"/>
-                            <constraint firstItem="TZp-pU-snf" firstAttribute="top" secondItem="Aq5-uh-elp" secondAttribute="bottom" symbolic="YES" id="G53-Z9-JWF"/>
+                            <constraint firstItem="TZp-pU-snf" firstAttribute="top" secondItem="Aq5-uh-elp" secondAttribute="bottom" symbolic="YES" id="G53-Z9-JWF">
+                                <variation key="heightClass=regular" constant="10"/>
+                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="Aq5-uh-elp" secondAttribute="trailing" id="Krz-xJ-pJp"/>
                             <constraint firstItem="TZp-pU-snf" firstAttribute="centerX" secondItem="rgs-gn-jA0" secondAttribute="centerX" id="PR2-jl-2Es"/>
                             <constraint firstItem="Aq5-uh-elp" firstAttribute="leading" secondItem="rgs-gn-jA0" secondAttribute="leading" id="S2N-U5-2am"/>
@@ -307,6 +316,17 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <real key="value" value="0.80000000000000004"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColorUI">
+                                        <color key="value" red="0.55703124999999998" green="0.55703124999999998" blue="0.55703124999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="jzO-Ym-Yii"/>
@@ -399,8 +419,8 @@
                                 <exclude reference="e9U-gI-xRM"/>
                                 <exclude reference="uDe-yT-jG5"/>
                                 <exclude reference="zzK-it-gCr"/>
-                                <exclude reference="bxp-C2-aa1"/>
                                 <exclude reference="vvK-w6-jPw"/>
+                                <exclude reference="bxp-C2-aa1"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -413,9 +433,9 @@
                                 <include reference="e9U-gI-xRM"/>
                                 <exclude reference="uDe-yT-jG5"/>
                                 <include reference="zzK-it-gCr"/>
-                                <include reference="bxp-C2-aa1"/>
                                 <exclude reference="9U1-8k-5Sf"/>
                                 <include reference="vvK-w6-jPw"/>
+                                <include reference="bxp-C2-aa1"/>
                             </mask>
                         </variation>
                     </view>

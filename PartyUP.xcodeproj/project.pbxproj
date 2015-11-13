@@ -27,6 +27,7 @@
 		1F9997451BB323D5003457E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9997441BB323D5003457E2 /* AVFoundation.framework */; };
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
 		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
+		1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
 		1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */; };
 		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; };
@@ -79,6 +80,7 @@
 		1F9997441BB323D5003457E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
 		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
+		1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+RuntimeAttributes.swift"; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
 		1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyRootController.swift; sourceTree = "<group>"; };
 		1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptSampleController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				1F427A071BA59F4C00E622CF /* Assets.xcassets */,
 				1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */,
 				1F427A0C1BA59F4C00E622CF /* Info.plist */,
+				1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
 				1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */,
+				1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

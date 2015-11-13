@@ -27,6 +27,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 		let pvLayer = vision.previewLayer
 		pvLayer.frame = preview.bounds
+		pvLayer.cornerRadius = 10
 		pvLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
 		preview.layer.addSublayer(pvLayer)
 
@@ -35,6 +36,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		vision.cameraOrientation = .Portrait
 		vision.focusMode = .ContinuousAutoFocus
 		vision.outputFormat = .Square
+		vision.captureSessionPreset = AVCaptureSessionPresetLow
     }
 
 	override func viewWillAppear(animated: Bool) {
