@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15C31f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C40a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -35,16 +35,10 @@
                         <constraints>
                             <constraint firstItem="tze-8D-Bde" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="3:4" id="ETh-8L-SPd"/>
                             <constraint firstItem="EHf-eD-Sw2" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="3:4" id="XPw-NG-E88"/>
-                            <constraint firstItem="tze-8D-Bde" firstAttribute="centerX" secondItem="EHf-eD-Sw2" secondAttribute="centerX" id="XZH-8M-MRr"/>
                             <constraint firstItem="tze-8D-Bde" firstAttribute="top" secondItem="EHf-eD-Sw2" secondAttribute="bottom" constant="8" symbolic="YES" id="n22-g9-uaB"/>
                             <constraint firstItem="tze-8D-Bde" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="pb3-oi-ec7"/>
                             <constraint firstItem="EHf-eD-Sw2" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vXz-zS-tL8"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="XZH-8M-MRr"/>
-                            </mask>
-                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
