@@ -13,6 +13,7 @@ import ActionSheetPicker_3_0
 class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelegate {
 
 	var videoUrl: NSURL?
+	var transitionStartY: CGFloat = 0.0
 
 	var venues = [Venue]() {
 		didSet {
@@ -29,6 +30,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		}
 	}
 
+	@IBOutlet weak var venueLabel: UILabel!
 	@IBOutlet weak var venue: UIButton! {
 		didSet {
 			venueButtonState()
@@ -54,7 +56,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 
 	@IBOutlet weak var naviBar: UINavigationBar!
 	@IBOutlet weak var review: UIView!
-
 
 	private let player = Player()
 
@@ -108,6 +109,63 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			attribute: .Bottom,
 			multiplier: 1.0,
 			constant: 0))
+	}
+
+	// MARK: - View Lifecycle
+
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		review.hidden = true
+		comment.hidden = true
+		venue.hidden = true
+		venueLabel.hidden = true
+	}
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+
+		let offset = transitionStartY - review.frame.origin.y
+
+		review.transform = CGAffineTransformMakeTranslation(0, offset)
+		comment.transform = CGAffineTransformMakeTranslation(0, offset)
+		venue.transform = CGAffineTransformMakeTranslation(0, offset)
+		venueLabel.transform = CGAffineTransformMakeTranslation(0, offset)
+
+		review.hidden = false
+		comment.hidden = false
+		venue.hidden = false
+		venueLabel.hidden = false
+
+		UIView.animateWithDuration(0.5,
+			delay: 0,
+			usingSpringWithDamping: 0.85,
+			initialSpringVelocity: 10,
+			options: [],
+			animations: {
+				self.review.transform = CGAffineTransformIdentity
+			},
+			completion: nil)
+
+		UIView.animateWithDuration(0.5,
+			delay: 0.1,
+			usingSpringWithDamping: 0.85,
+			initialSpringVelocity: 10,
+			options: [],
+			animations: {
+				self.venue.transform = CGAffineTransformIdentity
+				self.venueLabel.transform = CGAffineTransformIdentity
+			},
+			completion: nil)
+
+		UIView.animateWithDuration(0.5,
+			delay: 0.2,
+			usingSpringWithDamping: 0.85,
+			initialSpringVelocity: 10,
+			options: [],
+			animations: {
+				self.comment.transform = CGAffineTransformIdentity
+			},
+			completion: nil)
 	}
 
 	// MARK: - Venue Picker
@@ -212,5 +270,11 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				player.playFromBeginning()
 			}
 		}
+	}
+}
+
+extension AcceptSampleController: UIBarPositioningDelegate {
+	func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+		return .TopAttached
 	}
 }

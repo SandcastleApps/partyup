@@ -17,6 +17,8 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	@IBOutlet weak var preview: UIView!
 	@IBOutlet weak var naviBar: UINavigationBar!
 
+	var transitionStartY: CGFloat = 0.0
+
 	let vision = PBJVision.sharedInstance()
 	var timer: NSTimer!
 
@@ -42,6 +44,30 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		vision.startPreview()
+
+		recordButton.hidden = true
+		preview.hidden = true
+	}
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+
+		recordButton.transform = CGAffineTransformMakeScale(0.1, 0.1)
+		preview.transform = CGAffineTransformMakeTranslation(0, transitionStartY - preview.frame.origin.y)
+
+		recordButton.hidden = false
+		preview.hidden = false
+
+		UIView.animateWithDuration(0.5,
+			delay: 0,
+			usingSpringWithDamping: 0.85,
+			initialSpringVelocity: 10,
+			options: [],
+			animations: {
+				self.recordButton.transform = CGAffineTransformIdentity
+				self.preview.transform = CGAffineTransformIdentity
+			},
+			completion: nil)
 	}
 
 	override func viewWillDisappear(animated: Bool) {
@@ -60,6 +86,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	}
 
 	func resetTimerBar() {
+		timer?.invalidate()
 		timerBar.progress = 0.0
 		timerBar.progressTintColor = UIColor.yellowColor()
 	}
@@ -67,7 +94,8 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	// MARK: - Recording
 
 	func observeTimerInterval() {
-		timerBar.progress += 0.1
+		timerBar.progress = CGFloat(vision.capturedVideoSeconds / 30.0)
+
 		if timerBar.progress >= 0.5 {
 			timerBar.progressTintColor = UIColor.greenColor()
 		}
@@ -79,24 +107,35 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	@IBAction func startRecording() {
 		vision.startVideoCapture()
-		timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("observeTimerInterval"), userInfo: nil, repeats: true)
 	}
 
 	@IBAction func stopRecording() {
 		vision.endVideoCapture()
-		timer.invalidate()
 	}
 
 	// MARK: - PBJ Delegate
 
 	func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
-		if error != nil {
-			//handle error
-		} else {
+		if error == nil {
 			if let out = videoDict?[PBJVisionVideoPathKey] as? String {
-				host?.recordedSample(NSURL(fileURLWithPath: out))
+				if let duration = videoDict?[PBJVisionVideoCapturedDurationKey] as? Double where duration >= 10 {
+					host?.recordedSample(NSURL(fileURLWithPath: out))
+				} else {
+					try? NSFileManager.defaultManager().removeItemAtPath(out)
+				}
 			}
 		}
+
+		resetTimerBar()
+	}
+
+	func vision(vision: PBJVision, willStartVideoCaptureToFile fileName: String) -> String {
+		dispatch_async(dispatch_get_main_queue()) {
+			self.resetTimerBar()
+			self.timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("observeTimerInterval"), userInfo: nil, repeats: true)
+		}
+
+		return fileName
 	}
 
 	// MARK: - Hosted
@@ -104,14 +143,19 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	@IBAction func cancelRecording(sender: UIBarButtonItem) {
 		host?.recordedSample(nil)
 	}
+
 	private weak var host: BakeRootController?
 
 	override func didMoveToParentViewController(parent: UIViewController?) {
 		host = parent as? BakeRootController
-		if host != nil {
-
-		} else {
+		if host == nil {
 			resetTimerBar()
 		}
+	}
+}
+
+extension RecordSampleController: UIBarPositioningDelegate {
+	func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+		return .TopAttached
 	}
 }

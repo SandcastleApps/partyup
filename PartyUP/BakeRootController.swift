@@ -42,6 +42,7 @@ class BakeRootController: UIViewController {
 
 		addChildViewController(recordController)
 		view.addSubview(recordController.view)
+		recordController.transitionStartY = recordController.preview.frame.origin.y
 		recordController.didMoveToParentViewController(self)
     }
 
@@ -61,6 +62,7 @@ class BakeRootController: UIViewController {
 		if let url = videoUrl {
 			acceptController.videoUrl = url
 			acceptController.venues = locals
+			acceptController.transitionStartY = recordController.preview.frame.origin.y
 			swapControllers(from: recordController, to: acceptController)
 		} else {
 			performSegueWithIdentifier("Sampling Done Segue", sender: nil)
@@ -72,13 +74,14 @@ class BakeRootController: UIViewController {
 	}
 
 	func rejectedSample() {
+		recordController.transitionStartY = acceptController.review.frame.origin.y
 		swapControllers(from: acceptController, to: recordController)
 	}
 
 	func swapControllers(from from: UIViewController, to: UIViewController) {
 		from.willMoveToParentViewController(nil)
 		addChildViewController(to)
-		transitionFromViewController(from, toViewController: to, duration: 0.5, options: .TransitionCrossDissolve, animations: nil) { (done) in
+		transitionFromViewController(from, toViewController: to, duration: 0.0, options: [], animations: nil) { (done) in
 				from.removeFromParentViewController()
 				to.didMoveToParentViewController(self)
 		}
