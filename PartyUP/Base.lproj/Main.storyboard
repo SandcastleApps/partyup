@@ -176,7 +176,7 @@
                                                 <action selector="cancelRecording:" destination="8VR-ye-Fdg" id="vlC-g5-Vni"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" image="Flash" id="UKq-xO-Gxw">
+                                        <barButtonItem key="rightBarButtonItem" image="FlashOn" id="UKq-xO-Gxw">
                                             <connections>
                                                 <action selector="torchControl:" destination="8VR-ye-Fdg" id="32Z-6w-MuB"/>
                                             </connections>
@@ -244,12 +244,12 @@
                                         <exclude reference="FcL-8R-2uI"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <exclude reference="Fo8-IL-Ghg"/>
+                                        <exclude reference="vfM-6t-Kec"/>
                                         <exclude reference="8Qc-wa-tMS"/>
                                         <exclude reference="Ep1-5e-PQD"/>
                                         <exclude reference="Uk3-xf-35i"/>
                                         <exclude reference="aiw-4A-EZ6"/>
-                                        <exclude reference="Fo8-IL-Ghg"/>
-                                        <exclude reference="vfM-6t-Kec"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
@@ -258,12 +258,12 @@
                                         <include reference="FcL-8R-2uI"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <include reference="Fo8-IL-Ghg"/>
+                                        <include reference="vfM-6t-Kec"/>
                                         <include reference="8Qc-wa-tMS"/>
                                         <include reference="Ep1-5e-PQD"/>
                                         <include reference="Uk3-xf-35i"/>
                                         <include reference="aiw-4A-EZ6"/>
-                                        <include reference="Fo8-IL-Ghg"/>
-                                        <include reference="vfM-6t-Kec"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -669,7 +669,6 @@
                             <constraint firstItem="e0F-a8-syX" firstAttribute="top" secondItem="Sy6-pN-RsA" secondAttribute="bottom" constant="8" symbolic="YES" id="xUl-uD-L3y"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
@@ -720,7 +719,8 @@
         <image name="Camera" width="35" height="29"/>
         <image name="Dots" width="58" height="12"/>
         <image name="Flash" width="23" height="36"/>
-        <image name="Hamburger" width="33" height="32"/>
+        <image name="FlashOn" width="23" height="36"/>
+        <image name="Hamburger" width="34" height="24"/>
         <image name="Send" width="44" height="36"/>
     </resources>
 </document>
