@@ -109,10 +109,32 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	@IBAction func startRecording() {
 		vision.startVideoCapture()
+
+		UIView.animateWithDuration(0.5,
+			delay: 0,
+			usingSpringWithDamping: 0.85,
+			initialSpringVelocity: 10,
+			options: [],
+			animations: {
+				self.recordButton.transform = CGAffineTransformMakeScale(1.2, 1.2)
+				self.timerBar.transform = CGAffineTransformMakeScale(1.2, 1.2)
+			},
+			completion: nil)
 	}
 
 	@IBAction func stopRecording() {
 		vision.endVideoCapture()
+
+		UIView.animateWithDuration(0.5,
+			delay: 0,
+			usingSpringWithDamping: 0.85,
+			initialSpringVelocity: 10,
+			options: [],
+			animations: {
+				self.recordButton.transform = CGAffineTransformIdentity
+				self.timerBar.transform = CGAffineTransformIdentity
+			},
+			completion: nil)
 	}
 
 	// MARK: - PBJ Delegate
@@ -123,7 +145,9 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 				if let duration = videoDict?[PBJVisionVideoCapturedDurationKey] as? Double where duration >= minVideoDuration {
 					host?.recordedSample(NSURL(fileURLWithPath: out))
 				} else {
-					try? NSFileManager.defaultManager().removeItemAtPath(out)
+					if let error = try? NSFileManager.defaultManager().removeItemAtPath(out) {
+						NSLog("Failed to delete cancelled video with error: \(error)")
+					}
 				}
 			}
 		}
