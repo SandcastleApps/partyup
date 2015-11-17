@@ -54,7 +54,7 @@ class PartyPickerController: UITableViewController {
 		} catch {
 			refreshControl?.endRefreshing()
 			if !partyAlert.isBeingPresented() {
-				partyAlert.message = "Nearby venues are unavailable because you location is unknown"
+				partyAlert.message = "Nearby venues are unavailable because your location is unknown"
 				presentViewController(partyAlert, animated: true, completion: nil)
 			}
 		}
