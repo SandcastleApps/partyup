@@ -56,6 +56,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 
 	@IBOutlet weak var naviBar: UINavigationBar!
 	@IBOutlet weak var review: UIView!
+	@IBOutlet weak var sendButton: UIButton!
 
 	private let player = Player()
 
@@ -63,6 +64,19 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		super.viewDidLoad()
 
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
+
+		var aniFrames = [UIImage]()
+
+		for x in 1...17 {
+			aniFrames.append(UIImage(named: "Send_\(x)")!)
+		}
+
+		let sendAnimation = UIImageView(frame: CGRect(x: 0, y: 0, width: 44, height: 36))
+		sendAnimation.animationImages = aniFrames
+		sendAnimation.animationDuration = 1
+		sendAnimation.startAnimating()
+		sendButton.addSubview(sendAnimation)
+		sendButton.frame = sendAnimation.bounds
 
 //		player.delegate = self
 		player.view.translatesAutoresizingMaskIntoConstraints = false
@@ -220,7 +234,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		host?.rejectedSample()
 	}
 
-	@IBAction func acceptSample(sender: UIBarButtonItem) {
+	@IBAction func acceptSample(sender: UIButton) {
 		do {
 			if let url = videoUrl {
 				let sample = Sample(comment: comment.text)

@@ -427,10 +427,15 @@
                                                 <action selector="rejectSample:" destination="RAd-iG-AkU" id="jbg-qK-35o"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" image="Send" id="Lms-Tb-ezH">
-                                            <connections>
-                                                <action selector="acceptSample:" destination="RAd-iG-AkU" id="eis-d4-fOD"/>
-                                            </connections>
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="qSE-GJ-UWy">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RJF-ix-NZL">
+                                                <rect key="frame" x="534" y="7" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <animations/>
+                                                <connections>
+                                                    <action selector="acceptSample:" destination="RAd-iG-AkU" eventType="touchUpInside" id="2oo-rb-7wj"/>
+                                                </connections>
+                                            </button>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -511,6 +516,7 @@
                         <outlet property="comment" destination="RmL-zJ-VBo" id="EZi-jE-4dA"/>
                         <outlet property="naviBar" destination="3aO-yg-IwN" id="pJu-ku-vfN"/>
                         <outlet property="review" destination="pcg-n1-3Re" id="AVq-rr-CWU"/>
+                        <outlet property="sendButton" destination="RJF-ix-NZL" id="063-jA-3c3"/>
                         <outlet property="venue" destination="qgR-vF-K22" id="fim-Lg-bRE"/>
                         <outlet property="venueLabel" destination="x6a-m8-fg9" id="bJi-66-U2p"/>
                     </connections>
@@ -608,15 +614,15 @@
                         <viewControllerLayoutGuide type="bottom" id="1ZI-if-Z26"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EGl-He-1VL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-Cg-5eP" userLabel="Review">
-                                <rect key="frame" x="5" y="28" width="404" height="414"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-Cg-5eP" userLabel="Review">
+                                <rect key="frame" x="5" y="28" width="590" height="530"/>
                                 <animations/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dots" translatesAutoresizingMaskIntoConstraints="NO" id="gth-hB-4CF" userLabel="Dots">
-                                <rect key="frame" x="336" y="450" width="58" height="12"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Dots" translatesAutoresizingMaskIntoConstraints="NO" id="gth-hB-4CF" userLabel="Dots">
+                                <rect key="frame" x="522" y="566" width="58" height="12"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="x5y-sq-BnP"/>
@@ -627,21 +633,21 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA">
-                                <rect key="frame" x="20" y="444" width="44.5" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA">
+                                <rect key="frame" x="20" y="560" width="44.5" height="24"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="250" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
-                                <rect key="frame" x="20" y="476" width="374" height="252"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="250" ambiguous="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
+                                <rect key="frame" x="20" y="592" width="560" height="0.0"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNJ-K7-UNE" userLabel="Video Progress" customClass="DACircularProgressView">
-                                <rect key="frame" x="384" y="33" width="20" height="20"/>
+                                <rect key="frame" x="570" y="33" width="20" height="20"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
