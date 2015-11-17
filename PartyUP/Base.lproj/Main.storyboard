@@ -80,7 +80,7 @@
         <scene sceneID="8EJ-Ig-N00">
             <objects>
                 <tableViewController title="Select Party" id="r5F-kz-7J0" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="QhV-Jl-Gi4">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="QhV-Jl-Gi4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="511"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
