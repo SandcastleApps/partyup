@@ -64,10 +64,13 @@ class PartyPickerController: UITableViewController {
 		if location.distanceFromLocation(lastLocation) > 100 || location.timestamp.timeIntervalSinceDate(lastLocation.timestamp) > 60 {
 			if let categories = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.VenueCategories) as? [String] {
 				let params = ["ll" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
+					"radius" : "10000",
 					"client_id" : FourSquareConstants.identifier,
 					"client_secret" : FourSquareConstants.secret,
 					"categoryId" : categories.joinWithSeparator(","),
-					"v" : "20140118"]
+					"v" : "20140118",
+					"intent" : "browse",
+					"limit" : "50"]
 
 				Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params)
 					.validate()
