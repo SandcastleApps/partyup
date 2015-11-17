@@ -26,7 +26,7 @@ struct PartyUpConstants
 	static let TitleLogo: ()->UIImageView = {
 		let logoView = UIImageView(image: UIImage(named: "Logo"))
 		logoView.contentMode = .ScaleAspectFit
-		logoView.bounds = CGRect(x: 0, y: 0, width: 24, height: 30)
+		logoView.bounds = CGRect(x: 0, y: 0, width: 24, height: 40)
 		return logoView
 	}
 }
