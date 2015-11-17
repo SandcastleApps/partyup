@@ -206,14 +206,27 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	}
 
 	func textViewDidBeginEditing(textView: UITextView) {
-		textView.text.removeAll()
-		textView.textColor = UIColor.blackColor()
+		if textView.textColor != UIColor.blackColor() {
+			textView.text.removeAll()
+			textView.textColor = UIColor.blackColor()
+		}
 	}
 
 	func textViewDidEndEditing(textView: UITextView) {
 		if comment.text.isEmpty {
 			setCommentPlaceholder()
 		}
+	}
+
+	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+		var acceptText = true
+
+		if text == "\n" {
+			view.endEditing(false)
+			acceptText = false
+		}
+
+		return acceptText
 	}
 
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -237,7 +250,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBAction func acceptSample(sender: UIButton) {
 		do {
 			if let url = videoUrl {
-				let sample = Sample(comment: comment.text)
+				let sample = Sample(comment: comment.textColor == UIColor.blackColor() ? comment.text : nil)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
 				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique)
 			}
