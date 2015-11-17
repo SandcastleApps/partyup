@@ -85,6 +85,12 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
     // MARK: - Navigation
 	@IBAction func torchControl(sender: UIBarButtonItem) {
 		vision.flashMode = vision.flashMode == .Off ? .On : .Off
+
+		if vision.flashMode == .On {
+			sender.image = UIImage(named: "FlashOn")
+		} else {
+			sender.image = UIImage(named: "FlashOff")
+		}
 	}
 
 	func resetTimerBar() {

@@ -283,7 +283,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 
 	private weak var host: BakeRootController?
 	
-
 	override func didMoveToParentViewController(parent: UIViewController?) {
 		super.didMoveToParentViewController(parent)
 
