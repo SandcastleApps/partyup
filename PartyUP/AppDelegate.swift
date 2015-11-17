@@ -13,7 +13,7 @@ import CoreData
 
 struct PartyUpPreferences
 {
-	static let ListingRadius = "ListingRadius"
+	static let ListingRadius = "ListRadius"
 	static let SampleRadius = "SampleRadius"
 	static let VenueCategories = "VenueCategories"
 }

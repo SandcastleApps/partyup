@@ -7,8 +7,8 @@
 		<string>4d4b7105d754a06376d81259</string>
 	</array>
 	<key>SampleRadius</key>
-	<integer>50</integer>
+	<integer>75</integer>
 	<key>ListRadius</key>
-	<integer>0</integer>
+	<integer>10000</integer>
 </dict>
 </plist>

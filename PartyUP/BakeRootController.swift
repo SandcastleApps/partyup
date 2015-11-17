@@ -22,7 +22,7 @@ class BakeRootController: UIViewController {
         super.viewDidLoad()
 
 		do {
-			try SwiftLocation.shared.currentLocation(.Block, timeout: 20,
+			try SwiftLocation.shared.currentLocation(.Block, timeout: 30,
 				onSuccess: { (location) in
 					if let location = location, venues = self.venues {
 						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)

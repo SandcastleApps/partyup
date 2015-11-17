@@ -18,7 +18,7 @@
 			<key>Key</key>
 			<string>SampleRadius</string>
 			<key>DefaultValue</key>
-			<real>50</real>
+			<integer>75</integer>
 			<key>MinimumValue</key>
 			<real>10</real>
 			<key>MaximumValue</key>
