@@ -19,6 +19,8 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	var transitionStartY: CGFloat = 0.0
 
+	private let maxVideoDuration = 10.0
+	private let minVideoDuration = 5.0
 	let vision = PBJVision.sharedInstance()
 	var timer: NSTimer!
 
@@ -94,7 +96,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	// MARK: - Recording
 
 	func observeTimerInterval() {
-		timerBar.progress = CGFloat(vision.capturedVideoSeconds / 30.0)
+		timerBar.progress = CGFloat(vision.capturedVideoSeconds / maxVideoDuration)
 
 		if timerBar.progress >= 0.5 {
 			timerBar.progressTintColor = UIColor.greenColor()
@@ -118,7 +120,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
 		if error == nil {
 			if let out = videoDict?[PBJVisionVideoPathKey] as? String {
-				if let duration = videoDict?[PBJVisionVideoCapturedDurationKey] as? Double where duration >= 10 {
+				if let duration = videoDict?[PBJVisionVideoCapturedDurationKey] as? Double where duration >= minVideoDuration {
 					host?.recordedSample(NSURL(fileURLWithPath: out))
 				} else {
 					try? NSFileManager.defaultManager().removeItemAtPath(out)
