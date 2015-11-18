@@ -9,11 +9,12 @@
 import UIKit
 import CoreLocation
 import SwiftLocation
-import MBProgressHUD
+import JGProgressHUD
 
 class BakeRootController: UIViewController {
 	private var recordController: RecordSampleController!
 	private var acceptController: AcceptSampleController!
+	private let progressHud = JGProgressHUD(style: .Light)
 
 	var venues: [Venue]?
 
@@ -28,11 +29,11 @@ class BakeRootController: UIViewController {
 					if let location = location, venues = self.venues {
 						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
 						let locs = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
-						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs); MBProgressHUD.hideHUDForView(self.view, animated: true) }
+						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs); self.progressHud.dismissAnimated(true) }
 					}
 				},
 				onFail: { (error) in
-					dispatch_async(dispatch_get_main_queue()) { self.collectSample([Venue]()); MBProgressHUD.hideHUDForView(self.view, animated: true) }
+					dispatch_async(dispatch_get_main_queue()) { self.collectSample([Venue]()); self.progressHud.dismissAnimated(true) }
 			})
 		} catch {
 			collectSample([Venue]())
@@ -51,9 +52,8 @@ class BakeRootController: UIViewController {
 		super.viewDidAppear(animated)
 
 		if locals == nil {
-			let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-			hud.labelText = "Determining Venue"
-			hud.square = true
+			progressHud.textLabel.text = "Determining Venue"
+			progressHud.showInView(view, animated: true)
 		}
 	}
 

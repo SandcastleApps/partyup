@@ -12,7 +12,7 @@ target 'PartyUP' do
 	pod 'PBJVision', '~> 0.4'
 	pod 'Player', '~> 0.0'
 	pod 'ActionSheetPicker-3.0', '~> 2.0'
-	pod 'MBProgressHUD', '~> 0.9'
+	pod 'JGProgressHUD', '~> 1.3'
 end
 
 target 'PartyUPTests' do

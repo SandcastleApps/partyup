@@ -9,7 +9,7 @@
 import UIKit
 import Player
 import ActionSheetPicker_3_0
-import MBProgressHUD
+import JGProgressHUD
 
 class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelegate {
 
@@ -60,6 +60,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBOutlet weak var sendButton: UIButton!
 
 	private let player = Player()
+	private let progressHud = JGProgressHUD(style: .Light)
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -251,18 +252,19 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBAction func acceptSample(sender: UIButton) {
 		do {
 			if let url = videoUrl {
-				let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-				hud.labelText = "Uploading Party Sample"
-				hud.square = true
+				progressHud.textLabel.text = "Uploading Party Video"
+				progressHud.showInView(view, animated: true)
 				let sample = Sample(comment: comment.textColor == UIColor.blackColor() ? comment.text : nil)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
 				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique) {(error) in
-					MBProgressHUD.hideHUDForView(self.view, animated: false)
-					let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: false)
-					hud.mode = .Text
-					hud.labelText = error == nil ? "Upload Complete" : "Upload Failed"
-					hud.detailsLabelText = error == nil ? "Party On!" : "Try Another!"
-					hud.hide(true, afterDelay: 2)
+					if error == nil {
+						self.progressHud.indicatorView = JGProgressHUDSuccessIndicatorView()
+						self.progressHud.textLabel.text = "Party On!"
+					} else {
+						self.progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
+						self.progressHud.textLabel.text = "Try Again!"
+					}
+					self.progressHud.dismissAfterDelay(2, animated: true)
 					dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { self.host?.acceptedSample() }
 				}
 			} else {
