@@ -261,6 +261,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 					let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: false)
 					hud.mode = .Text
 					hud.labelText = error == nil ? "Upload Complete" : "Upload Failed"
+					hud.detailsLabelText = error == nil ? "Party On!" : "Try Another!"
 					hud.hide(true, afterDelay: 2)
 					dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { self.host?.acceptedSample() }
 				}
