@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import SwiftLocation
+import MBProgressHUD
 
 class BakeRootController: UIViewController {
 	private var recordController: RecordSampleController!
@@ -16,22 +17,22 @@ class BakeRootController: UIViewController {
 
 	var venues: [Venue]?
 
-	private var locals = [Venue]()
+	private var locals: [Venue]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
 		do {
-			try SwiftLocation.shared.currentLocation(.Block, timeout: 30,
+			try SwiftLocation.shared.currentLocation(.Neighborhood, timeout: 30,
 				onSuccess: { (location) in
 					if let location = location, venues = self.venues {
 						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
 						let locs = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
-						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }
+						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs); MBProgressHUD.hideHUDForView(self.view, animated: true) }
 					}
 				},
 				onFail: { (error) in
-					dispatch_async(dispatch_get_main_queue()) { self.collectSample([Venue]()) }
+					dispatch_async(dispatch_get_main_queue()) { self.collectSample([Venue]()); MBProgressHUD.hideHUDForView(self.view, animated: true) }
 			})
 		} catch {
 			collectSample([Venue]())
@@ -45,6 +46,16 @@ class BakeRootController: UIViewController {
 		recordController.transitionStartY = recordController.preview.frame.origin.y
 		recordController.didMoveToParentViewController(self)
     }
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+
+		if locals == nil {
+			let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+			hud.labelText = "Determining Venue"
+			hud.square = true
+		}
+	}
 
 	func collectSample(filteredVenues: [Venue]) {
 		locals = filteredVenues
