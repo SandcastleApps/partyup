@@ -2,13 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>VideoQuality</key>
+	<string>AVCaptureSessionPresetMedium</string>
 	<key>VenueCategories</key>
-	<array>
-		<string>4d4b7105d754a06376d81259</string>
-	</array>
+	<string>4d4b7105d754a06376d81259</string>
 	<key>SampleRadius</key>
 	<integer>75</integer>
 	<key>ListRadius</key>
-	<integer>10000</integer>
+	<real>25000</real>
 </dict>
 </plist>

@@ -8,9 +8,41 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Video Quality</string>
+			<key>Key</key>
+			<string>VideoQuality</string>
+			<key>DefaultValue</key>
+			<string>AVCaptureSessionPresetMedium</string>
+			<key>Values</key>
+			<array>
+				<string>AVCaptureSessionPresetLow</string>
+				<string>AVCaptureSessionPresetMedium</string>
+				<string>AVCaptureSessionPresetHigh</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Low</string>
+				<string>Medium</string>
+				<string>High</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Venue Categories</string>
+			<key>Key</key>
+			<string>VenueCategories</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Distance Limits</string>
+			<string>Sample Venue Radius</string>
+			<key>FooterText</key>
+			<string>The distance tolerance when selecting a venue to associate with a sample. (between 75 and 5000 meters)</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -26,11 +58,23 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Sample acceptance venue radius padding (beyond the location accuracy radius).</string>
+			<string>Venue List Radius</string>
+			<key>FooterText</key>
+			<string>The radius within which venues will be requested from Foursquare. (between 5000 and 50000 meters)</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSSliderSpecifier</string>
 			<key>Key</key>
-			<string></string>
+			<string>ListRadius</string>
+			<key>DefaultValue</key>
+			<integer>25000</integer>
+			<key>MinimumValue</key>
+			<integer>5000</integer>
+			<key>MaximumValue</key>
+			<integer>50000</integer>
 		</dict>
 	</array>
 </dict>

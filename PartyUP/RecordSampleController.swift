@@ -40,7 +40,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		vision.cameraOrientation = .Portrait
 		vision.focusMode = .ContinuousAutoFocus
 		vision.outputFormat = .Square
-		vision.captureSessionPreset = AVCaptureSessionPresetMedium
+		vision.captureSessionPreset = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VideoQuality) ?? AVCaptureSessionPresetMedium
     }
 
 	override func viewWillAppear(animated: Bool) {

@@ -62,13 +62,13 @@ class PartyPickerController: UITableViewController {
 
 	func updatePartyList(location: CLLocation) {
 		if location.distanceFromLocation(lastLocation) > 100 || location.timestamp.timeIntervalSinceDate(lastLocation.timestamp) > 60 {
-			if let categories = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.VenueCategories) as? [String] {
+			if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
 				let radius = "\(NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius))"
 				let params = ["ll" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
 					"radius" : radius,
 					"client_id" : FourSquareConstants.identifier,
 					"client_secret" : FourSquareConstants.secret,
-					"categoryId" : categories.joinWithSeparator(","),
+					"categoryId" : categories,
 					"v" : "20140118",
 					"intent" : "browse",
 					"limit" : "50"]

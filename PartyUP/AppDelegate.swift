@@ -13,6 +13,7 @@ import CoreData
 
 struct PartyUpPreferences
 {
+	static let VideoQuality = "VideoQuality"
 	static let ListingRadius = "ListRadius"
 	static let SampleRadius = "SampleRadius"
 	static let VenueCategories = "VenueCategories"
