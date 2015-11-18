@@ -42,7 +42,7 @@
 			<key>Title</key>
 			<string>Sample Venue Radius</string>
 			<key>FooterText</key>
-			<string>The distance tolerance when selecting a venue to associate with a sample. (between 75 and 5000 meters)</string>
+			<string>The distance tolerance when selecting a venue to associate with a sample. (between 10 and 5000 meters)</string>
 		</dict>
 		<dict>
 			<key>Type</key>
