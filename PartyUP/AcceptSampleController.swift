@@ -9,6 +9,7 @@
 import UIKit
 import Player
 import ActionSheetPicker_3_0
+import MBProgressHUD
 
 class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelegate {
 
@@ -250,16 +251,27 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBAction func acceptSample(sender: UIButton) {
 		do {
 			if let url = videoUrl {
+				let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+				hud.labelText = "Uploading Party Sample"
+				hud.square = true
 				let sample = Sample(comment: comment.textColor == UIColor.blackColor() ? comment.text : nil)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique)
+				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique) {(error) in
+					MBProgressHUD.hideHUDForView(self.view, animated: false)
+					let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: false)
+					hud.mode = .Text
+					hud.labelText = error == nil ? "Upload Complete" : "Upload Failed"
+					hud.hide(true, afterDelay: 2)
+					dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { self.host?.acceptedSample() }
+				}
+			} else {
+				host?.acceptedSample()
 			}
 
 		} catch {
 			NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
+			host?.acceptedSample()
 		}
-
-		host?.acceptedSample()
 	}
 
 	// MARK: - Player

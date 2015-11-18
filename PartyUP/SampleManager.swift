@@ -18,9 +18,11 @@ class SampleManager
 	{
 		case TransferUtilityUnavailable
 		case InvalidFileName(url: NSURL)
+		case SubmissionError(error: NSError)
+		case SubmissionException(exception: NSException)
 	}
 
-	typealias SampleSubmission = (sample: Sample, event: String)
+	typealias SampleSubmission = (sample: Sample, event: String, completion: (ErrorType?)->Void)
 	private var queue = [(SampleSubmission)]()
 	private var active: SampleSubmission?
 
@@ -30,8 +32,8 @@ class SampleManager
 		return sharedManager
 	}
 
-	func submit(sample: Sample, event: String) {
-		queue.append((sample, event))
+	func submit(sample: Sample, event: String, completion: (ErrorType?)->Void) {
+		queue.append((sample, event, completion))
 		if active == nil {
 			process(nil)
 		}
@@ -39,13 +41,19 @@ class SampleManager
 
 	private func process(completedTask: AWSTask?) {
 		if let task = completedTask {
+			var err: SampleManagerError?
+
 			if let error = task.error {
 				NSLog("Sample Manager: \(error)")
+				err = SampleManagerError.SubmissionError(error: error)
 			}
 
 			if let exception = task.exception {
 				NSLog("Sample Manager: \(exception)")
+				err = SampleManagerError.SubmissionException(exception: exception)
 			}
+
+			active?.completion(err)
 		}
 
 		active = nil
@@ -57,16 +65,15 @@ class SampleManager
 				try upload(active!)
 			} catch SampleManagerError.TransferUtilityUnavailable {
 				NSLog("Sample Manager: Transfer Utility is Unavailable")
-			} catch SampleManagerError.InvalidFileName {
+				active?.completion(SampleManagerError.TransferUtilityUnavailable)
+			} catch SampleManagerError.InvalidFileName(let url) {
 				NSLog("Sample Manager: Invalid Filename Provided")
+				active?.completion(SampleManagerError.InvalidFileName(url: url))
 			} catch {
 				NSLog("Sample Manager: Shit Hit The Fan")
 			}
 			
 		}
-
-
-
 	}
 
 	private func upload(submission: SampleSubmission) throws {
