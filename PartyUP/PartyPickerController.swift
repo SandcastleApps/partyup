@@ -13,14 +13,22 @@ import SwiftLocation
 import CoreLocation
 import UIImageView_Letters
 
-class PartyPickerController: UITableViewController {
+class PartyPickerController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
+
+	private var filteredVenues: [Venue]? {
+		didSet {
+			partyTable.reloadData()
+		}
+	}
 
 	var venues: [Venue]? {
 		didSet {
-			partyTable.reloadData()
+			filteredVenues = venues
 			self.refreshControl?.endRefreshing()
 		}
 	}
+
+	private var searchController: UISearchController!
 
 	let partyAlert: UIAlertController = { let alert = UIAlertController(title: "Party Refresh Failed", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "Rats!", style: .Default, handler: nil))
@@ -33,6 +41,16 @@ class PartyPickerController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		searchController = UISearchController(searchResultsController: nil)
+		searchController.searchResultsUpdater = self
+		searchController.searchBar.delegate = self
+		searchController.dimsBackgroundDuringPresentation = false
+		searchController.hidesNavigationBarDuringPresentation = false
+		searchController.searchBar.sizeToFit()
+		searchController.searchBar.searchBarStyle = .Minimal
+		tableView.tableHeaderView = searchController.searchBar
+		definesPresentationContext = true
 
 		fetchPartyList()
     }
@@ -106,24 +124,34 @@ class PartyPickerController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return venues?.count ?? 0
+        return filteredVenues?.count ?? 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath)
-        cell.textLabel!.text = venues?[indexPath.row].name ?? "Mysterious Venue"
-		cell.detailTextLabel!.text = venues?[indexPath.row].details
+        cell.textLabel!.text = filteredVenues?[indexPath.row].name ?? "Mysterious Venue"
+		cell.detailTextLabel!.text = filteredVenues?[indexPath.row].details
 		cell.imageView?.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
 		cell.imageView?.setImageWithString(cell.textLabel!.text, color: UIColor.orangeColor(), circular:  true)
 
         return cell
 	}
 
+	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+		filteredVenues = venues
+	}
+
+	func updateSearchResultsForSearchController(searchController: UISearchController) {
+		if let searchString = searchController.searchBar.text where searchController.active {
+			filteredVenues = venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
+		}
+	}
+
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Sample Tasting Segue" {
-			if let selection = partyTable.indexPathForSelectedRow, party = venues?[selection.row] {
+			if let selection = partyTable.indexPathForSelectedRow, party = filteredVenues?[selection.row] {
 				let viewerVC = segue.destinationViewController as! SampleTastingContoller
 				viewerVC.partyId = party.unique
 				viewerVC.title = party.name

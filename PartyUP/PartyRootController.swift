@@ -15,7 +15,6 @@ class PartyRootController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		navigationItem.titleView = PartyUpConstants.TitleLogo()
-		//navigationItem.backBarButtonItem = UIBarButtonItem(image: UIImage(named: "Back"), style: .Plain, target: nil, action: nil)
     }
 
     // MARK: - Navigation
