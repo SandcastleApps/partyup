@@ -16,7 +16,7 @@ class BakeRootController: UIViewController {
 	private var acceptController: AcceptSampleController!
 	private let progressHud = JGProgressHUD(style: .Light)
 
-	var venues: [Venue]?
+	var venues = [Venue]()
 
 	private var locals: [Venue]!
 
@@ -26,17 +26,22 @@ class BakeRootController: UIViewController {
 		do {
 			try SwiftLocation.shared.currentLocation(.Neighborhood, timeout: 30,
 				onSuccess: { (location) in
-					if let location = location, venues = self.venues {
+					if let location = location {
 						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
-						let locs = venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
-						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs); self.progressHud.dismissAnimated(true) }
+						let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
+						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }
+					} else {
+						dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); self.presentErrorHudWithTitle("Undetermined Location", detail: "Your location couldn't be determined for unknown reasons") { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
+						}
 					}
 				},
 				onFail: { (error) in
-					dispatch_async(dispatch_get_main_queue()) { self.collectSample([Venue]()); self.progressHud.dismissAnimated(true) }
+					dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); self.presentErrorHudWithTitle("Undetermined Location", detail: "Your location couldn't be determined with acceptable accuracy.") { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
+					}
 			})
 		} catch {
-			collectSample([Venue]())
+			locals = [Venue]()
+			presentErrorHudWithTitle("Undetermined Location", detail: "Location services are unavailable.") { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 		}
 
 		recordController = storyboard!.instantiateViewControllerWithIdentifier("RecordSample") as! RecordSampleController
@@ -53,8 +58,21 @@ class BakeRootController: UIViewController {
 
 		if locals == nil {
 			progressHud.textLabel.text = "Determining Venue"
-			progressHud.showInView(view, animated: true)
+			progressHud.showInView(view, animated: false)
 		}
+	}
+
+	private func presentErrorHudWithTitle(title: String, detail: String?, action: ()->()?) {
+		if progressHud.hidden {
+			progressHud.showInView(view, animated: false)
+		}
+
+		progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
+		progressHud.textLabel.text = title
+		progressHud.detailTextLabel.text = detail
+		progressHud.dismissAfterDelay(5, animated: true)
+		let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
+		dispatch_after(delay, dispatch_get_main_queue()) { action() }
 	}
 
 	func collectSample(filteredVenues: [Venue]) {
@@ -62,10 +80,9 @@ class BakeRootController: UIViewController {
 
 		if locals.count > 0 {
 			recordController.recordButton.enabled = true
+			progressHud.dismissAnimated(true);
 		} else {
-			let alert = UIAlertController(title: "Unsupported Venue", message: "The ability to record a video is unavalable because you are not at a supported venue.", preferredStyle: UIAlertControllerStyle.Alert)
-			alert.addAction(UIAlertAction(title: "Rats!", style: .Default, handler: { (action) in self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }))
-			presentViewController(alert, animated: true, completion: nil )
+			presentErrorHudWithTitle("Unsupported Venue", detail: "You are not at a supported venue.") { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 		}
 	}
 

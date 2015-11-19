@@ -250,6 +250,12 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	}
 
 	@IBAction func acceptSample(sender: UIButton) {
+		func dismiss() {
+			progressHud.dismissAfterDelay(2, animated: true)
+			let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
+			dispatch_after(delay, dispatch_get_main_queue()) { self.host?.acceptedSample() }
+		}
+
 		do {
 			if let url = videoUrl {
 				progressHud.textLabel.text = "Uploading Party Video"
@@ -262,18 +268,21 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 						self.progressHud.textLabel.text = "Party On!"
 					} else {
 						self.progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
-						self.progressHud.textLabel.text = "Try Again!"
+						self.progressHud.textLabel.text = "Upload Failed"
 					}
-					self.progressHud.dismissAfterDelay(2, animated: true)
-					dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { self.host?.acceptedSample() }
+					dismiss()
 				}
 			} else {
-				host?.acceptedSample()
+				self.progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
+				self.progressHud.textLabel.text = "No Video Available"
+				dismiss()
 			}
 
 		} catch {
 			NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
-			host?.acceptedSample()
+			self.progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
+			self.progressHud.textLabel.text = "Sample Preparation Failed"
+			dismiss()
 		}
 	}
 

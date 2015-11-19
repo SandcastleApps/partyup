@@ -26,7 +26,7 @@ class PartyRootController: UIViewController {
 		}
 		if segue.identifier == "Bake Sample Segue" {
 			let bakerVC = segue.destinationViewController as! BakeRootController
-			bakerVC.venues = partyPicker.venues
+			bakerVC.venues = partyPicker.venues ?? [Venue]()
 		}
 	}
 
