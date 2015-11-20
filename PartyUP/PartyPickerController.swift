@@ -12,6 +12,7 @@ import SwiftyJSON
 import SwiftLocation
 import CoreLocation
 import UIImageView_Letters
+import JGProgressHUD
 
 class PartyPickerController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
 
@@ -29,11 +30,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	private var searchController: UISearchController!
-
-	let partyAlert: UIAlertController = { let alert = UIAlertController(title: "Party Refresh Failed", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addAction(UIAlertAction(title: "Rats!", style: .Default, handler: nil))
-		return alert
-	}()
+	private let progressHud = JGProgressHUD(style: .Light)
 
 	private var lastLocation = CLLocation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), altitude: -1, horizontalAccuracy: -1, verticalAccuracy: -1, course: -1, speed: -1, timestamp: NSDate(timeIntervalSinceReferenceDate: 0))
 
@@ -52,6 +49,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
 
+		progressHud.textLabel.text = "Fetching Venues"
+		progressHud.showInView(view, animated: true)
+
 		fetchPartyList()
     }
 
@@ -61,20 +61,14 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	@IBAction func fetchPartyList() {
 		do {
-			try SwiftLocation.shared.currentLocation(.City, timeout: 20,
+			try SwiftLocation.shared.currentLocation(.City, timeout: 30,
 				onSuccess: { (location) in dispatch_async(dispatch_get_main_queue()) { self.updatePartyList(location!) } },
 				onFail: { (error) in
-//					self.refreshControl?.endRefreshing()
-//					if !partyAlert.isBeingPresented() {
-//						partyAlert.message = "Your location is unknown."
-//						presentViewController(partyAlert, animated: true, completion: nil
+					presentResultHud(self.progressHud, inView: self.view, withTitle: "Undetermined Location", andDetail: "Location services failure.", indicatingSuccess: false)
 					})
 		} catch {
 			refreshControl?.endRefreshing()
-			if !partyAlert.isBeingPresented() {
-				partyAlert.message = "Nearby venues are unavailable because your location is unknown"
-				presentViewController(partyAlert, animated: true, completion: nil)
-			}
+			presentResultHud(progressHud, inView: view, withTitle: "Undeterined Location", andDetail: "Location services failure.", indicatingSuccess: false)
 		}
 	}
 
@@ -103,13 +97,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 								vens.append(Venue(venue: venue))
 							}
 
-							dispatch_async(dispatch_get_main_queue()) {self.venues = vens; self.lastLocation = location}
+							dispatch_async(dispatch_get_main_queue()) {self.venues = vens; self.lastLocation = location; self.progressHud.dismissAnimated(true) }
 						} else {
-							dispatch_async(dispatch_get_main_queue()) {
-								if !self.partyAlert.isBeingPresented() {
-									self.partyAlert.message = "Nearby venues are unavailable because FourSquare is unreachable."
-									self.presentViewController(self.partyAlert, animated: true, completion: nil)
-								}
+							dispatch_async(dispatch_get_main_queue()) { self.refreshControl?.endRefreshing();
+							presentResultHud(self.progressHud, inView: self.view, withTitle: "Venue Fetch Failed", andDetail: "The venue query failed.", indicatingSuccess: false)
 							}
 						}
 				}
