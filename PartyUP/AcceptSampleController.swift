@@ -65,6 +65,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		progressHud.delegate = self
+
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
 		var aniFrames = [UIImage]()
@@ -80,7 +82,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		sendButton.addSubview(sendAnimation)
 		sendButton.frame = sendAnimation.bounds
 
-//		player.delegate = self
 		player.view.translatesAutoresizingMaskIntoConstraints = false
 		player.view.layer.cornerRadius = 10
 		player.view.layer.masksToBounds = true
@@ -250,12 +251,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	}
 
 	@IBAction func acceptSample(sender: UIButton) {
-		func dismiss() {
-			progressHud.dismissAfterDelay(2, animated: true)
-			let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
-			dispatch_after(delay, dispatch_get_main_queue()) { self.host?.acceptedSample() }
-		}
-
 		do {
 			if let url = videoUrl {
 				progressHud.textLabel.text = "Uploading Party Video"
@@ -264,25 +259,18 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
 				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique) {(error) in
 					if error == nil {
-						self.progressHud.indicatorView = JGProgressHUDSuccessIndicatorView()
-						self.progressHud.textLabel.text = "Party On!"
+						presentResultHud(self.progressHud, inView: self.view, withTitle: "Submission Done", andDetail: "Party On!", indicatingSuccess: true)
 					} else {
-						self.progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
-						self.progressHud.textLabel.text = "Upload Failed"
+						presentResultHud(self.progressHud, inView: self.view, withTitle: "Submission Failed", andDetail: "Rats!", indicatingSuccess: false)
 					}
-					dismiss()
 				}
 			} else {
-				self.progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
-				self.progressHud.textLabel.text = "No Video Available"
-				dismiss()
+				presentResultHud(progressHud, inView: view, withTitle: "Upload Failed", andDetail: "No video available.", indicatingSuccess: false)
 			}
 
 		} catch {
 			NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
-			self.progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
-			self.progressHud.textLabel.text = "Sample Preparation Failed"
-			dismiss()
+			presentResultHud(progressHud, inView: view, withTitle: "Preparation Failed", andDetail: "Couldn't queue video for upload.", indicatingSuccess: false)
 		}
 	}
 
@@ -326,5 +314,11 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 extension AcceptSampleController: UIBarPositioningDelegate {
 	func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
 		return .TopAttached
+	}
+}
+
+extension AcceptSampleController: JGProgressHUDDelegate {
+	func progressHUD(progressHUD: JGProgressHUD!, didDismissFromView view: UIView!) {
+		self.host?.acceptedSample()
 	}
 }

@@ -21,6 +21,7 @@
 		1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */; };
 		1F427A161BA59F4C00E622CF /* PartyUPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A151BA59F4C00E622CF /* PartyUPTests.swift */; };
 		1F427A211BA59F4C00E622CF /* PartyUPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */; };
+		1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7687931BFE278200D96768 /* HudUtilities.swift */; };
 		1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* UrlUtilities.swift */; };
 		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; };
 		1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */; };
@@ -74,6 +75,7 @@
 		1F427A1C1BA59F4C00E622CF /* PartyUPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyUPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyUPUITests.swift; sourceTree = "<group>"; };
 		1F427A221BA59F4C00E622CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F7687931BFE278200D96768 /* HudUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudUtilities.swift; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* UrlUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlUtilities.swift; sourceTree = "<group>"; };
 		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
 		1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueManager.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */,
 				1F427A0C1BA59F4C00E622CF /* Info.plist */,
 				1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */,
+				1F7687931BFE278200D96768 /* HudUtilities.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
 				1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */,
 				1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */,
+				1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */,
 				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
 				1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */,

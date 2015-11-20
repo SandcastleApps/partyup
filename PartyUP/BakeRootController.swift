@@ -23,6 +23,8 @@ class BakeRootController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		progressHud.delegate = self
+
 		do {
 			try SwiftLocation.shared.currentLocation(.Neighborhood, timeout: 30,
 				onSuccess: { (location) in
@@ -31,17 +33,17 @@ class BakeRootController: UIViewController {
 						let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
 						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }
 					} else {
-						dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); self.presentErrorHudWithTitle("Undetermined Location", detail: "Your location couldn't be determined for unknown reasons") { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
+						dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); presentResultHud(self.progressHud, inView: self.view, withTitle: "Undetermined Location", andDetail: "Your location couldn't be determined for unknown reasons.", indicatingSuccess: false)
 						}
 					}
 				},
 				onFail: { (error) in
-					dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); self.presentErrorHudWithTitle("Undetermined Location", detail: "Your location couldn't be determined with acceptable accuracy.") { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
+					dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); presentResultHud(self.progressHud, inView: self.view, withTitle: "Undetermined Location", andDetail: "Your location couldn't be determined with acceptable accuracy.", indicatingSuccess: false)
 					}
 			})
 		} catch {
 			locals = [Venue]()
-			presentErrorHudWithTitle("Undetermined Location", detail: "Location services are unavailable.") { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
+			presentResultHud(progressHud, inView: view, withTitle: "Undetermined Location", andDetail: "Location services are unavailable.", indicatingSuccess: false)
 		}
 
 		recordController = storyboard!.instantiateViewControllerWithIdentifier("RecordSample") as! RecordSampleController
@@ -62,19 +64,6 @@ class BakeRootController: UIViewController {
 		}
 	}
 
-	private func presentErrorHudWithTitle(title: String, detail: String?, action: ()->()?) {
-		if progressHud.hidden {
-			progressHud.showInView(view, animated: false)
-		}
-
-		progressHud.indicatorView = JGProgressHUDErrorIndicatorView()
-		progressHud.textLabel.text = title
-		progressHud.detailTextLabel.text = detail
-		progressHud.dismissAfterDelay(5, animated: true)
-		let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
-		dispatch_after(delay, dispatch_get_main_queue()) { action() }
-	}
-
 	func collectSample(filteredVenues: [Venue]) {
 		locals = filteredVenues
 
@@ -82,7 +71,7 @@ class BakeRootController: UIViewController {
 			recordController.recordButton.enabled = true
 			progressHud.dismissAnimated(true);
 		} else {
-			presentErrorHudWithTitle("Unsupported Venue", detail: "You are not at a supported venue.") { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
+			presentResultHud(progressHud, inView: view, withTitle: "Unsupported Venue", andDetail: "You are not at a supported venue.", indicatingSuccess: false)
 		}
 	}
 
@@ -113,5 +102,11 @@ class BakeRootController: UIViewController {
 				from.removeFromParentViewController()
 				to.didMoveToParentViewController(self)
 		}
+	}
+}
+
+extension BakeRootController: JGProgressHUDDelegate {
+	func progressHUD(progressHUD: JGProgressHUD!, didDismissFromView view: UIView!) {
+		performSegueWithIdentifier("Sampling Done Segue", sender: nil)
 	}
 }
