@@ -91,6 +91,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 					"intent" : "browse",
 					"limit" : "50"]
 
+				
+
 				Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params)
 					.validate()
 					.responseJSON { response in
@@ -138,11 +140,13 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+		searchController.searchBar.searchBarStyle = .Minimal
 		filteredVenues = venues
 	}
 
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		if let searchString = searchController.searchBar.text where searchController.active {
+			searchController.searchBar.searchBarStyle = .Prominent
 			filteredVenues = venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
 		}
 	}
