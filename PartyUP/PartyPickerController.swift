@@ -85,8 +85,6 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 					"intent" : "browse",
 					"limit" : "50"]
 
-				
-
 				Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params)
 					.validate()
 					.responseJSON { response in
@@ -96,8 +94,12 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 							for venue in json["response"]["venues"].arrayValue {
 								vens.append(Venue(venue: venue))
 							}
+							vens.sortInPlace { $0.location.distanceFromLocation(location) < $1.location.distanceFromLocation(location) }
 
-							dispatch_async(dispatch_get_main_queue()) {self.venues = vens; self.lastLocation = location; self.progressHud.dismissAnimated(true) }
+							dispatch_async(dispatch_get_main_queue()) {
+								self.venues = vens
+								self.lastLocation = location
+								self.progressHud.dismissAnimated(true) }
 						} else {
 							dispatch_async(dispatch_get_main_queue()) { self.refreshControl?.endRefreshing();
 							presentResultHud(self.progressHud, inView: self.view, withTitle: "Venue Fetch Failed", andDetail: "The venue query failed.", indicatingSuccess: false)
