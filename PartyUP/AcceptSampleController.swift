@@ -255,7 +255,9 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			if let url = videoUrl {
 				progressHud.textLabel.text = "Uploading Party Video"
 				progressHud.showInView(view, animated: true)
-				let sample = Sample(comment: comment.textColor == UIColor.blackColor() ? comment.text : nil)
+				var statement: String? = comment.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+				statement = statement?.isEmpty ?? true || comment.textColor != UIColor.blackColor() ? nil : statement
+				let sample = Sample(comment: statement)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
 				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique) {(error) in
 					if error == nil {
