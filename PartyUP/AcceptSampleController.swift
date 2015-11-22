@@ -239,6 +239,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
     // MARK: - Navigation
 
 	@IBAction func rejectSample(sender: UIBarButtonItem) {
+		view.endEditing(false)
+		
 		do {
 			if let url = videoUrl {
 				try NSFileManager.defaultManager().removeItemAtURL(url)
@@ -251,6 +253,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	}
 
 	@IBAction func acceptSample(sender: UIButton) {
+		view.endEditing(false)
+
 		do {
 			if let url = videoUrl {
 				progressHud.textLabel.text = "Uploading Party Video"
