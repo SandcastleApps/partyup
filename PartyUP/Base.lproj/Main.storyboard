@@ -562,6 +562,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-TN-INi">
+                                <rect key="frame" x="210" y="425" width="180" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Recruit Your Friends"/>
+                                <connections>
+                                    <action selector="recruit:" destination="ZcT-Fn-GTh" eventType="touchUpInside" id="plL-JY-kZI"/>
+                                </connections>
+                            </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Vm-PKO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="511"/>
                                 <animations/>
@@ -575,14 +584,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="top" secondItem="NsN-s1-SY6" secondAttribute="bottom" id="30V-KF-sJX"/>
+                            <constraint firstItem="xzm-k1-wwA" firstAttribute="top" secondItem="8u3-TN-INi" secondAttribute="bottom" constant="50" id="DcP-nz-4Ms"/>
+                            <constraint firstItem="8u3-TN-INi" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="QCB-Yh-EQB"/>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leading" id="eJH-iS-MfQ"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="gee-lq-pku"/>
+                            <constraint firstItem="8u3-TN-INi" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="8" symbolic="YES" id="hyY-Nh-Jof"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="j44-Z4-SL0"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="top" secondItem="tPz-jc-M19" secondAttribute="bottom" constant="8" symbolic="YES" id="ql4-de-lqW"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Nzd-Vm-PKO" secondAttribute="bottom" id="rF3-sX-OAz"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="centerX" secondItem="tPz-jc-M19" secondAttribute="centerX" id="vx1-VH-TSz"/>
                             <constraint firstAttribute="trailing" secondItem="Nzd-Vm-PKO" secondAttribute="trailing" id="zTs-9S-to6"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="hyY-Nh-Jof"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="dCM-JW-bfo"/>
                     <connections>

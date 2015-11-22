@@ -74,5 +74,13 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 		}
     }
 
+	@IBAction func recruit(sender: UIButton) {
+		let text = "Where is the best party?  Discover that with PartyUP"
+		let url = NSURL(string: "http://partyuptonight.com")
+		let image = UIImage(named: "Logo")
 
+		let share = UIActivityViewController(activityItems: [text,url!,image!], applicationActivities: nil)
+
+		presentViewController(share, animated: true, completion: nil)
+	}
 }
