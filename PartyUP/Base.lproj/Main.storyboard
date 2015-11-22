@@ -170,7 +170,7 @@
                                     <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="Title" id="dSe-6C-185">
+                                    <navigationItem title="Record" id="dSe-6C-185">
                                         <barButtonItem key="leftBarButtonItem" image="Hamburger" id="W1V-xg-kkl">
                                             <connections>
                                                 <action selector="cancelRecording:" destination="8VR-ye-Fdg" id="vlC-g5-Vni"/>
@@ -315,14 +315,6 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Record" id="Bfc-w7-xwZ">
-                        <barButtonItem key="leftBarButtonItem" image="Back" id="Glu-WD-sD7"/>
-                        <barButtonItem key="rightBarButtonItem" image="Flash" id="5dP-Be-uzC">
-                            <connections>
-                                <action selector="torchControl:" destination="8VR-ye-Fdg" id="evf-l6-ZED"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="naviBar" destination="Aq5-uh-elp" id="NjK-oq-bRS"/>
                         <outlet property="preview" destination="TZp-pU-snf" id="Svs-BO-dEA"/>
@@ -421,7 +413,7 @@
                                     <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="Title" id="e7q-b2-FE6">
+                                    <navigationItem title="Accept" id="e7q-b2-FE6">
                                         <barButtonItem key="leftBarButtonItem" image="Back" id="fe8-bE-8hB">
                                             <connections>
                                                 <action selector="rejectSample:" destination="RAd-iG-AkU" id="jbg-qK-35o"/>
@@ -508,10 +500,6 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Accept" id="Gud-f7-Mcu">
-                        <barButtonItem key="leftBarButtonItem" image="Back" id="Jca-IN-VPe"/>
-                        <barButtonItem key="rightBarButtonItem" image="Send" id="Itf-Xn-iq1"/>
-                    </navigationItem>
                     <connections>
                         <outlet property="comment" destination="RmL-zJ-VBo" id="EZi-jE-4dA"/>
                         <outlet property="naviBar" destination="3aO-yg-IwN" id="pJu-ku-vfN"/>
@@ -724,9 +712,7 @@
         <image name="Back" width="17" height="30"/>
         <image name="Camera" width="35" height="29"/>
         <image name="Dots" width="58" height="12"/>
-        <image name="Flash" width="23" height="36"/>
         <image name="FlashOff" width="25" height="36"/>
         <image name="Hamburger" width="34" height="24"/>
-        <image name="Send" width="44" height="36"/>
     </resources>
 </document>
