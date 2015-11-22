@@ -15,9 +15,9 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 	var partyId: String? {
 		didSet {
 			if let party = partyId {
-				fetch(party) { (var samples: [Sample]) in
-					samples.sortInPlace{ $0.time.compare($1.time) == .OrderedDescending }
-					dispatch_async(dispatch_get_main_queue()) {self.samples = samples}
+				fetch(party) { (let samples: [Sample]) in
+					let sorted = samples.sort{ $0.time.compare($1.time) == .OrderedDescending }
+					dispatch_async(dispatch_get_main_queue()) {self.samples = sorted}
 				}
 			}
 		}
