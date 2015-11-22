@@ -16,5 +16,5 @@ func presentResultHud(hud: JGProgressHUD, inView view: UIView, withTitle title: 
 	hud.indicatorView = success ? JGProgressHUDSuccessIndicatorView() : JGProgressHUDErrorIndicatorView()
 	hud.textLabel.text = title
 	hud.detailTextLabel.text = detail
-	hud.dismissAfterDelay(5, animated: true)
+	hud.dismissAfterDelay(2.5, animated: true)
 }
