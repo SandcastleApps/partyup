@@ -1,20 +1,14 @@
 """
-Scan through the Samples table for oldish entries and remove them and the video file
-associated with the entery.
+Scan through the Samples table for oldish entries and remove them.
 """
 
 import json
 import boto3
 import time
 import decimal
-import uuid
 from boto3.dynamodb.conditions import Key, Attr
 
-def purge_item(item, batch, s3):
-    id_bytes = item['id'].value
-    id_unique = str(uuid.UUID(bytes=id_bytes[0:16])).upper()
-    id_count = ord(id_bytes[16])
-
+def purge_item(item, batch):
     response = batch.delete_item(
         Key={
             'event' : item['event'],
@@ -22,15 +16,11 @@ def purge_item(item, batch, s3):
         }
     )
 
-    video = s3.Object('com.sandcastleapps.partyup', 'media/' + id_unique + str(id_count) + '.mp4')
-    video.delete()
-
 def purge_handler(event, context):
     dynamodb = boto3.resource('dynamodb')
-    s3 = boto3.resource('s3')
 
     table = dynamodb.Table('Samples')
-    filter = Attr('time').lte(decimal.Decimal(time.time()))
+    filter = Attr('time').lte(decimal.Decimal(time.time()-43200))
 
     with table.batch_writer() as batch:
         response = table.scan(
@@ -38,7 +28,7 @@ def purge_handler(event, context):
         )
 
         for item in response['Items']:
-            purge_item(item, batch, s3)
+            purge_item(item, batch)
 
         while 'LastEvaluatedKey' in response:
             response = scan(
@@ -47,4 +37,4 @@ def purge_handler(event, context):
             )
 
             for item in response['Items']:
-                purge_item(item, batch, s3)
+                purge_item(item, batch)
