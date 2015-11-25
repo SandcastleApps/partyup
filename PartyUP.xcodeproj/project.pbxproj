@@ -38,7 +38,6 @@
 		1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7687931BFE278200D96768 /* HudUtilities.swift */; };
 		1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* UrlUtilities.swift */; };
 		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; };
-		1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */; };
 		1F9997451BB323D5003457E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9997441BB323D5003457E2 /* AVFoundation.framework */; };
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
 		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
@@ -93,7 +92,6 @@
 		1F7687931BFE278200D96768 /* HudUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudUtilities.swift; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* UrlUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlUtilities.swift; sourceTree = "<group>"; };
 		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
-		1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueManager.swift; sourceTree = "<group>"; };
 		1F9997441BB323D5003457E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
 		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
 				1F03C3771BA8500F0037D7D8 /* Sample.swift */,
 				1F9509961BAF81FB005BDC18 /* Dynamo.swift */,
-				1F95B7E71BDFBE0E007B9D24 /* VenueManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -489,7 +486,6 @@
 				1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */,
 				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
-				1F95B7E81BDFBE0E007B9D24 /* VenueManager.swift in Sources */,
 				1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
 			);
