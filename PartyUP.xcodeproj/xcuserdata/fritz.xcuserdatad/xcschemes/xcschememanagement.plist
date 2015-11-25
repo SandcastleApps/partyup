@@ -7,7 +7,12 @@
 		<key>PartyLocation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>7</integer>
+		</dict>
+		<key>PartyPurge.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>18</integer>
 		</dict>
 		<key>PartyUP.xcscheme</key>
 		<dict>
@@ -28,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>1F427A1B1BA59F4C00E622CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1F74639A1C04A41700182278</key>
 		<dict>
 			<key>primary</key>
 			<true/>

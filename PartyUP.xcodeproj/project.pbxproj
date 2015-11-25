@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		1F74639A1C04A41700182278 /* PartyPurge */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1F74639B1C04A41700182278 /* Build configuration list for PBXAggregateTarget "PartyPurge" */;
+			buildPhases = (
+				1F74639F1C04B89900182278 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = PartyPurge;
+			productName = PartyPurge;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3751BA84F290037D7D8 /* Venue.swift */; };
 		1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3771BA8500F0037D7D8 /* Sample.swift */; };
@@ -75,6 +89,7 @@
 		1F427A1C1BA59F4C00E622CF /* PartyUPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyUPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyUPUITests.swift; sourceTree = "<group>"; };
 		1F427A221BA59F4C00E622CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F7463981C04A0AE00182278 /* purge.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = purge.py; path = PartyUPLambda/purge.py; sourceTree = "<group>"; };
 		1F7687931BFE278200D96768 /* HudUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudUtilities.swift; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* UrlUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlUtilities.swift; sourceTree = "<group>"; };
 		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
@@ -161,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				1F4279FF1BA59F4C00E622CF /* PartyUP */,
+				1F7463991C04A11600182278 /* PartyUPLambda */,
 				1F427A141BA59F4C00E622CF /* PartyUPTests */,
 				1F427A1F1BA59F4C00E622CF /* PartyUPUITests */,
 				1F4279FE1BA59F4C00E622CF /* Products */,
@@ -210,6 +226,14 @@
 				1F427A221BA59F4C00E622CF /* Info.plist */,
 			);
 			path = PartyUPUITests;
+			sourceTree = "<group>";
+		};
+		1F7463991C04A11600182278 /* PartyUPLambda */ = {
+			isa = PBXGroup;
+			children = (
+				1F7463981C04A0AE00182278 /* purge.py */,
+			);
+			name = PartyUPLambda;
 			sourceTree = "<group>";
 		};
 		1FDA2F261BB1914100D33540 /* Party */ = {
@@ -329,6 +353,9 @@
 						CreatedOnToolsVersion = 7.0;
 						TestTargetID = 1F4279FC1BA59F4C00E622CF;
 					};
+					1F74639A1C04A41700182278 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
 				};
 			};
 			buildConfigurationList = 1F4279F81BA59F4C00E622CF /* Build configuration list for PBXProject "PartyUP" */;
@@ -347,6 +374,7 @@
 				1F4279FC1BA59F4C00E622CF /* PartyUP */,
 				1F427A101BA59F4C00E622CF /* PartyUPTests */,
 				1F427A1B1BA59F4C00E622CF /* PartyUPUITests */,
+				1F74639A1C04A41700182278 /* PartyPurge */,
 			);
 		};
 /* End PBXProject section */
@@ -381,6 +409,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1F74639F1C04B89900182278 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/PartyUPLambda/purge.py",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/$(TARGET_NAME).zip",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo ${SCRIPT_OUTPUT_FILE_0}\necho ${SCRIPT_INPUT_FILE_0}\nif [-f ${SCRIPT_OUTPUT_FILE_0}]; then\n    rm ${SCRIPT_OUTPUT_FILE_0}\nfi\n\nzip -j ${SCRIPT_OUTPUT_FILE_0} ${SCRIPT_INPUT_FILE_0}\n\naws lambda update-function-code --function-name purgeStaleItems --zip-file fileb://${SCRIPT_OUTPUT_FILE_0}";
+		};
 		291D82C92F95935A10796D6B /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -662,6 +705,20 @@
 			};
 			name = Release;
 		};
+		1F74639C1C04A41700182278 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1F74639D1C04A41700182278 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -700,6 +757,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		1F74639B1C04A41700182278 /* Build configuration list for PBXAggregateTarget "PartyPurge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F74639C1C04A41700182278 /* Debug */,
+				1F74639D1C04A41700182278 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

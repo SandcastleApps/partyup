@@ -47,7 +47,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	internal convenience init(data: SampleDB) {
 		self.init(
 			user: NSUUID(UUIDBytes: UnsafePointer(data.id!.bytes)),
-			time: NSDate(timeIntervalSinceReferenceDate: data.time!.doubleValue),
+			time: NSDate(timeIntervalSince1970: data.time!.doubleValue),
 			comment: data.comment,
 			stamp: (UnsafePointer<UInt8>(data.id!.bytes) + 16).memory
 		)
@@ -56,7 +56,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	internal var dynamo: SampleDB {
 		get {
 			let db = SampleDB()
-			db.time = time.timeIntervalSinceReferenceDate
+			db.time = time.timeIntervalSince1970
 			db.comment = comment
 			db.id = identifier
 
