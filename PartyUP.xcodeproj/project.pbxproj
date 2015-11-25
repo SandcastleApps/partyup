@@ -765,6 +765,7 @@
 				1F74639D1C04A41700182278 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

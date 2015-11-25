@@ -75,11 +75,23 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
     }
 
 	@IBAction func recruit(sender: UIButton) {
-		let text = "Where is the best party?  Discover that with PartyUP"
+		let text = "Lets Party!\n"
 		let url = NSURL(string: "http://partyuptonight.com")
-		let image = UIImage(named: "Logo")
+		let image = UIImage(named: "BlackLogo")
 
-		let share = UIActivityViewController(activityItems: [text,url!,image!], applicationActivities: nil)
+		let share = UIActivityViewController(activityItems: [text,image!,url!], applicationActivities: nil)
+		share.excludedActivityTypes = [
+			UIActivityTypePostToWeibo,
+			UIActivityTypePrint,
+			UIActivityTypeCopyToPasteboard,
+			UIActivityTypeAssignToContact,
+			UIActivityTypeSaveToCameraRoll,
+			UIActivityTypeAddToReadingList,
+			UIActivityTypePostToFlickr,
+			UIActivityTypePostToVimeo,
+			UIActivityTypePostToTencentWeibo,
+			UIActivityTypeAirDrop
+		]
 
 		presentViewController(share, animated: true, completion: nil)
 	}
