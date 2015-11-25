@@ -83,11 +83,14 @@ class SampleManager
 
 		let videoUrl = NSURL(fileURLWithPath: NSTemporaryDirectory() + videoFile)
 
+		let uploadExpr = AWSS3TransferUtilityUploadExpression()
+		uploadExpr.setValue("REDUCED_REDUNDANCY", forRequestParameter: "x-amz-storage-class")
+
 		transfer.uploadFile(videoUrl,
 			bucket: PartyUpConstants.StorageBucket,
 			key: PartyUpConstants.StorageKeyPrefix + videoFile,
 			contentType: videoUrl.mime,
-			expression: nil,
+			expression: uploadExpr,
 			completionHander: nil).continueWithSuccessBlock({ (task) in
 				return push(submission.sample, key: submission.event) }).continueWithBlock({ (task) in
 					try! NSFileManager.defaultManager().removeItemAtURL(videoUrl)
