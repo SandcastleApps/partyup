@@ -17,6 +17,7 @@ struct PartyUpPreferences
 	static let ListingRadius = "ListRadius"
 	static let SampleRadius = "SampleRadius"
 	static let VenueCategories = "VenueCategories"
+	static let StaleSampleInterval = "StaleSampleInterval"
 }
 
 struct PartyUpConstants

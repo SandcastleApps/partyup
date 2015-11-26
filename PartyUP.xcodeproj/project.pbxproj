@@ -147,7 +147,6 @@
 		1F03C3711BA84C5E0037D7D8 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */,
 				1F9509941BACACE8005BDC18 /* UrlUtilities.swift */,
 				1F427A071BA59F4C00E622CF /* Assets.xcassets */,
 				1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */,
@@ -167,6 +166,15 @@
 				1F9509961BAF81FB005BDC18 /* Dynamo.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		1F2950A81C069D6100BCBF87 /* User Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */,
+				1F263C811BE39A53009A3565 /* Settings.bundle */,
+			);
+			name = "User Defaults";
 			sourceTree = "<group>";
 		};
 		1F4279F41BA59F4C00E622CF = {
@@ -202,7 +210,7 @@
 				1FDA2F271BB1916D00D33540 /* Taste Sample */,
 				1F03C3721BA84DDC0037D7D8 /* Model */,
 				1F03C3711BA84C5E0037D7D8 /* Support */,
-				1F263C811BE39A53009A3565 /* Settings.bundle */,
+				1F2950A81C069D6100BCBF87 /* User Defaults */,
 			);
 			path = PartyUP;
 			sourceTree = "<group>";

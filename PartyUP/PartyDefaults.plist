@@ -10,5 +10,7 @@
 	<integer>75</integer>
 	<key>ListRadius</key>
 	<real>25000</real>
+	<key>StaleSampleInterval</key>
+	<integer>28800</integer>
 </dict>
 </plist>
