@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PartyUPTests/Locations/Governors.gpx">
-   </FileRef>
-   <FileRef
-      location = "group:PartyUPTests/Locations/Home.gpx">
-   </FileRef>
-   <FileRef
       location = "group:PartyPlay.playground">
    </FileRef>
    <FileRef
