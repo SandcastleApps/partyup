@@ -17,6 +17,7 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	var page: Int!
 	var sample: Sample!
 
+	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
@@ -110,6 +111,7 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	}
 
 	func playerReady(player: Player) {
+		videoWaiting.stopAnimating()
 	}
 
 	func playerPlaybackStateDidChange(player: Player) {

@@ -11,6 +11,7 @@ import UIKit
 class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 
 	@IBOutlet weak var container: UIView!
+	@IBOutlet weak var loadingProgress: UIActivityIndicatorView!
 
 	var partyId: String? {
 		didSet {
@@ -25,6 +26,8 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 
 	private var samples: [Sample]? {
 		didSet {
+			loadingProgress.stopAnimating()
+			
 			if let page = dequeTastePageController(0) {
 				navigator?.dataSource = self
 				navigator?.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)

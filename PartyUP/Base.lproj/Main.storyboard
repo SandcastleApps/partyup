@@ -549,14 +549,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Videos Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPz-jc-M19">
-                                <rect key="frame" x="168.5" y="237.5" width="263.5" height="36"/>
+                                <rect key="frame" x="168" y="237" width="263.5" height="36"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Be the first to record one!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgg-35-Bnb">
-                                <rect key="frame" x="202.5" y="281.5" width="195.5" height="20.5"/>
+                                <rect key="frame" x="202" y="281" width="195.5" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -579,6 +579,15 @@
                                     <segue destination="Tnu-BU-9Zn" kind="embed" id="gM5-Mr-Lda"/>
                                 </connections>
                             </containerView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-3i-FzN">
+                                <rect key="frame" x="250.5" y="205" width="100" height="100"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="7KI-0p-tZ5"/>
+                                    <constraint firstAttribute="width" constant="100" id="WjU-PZ-362"/>
+                                </constraints>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -590,9 +599,11 @@
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="gee-lq-pku"/>
                             <constraint firstItem="8u3-TN-INi" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="8" symbolic="YES" id="hyY-Nh-Jof"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="j44-Z4-SL0"/>
+                            <constraint firstItem="GzV-3i-FzN" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="kcJ-ZG-7at"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="top" secondItem="tPz-jc-M19" secondAttribute="bottom" constant="8" symbolic="YES" id="ql4-de-lqW"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Nzd-Vm-PKO" secondAttribute="bottom" id="rF3-sX-OAz"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="centerX" secondItem="tPz-jc-M19" secondAttribute="centerX" id="vx1-VH-TSz"/>
+                            <constraint firstItem="GzV-3i-FzN" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="yXz-lB-Vua"/>
                             <constraint firstAttribute="trailing" secondItem="Nzd-Vm-PKO" secondAttribute="trailing" id="zTs-9S-to6"/>
                         </constraints>
                         <variation key="default">
@@ -604,6 +615,7 @@
                     <navigationItem key="navigationItem" title="Title" id="dCM-JW-bfo"/>
                     <connections>
                         <outlet property="container" destination="Nzd-Vm-PKO" id="KVK-bz-ZCv"/>
+                        <outlet property="loadingProgress" destination="GzV-3i-FzN" id="Cdh-Nq-ROK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B2h-8L-w9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -624,7 +636,21 @@
                         <subviews>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-Cg-5eP" userLabel="Review">
                                 <rect key="frame" x="5" y="28" width="590" height="530"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6IQ-1N-b0C">
+                                        <rect key="frame" x="280" y="250" width="30" height="30"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="KnS-nW-roO"/>
+                                            <constraint firstAttribute="height" constant="30" id="geR-KK-mJS"/>
+                                        </constraints>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstItem="6IQ-1N-b0C" firstAttribute="centerX" secondItem="WNy-Cg-5eP" secondAttribute="centerX" id="GK8-Gd-Oq4"/>
+                                    <constraint firstItem="6IQ-1N-b0C" firstAttribute="centerY" secondItem="WNy-Cg-5eP" secondAttribute="centerY" id="VZF-mN-Ncp"/>
+                                </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Dots" translatesAutoresizingMaskIntoConstraints="NO" id="gth-hB-4CF" userLabel="Dots">
                                 <rect key="frame" x="522" y="566" width="58" height="12"/>
@@ -685,6 +711,7 @@
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
                         <outlet property="videoProgress" destination="DNJ-K7-UNE" id="rTi-ge-ElP"/>
                         <outlet property="videoReview" destination="WNy-Cg-5eP" id="mXZ-Sg-DrE"/>
+                        <outlet property="videoWaiting" destination="6IQ-1N-b0C" id="ryK-Os-g6S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVY-ok-WMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
