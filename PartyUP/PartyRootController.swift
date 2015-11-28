@@ -14,7 +14,6 @@ class PartyRootController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		navigationItem.titleView = PartyUpConstants.TitleLogo()
     }
 
     // MARK: - Navigation
@@ -27,6 +26,11 @@ class PartyRootController: UIViewController {
 			let bakerVC = segue.destinationViewController as! BakeRootController
 			bakerVC.venues = partyPicker.venues ?? [Venue]()
 		}
+	}
+
+
+	@IBAction func loadPreferences(sender: UIButton) {
+		NSLog("load prefs")
 	}
 
 	@IBAction func sequeFromBaking(segue: UIStoryboardSegue) {

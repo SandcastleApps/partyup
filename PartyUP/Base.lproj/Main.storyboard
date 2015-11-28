@@ -64,7 +64,18 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
+                            <rect key="frame" x="260" y="2" width="80" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="24" maxY="0.0"/>
+                            <state key="normal" image="Logo"/>
+                            <connections>
+                                <action selector="loadPreferences:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="xfK-80-shx"/>
+                            </connections>
+                        </button>
                         <barButtonItem key="rightBarButtonItem" image="Camera" id="Taz-OV-mPg">
                             <connections>
                                 <segue destination="DRD-vV-Ai8" kind="presentation" identifier="Bake Sample Segue" id="C9R-4D-6zA"/>
@@ -758,5 +769,6 @@
         <image name="Dots" width="58" height="12"/>
         <image name="FlashOff" width="25" height="36"/>
         <image name="Hamburger" width="34" height="24"/>
+        <image name="Logo" width="77" height="96"/>
     </resources>
 </document>
