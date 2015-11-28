@@ -28,10 +28,53 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	private var tick: Double = 0.0
 	private let tickInc: Double = 0.10
 
+	private var displayRelativeTime = true
+
+	private func formatTime(time: NSDate, relative: Bool) -> String {
+		if let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) where relative {
+			let components = calendar.components([NSCalendarUnit.Hour, NSCalendarUnit.Minute],
+				fromDate: time,
+				toDate: NSDate(),
+				options: [])
+
+			var stringy = ""
+
+			switch components.hour {
+			case 1:
+				stringy = "1 hour "
+			case let x where x > 1:
+				stringy = "\(x) hours "
+			default:
+				stringy = ""
+			}
+
+			switch components.minute {
+			case 1:
+				stringy += "1 minute "
+			case let x where x > 1:
+				stringy += "\(x) minutes "
+			default:
+				stringy += ""
+			}
+
+			stringy += stringy.isEmpty ? "very fresh" : "ago"
+
+			return stringy
+		} else {
+			return SampleTastePageController.timeFormatter.stringFromDate(time)
+		}
+	}
+
+	@IBAction func toggleTimeFormat(sender: UITapGestureRecognizer) {
+		displayRelativeTime = !displayRelativeTime
+		timeLabel.text = formatTime(sample.time, relative: displayRelativeTime)
+	}
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		timeLabel.text = SampleTastePageController.timeFormatter.stringFromDate(sample.time)
+		timeLabel.text = formatTime(sample.time, relative: displayRelativeTime)
+		
 		if let comment = sample.comment {
 			commentLabel.text = comment
 		}
