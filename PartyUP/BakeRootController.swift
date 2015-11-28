@@ -33,17 +33,29 @@ class BakeRootController: UIViewController {
 						let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
 						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }
 					} else {
-						dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); presentResultHud(self.progressHud, inView: self.view, withTitle: "Undetermined Location", andDetail: "Your location couldn't be determined for unknown reasons.", indicatingSuccess: false)
+						dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); presentResultHud(self.progressHud,
+							inView: self.view,
+							withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for unknown location failure"),
+							andDetail: NSLocalizedString("Your location couldn't be determined for unknown reasons.", comment: "Hud detail for location service failure"),
+							indicatingSuccess: false)
 						}
 					}
 				},
 				onFail: { (error) in
-					dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); presentResultHud(self.progressHud, inView: self.view, withTitle: "Undetermined Location", andDetail: "Your location couldn't be determined with acceptable accuracy.", indicatingSuccess: false)
+					dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); presentResultHud(self.progressHud,
+						inView: self.view,
+						withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for poor location accuracy"),
+						andDetail: NSLocalizedString("Your location couldn't be determined with acceptable accuracy.", comment: "Hud detail for poor locaiton accuracy"),
+						indicatingSuccess: false)
 					}
 			})
 		} catch {
 			locals = [Venue]()
-			presentResultHud(progressHud, inView: view, withTitle: "Undetermined Location", andDetail: "Location services are unavailable.", indicatingSuccess: false)
+			presentResultHud(progressHud,
+				inView: view,
+				withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for location services threw an error"),
+				andDetail: NSLocalizedString("Location services are unavailable.", comment: "Hud detail for location services threw an error"),
+				indicatingSuccess: false)
 		}
 
 		recordController = storyboard!.instantiateViewControllerWithIdentifier("RecordSample") as! RecordSampleController
@@ -59,7 +71,7 @@ class BakeRootController: UIViewController {
 		super.viewDidAppear(animated)
 
 		if locals == nil {
-			progressHud.textLabel.text = "Determining Venue"
+			progressHud.textLabel.text = NSLocalizedString("Determining Venue", comment: "Hud title for waiting for location determination")
 			progressHud.showInView(view, animated: false)
 		}
 	}
@@ -71,7 +83,11 @@ class BakeRootController: UIViewController {
 			recordController.recordButton.enabled = true
 			progressHud.dismissAnimated(true);
 		} else {
-			presentResultHud(progressHud, inView: view, withTitle: "Unsupported Venue", andDetail: "You are not at a supported venue.", indicatingSuccess: false)
+			presentResultHud(progressHud,
+				inView: view,
+				withTitle: NSLocalizedString("Unsupported Venue", comment: "Hud title for no nearby venue"),
+				andDetail: NSLocalizedString("You are not at a supported venue.", comment: "Hud detail for no nearby venue"),
+				indicatingSuccess: false)
 		}
 	}
 

@@ -64,11 +64,19 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			try SwiftLocation.shared.currentLocation(.City, timeout: 30,
 				onSuccess: { (location) in dispatch_async(dispatch_get_main_queue()) { self.updatePartyList(location!) } },
 				onFail: { (error) in
-					presentResultHud(self.progressHud, inView: self.view, withTitle: "Undetermined Location", andDetail: "Location services failure.", indicatingSuccess: false)
+					presentResultHud(self.progressHud,
+						inView: self.view,
+						withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
+						andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location onFail message"),
+						indicatingSuccess: false)
 					})
 		} catch {
 			refreshControl?.endRefreshing()
-			presentResultHud(progressHud, inView: view, withTitle: "Undeterined Location", andDetail: "Location services failure.", indicatingSuccess: false)
+			presentResultHud(progressHud,
+				inView: view,
+				withTitle: NSLocalizedString("Undeterined Location", comment: "Hud title location caught error"),
+				andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location caught error"),
+				indicatingSuccess: false)
 		}
 	}
 
@@ -102,7 +110,11 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 								self.progressHud.dismissAnimated(true) }
 						} else {
 							dispatch_async(dispatch_get_main_queue()) { self.refreshControl?.endRefreshing();
-							presentResultHud(self.progressHud, inView: self.view, withTitle: "Venue Fetch Failed", andDetail: "The venue query failed.", indicatingSuccess: false)
+							presentResultHud(self.progressHud,
+								inView: self.view,
+								withTitle: NSLocalizedString("Venue Fetch Failed", comment: "Hud title failed to fetch venues from foursquare"),
+								andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
+								indicatingSuccess: false)
 							}
 						}
 				}
@@ -124,7 +136,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath)
-        cell.textLabel!.text = filteredVenues?[indexPath.row].name ?? "Mysterious Venue"
+		cell.textLabel!.text = filteredVenues?[indexPath.row].name ?? NSLocalizedString("Mysterious Venue", comment: "Default in cell when venue name is nil")
 		cell.detailTextLabel!.text = filteredVenues?[indexPath.row].details
 		cell.imageView?.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
 		cell.imageView?.setImageWithString(cell.textLabel!.text, color: UIColor.orangeColor(), circular:  true)

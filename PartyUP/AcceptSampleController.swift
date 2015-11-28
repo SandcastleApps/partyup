@@ -39,7 +39,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	}
 
 	private func venueButtonState() {
-		var label = "No Venues Available"
+		var label = NSLocalizedString("No Venues Available", comment: "Label used in sample acceptance when the user is not near any venues")
 
 		if selectedLocal < venues.count {
 			label = venues[selectedLocal].name
@@ -190,7 +190,9 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBAction func selectVenue(sender: UIButton) {
 		view.endEditing(false)
 		
-		ActionSheetStringPicker.showPickerWithTitle("Venue", rows: venues.map { $0.name }, initialSelection: 0,
+		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Venue", comment: "Title of the venue picker"),
+			rows: venues.map { $0.name },
+			initialSelection: 0,
 			doneBlock: { (picker, row, value) in
 				self.selectedLocal = row
 				self.venueButtonState()
@@ -204,7 +206,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	// MARK: - Text View
 
 	private func setCommentPlaceholder() {
-		comment.text = "How goes the party?"
+		comment.text = NSLocalizedString("How goes the party?", comment: "Comment placeholder text")
 		comment.textColor = UIColor.lightGrayColor()
 	}
 
@@ -257,7 +259,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 
 		do {
 			if let url = videoUrl {
-				progressHud.textLabel.text = "Uploading Party Video"
+				progressHud.textLabel.text = NSLocalizedString("Uploading Party Video", comment: "Hud title while uploading a video")
 				progressHud.showInView(view, animated: true)
 				var statement: String? = comment.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 				statement = statement?.isEmpty ?? true || comment.textColor != UIColor.blackColor() ? nil : statement
@@ -265,18 +267,34 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
 				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique) {(error) in
 					if error == nil {
-						presentResultHud(self.progressHud, inView: self.view, withTitle: "Submission Done", andDetail: "Party On!", indicatingSuccess: true)
+						presentResultHud(self.progressHud,
+							inView: self.view,
+							withTitle: NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
+							andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample"),
+							indicatingSuccess: true)
 					} else {
-						presentResultHud(self.progressHud, inView: self.view, withTitle: "Submission Failed", andDetail: "Rats!", indicatingSuccess: false)
+						presentResultHud(self.progressHud,
+							inView: self.view,
+							withTitle: NSLocalizedString("Submission Failed", comment: "Hud title after unsuccessfully uploaded sample"),
+							andDetail: NSLocalizedString("Rats!", comment: "Hud detail after unsuccessfully uploaded sample"),
+							indicatingSuccess: false)
 					}
 				}
 			} else {
-				presentResultHud(progressHud, inView: view, withTitle: "Upload Failed", andDetail: "No video available.", indicatingSuccess: false)
+				presentResultHud(progressHud,
+					inView: view,
+					withTitle: NSLocalizedString("Upload Failed", comment: "Hud title when failed due to no video"),
+					andDetail: NSLocalizedString("No video available.", comment: "Hud detail indicating no video available"),
+					indicatingSuccess: false)
 			}
 
 		} catch {
 			NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
-			presentResultHud(progressHud, inView: view, withTitle: "Preparation Failed", andDetail: "Couldn't queue video for upload.", indicatingSuccess: false)
+			presentResultHud(progressHud,
+				inView: view,
+				withTitle: NSLocalizedString("Preparation Failed", comment: "Hud title when failed due to no video"),
+				andDetail: NSLocalizedString("Couldn't queue video for upload.", comment: "Hud title when failed due to no video"),
+				indicatingSuccess: false)
 		}
 	}
 

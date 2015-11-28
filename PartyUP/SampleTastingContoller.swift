@@ -78,7 +78,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
     }
 
 	@IBAction func recruit(sender: UIButton) {
-		let text = "Lets Party!\n"
+		let text = NSLocalizedString("Lets Party!\n", comment: "Recruitment default text")
 		let url = NSURL(string: "http://partyuptonight.com")
 		let image = UIImage(named: "BlackLogo")
 
