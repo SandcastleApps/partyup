@@ -14,7 +14,13 @@ class PartyRootController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
 
     // MARK: - Navigation
 
@@ -39,5 +45,11 @@ class PartyRootController: UIViewController {
 
 	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
 
+	}
+
+	func observeApplicationBecameActive() {
+		if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) {
+			performSegueWithIdentifier("Bake Sample Segue", sender: nil)
+		}
 	}
 }
