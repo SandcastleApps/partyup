@@ -16,6 +16,8 @@ import JGProgressHUD
 
 class PartyPickerController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
 
+	typealias PartyRegion = (name: String, location: CLLocation?)
+
 	private var filteredVenues: [Venue]? {
 		didSet {
 			partyTable.reloadData()
@@ -34,7 +36,11 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	private var lastLocation = CLLocation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), altitude: -1, horizontalAccuracy: -1, verticalAccuracy: -1, course: -1, speed: -1, timestamp: NSDate(timeIntervalSinceReferenceDate: 0))
 
-	private var lockedLocation: CLLocation?
+	var lockedLocation: PartyRegion = ("Near me", nil) {
+		didSet {
+			fetchPartyList()
+		}
+	}
 
 	@IBOutlet var partyTable: UITableView!
 
@@ -59,7 +65,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	@IBAction func fetchPartyList() {
 		do {
-			if let lockedLocation = lockedLocation {
+			if let lockedLocation = lockedLocation.location {
 				updatePartyList(lockedLocation)
 			} else {
 				try SwiftLocation.shared.currentLocation(.City, timeout: 30,
@@ -127,6 +133,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
     // MARK: - Table view data source
+
+	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return lockedLocation.name
+	}
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

@@ -66,7 +66,11 @@
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
-                        <barButtonItem key="leftBarButtonItem" image="Mark" id="mrE-gU-G8u"/>
+                        <barButtonItem key="leftBarButtonItem" image="Mark" id="mrE-gU-G8u">
+                            <connections>
+                                <action selector="chooseLocation:" destination="SEJ-wv-10Q" id="wmM-Gv-umP"/>
+                            </connections>
+                        </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
                             <rect key="frame" x="260" y="2" width="80" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -83,6 +87,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cameraButton" destination="Taz-OV-mPg" id="HZP-Ob-4yI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cyB-Pq-hBW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -780,6 +787,6 @@
         <image name="FlashOff" width="25" height="36"/>
         <image name="Hamburger" width="34" height="24"/>
         <image name="Logo" width="77" height="96"/>
-        <image name="Mark" width="58" height="71"/>
+        <image name="Mark" width="30" height="35"/>
     </resources>
 </document>
