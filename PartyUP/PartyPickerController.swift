@@ -34,6 +34,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	private var lastLocation = CLLocation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), altitude: -1, horizontalAccuracy: -1, verticalAccuracy: -1, course: -1, speed: -1, timestamp: NSDate(timeIntervalSinceReferenceDate: 0))
 
+	private var lockedLocation: CLLocation?
+
 	@IBOutlet var partyTable: UITableView!
 
     override func viewDidLoad() {
@@ -55,21 +57,21 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		fetchPartyList()
     }
 
-	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
-	}
-
 	@IBAction func fetchPartyList() {
 		do {
-			try SwiftLocation.shared.currentLocation(.City, timeout: 30,
-				onSuccess: { (location) in dispatch_async(dispatch_get_main_queue()) { self.updatePartyList(location!) } },
-				onFail: { (error) in
-					presentResultHud(self.progressHud,
-						inView: self.view,
-						withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
-						andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location onFail message"),
-						indicatingSuccess: false)
-					})
+			if let lockedLocation = lockedLocation {
+				updatePartyList(lockedLocation)
+			} else {
+				try SwiftLocation.shared.currentLocation(.City, timeout: 30,
+					onSuccess: { (location) in dispatch_async(dispatch_get_main_queue()) { self.updatePartyList(location!) } },
+					onFail: { (error) in
+						presentResultHud(self.progressHud,
+							inView: self.view,
+							withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
+							andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location onFail message"),
+							indicatingSuccess: false)
+				})
+			}
 		} catch {
 			refreshControl?.endRefreshing()
 			presentResultHud(progressHud,
