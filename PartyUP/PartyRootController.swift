@@ -73,7 +73,7 @@ class PartyRootController: UIViewController {
 	}
 
 	func observeApplicationBecameActive() {
-		if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) {
+		if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) && selectedRegion == 0 {
 			performSegueWithIdentifier("Bake Sample Segue", sender: nil)
 		}
 	}
