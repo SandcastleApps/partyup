@@ -13,6 +13,7 @@ target 'PartyUP' do
 	pod 'Player', '~> 0.0'
 	pod 'ActionSheetPicker-3.0', '~> 2.0'
 	pod 'JGProgressHUD', '~> 1.3'
+	pod 'Flurry-iOS-SDK', '~> 7.3'
 end
 
 target 'PartyUPTests' do

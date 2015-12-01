@@ -10,6 +10,7 @@ import UIKit
 import AWSCore
 import AWSS3
 import CoreData
+import Flurry_iOS_SDK
 
 struct PartyUpPreferences
 {
@@ -40,6 +41,11 @@ struct FourSquareConstants
 	static let secret = "***REMOVED***"
 }
 
+struct FlurryConstants
+{
+	static let ApplicationIdentifier = "***REMOVED***"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -53,6 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+		Flurry.startSession(FlurryConstants.ApplicationIdentifier)
 
 		window?.tintColor = UIColor.orangeColor()
 		UINavigationBar.appearance().backgroundColor = UIColor.whiteColor()

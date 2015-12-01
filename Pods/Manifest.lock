@@ -7,6 +7,9 @@ PODS:
   - AWSS3 (2.2.6):
     - AWSCore (= 2.2.6)
   - DACircularProgress (2.3.1)
+  - Flurry-iOS-SDK (7.3.0):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.3.0)
+  - Flurry-iOS-SDK/FlurrySDK (7.3.0)
   - JGProgressHUD (1.3.1)
   - PBJVision (0.4.2)
   - Player (0.0.8)
@@ -20,6 +23,7 @@ DEPENDENCIES:
   - AWSDynamoDB (~> 2.2)
   - AWSS3 (~> 2.2)
   - DACircularProgress
+  - Flurry-iOS-SDK (~> 7.3)
   - JGProgressHUD (~> 1.3)
   - PBJVision (~> 0.4)
   - Player (~> 0.0)
@@ -34,6 +38,7 @@ SPEC CHECKSUMS:
   AWSDynamoDB: d0eb38a6bcaaee5931e5168478c409a39b0a9066
   AWSS3: a8aeb5f8224236c2b1b46fdab14add3eff971fc4
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  Flurry-iOS-SDK: 054befae0fa0244fb000985bfe757d70f87a9f60
   JGProgressHUD: 153053a21d81208cb5f659691996bcefce6a9885
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   Player: 31becc185d219b96dac5419ce90745095940ab92
