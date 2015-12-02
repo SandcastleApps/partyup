@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flurry_iOS_SDK
 
 class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 
@@ -97,5 +98,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 		]
 
 		presentViewController(share, animated: true, completion: nil)
+
+		Flurry.logEvent("Recruiting")
 	}
 }

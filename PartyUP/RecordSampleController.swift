@@ -9,6 +9,7 @@
 import UIKit
 import DACircularProgress
 import PBJVision
+import Flurry_iOS_SDK
 
 class RecordSampleController: UIViewController, PBJVisionDelegate {
 
@@ -174,6 +175,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	@IBAction func cancelRecording(sender: UIBarButtonItem) {
 		host?.recordedSample(nil)
+		Flurry.logEvent("Sample_Cancelled")
 	}
 
 	private weak var host: BakeRootController?

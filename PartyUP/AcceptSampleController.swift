@@ -10,6 +10,7 @@ import UIKit
 import Player
 import ActionSheetPicker_3_0
 import JGProgressHUD
+import Flurry_iOS_SDK
 
 class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelegate {
 
@@ -251,6 +252,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			NSLog("Failed to delete rejected video: \(videoUrl) with error: \(error)")
 		}
 
+		Flurry.logEvent("Sample_Rejected")
+
 		host?.rejectedSample()
 	}
 
@@ -264,15 +267,20 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				var statement: String? = comment.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 				statement = statement?.isEmpty ?? true || comment.textColor != UIColor.blackColor() ? nil : statement
 				let sample = Sample(comment: statement)
+				let place = venues[selectedLocal].unique
+				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place], timed: true)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-				SampleManager.defaultManager().submit(sample, event: venues[selectedLocal].unique) {(error) in
+				SampleManager.defaultManager().submit(sample, event: place) {(error) in
 					if error == nil {
+						Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : true])
 						presentResultHud(self.progressHud,
 							inView: self.view,
 							withTitle: NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
 							andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample"),
 							indicatingSuccess: true)
 					} else {
+						Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false])
+						Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
 						presentResultHud(self.progressHud,
 							inView: self.view,
 							withTitle: NSLocalizedString("Submission Failed", comment: "Hud title after unsuccessfully uploaded sample"),
@@ -289,6 +297,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			}
 
 		} catch {
+			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
 			NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
 			presentResultHud(progressHud,
 				inView: view,

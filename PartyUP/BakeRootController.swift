@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import SwiftLocation
 import JGProgressHUD
+import Flurry_iOS_SDK
 
 class BakeRootController: UIViewController {
 	private var recordController: RecordSampleController!
@@ -33,6 +34,7 @@ class BakeRootController: UIViewController {
 						let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
 						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }
 					} else {
+						Flurry.logError("Neighborhood_Location_Unspecified", message: "SwiftLocation called onSuccess but provided no location", error: nil)
 						dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); presentResultHud(self.progressHud,
 							inView: self.view,
 							withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for unknown location failure"),
@@ -42,7 +44,7 @@ class BakeRootController: UIViewController {
 					}
 				},
 				onFail: { (error) in
-					dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); presentResultHud(self.progressHud,
+					dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); Flurry.logError("Neighborhood_Determination_Failed", message: error?.localizedDescription, error: error); presentResultHud(self.progressHud,
 						inView: self.view,
 						withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for poor location accuracy"),
 						andDetail: NSLocalizedString("Your location couldn't be determined with acceptable accuracy.", comment: "Hud detail for poor locaiton accuracy"),
@@ -51,6 +53,7 @@ class BakeRootController: UIViewController {
 			})
 		} catch {
 			locals = [Venue]()
+			Flurry.logError("Neighborhood_Error_Thrown", message: "The currentLocation call threw an error", error: nil)
 			presentResultHud(progressHud,
 				inView: view,
 				withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for location services threw an error"),
@@ -83,6 +86,7 @@ class BakeRootController: UIViewController {
 			recordController.recordButton.enabled = true
 			progressHud.dismissAnimated(true);
 		} else {
+			Flurry.logError("Neighborhood_No_Venues", message: "There are no venues near users location", error: nil)
 			presentResultHud(progressHud,
 				inView: view,
 				withTitle: NSLocalizedString("Unsupported Venue", comment: "Hud title for no nearby venue"),

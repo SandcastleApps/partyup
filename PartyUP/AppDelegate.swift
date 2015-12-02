@@ -60,6 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
+		NSSetUncaughtExceptionHandler({
+			(error) in Flurry.logError("Uncaught_Exception", message: "Uh oh", exception: error)
+		})
+
+		Flurry.setUserID(UIDevice.currentDevice().identifierForVendor?.UUIDString)
 		Flurry.startSession(FlurryConstants.ApplicationIdentifier)
 
 		window?.tintColor = UIColor.orangeColor()

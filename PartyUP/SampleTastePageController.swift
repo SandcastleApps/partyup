@@ -9,6 +9,7 @@
 import UIKit
 import Player
 import DACircularProgress
+import Flurry_iOS_SDK
 
 class SampleTastePageController: UIViewController, PlayerDelegate {
 
@@ -130,6 +131,8 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 		super.viewWillAppear(animated)
 		player.delegate = self
 		player.playFromBeginning()
+
+		Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description], timed: true)
 	}
 
 	override func viewDidDisappear(animated: Bool) {
@@ -137,6 +140,7 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 		player.stop()
 		timer?.invalidate()
 		player.delegate = nil
+		Flurry.endTimedEvent("Sample_Tasted", withParameters: ["duration" : player.maximumDuration.description])
 	}
 
 	// MARK: Player

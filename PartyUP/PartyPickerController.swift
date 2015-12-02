@@ -13,6 +13,7 @@ import SwiftLocation
 import CoreLocation
 import UIImageView_Letters
 import JGProgressHUD
+import Flurry_iOS_SDK
 
 class PartyPickerController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
 
@@ -69,8 +70,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				updatePartyList(lockedLocation)
 			} else {
 				try SwiftLocation.shared.currentLocation(.City, timeout: 30,
-					onSuccess: { (location) in dispatch_async(dispatch_get_main_queue()) { self.updatePartyList(location!) } },
+					onSuccess: { (location) in dispatch_async(dispatch_get_main_queue()) { self.updatePartyList(location!)
+						Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy)) } },
 					onFail: { (error) in
+						Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
 						presentResultHud(self.progressHud,
 							inView: self.view,
 							withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
@@ -117,10 +120,12 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 								self.lastLocation = location
 								self.progressHud.dismissAnimated(true) }
 						} else {
-							dispatch_async(dispatch_get_main_queue()) { self.refreshControl?.endRefreshing();
+							dispatch_async(dispatch_get_main_queue()) {
+								self.refreshControl?.endRefreshing()
+								Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: nil)
 							presentResultHud(self.progressHud,
 								inView: self.view,
-								withTitle: NSLocalizedString("Venue Fetch Failed", comment: "Hud title failed to fetch venues from foursquare"),
+								withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
 								andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
 								indicatingSuccess: false)
 							}
@@ -165,6 +170,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		if let searchString = searchController.searchBar.text where searchController.active {
 			searchController.searchBar.searchBarStyle = .Prominent
 			filteredVenues = venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
+			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
 	}
 
