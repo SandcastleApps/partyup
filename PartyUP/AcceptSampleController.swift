@@ -127,6 +127,12 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			attribute: .Bottom,
 			multiplier: 1.0,
 			constant: 0))
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+	}
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
 	// MARK: - View Lifecycle
@@ -340,6 +346,14 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				player.setUrl(url)
 				player.playFromBeginning()
 			}
+		}
+	}
+
+	// MARK: - Application Lifecycle
+
+	func observeApplicationBecameActive() {
+		if player.playbackState == .Paused && isViewLoaded() && view.window != nil {
+			player.playFromCurrentTime()
 		}
 	}
 }

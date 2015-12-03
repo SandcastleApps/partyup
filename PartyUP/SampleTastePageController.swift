@@ -28,7 +28,7 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	private var timer: NSTimer?
 	private var tick: Double = 0.0
 	private let tickInc: Double = 0.10
-
+	private var visible = false
 	private var displayRelativeTime = true
 
 	private func formatTime(time: NSDate, relative: Bool) -> String {
@@ -125,7 +125,13 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 			constant: 0))
 
 		player.setUrl(PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!))
-    }
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+	}
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
@@ -135,12 +141,18 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 		Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description], timed: true)
 	}
 
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		visible = true
+	}
+
 	override func viewDidDisappear(animated: Bool) {
 		super.viewDidDisappear(animated)
 		player.stop()
 		timer?.invalidate()
 		player.delegate = nil
 		Flurry.endTimedEvent("Sample_Tasted", withParameters: ["duration" : player.maximumDuration.description])
+		visible = false
 	}
 
 	// MARK: Player
@@ -162,6 +174,16 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	}
 
 	func playerPlaybackStateDidChange(player: Player) {
+		switch player.playbackState! {
+		case .Failed:
+			fallthrough
+		case .Paused:
+			fallthrough
+		case .Stopped:
+			timer?.invalidate()
+		case .Playing:
+			break
+		}
 	}
 
 	func playerBufferingStateDidChange(player: Player) {
@@ -172,5 +194,14 @@ class SampleTastePageController: UIViewController, PlayerDelegate {
 	func playerTimer() {
 		tick += tickInc
 		videoProgress.setProgress(CGFloat(tick)/CGFloat(player.maximumDuration), animated: false)
+	}
+
+	// MARK: - Application Lifecycle
+
+	func observeApplicationBecameActive() {
+		if player.playbackState == .Paused && visible {
+			player.playFromCurrentTime()
+			timer = NSTimer.scheduledTimerWithTimeInterval(tickInc, target: self, selector: Selector("playerTimer"), userInfo: nil, repeats: true)
+		}
 	}
 }
