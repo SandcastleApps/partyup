@@ -1,0 +1,86 @@
+/* Hud title when failed due to no video */
+"Couldn't queue video for upload." = "Upload Failed :(";
+
+/* Hud title for waiting for location determination */
+"Determining Venue" = "Determining where you are partying :)";
+
+/* Comment placeholder text */
+"How goes the party?" = "How's the party?!";
+
+/* Recruitment default text */
+"Lets Party!
+" = "Wow, just downloaded the best party app ever, its called PartyUP! You need to get this now at";
+
+/* Hud detail for location services threw an error */
+"Location services are unavailable." = "Location services are unavailable :(";
+
+/* Hud detail location caught error
+   Hud detail location onFail message */
+"Location services failure." = "Location services failure :(";
+
+/* Default in cell when venue name is nil */
+"Mysterious Venue" = "Mysterious Venue :| wtf bro?";
+
+/* Name of the current location region */
+"Nearby Parties" = "Current Location";
+
+/* Label used in sample acceptance when the user is not near any venues */
+"No Venues Available" = "No venues near you :( Are you in space or something?";
+
+/* Hud detail indicating no video available */
+"No video available." = "No video available :(";
+
+/* Hud detail after successfully uploaded sample */
+"Party On!" = "Thanks <3 !";
+
+/* Hud title when failed due to no video */
+"Preparation Failed" = "Video Preparation Failed :(";
+
+/* Hud detail after unsuccessfully uploaded sample */
+"Rats!" = "Please try again.";
+
+/* Title of the region picker */
+"Region" = "Party Places";
+
+/* Hud title after successfully uploaded sample */
+"Submission Done" = "Party On!";
+
+/* Hud title after unsuccessfully uploaded sample */
+"Submission Failed" = "Submission Failed :(";
+
+/* Hud detail failed to fetch venues from foursquare */
+"The venue query failed." = "Your service must really suck right now.";
+
+/* Hud title location caught error */
+"Undeterined Location" = "Undeterined Location";
+
+/* Hud title for location services threw an error
+   Hud title for poor location accuracy
+   Hud title for unknown location failure
+   Hud title location onFail message */
+"Undetermined Location" = "Undetermined Location";
+
+/* Hud title for no nearby venue */
+"Unsupported Venue" = "Unsupported Venue";
+
+/* Hud title when failed due to no video */
+"Upload Failed" = "Upload Failed :( Sorry";
+
+/* Hud title while uploading a video */
+"Uploading Party Video" = "Uploading yo' video...";
+
+/* Title of the venue picker */
+"Venue" = "I'm partying at:";
+
+/* Hud title failed to fetch venues from foursquare */
+"Venue Query Failed" = "Venue Query Failed :(";
+
+/* Hud detail for no nearby venue */
+"You are not at a supported venue." = "You can't record video if you aren't out yet bud :(";
+
+/* Hud detail for location service failure */
+"Your location couldn't be determined for unknown reasons." = "Your location couldn't be determined for unknown reasons.";
+
+/* Hud detail for poor locaiton accuracy */
+"Your location couldn't be determined with acceptable accuracy." = "Your location couldn't be determined with acceptable accuracy.";
+
