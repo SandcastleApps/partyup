@@ -78,7 +78,7 @@
                             <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="24" maxY="0.0"/>
                             <state key="normal" image="Logo"/>
                             <connections>
-                                <action selector="loadPreferences:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="xfK-80-shx"/>
+                                <segue destination="eKO-5N-ikP" kind="presentation" modalTransitionStyle="flipHorizontal" id="6jn-Bq-laD"/>
                             </connections>
                         </button>
                         <barButtonItem key="rightBarButtonItem" image="Camera" id="Taz-OV-mPg">
@@ -778,6 +778,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v3K-Fn-gAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2552" y="-625"/>
+        </scene>
+        <!--Acknowledge-->
+        <scene sceneID="KeX-5D-t8E">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Acknowledge" id="eKO-5N-ikP" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k2s-AD-DBj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1579" y="-2009"/>
         </scene>
     </scenes>
     <resources>

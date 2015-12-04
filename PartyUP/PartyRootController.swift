@@ -44,11 +44,6 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-
-	@IBAction func loadPreferences(sender: UIButton) {
-		NSLog("load prefs")
-	}
-
 	@IBAction func chooseLocation(sender: UIBarButtonItem) {
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
 			rows: regions.map { $0.name },
@@ -69,6 +64,10 @@ class PartyRootController: UIViewController {
 	}
 
 	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
+
+	}
+
+	@IBAction func segueFromAcknowledgements(segue: UIStoryboardSegue) {
 
 	}
 

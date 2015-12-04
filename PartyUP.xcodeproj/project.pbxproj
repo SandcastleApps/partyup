@@ -44,6 +44,8 @@
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
 		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
 		1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */; };
+		1FC60E841C10B39600965716 /* AcknowledgementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC60E831C10B39600965716 /* AcknowledgementsController.swift */; };
+		1FC60E871C10B43900965716 /* Acknowledge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FC60E851C10B43900965716 /* Acknowledge.storyboard */; };
 		1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
 		1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */; };
@@ -101,6 +103,8 @@
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
 		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
 		1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Halifax.gpx; path = Globetrotter/Halifax.gpx; sourceTree = SOURCE_ROOT; };
+		1FC60E831C10B39600965716 /* AcknowledgementsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcknowledgementsController.swift; sourceTree = "<group>"; };
+		1FC60E861C10B43900965716 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Acknowledge.storyboard; sourceTree = "<group>"; };
 		1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+RuntimeAttributes.swift"; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
 		1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyRootController.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 				1FDA2F281BB191D500D33540 /* Bake Sample */,
 				1FDA2F261BB1914100D33540 /* Party */,
 				1FDA2F271BB1916D00D33540 /* Taste Sample */,
+				1FC60E821C10B2F600965716 /* Acknowledgements */,
 				1F03C3721BA84DDC0037D7D8 /* Model */,
 				1F03C3711BA84C5E0037D7D8 /* Support */,
 				1F2950A81C069D6100BCBF87 /* User Defaults */,
@@ -257,6 +262,15 @@
 				1F7463981C04A0AE00182278 /* purge.py */,
 			);
 			name = PartyUPLambda;
+			sourceTree = "<group>";
+		};
+		1FC60E821C10B2F600965716 /* Acknowledgements */ = {
+			isa = PBXGroup;
+			children = (
+				1FC60E851C10B43900965716 /* Acknowledge.storyboard */,
+				1FC60E831C10B39600965716 /* AcknowledgementsController.swift */,
+			);
+			name = Acknowledgements;
 			sourceTree = "<group>";
 		};
 		1FDA2F261BB1914100D33540 /* Party */ = {
@@ -413,6 +427,7 @@
 				1F71B5E11C0897E800F5740E /* Home.gpx in Resources */,
 				1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */,
 				1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */,
+				1FC60E871C10B43900965716 /* Acknowledge.storyboard in Resources */,
 				1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */,
 				1F71B5E01C0897E800F5740E /* Governors.gpx in Resources */,
 			);
@@ -506,6 +521,7 @@
 				1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */,
 				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
+				1FC60E841C10B39600965716 /* AcknowledgementsController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
 				1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */,
@@ -566,6 +582,14 @@
 				1F427A0A1BA59F4C00E622CF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		1FC60E851C10B43900965716 /* Acknowledge.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FC60E861C10B43900965716 /* Base */,
+			);
+			name = Acknowledge.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
