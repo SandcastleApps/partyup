@@ -11,7 +11,7 @@ import Player
 import DACircularProgress
 import Flurry_iOS_SDK
 
-class SampleTastePageController: UIViewController, PlayerDelegate {
+class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate {
 
 	private static let timeFormatter: NSDateFormatter = { let formatter = NSDateFormatter(); formatter.timeStyle = .MediumStyle; formatter.dateStyle = .NoStyle; return formatter }()
 

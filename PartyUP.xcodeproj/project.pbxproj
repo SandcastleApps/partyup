@@ -44,6 +44,8 @@
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
 		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
 		1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */; };
+		1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */; };
+		1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD40041C11E1060093D852 /* PageProtocol.swift */; };
 		1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
 		1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */; };
@@ -101,6 +103,8 @@
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
 		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
 		1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Halifax.gpx; path = Globetrotter/Halifax.gpx; sourceTree = SOURCE_ROOT; };
+		1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitPageController.swift; sourceTree = "<group>"; };
+		1FBD40041C11E1060093D852 /* PageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageProtocol.swift; sourceTree = "<group>"; };
 		1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+RuntimeAttributes.swift"; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
 		1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyRootController.swift; sourceTree = "<group>"; };
@@ -273,6 +277,8 @@
 			children = (
 				1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */,
 				1F9997461BB48A99003457E2 /* SampleTastePageController.swift */,
+				1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */,
+				1FBD40041C11E1060093D852 /* PageProtocol.swift */,
 			);
 			name = "Taste Sample";
 			sourceTree = "<group>";
@@ -503,10 +509,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
+				1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */,
 				1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */,
 				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
+				1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
 				1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */,
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,

@@ -567,29 +567,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="511"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Videos Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPz-jc-M19">
-                                <rect key="frame" x="168" y="237" width="263.5" height="36"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Be the first to record one!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgg-35-Bnb">
-                                <rect key="frame" x="202" y="281" width="195.5" height="20.5"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-TN-INi">
-                                <rect key="frame" x="210" y="425" width="180" height="36"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Recruit Your Friends"/>
-                                <connections>
-                                    <action selector="recruit:" destination="ZcT-Fn-GTh" eventType="touchUpInside" id="plL-JY-kZI"/>
-                                </connections>
-                            </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Vm-PKO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="511"/>
                                 <animations/>
@@ -612,24 +589,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="top" secondItem="NsN-s1-SY6" secondAttribute="bottom" id="30V-KF-sJX"/>
-                            <constraint firstItem="xzm-k1-wwA" firstAttribute="top" secondItem="8u3-TN-INi" secondAttribute="bottom" constant="50" id="DcP-nz-4Ms"/>
-                            <constraint firstItem="8u3-TN-INi" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="QCB-Yh-EQB"/>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leading" id="eJH-iS-MfQ"/>
-                            <constraint firstItem="tPz-jc-M19" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="gee-lq-pku"/>
-                            <constraint firstItem="8u3-TN-INi" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="8" symbolic="YES" id="hyY-Nh-Jof"/>
-                            <constraint firstItem="tPz-jc-M19" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="j44-Z4-SL0"/>
                             <constraint firstItem="GzV-3i-FzN" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="kcJ-ZG-7at"/>
-                            <constraint firstItem="lgg-35-Bnb" firstAttribute="top" secondItem="tPz-jc-M19" secondAttribute="bottom" constant="8" symbolic="YES" id="ql4-de-lqW"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Nzd-Vm-PKO" secondAttribute="bottom" id="rF3-sX-OAz"/>
-                            <constraint firstItem="lgg-35-Bnb" firstAttribute="centerX" secondItem="tPz-jc-M19" secondAttribute="centerX" id="vx1-VH-TSz"/>
                             <constraint firstItem="GzV-3i-FzN" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="yXz-lB-Vua"/>
                             <constraint firstAttribute="trailing" secondItem="Nzd-Vm-PKO" secondAttribute="trailing" id="zTs-9S-to6"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="hyY-Nh-Jof"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="dCM-JW-bfo"/>
                     <connections>
@@ -745,6 +710,66 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3241" y="-593"/>
+        </scene>
+        <!--Recruit Page Controller-->
+        <scene sceneID="cr5-wz-YKb">
+            <objects>
+                <viewController storyboardIdentifier="Recruit Page Controller" id="brb-Pr-cZY" customClass="RecruitPageController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VqQ-di-9KS"/>
+                        <viewControllerLayoutGuide type="bottom" id="o5d-bc-fGg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hvi-Rp-BID">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crap! No More Videos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPz-jc-M19">
+                                <rect key="frame" x="154" y="207" width="292" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To prevent this from happening" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgg-35-Bnb">
+                                <rect key="frame" x="180" y="251" width="239" height="20.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-TN-INi">
+                                <rect key="frame" x="157" y="384" width="285" height="66"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <state key="normal" title="Share PartyUP"/>
+                                <connections>
+                                    <action selector="recruit:" destination="brb-Pr-cZY" eventType="touchUpInside" id="DxZ-mg-u3Q"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lgg-35-Bnb" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="1PP-YK-jxD"/>
+                            <constraint firstItem="8u3-TN-INi" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="Y1d-07-htC"/>
+                            <constraint firstItem="tPz-jc-M19" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="ao1-P2-rVe"/>
+                            <constraint firstItem="8u3-TN-INi" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="8" symbolic="YES" id="eX4-rs-KxX"/>
+                            <constraint firstItem="tPz-jc-M19" firstAttribute="centerY" secondItem="Hvi-Rp-BID" secondAttribute="centerY" multiplier="0.75" id="nlh-jZ-bTn"/>
+                            <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="8u3-TN-INi" secondAttribute="bottom" constant="150" id="nra-3L-NOA"/>
+                            <constraint firstItem="lgg-35-Bnb" firstAttribute="top" secondItem="tPz-jc-M19" secondAttribute="bottom" constant="8" symbolic="YES" id="qgG-Mm-FU4"/>
+                            <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="8u3-TN-INi" secondAttribute="bottom" constant="30" id="wpg-7K-SUT"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="eX4-rs-KxX"/>
+                                <exclude reference="wpg-7K-SUT"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hl0-fJ-EV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3240" y="70"/>
         </scene>
         <!--PartyUP Navigator-->
         <scene sceneID="HOt-fe-NMd">
