@@ -18,6 +18,7 @@ class RecruitPageController: UIViewController, PageProtocol {
 	override func viewDidLoad() {
 		var options : UIViewAnimationOptions = .Autoreverse
 		options.insert(.Repeat)
+		options.insert(.AllowUserInteraction)
 		UIView.animateWithDuration(1.0, delay: 0, options: options, animations: { self.shareButton.alpha = 0.5 }, completion: nil)
 	}
 

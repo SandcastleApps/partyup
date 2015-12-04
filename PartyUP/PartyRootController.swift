@@ -21,8 +21,8 @@ class PartyRootController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		regions.append((name: "Halifax Parties", location: CLLocation(latitude: 44.651070,longitude: -63.582687)))
-		regions.append((name: "Sydney Parties", location: CLLocation(latitude: 46.13631,longitude: -60.19551)))
+		regions.append((name: "Halifax", location: CLLocation(latitude: 44.651070,longitude: -63.582687)))
+		regions.append((name: "Sydney", location: CLLocation(latitude: 46.13631,longitude: -60.19551)))
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
