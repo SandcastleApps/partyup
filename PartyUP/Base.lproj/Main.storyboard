@@ -746,6 +746,10 @@
                                     <action selector="recruit:" destination="brb-Pr-cZY" eventType="touchUpInside" id="DxZ-mg-u3Q"/>
                                 </connections>
                             </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="0gR-y7-nrm">
+                                <rect key="frame" x="261.5" y="61" width="77" height="96"/>
+                                <animations/>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -753,7 +757,9 @@
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="1PP-YK-jxD"/>
                             <constraint firstItem="8u3-TN-INi" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="Y1d-07-htC"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="ao1-P2-rVe"/>
+                            <constraint firstItem="0gR-y7-nrm" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="cyE-iI-b9j"/>
                             <constraint firstItem="8u3-TN-INi" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="8" symbolic="YES" id="eX4-rs-KxX"/>
+                            <constraint firstItem="0gR-y7-nrm" firstAttribute="bottom" secondItem="tPz-jc-M19" secondAttribute="top" constant="-50" id="gPa-Dn-b5s"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerY" secondItem="Hvi-Rp-BID" secondAttribute="centerY" multiplier="0.75" id="nlh-jZ-bTn"/>
                             <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="8u3-TN-INi" secondAttribute="bottom" constant="150" id="nra-3L-NOA"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="top" secondItem="tPz-jc-M19" secondAttribute="bottom" constant="8" symbolic="YES" id="qgG-Mm-FU4"/>
@@ -766,6 +772,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="shareButton" destination="8u3-TN-INi" id="cnB-xm-KMX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hl0-fJ-EV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

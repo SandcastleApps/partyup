@@ -12,7 +12,14 @@ import Flurry_iOS_SDK
 class RecruitPageController: UIViewController, PageProtocol {
 
 	var page: Int!
-	var sample: Sample!
+
+	@IBOutlet weak var shareButton: UIButton!
+	
+	override func viewDidLoad() {
+		var options : UIViewAnimationOptions = .Autoreverse
+		options.insert(.Repeat)
+		UIView.animateWithDuration(1.0, delay: 0, options: options, animations: { self.shareButton.alpha = 0.5 }, completion: nil)
+	}
 
 	@IBAction func recruit(sender: UIButton) {
 		let text = NSLocalizedString("Lets Party!\n", comment: "Recruitment default text")
