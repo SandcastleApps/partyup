@@ -8,6 +8,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Pick Party-->
@@ -195,11 +196,18 @@
                                                 <action selector="cancelRecording:" destination="8VR-ye-Fdg" id="vlC-g5-Vni"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" image="FlashOff" id="UKq-xO-Gxw">
-                                            <connections>
-                                                <action selector="torchControl:" destination="8VR-ye-Fdg" id="32Z-6w-MuB"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem image="FlashOff" id="UKq-xO-Gxw">
+                                                <connections>
+                                                    <action selector="torchControl:" destination="8VR-ye-Fdg" id="32Z-6w-MuB"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="Self" id="Cr2-dr-Qy7">
+                                                <connections>
+                                                    <action selector="toggleCamera:" destination="8VR-ye-Fdg" id="Mas-NS-kMg"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                                 <connections>
@@ -822,5 +830,6 @@
         <image name="Hamburger" width="34" height="24"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Mark" width="30" height="35"/>
+        <image name="Self" width="22" height="35"/>
     </resources>
 </document>
