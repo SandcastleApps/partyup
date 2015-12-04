@@ -58,7 +58,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
 
-		progressHud.textLabel.text = "Fetching Venues"
+		progressHud.textLabel.text = NSLocalizedString("Fetching Venues", comment: "Hud while fetching venues")
 		progressHud.showInView(view, animated: true)
 
 		fetchPartyList()
