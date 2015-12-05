@@ -12,7 +12,7 @@ import CoreLocation
 
 class PartyRootController: UIViewController {
 
-	@IBOutlet weak var cameraButton: UIBarButtonItem!
+	@IBOutlet weak var cameraImage: UIImageView!
 
 	private var partyPicker: PartyPickerController!
 	private var regions: [PartyPickerController.PartyRegion] = [(NSLocalizedString("Nearby Parties", comment: "Name of the current location region"), nil)]
@@ -27,11 +27,46 @@ class PartyRootController: UIViewController {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
 
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+
+		UIView.animateWithDuration(0.5,
+			delay: 3,
+			options: [.AllowUserInteraction, .CurveEaseInOut],
+			animations: {
+				self.cameraImage.transform = CGAffineTransformMakeScale(0.5,0.5) } ,
+			completion: { (done) in
+				UIView.animateWithDuration(0.5,
+					delay: 0,
+					options: [.AllowUserInteraction, .CurveEaseInOut],
+					animations: { self.cameraImage.transform = CGAffineTransformMakeScale(1.5,1.5) },
+					completion: { (done) in
+						UIView.animateWithDuration(0.5,
+							delay: 0,
+							usingSpringWithDamping: 0.10,
+							initialSpringVelocity: 1,
+							options: .AllowUserInteraction,
+							animations: { self.cameraImage.transform = CGAffineTransformIdentity },
+							completion: nil)
+				})
+		})
+	}
+
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
     // MARK: - Navigation
+
+	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+		if identifier == "Bake Sample Segue" {
+			if presentedViewController is BakeRootController || selectedRegion != 0 {
+				return false
+			}
+		}
+
+		return true
+	}
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Party Embed Segue" {
@@ -56,7 +91,7 @@ class PartyRootController: UIViewController {
 			doneBlock: { (picker, row, value) in
 				self.selectedRegion = row
 				self.partyPicker.lockedLocation = self.regions[row]
-				self.cameraButton.enabled = self.regions[row].location == nil
+				self.cameraImage.hidden = self.regions[row].location != nil
 			},
 			cancelBlock: { (picker) in
 				// cancelled
@@ -73,8 +108,8 @@ class PartyRootController: UIViewController {
 	}
 
 	func observeApplicationBecameActive() {
-		if !(presentedViewController is BakeRootController) {
-			if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) && selectedRegion == 0 {
+		if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) {
+			if shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
 				performSegueWithIdentifier("Bake Sample Segue", sender: nil)
 			}
 		}

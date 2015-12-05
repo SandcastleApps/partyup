@@ -82,17 +82,40 @@
                                 <action selector="loadPreferences:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="xfK-80-shx"/>
                             </connections>
                         </button>
-                        <barButtonItem key="rightBarButtonItem" image="Camera" id="Taz-OV-mPg">
-                            <connections>
-                                <segue destination="DRD-vV-Ai8" kind="presentation" identifier="Bake Sample Segue" id="C9R-4D-6zA"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="JLt-Ac-9ZV">
+                            <view key="customView" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" id="MXP-lb-w7x">
+                                <rect key="frame" x="483" y="5" width="97" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="h0V-rg-StC">
+                                        <rect key="frame" x="98" y="2" width="35" height="29"/>
+                                        <animations/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="contentStretch" x="1" y="0.0" width="0.0" height="1"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="h0V-rg-StC" firstAttribute="centerY" secondItem="MXP-lb-w7x" secondAttribute="centerY" id="eRd-eK-bRK"/>
+                                    <constraint firstAttribute="trailing" secondItem="h0V-rg-StC" secondAttribute="trailing" id="rVq-Uh-6XU"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Cne-Uh-QCS" appends="YES" id="96B-kO-GJB"/>
+                                </connections>
+                            </view>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cameraButton" destination="Taz-OV-mPg" id="HZP-Ob-4yI"/>
+                        <outlet property="cameraImage" destination="h0V-rg-StC" id="USP-r9-Kqf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cyB-Pq-hBW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Cne-Uh-QCS">
+                    <connections>
+                        <segue destination="DRD-vV-Ai8" kind="presentation" identifier="Bake Sample Segue" id="4gq-DT-fWe"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1110" y="-1303"/>
         </scene>
