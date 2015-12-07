@@ -30,13 +30,11 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 			loadingProgress.stopAnimating()
 			
 			if let page = dequeTastePageController(0) {
-				navigator?.dataSource = self
-				navigator?.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+				(childViewControllers.first as? UIPageViewController)?.dataSource = self
+				(childViewControllers.first as? UIPageViewController)?.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
 			}
 		}
 	}
-
-	private weak var navigator: UIPageViewController?
 
 	func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
 		var toVC: UIViewController?
@@ -71,12 +69,4 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 
 		return nil
 	}
-
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if let toVC = segue.destinationViewController as? UIPageViewController {
-			navigator = toVC
-		}
-    }
 }
