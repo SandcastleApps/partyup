@@ -8,24 +8,119 @@
 
 import UIKit
 import ActionSheetPicker_3_0
+import SwiftLocation
 import CoreLocation
+import JGProgressHUD
+import Flurry_iOS_SDK
 
 class PartyRootController: UIViewController {
 
 	@IBOutlet weak var cameraImage: UIImageView!
+	
+	private let progressHud = JGProgressHUD(style: .Light)
 
 	private var partyPicker: PartyPickerController!
-	private var regions: [PartyPickerController.PartyRegion] = [(NSLocalizedString("Nearby Parties", comment: "Name of the current location region"), nil)]
+	private var regions: [PartyPlace] = []
 	private var selectedRegion = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		regions.append((name: "Halifax", location: CLLocation(latitude: 44.651070,longitude: -63.582687)))
-		regions.append((name: "Sydney", location: CLLocation(latitude: 46.13631,longitude: -60.19551)))
+		progressHud.textLabel.text = NSLocalizedString("Fetching Venues", comment: "Hud while fetching venues")
+		progressHud.showInView(view, animated: true)
+
+		resolvePopularPlacemarks()
+		resolveLocalPlacemark()
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("resolveLocalPlacemark"), name: PartyPickerController.VenueRefreshRequest, object: nil)
     }
+
+	func resolvePopularPlacemarks() {
+		let cities = [ "Halifax, NS, Canada", "Sydney, NS, Canada"]
+
+		for city in cities {
+			SwiftLocation.shared.reverseAddress(.Apple, address: city, region: nil,
+				onSuccess: { (place) in
+					dispatch_async(dispatch_get_main_queue(), {
+						self.regions.append(PartyPlace(place: place!))
+					})
+				},
+				onFail: { (error) in
+					NSLog("Place Error: \(error)")
+			})
+		}
+	}
+
+
+	func resolveLocalPlacemark() {
+		do {
+			try SwiftLocation.shared.currentLocation(.City, timeout: 60,
+				onSuccess: { (location) in
+					SwiftLocation.shared.reverseCoordinates(.Apple, coordinates: location?.coordinate,
+						onSuccess: { (place) in
+							dispatch_async(dispatch_get_main_queue(), {
+								if let local = self.regions.first where local.sticky == false {
+									self.regions.removeFirst()
+								}
+
+								if let index = self.regions.indexOf({ $0.place.locality == place?.locality }) {
+									if index > 0 {
+										swap(&self.regions[0], &self.regions[index])
+									}
+								} else {
+									self.regions.insert(PartyPlace(place: place!, sticky: false), atIndex: 0)
+								}
+								self.fetchPlaceVenues(self.regions.first!)
+
+								Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
+							})
+						},
+						onFail: { (error) in
+							Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
+							presentResultHud(self.progressHud,
+								inView: self.view,
+								withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
+								andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location onFail message"),
+								indicatingSuccess: false)
+					})
+				},
+				onFail: { (error) in
+					Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
+					presentResultHud(self.progressHud,
+						inView: self.view,
+						withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
+						andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location onFail message"),
+						indicatingSuccess: false)
+			})
+		} catch {
+			presentResultHud(progressHud,
+				inView: view,
+				withTitle: NSLocalizedString("Undeterined Location", comment: "Hud title location caught error"),
+				andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location caught error"),
+				indicatingSuccess: false)
+		}
+	}
+
+	func fetchPlaceVenues(place: PartyPlace) {
+		if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
+			let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
+			place.fetch(radius, categories: categories) { (success) in
+				dispatch_async(dispatch_get_main_queue()) {
+					if success {
+						self.partyPicker.parties = place
+						self.progressHud.dismissAnimated(true)
+					} else {
+						presentResultHud(self.progressHud,
+							inView: self.view,
+							withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
+							andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
+							indicatingSuccess: false)
+					}
+				}
+			}
+		}
+	}
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
@@ -60,7 +155,7 @@ class PartyRootController: UIViewController {
 
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
 		if identifier == "Bake Sample Segue" {
-			if presentedViewController is BakeRootController || selectedRegion != 0 {
+			if presentedViewController is BakeRootController {
 				return false
 			}
 		}
@@ -71,11 +166,11 @@ class PartyRootController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Party Embed Segue" {
 			partyPicker = segue.destinationViewController as! PartyPickerController
-			partyPicker.lockedLocation = regions[selectedRegion]
+			partyPicker.parties = nil
 		}
 		if segue.identifier == "Bake Sample Segue" {
 			let bakerVC = segue.destinationViewController as! BakeRootController
-			bakerVC.venues = partyPicker.venues ?? [Venue]()
+			bakerVC.venues = regions.first?.venues ?? [Venue]()
 		}
 	}
 
@@ -86,12 +181,11 @@ class PartyRootController: UIViewController {
 
 	@IBAction func chooseLocation(sender: UIBarButtonItem) {
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
-			rows: regions.map { $0.name },
+			rows: regions.map { $0.place.locality! },
 			initialSelection: selectedRegion,
 			doneBlock: { (picker, row, value) in
+				self.fetchPlaceVenues(self.regions[row])
 				self.selectedRegion = row
-				self.partyPicker.lockedLocation = self.regions[row]
-				self.cameraImage.hidden = self.regions[row].location != nil
 			},
 			cancelBlock: { (picker) in
 				// cancelled

@@ -183,7 +183,7 @@
                             </fragment>
                         </attributedString>
                         <connections>
-                            <action selector="fetchPartyList" destination="r5F-kz-7J0" eventType="valueChanged" id="p4U-za-CEA"/>
+                            <action selector="updateLocalVenues" destination="r5F-kz-7J0" eventType="valueChanged" id="cXS-H1-vj6"/>
                         </connections>
                     </refreshControl>
                     <connections>
