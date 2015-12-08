@@ -40,7 +40,7 @@ class PartyRootController: UIViewController {
 		let cities = [ "Halifax, NS, Canada", "Sydney, NS, Canada"]
 
 		for city in cities {
-			SwiftLocation.shared.reverseAddress(.Apple, address: city, region: nil,
+			SwiftLocation.shared.reverseAddress(.GoogleMaps, address: city, region: nil,
 				onSuccess: { (place) in
 					dispatch_async(dispatch_get_main_queue(), {
 						self.regions.append(PartyPlace(place: place!))
