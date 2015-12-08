@@ -108,7 +108,7 @@ class PartyRootController: UIViewController {
 			place.fetch(radius, categories: categories) { (success) in
 				dispatch_async(dispatch_get_main_queue()) {
 					if success {
-						self.partyPicker.parties = place
+						self.partyPicker.parties = self.regions[self.selectedRegion]
 						self.progressHud.dismissAnimated(true)
 					} else {
 						presentResultHud(self.progressHud,
