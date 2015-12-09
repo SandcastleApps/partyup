@@ -24,32 +24,37 @@ class PartyPlace {
 
 	func fetch(radius: Int, categories: String, completion: (Bool) -> Void) {
 		if let loc = place.location {
-			let params = ["ll" : "\(loc.coordinate.latitude),\(loc.coordinate.longitude)",
+			let params = ["location" : "\(loc.coordinate.latitude),\(loc.coordinate.longitude)",
 				"radius" : "\(radius)",
-				"client_id" : FourSquareConstants.identifier,
-				"client_secret" : FourSquareConstants.secret,
-				"categoryId" : categories,
-				"v" : "20140118",
-				"intent" : "browse",
-				"limit" : "50"]
+				"types" : "bar",
+				"key" : "***REMOVED***"]
 
-			Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: params)
+			Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
 				.validate()
-				.responseJSON { response in
-					if response.result.isSuccess {
-						var vens = [Venue]()
-						let json = JSON(data: response.data!)
-						for venue in json["response"]["venues"].arrayValue {
-							vens.append(Venue(venue: venue))
-						}
-						self.venues = vens.sort { $0.location.distanceFromLocation(loc) < $1.location.distanceFromLocation(loc) }
-					} else {
-						Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: nil)
+				.responseJSON(PartyPlace.grokResponse(self)([Venue](), completion: completion))
+		}
+	}
 
-					}
-
-					completion(response.result.isSuccess)
+	func grokResponse(var aquired: [Venue], completion: (Bool) -> Void)(response: Response<AnyObject, NSError>) -> Void {
+		if response.result.isSuccess {
+			let json = JSON(data: response.data!)
+			for venue in json["results"].arrayValue {
+				aquired.append(Venue(venue: venue))
 			}
+
+			if let next = json["next_page_token"].string {
+				Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : "***REMOVED***"])
+					.validate()
+					.responseJSON(PartyPlace.grokResponse(self)(aquired, completion: completion))
+			} else {
+				if let loc = self.place.location {
+					self.venues = aquired.sort { $0.location.distanceFromLocation(loc) < $1.location.distanceFromLocation(loc) }
+				}
+				completion(true)
+			}
+		} else {
+			completion(false)
+			Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: nil)
 		}
 	}
 }
