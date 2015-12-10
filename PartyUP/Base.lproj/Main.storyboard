@@ -24,43 +24,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FC-d8-V6C">
-                                <rect key="frame" x="0.0" y="64" width="600" height="511"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="502"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="r5F-kz-7J0" kind="embed" identifier="Party Embed Segue" id="7iQ-eP-NRF"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venues by Foursquare" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eb9-qS-WJN">
-                                <rect key="frame" x="215" y="575" width="170.5" height="25"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Google" translatesAutoresizingMaskIntoConstraints="NO" id="Wcf-3W-xUV">
+                                <rect key="frame" x="228" y="574" width="144" height="18"/>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="cZi-3U-YTp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Eb9-qS-WJN" firstAttribute="top" secondItem="2FC-d8-V6C" secondAttribute="bottom" constant="19" id="38C-2h-277"/>
-                            <constraint firstItem="Eb9-qS-WJN" firstAttribute="trailing" secondItem="2FC-d8-V6C" secondAttribute="trailing" id="BXs-XY-BD3"/>
-                            <constraint firstItem="Eb9-qS-WJN" firstAttribute="centerX" secondItem="VBb-Vv-VoX" secondAttribute="centerX" id="JUR-AL-15r"/>
+                            <constraint firstItem="Wcf-3W-xUV" firstAttribute="top" secondItem="2FC-d8-V6C" secondAttribute="bottom" constant="8" symbolic="YES" id="6bz-w7-g7l"/>
                             <constraint firstAttribute="bottom" secondItem="2FC-d8-V6C" secondAttribute="bottom" constant="44" id="NDS-dO-Dpe"/>
-                            <constraint firstItem="Eb9-qS-WJN" firstAttribute="top" secondItem="2FC-d8-V6C" secondAttribute="bottom" id="bkd-3U-slK"/>
-                            <constraint firstItem="Eb9-qS-WJN" firstAttribute="bottom" secondItem="d5F-bg-ppA" secondAttribute="top" id="bx8-k4-6Ci"/>
+                            <constraint firstItem="d5F-bg-ppA" firstAttribute="top" secondItem="Wcf-3W-xUV" secondAttribute="bottom" constant="8" symbolic="YES" id="PmX-rS-Tsd"/>
+                            <constraint firstItem="Wcf-3W-xUV" firstAttribute="centerX" secondItem="VBb-Vv-VoX" secondAttribute="centerX" id="fug-mP-Gyh"/>
                             <constraint firstItem="2FC-d8-V6C" firstAttribute="leading" secondItem="VBb-Vv-VoX" secondAttribute="leading" id="hrx-4F-ocj"/>
                             <constraint firstAttribute="trailing" secondItem="2FC-d8-V6C" secondAttribute="trailing" id="jHf-n5-5om"/>
                             <constraint firstItem="2FC-d8-V6C" firstAttribute="top" secondItem="eTC-9P-OL1" secondAttribute="bottom" id="k97-TP-rYf"/>
-                            <constraint firstItem="Eb9-qS-WJN" firstAttribute="leading" secondItem="2FC-d8-V6C" secondAttribute="leading" id="t4f-SV-uLY"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="NDS-dO-Dpe"/>
-                                <exclude reference="38C-2h-277"/>
-                                <exclude reference="BXs-XY-BD3"/>
-                                <exclude reference="t4f-SV-uLY"/>
                             </mask>
                         </variation>
                     </view>
@@ -124,7 +112,7 @@
             <objects>
                 <tableViewController title="Select Party" id="r5F-kz-7J0" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="QhV-Jl-Gi4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="511"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -595,19 +583,19 @@
                         <viewControllerLayoutGuide type="bottom" id="xzm-k1-wwA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="isp-Rs-W1K">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="511"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Vm-PKO">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="511"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="Tnu-BU-9Zn" kind="embed" id="gM5-Mr-Lda"/>
                                 </connections>
                             </containerView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-3i-FzN">
-                                <rect key="frame" x="250.5" y="205" width="100" height="100"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-3i-FzN">
+                                <rect key="frame" x="250" y="-51" width="100" height="100"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="7KI-0p-tZ5"/>
@@ -850,6 +838,7 @@
         <image name="Camera" width="35" height="29"/>
         <image name="Dots" width="58" height="12"/>
         <image name="FlashOff" width="25" height="36"/>
+        <image name="Google" width="144" height="18"/>
         <image name="Hamburger" width="34" height="24"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Mark" width="30" height="35"/>
