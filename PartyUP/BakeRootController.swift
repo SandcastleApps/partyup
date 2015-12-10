@@ -31,7 +31,7 @@ class BakeRootController: UIViewController {
 				onSuccess: { (location) in
 					if let location = location {
 						let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
-						let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }
+						let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }.sort { $0.location.distanceFromLocation(location) < $1.location.distanceFromLocation(location) }
 						dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }
 					} else {
 						Flurry.logError("Neighborhood_Location_Unspecified", message: "SwiftLocation called onSuccess but provided no location", error: nil)
