@@ -22,38 +22,46 @@ class PartyPlace {
 		self.sticky = sticky
 	}
 
-	func fetch(radius: Int, categories: String, completion: (Bool) -> Void) {
-		if let loc = place.location {
-			let params = ["location" : "\(loc.coordinate.latitude),\(loc.coordinate.longitude)",
-				"radius" : "\(radius)",
-				"types" : "bar",
-				"key" : "***REMOVED***"]
-
-			Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
-				.validate()
-				.responseJSON(PartyPlace.grokResponse(self)([Venue](), completion: completion))
+	func fetch(radius: Int, categories: String, completion: (Bool, Bool) -> Void) {
+		if venues == nil {
+			if let loc = place.location {
+				venues = [Venue]()
+				let params = ["location" : "\(loc.coordinate.latitude),\(loc.coordinate.longitude)",
+					"types" : "bar|night_club",
+					"rankby" : "distance",
+					"key" : "***REMOVED***"]
+				Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
+					.validate()
+					.responseJSON { response in
+						self.grokResponse(completion, response: response)
+				}
+			}
+		} else {
+			completion(true, false)
 		}
 	}
 
-	func grokResponse(var aquired: [Venue], completion: (Bool) -> Void)(response: Response<AnyObject, NSError>) -> Void {
+	func grokResponse(completion: (Bool, Bool) -> Void, response: Response<AnyObject, NSError>) -> Void {
 		if response.result.isSuccess {
 			let json = JSON(data: response.data!)
 			for venue in json["results"].arrayValue {
-				aquired.append(Venue(venue: venue))
+				venues!.append(Venue(venue: venue))
 			}
 
 			if let next = json["next_page_token"].string {
-				Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : "***REMOVED***"])
-					.validate()
-					.responseJSON(PartyPlace.grokResponse(self)(aquired, completion: completion))
-			} else {
-				if let loc = self.place.location {
-					self.venues = aquired.sort { $0.location.distanceFromLocation(loc) < $1.location.distanceFromLocation(loc) }
+				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
+					Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : "***REMOVED***"])
+						.validate()
+						.responseJSON { response in
+							self.grokResponse(completion, response: response)
+					}
 				}
-				completion(true)
+				completion(true, true)
+			} else {
+				completion(true, false)
 			}
 		} else {
-			completion(false)
+			completion(false, false)
 			Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: nil)
 		}
 	}

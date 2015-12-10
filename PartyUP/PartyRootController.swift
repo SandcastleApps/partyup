@@ -105,7 +105,7 @@ class PartyRootController: UIViewController {
 	func fetchPlaceVenues(place: PartyPlace) {
 		if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
 			let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
-			place.fetch(radius, categories: categories) { (success) in
+			place.fetch(radius, categories: categories) { (success, more) in
 				dispatch_async(dispatch_get_main_queue()) {
 					if success {
 						self.partyPicker.parties = self.regions[self.selectedRegion]
