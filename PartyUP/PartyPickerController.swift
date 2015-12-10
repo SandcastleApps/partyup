@@ -22,9 +22,14 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	var parties: PartyPlace? {
+		willSet {
+			if newValue !== parties {
+				partyTable?.setContentOffset(CGPointZero, animated: false)
+			}
+		}
 		didSet {
 			venues = parties?.venues
-			self.refreshControl?.endRefreshing()
+			refreshControl?.endRefreshing()
 		}
 	}
 
