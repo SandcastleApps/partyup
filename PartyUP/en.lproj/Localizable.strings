@@ -1,8 +1,11 @@
 /* Hud title when failed due to no video */
-"Couldn't queue video for upload." = "Upload Failed :(";
+"Couldn't queue video for upload." = "Upload Failed";
 
 /* Hud title for waiting for location determination */
-"Determining Venue" = "Determining where you are partying :)";
+"Determining Venue" = "Determining where you are partying";
+
+/* Hud while fetching venues */
+"Fetching Venues" = "Fetching Venues";
 
 /* Comment placeholder text */
 "How goes the party?" = "How's the party?!";
@@ -12,29 +15,29 @@
 " = "Wow, just downloaded the best party app ever, its called PartyUP! You need to get this now at";
 
 /* Hud detail for location services threw an error */
-"Location services are unavailable." = "Location services are unavailable :(";
+"Location services are unavailable." = "Location services are unavailable";
 
 /* Hud detail location caught error
    Hud detail location onFail message */
-"Location services failure." = "Location services failure :(";
+"Location services failure." = "Location services failure";
 
 /* Default in cell when venue name is nil */
 "Mysterious Venue" = "Mysterious Venue :| wtf bro?";
 
-/* Name of the current location region */
+/* (No Commment) */
 "Nearby Parties" = "Current Location";
 
 /* Label used in sample acceptance when the user is not near any venues */
 "No Venues Available" = "No venues near you :( Are you in space or something?";
 
 /* Hud detail indicating no video available */
-"No video available." = "No video available :(";
+"No video available." = "No video available";
 
 /* Hud detail after successfully uploaded sample */
-"Party On!" = "Thanks <3 !";
+"Party On!" = "Thanks :)";
 
 /* Hud title when failed due to no video */
-"Preparation Failed" = "Video Preparation Failed :(";
+"Preparation Failed" = "Video Preparation Failed";
 
 /* Hud detail after unsuccessfully uploaded sample */
 "Rats!" = "Please try again.";
@@ -46,13 +49,13 @@
 "Submission Done" = "Party On!";
 
 /* Hud title after unsuccessfully uploaded sample */
-"Submission Failed" = "Submission Failed :(";
+"Submission Failed" = "Submission Failed";
 
 /* Hud detail failed to fetch venues from foursquare */
-"The venue query failed." = "Your service must really suck right now.";
+"The venue query failed." = "Your service must really suck :(";
 
 /* Hud title location caught error */
-"Undeterined Location" = "Undeterined Location";
+"Undeterined Location" = "Undetermined Location";
 
 /* Hud title for location services threw an error
    Hud title for poor location accuracy
@@ -67,16 +70,16 @@
 "Upload Failed" = "Upload Failed :( Sorry";
 
 /* Hud title while uploading a video */
-"Uploading Party Video" = "Uploading yo' video...";
+"Uploading Party Video" = "Uploading Video";
 
 /* Title of the venue picker */
-"Venue" = "I'm partying at:";
+"Venue" = "We're partying at:";
 
 /* Hud title failed to fetch venues from foursquare */
-"Venue Query Failed" = "Venue Query Failed :(";
+"Venue Query Failed" = "Venue Query Failed";
 
 /* Hud detail for no nearby venue */
-"You are not at a supported venue." = "You can't record video if you aren't out yet bud :(";
+"You are not at a supported venue." = "You can't record video if you aren't out yet :(";
 
 /* Hud detail for location service failure */
 "Your location couldn't be determined for unknown reasons." = "Your location couldn't be determined for unknown reasons.";

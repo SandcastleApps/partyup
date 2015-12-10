@@ -8,7 +8,7 @@
 "8u3-TN-INi.normalTitle" = "Share PartyUP";
 
 /* Class = "UILabel"; text = "Venues by Foursquare"; ObjectID = "Eb9-qS-WJN"; */
-"Eb9-qS-WJN.text" = "Venues by Foursquare";
+"Eb9-qS-WJN.text" = "Venues Provided by Foursquare";
 
 /* Class = "UIButton"; selectedTitle = "Record"; ObjectID = "FcL-8R-2uI"; */
 "FcL-8R-2uI.selectedTitle" = "Record";
@@ -64,6 +64,6 @@
 /* Class = "UILabel"; text = "Crap! No More Videos"; ObjectID = "tPz-jc-M19"; */
 "tPz-jc-M19.text" = "Crap! No More Videos";
 
-/* Class = "UILabel"; text = "Venue:"; ObjectID = "x6a-m8-fg9"; */
-"x6a-m8-fg9.text" = "I'm partying at:";
+/* Class = "UILabel"; text = "I'm partying at:"; ObjectID = "x6a-m8-fg9"; */
+"x6a-m8-fg9.text" = "We're partying at:";
 
