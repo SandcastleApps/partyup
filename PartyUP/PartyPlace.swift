@@ -63,6 +63,9 @@ class PartyPlace {
 				completion(true, false)
 			}
 		} else {
+			if let vens = venues where vens.isEmpty {
+				venues = nil
+			}
 			completion(false, false)
 			Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: nil)
 		}
