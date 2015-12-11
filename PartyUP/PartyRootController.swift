@@ -16,7 +16,9 @@ import Flurry_iOS_SDK
 class PartyRootController: UIViewController {
 
 	@IBOutlet weak var cameraImage: UIImageView!
-	
+	@IBOutlet weak var busyIndicator: UIActivityIndicatorView!
+	@IBOutlet weak var busyLabel: UILabel!
+
 	private let progressHud = JGProgressHUD(style: .Light)
 
 	private var partyPicker: PartyPickerController!
@@ -25,9 +27,6 @@ class PartyRootController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-		progressHud.textLabel.text = NSLocalizedString("Fetching Venues", comment: "Hud while fetching venues")
-		progressHud.showInView(view, animated: true)
 
 		resolvePopularPlacemarks()
 		resolveLocalPlacemark()
@@ -54,6 +53,9 @@ class PartyRootController: UIViewController {
 
 
 	func resolveLocalPlacemark() {
+		busyIndicator.startAnimating()
+		busyLabel.text = "locating"
+
 		do {
 			try SwiftLocation.shared.currentLocation(.City, timeout: 60,
 				onSuccess: { (location) in
@@ -77,6 +79,9 @@ class PartyRootController: UIViewController {
 							})
 						},
 						onFail: { (error) in
+							self.busyIndicator.stopAnimating()
+							self.busyLabel.text = ""
+
 							Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
 							presentResultHud(self.progressHud,
 								inView: self.view,
@@ -86,6 +91,9 @@ class PartyRootController: UIViewController {
 					})
 				},
 				onFail: { (error) in
+					self.busyIndicator.stopAnimating()
+					self.busyLabel.text = ""
+
 					Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
 					presentResultHud(self.progressHud,
 						inView: self.view,
@@ -94,6 +102,9 @@ class PartyRootController: UIViewController {
 						indicatingSuccess: false)
 			})
 		} catch {
+			busyIndicator.stopAnimating()
+			busyLabel.text = ""
+
 			presentResultHud(progressHud,
 				inView: view,
 				withTitle: NSLocalizedString("Undeterined Location", comment: "Hud title location caught error"),
@@ -103,19 +114,26 @@ class PartyRootController: UIViewController {
 	}
 
 	func fetchPlaceVenues(place: PartyPlace) {
+		busyIndicator.startAnimating()
+		busyLabel.text = "fetching"
+
 		if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
 			let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
 			place.fetch(radius, categories: categories) { (success, more) in
 				dispatch_async(dispatch_get_main_queue()) {
 					if success {
 						self.partyPicker.parties = self.regions[self.selectedRegion]
-						self.progressHud.dismissAnimated(true)
 					} else {
 						presentResultHud(self.progressHud,
 							inView: self.view,
 							withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
 							andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
 							indicatingSuccess: false)
+					}
+
+					if !more {
+						self.busyIndicator.stopAnimating()
+						self.busyLabel.text = ""
 					}
 				}
 			}

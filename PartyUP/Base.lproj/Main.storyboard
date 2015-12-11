@@ -34,17 +34,45 @@
                                 <rect key="frame" x="228" y="574" width="144" height="18"/>
                                 <animations/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdY-rZ-2Mh">
+                                <rect key="frame" x="20" y="574" width="200" height="18"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bt6-ov-25O">
+                                        <rect key="frame" x="0.0" y="-1" width="20" height="20"/>
+                                        <animations/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyV-iu-gQ1">
+                                        <rect key="frame" x="28" y="4.5" width="24.5" height="10"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="RyV-iu-gQ1" firstAttribute="leading" secondItem="bt6-ov-25O" secondAttribute="trailing" constant="8" symbolic="YES" id="8Oh-FO-Mto"/>
+                                    <constraint firstItem="RyV-iu-gQ1" firstAttribute="centerY" secondItem="bt6-ov-25O" secondAttribute="centerY" id="MVD-en-2yG"/>
+                                    <constraint firstItem="bt6-ov-25O" firstAttribute="centerY" secondItem="tdY-rZ-2Mh" secondAttribute="centerY" id="oq1-kx-aWd"/>
+                                    <constraint firstItem="bt6-ov-25O" firstAttribute="leading" secondItem="tdY-rZ-2Mh" secondAttribute="leading" id="zTp-8q-HKF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Wcf-3W-xUV" firstAttribute="top" secondItem="2FC-d8-V6C" secondAttribute="bottom" constant="8" symbolic="YES" id="6bz-w7-g7l"/>
+                            <constraint firstItem="tdY-rZ-2Mh" firstAttribute="top" secondItem="2FC-d8-V6C" secondAttribute="bottom" constant="8" symbolic="YES" id="EUA-x5-vlD"/>
+                            <constraint firstItem="tdY-rZ-2Mh" firstAttribute="leading" secondItem="VBb-Vv-VoX" secondAttribute="leadingMargin" id="JBO-6j-XiD"/>
                             <constraint firstAttribute="bottom" secondItem="2FC-d8-V6C" secondAttribute="bottom" constant="44" id="NDS-dO-Dpe"/>
                             <constraint firstItem="d5F-bg-ppA" firstAttribute="top" secondItem="Wcf-3W-xUV" secondAttribute="bottom" constant="8" symbolic="YES" id="PmX-rS-Tsd"/>
                             <constraint firstItem="Wcf-3W-xUV" firstAttribute="centerX" secondItem="VBb-Vv-VoX" secondAttribute="centerX" id="fug-mP-Gyh"/>
                             <constraint firstItem="2FC-d8-V6C" firstAttribute="leading" secondItem="VBb-Vv-VoX" secondAttribute="leading" id="hrx-4F-ocj"/>
                             <constraint firstAttribute="trailing" secondItem="2FC-d8-V6C" secondAttribute="trailing" id="jHf-n5-5om"/>
                             <constraint firstItem="2FC-d8-V6C" firstAttribute="top" secondItem="eTC-9P-OL1" secondAttribute="bottom" id="k97-TP-rYf"/>
+                            <constraint firstItem="d5F-bg-ppA" firstAttribute="top" secondItem="tdY-rZ-2Mh" secondAttribute="bottom" constant="8" symbolic="YES" id="rbC-pM-nY8"/>
+                            <constraint firstItem="Wcf-3W-xUV" firstAttribute="leading" secondItem="tdY-rZ-2Mh" secondAttribute="trailing" constant="8" symbolic="YES" id="t9X-qE-V4S"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -70,13 +98,13 @@
                                 <action selector="loadPreferences:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="xfK-80-shx"/>
                             </connections>
                         </button>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="JLt-Ac-9ZV">
+                        <barButtonItem key="rightBarButtonItem" id="JLt-Ac-9ZV">
                             <view key="customView" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" id="MXP-lb-w7x">
                                 <rect key="frame" x="483" y="5" width="97" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="h0V-rg-StC">
-                                        <rect key="frame" x="98" y="2" width="35" height="29"/>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="h0V-rg-StC">
+                                        <rect key="frame" x="62" y="2" width="35" height="29"/>
                                         <animations/>
                                     </imageView>
                                 </subviews>
@@ -95,6 +123,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="busyIndicator" destination="bt6-ov-25O" id="VLh-Jo-UXD"/>
+                        <outlet property="busyLabel" destination="RyV-iu-gQ1" id="Oe1-hl-7Uh"/>
                         <outlet property="cameraImage" destination="h0V-rg-StC" id="USP-r9-Kqf"/>
                     </connections>
                 </viewController>
@@ -457,7 +487,7 @@
                                                 <action selector="rejectSample:" destination="RAd-iG-AkU" id="jbg-qK-35o"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" id="qSE-GJ-UWy">
+                                        <barButtonItem key="rightBarButtonItem" id="qSE-GJ-UWy">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RJF-ix-NZL">
                                                 <rect key="frame" x="534" y="7" width="46" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -594,8 +624,8 @@
                                     <segue destination="Tnu-BU-9Zn" kind="embed" id="gM5-Mr-Lda"/>
                                 </connections>
                             </containerView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-3i-FzN">
-                                <rect key="frame" x="250" y="-51" width="100" height="100"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-3i-FzN">
+                                <rect key="frame" x="250" y="201" width="100" height="100"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="7KI-0p-tZ5"/>
