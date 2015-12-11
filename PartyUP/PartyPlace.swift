@@ -17,6 +17,8 @@ class PartyPlace {
 	let sticky: Bool
 	var venues: [Venue]?
 
+	private static let placesKey = "***REMOVED***"
+
 	init(place: CLPlacemark, sticky: Bool = true) {
 		self.place = place
 		self.sticky = sticky
@@ -27,9 +29,9 @@ class PartyPlace {
 			if let loc = place.location {
 				venues = [Venue]()
 				let params = ["location" : "\(loc.coordinate.latitude),\(loc.coordinate.longitude)",
-					"types" : "bar|night_club",
+					"types" : categories,
 					"rankby" : "distance",
-					"key" : "***REMOVED***"]
+					"key" : PartyPlace.placesKey]
 				Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
 					.validate()
 					.responseJSON { response in
@@ -50,7 +52,7 @@ class PartyPlace {
 
 			if let next = json["next_page_token"].string {
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
-					Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : "***REMOVED***"])
+					Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : PartyPlace.placesKey])
 						.validate()
 						.responseJSON { response in
 							self.grokResponse(completion, response: response)

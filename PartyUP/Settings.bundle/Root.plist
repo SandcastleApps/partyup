@@ -40,7 +40,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Stale Sample Interval (seconds)</string>
+			<string>Stale Interval (seconds)</string>
 			<key>Key</key>
 			<string>StaleSampleInterval</string>
 			<key>KeyboardType</key>
@@ -75,26 +75,6 @@
 			<real>10</real>
 			<key>MaximumValue</key>
 			<integer>5000</integer>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Venue List Radius</string>
-			<key>FooterText</key>
-			<string>The radius within which venues will be requested from Foursquare. (between 5000 and 50000 meters)</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSSliderSpecifier</string>
-			<key>Key</key>
-			<string>ListRadius</string>
-			<key>DefaultValue</key>
-			<integer>25000</integer>
-			<key>MinimumValue</key>
-			<integer>5000</integer>
-			<key>MaximumValue</key>
-			<integer>50000</integer>
 		</dict>
 	</array>
 </dict>

@@ -35,12 +35,6 @@ struct PartyUpConstants
 	}
 }
 
-struct FourSquareConstants
-{
-	static let identifier = "***REMOVED***"
-	static let secret = "***REMOVED***"
-}
-
 struct FlurryConstants
 {
 	static let ApplicationIdentifier = "***REMOVED***"
