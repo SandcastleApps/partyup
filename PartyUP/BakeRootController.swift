@@ -75,6 +75,7 @@ class BakeRootController: UIViewController {
 
 		if locals == nil {
 			progressHud.textLabel.text = NSLocalizedString("Determining Venue", comment: "Hud title for waiting for location determination")
+			progressHud.interactionType = .BlockNoTouches
 			progressHud.showInView(view, animated: false)
 		}
 	}
