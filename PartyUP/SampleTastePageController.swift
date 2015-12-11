@@ -136,7 +136,9 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		player.delegate = self
-		player.playFromBeginning()
+		if player.bufferingState == .Ready {
+			player.playFromBeginning()
+		}
 
 		Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description], timed: true)
 	}
@@ -171,6 +173,9 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 	func playerReady(player: Player) {
 		videoWaiting.stopAnimating()
+		if player.playbackState != .Playing {
+			player.playFromBeginning()
+		}
 	}
 
 	func playerPlaybackStateDidChange(player: Player) {
@@ -187,6 +192,9 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	}
 
 	func playerBufferingStateDidChange(player: Player) {
+		if player.bufferingState == .Ready {
+			//player.playFromBeginning()
+		}
 	}
 
 	// MARK: Timer
