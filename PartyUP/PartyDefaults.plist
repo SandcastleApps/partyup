@@ -14,5 +14,10 @@
 	<integer>28800</integer>
 	<key>CameraJump</key>
 	<true/>
+	<key>StickyTowns</key>
+	<array>
+		<string>Sydney, NS, Canada</string>
+		<string>Halifax, NS, Canada</string>
+	</array>
 </dict>
 </plist>

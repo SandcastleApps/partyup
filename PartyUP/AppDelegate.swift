@@ -20,6 +20,7 @@ struct PartyUpPreferences
 	static let VenueCategories = "VenueCategories"
 	static let StaleSampleInterval = "StaleSampleInterval"
 	static let CameraJump = "CameraJump"
+	static let StickyTowns = "StickyTowns"
 }
 
 struct PartyUpConstants

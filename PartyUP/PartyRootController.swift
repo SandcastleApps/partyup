@@ -36,18 +36,18 @@ class PartyRootController: UIViewController {
     }
 
 	func resolvePopularPlacemarks() {
-		let cities = [ "Halifax, NS, Canada", "Sydney, NS, Canada"]
-
-		for city in cities {
-			SwiftLocation.shared.reverseAddress(.GoogleMaps, address: city, region: nil,
-				onSuccess: { (place) in
-					dispatch_async(dispatch_get_main_queue(), {
-						self.regions.append(PartyPlace(place: place!))
-					})
-				},
-				onFail: { (error) in
-					NSLog("Place Error: \(error)")
-			})
+		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
+			for city in cities {
+				SwiftLocation.shared.reverseAddress(.GoogleMaps, address: city, region: nil,
+					onSuccess: { (place) in
+						dispatch_async(dispatch_get_main_queue(), {
+							self.regions.append(PartyPlace(place: place!))
+						})
+					},
+					onFail: { (error) in
+						NSLog("Place Error: \(error)")
+				})
+			}
 		}
 	}
 
