@@ -157,6 +157,8 @@
 		1F03C3711BA84C5E0037D7D8 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				1FBD401B1C120F6C0093D852 /* InfoPlist.strings */,
+				1FBD40161C120F6C0093D852 /* Localizable.strings */,
 				1F9509941BACACE8005BDC18 /* UrlUtilities.swift */,
 				1F427A071BA59F4C00E622CF /* Assets.xcassets */,
 				1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */,
@@ -174,6 +176,7 @@
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
 				1F03C3771BA8500F0037D7D8 /* Sample.swift */,
 				1F9509961BAF81FB005BDC18 /* Dynamo.swift */,
+				1FBD401C1C14609C0093D852 /* PartyPlace.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 		1F427A141BA59F4C00E622CF /* PartyUPTests */ = {
 			isa = PBXGroup;
 			children = (
+				1FBD40111C120F6C0093D852 /* InfoPlist.strings */,
 				1F427A151BA59F4C00E622CF /* PartyUPTests.swift */,
 				1F427A171BA59F4C00E622CF /* Info.plist */,
 			);
@@ -239,6 +243,7 @@
 		1F427A1F1BA59F4C00E622CF /* PartyUPUITests */ = {
 			isa = PBXGroup;
 			children = (
+				1FBD400C1C120F6B0093D852 /* InfoPlist.strings */,
 				1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */,
 				1F427A221BA59F4C00E622CF /* Info.plist */,
 			);
@@ -287,6 +292,8 @@
 			children = (
 				1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */,
 				1F9997461BB48A99003457E2 /* SampleTastePageController.swift */,
+				1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */,
+				1FBD40041C11E1060093D852 /* PageProtocol.swift */,
 			);
 			name = "Taste Sample";
 			sourceTree = "<group>";
@@ -425,11 +432,13 @@
 				1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */,
 				1F263C821BE39A53009A3565 /* Settings.bundle in Resources */,
 				1F71B5E11C0897E800F5740E /* Home.gpx in Resources */,
+				1FBD40141C120F6C0093D852 /* Localizable.strings in Resources */,
 				1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */,
 				1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */,
 				1FC60E871C10B43900965716 /* Acknowledge.storyboard in Resources */,
 				1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */,
 				1F71B5E01C0897E800F5740E /* Governors.gpx in Resources */,
+				1FBD40191C120F6C0093D852 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +446,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FBD400F1C120F6C0093D852 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +454,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FBD400A1C120F6B0093D852 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,16 +529,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
+				1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */,
 				1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */,
 				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
 				1FC60E841C10B39600965716 /* AcknowledgementsController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
+				1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
 				1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */,
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
 				1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */,
 				1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */,
+				1FBD401D1C14609C0093D852 /* PartyPlace.swift in Sources */,
 				1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */,
 				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
@@ -572,6 +586,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F427A051BA59F4C00E622CF /* Base */,
+				1FBD40061C120F6B0093D852 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -580,6 +595,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F427A0A1BA59F4C00E622CF /* Base */,
+				1FBD40071C120F6B0093D852 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

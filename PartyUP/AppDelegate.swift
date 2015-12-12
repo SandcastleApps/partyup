@@ -20,6 +20,7 @@ struct PartyUpPreferences
 	static let VenueCategories = "VenueCategories"
 	static let StaleSampleInterval = "StaleSampleInterval"
 	static let CameraJump = "CameraJump"
+	static let StickyTowns = "StickyTowns"
 }
 
 struct PartyUpConstants
@@ -33,12 +34,6 @@ struct PartyUpConstants
 		logoView.bounds = CGRect(x: 0, y: 0, width: 24, height: 40)
 		return logoView
 	}
-}
-
-struct FourSquareConstants
-{
-	static let identifier = "***REMOVED***"
-	static let secret = "***REMOVED***"
 }
 
 struct FlurryConstants

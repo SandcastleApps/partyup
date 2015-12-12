@@ -5,7 +5,7 @@
 	<key>VideoQuality</key>
 	<string>AVCaptureSessionPresetMedium</string>
 	<key>VenueCategories</key>
-	<string>4bf58dd8d48988d11b941735,4bf58dd8d48988d11e941735,4bf58dd8d48988d121941735,4bf58dd8d48988d11f941735,4bf58dd8d48988d1e5931735</string>
+	<string>bar|night_club</string>
 	<key>SampleRadius</key>
 	<integer>75</integer>
 	<key>ListRadius</key>
@@ -14,5 +14,10 @@
 	<integer>28800</integer>
 	<key>CameraJump</key>
 	<true/>
+	<key>StickyTowns</key>
+	<array>
+		<string>Sydney, NS, Canada</string>
+		<string>Halifax, NS, Canada</string>
+	</array>
 </dict>
 </plist>

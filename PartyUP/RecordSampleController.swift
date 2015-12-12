@@ -83,7 +83,8 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		vision.previewLayer.frame = preview.bounds
 	}
 
-    // MARK: - Navigation
+    // MARK: - Camera Control
+
 	@IBAction func torchControl(sender: UIBarButtonItem) {
 		vision.flashMode = vision.flashMode == .Off ? .On : .Off
 
@@ -91,6 +92,19 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			sender.image = UIImage(named: "FlashOn")
 		} else {
 			sender.image = UIImage(named: "FlashOff")
+		}
+	}
+
+	@IBAction func toggleCamera(sender: UIBarButtonItem?) {
+		switch vision.cameraDevice {
+		case .Back:
+			if vision.isCameraDeviceAvailable(.Front) {
+				vision.cameraDevice = .Front
+			}
+		case .Front:
+			if vision.isCameraDeviceAvailable(.Back) {
+				vision.cameraDevice = .Back
+			}
 		}
 	}
 
@@ -174,6 +188,10 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	// MARK: - Hosted
 
 	@IBAction func cancelRecording(sender: UIBarButtonItem) {
+		if vision.cameraDevice != .Back {
+			toggleCamera(nil)
+		}
+		
 		host?.recordedSample(nil)
 		Flurry.logEvent("Sample_Cancelled")
 	}
@@ -184,6 +202,10 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		host = parent as? BakeRootController
 		if host == nil {
 			resetTimerBar()
+
+			if vision.cameraDevice != .Back {
+				toggleCamera(nil)
+			}
 		}
 	}
 }

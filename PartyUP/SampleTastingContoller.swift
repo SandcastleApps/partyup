@@ -30,75 +30,43 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 			loadingProgress.stopAnimating()
 			
 			if let page = dequeTastePageController(0) {
-				navigator?.dataSource = self
-				navigator?.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
-			} else {
-				navigator?.dataSource = nil
-				container.hidden = true
+				(childViewControllers.first as? UIPageViewController)?.dataSource = self
+				(childViewControllers.first as? UIPageViewController)?.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
 			}
 		}
 	}
 
-	private weak var navigator: UIPageViewController?
-
 	func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-		var toVC: SampleTastePageController?
-		if let fromVC = viewController as? SampleTastePageController {
+		var toVC: UIViewController?
+
+		if let fromVC = viewController as? PageProtocol {
 			toVC = dequeTastePageController(fromVC.page + 1)
 		}
 		return toVC
 	}
 
 	func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-		var toVC: SampleTastePageController?
-		if let fromVC = viewController as? SampleTastePageController {
+		var toVC: UIViewController?
+		if let fromVC = viewController as? PageProtocol {
 			toVC = dequeTastePageController(fromVC.page - 1)
 		}
 		return toVC
 	}
 
-	func dequeTastePageController(page: Int) -> SampleTastePageController? {
-		var pageVC: SampleTastePageController?
-
-		if let localSamples = samples where page < localSamples.count && page >= 0 {
-			pageVC = storyboard?.instantiateViewControllerWithIdentifier("Sample Taste Page Controller") as? SampleTastePageController
-			pageVC?.page = page
-			pageVC?.sample = localSamples[page]
+	func dequeTastePageController(page: Int) -> UIViewController? {
+		if page >= 0 {
+			if let localSamples = samples where page < localSamples.count {
+				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Sample Taste Page Controller") as? SampleTastePageController
+				pageVC?.page = page
+				pageVC?.sample = localSamples[page]
+				return pageVC
+			} else if samples?.count ?? 0 == page {
+				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Recruit Page Controller") as? RecruitPageController
+				pageVC?.page = page
+				return pageVC
+			}
 		}
 
-		return pageVC
-	}
-
-
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if let toVC = segue.destinationViewController as? UIPageViewController {
-			navigator = toVC
-		}
-    }
-
-	@IBAction func recruit(sender: UIButton) {
-		let text = NSLocalizedString("Lets Party!\n", comment: "Recruitment default text")
-		let url = NSURL(string: "http://partyuptonight.com")
-		let image = UIImage(named: "BlackLogo")
-
-		let share = UIActivityViewController(activityItems: [text,image!,url!], applicationActivities: nil)
-		share.excludedActivityTypes = [
-			UIActivityTypePostToWeibo,
-			UIActivityTypePrint,
-			UIActivityTypeCopyToPasteboard,
-			UIActivityTypeAssignToContact,
-			UIActivityTypeSaveToCameraRoll,
-			UIActivityTypeAddToReadingList,
-			UIActivityTypePostToFlickr,
-			UIActivityTypePostToVimeo,
-			UIActivityTypePostToTencentWeibo,
-			UIActivityTypeAirDrop
-		]
-
-		presentViewController(share, animated: true, completion: nil)
-
-		Flurry.logEvent("Recruiting")
+		return nil
 	}
 }

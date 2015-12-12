@@ -28,12 +28,12 @@ final class Venue: CustomDebugStringConvertible
 	}
 
 	init(venue: JSON) {
-		self.unique = venue["id"].stringValue
+		self.unique = venue["place_id"].stringValue
 		self.open = 0
 		self.close = 0
 		self.name = venue["name"].stringValue
-		self.details = venue["description"].string
-		self.location = CLLocation(latitude: venue["location"]["lat"].doubleValue, longitude: venue["location"]["lng"].doubleValue)
+		self.details = nil //venue["description"].string
+		self.location = CLLocation(latitude: venue["geometry"]["location"]["lat"].doubleValue, longitude: venue["geometry"]["location"]["lng"].doubleValue)
 	}
 
 	var debugDescription: String {

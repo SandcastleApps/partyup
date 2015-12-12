@@ -15,6 +15,7 @@ func presentResultHud(hud: JGProgressHUD, inView view: UIView, withTitle title: 
 
 	hud.indicatorView = success ? JGProgressHUDSuccessIndicatorView() : JGProgressHUDErrorIndicatorView()
 	hud.textLabel.text = title
+	hud.interactionType = .BlockAllTouches
 	hud.detailTextLabel.text = detail
 	hud.dismissAfterDelay(2.5, animated: true)
 }
