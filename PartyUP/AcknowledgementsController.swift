@@ -10,17 +10,15 @@ import UIKit
 
 class AcknowledgementsController: UITableViewController {
 
-	private var expanded = Set<NSIndexPath>()
-
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.section == 2 {
-			if expanded.contains(indexPath) {
-				expanded.remove(indexPath)
-			} else {
-				expanded.insert(indexPath)
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "Third Party Segue" {
+			if let targetVC = segue.destinationViewController as? RichTextController {
+				targetVC.url = NSBundle.mainBundle().URLForResource("Acknowledgments", withExtension: "rtf")
 			}
-
-			tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 		}
+	}
+
+	@IBAction func sequeFromThirdParty(segue: UIStoryboardSegue) {
+
 	}
 }
