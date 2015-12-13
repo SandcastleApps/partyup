@@ -18,6 +18,10 @@ class AcknowledgementsController: UITableViewController {
 		}
 	}
 
+	@IBAction func recruit(sender: UIButton) {
+		presentShareActions(self)
+	}
+
 	@IBAction func sequeFromThirdParty(segue: UIStoryboardSegue) {
 
 	}

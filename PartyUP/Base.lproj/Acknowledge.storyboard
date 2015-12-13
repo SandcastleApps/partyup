@@ -22,7 +22,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="QbN-cX-2uB">
                                         <rect key="frame" x="0.0" y="64" width="600" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QbN-cX-2uB" id="hUd-eC-c19">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="QbN-cX-2uB" id="hUd-eC-c19">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="149.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -46,21 +46,26 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="vHt-iG-RBS" style="IBUITableViewCellStyleDefault" id="iA1-ka-T59">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="iA1-ka-T59">
                                         <rect key="frame" x="0.0" y="214" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iA1-ka-T59" id="98G-gd-pn4">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Recruit your friends!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vHt-iG-RBS">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDp-co-4A6" userLabel="Recruit">
+                                                    <rect key="frame" x="220.5" y="5.5" width="159" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal" title="Recruit your friends"/>
+                                                    <connections>
+                                                        <action selector="recruit:" destination="k3x-Sk-Gdv" eventType="touchUpInside" id="L6V-2O-uSc"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kDp-co-4A6" firstAttribute="centerX" secondItem="98G-gd-pn4" secondAttribute="centerX" id="3dN-Q4-Tfg"/>
+                                                <constraint firstItem="kDp-co-4A6" firstAttribute="centerY" secondItem="98G-gd-pn4" secondAttribute="centerY" id="lQS-3F-beE"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -160,7 +165,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="0ho-AO-qfO" kind="showDetail" identifier="Third Party Segue" id="or4-Mh-BIT"/>
+                                            <segue destination="0ho-AO-qfO" kind="presentation" identifier="Third Party Segue" modalTransitionStyle="partialCurl" id="or4-Mh-BIT"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -175,7 +180,7 @@
                     <navigationItem key="navigationItem" title="Acknowledgements" id="hPU-qk-jYw">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="c1k-4O-Bz6">
                             <connections>
-                                <segue destination="1y0-De-UIL" kind="unwind" unwindAction="segueFromAcknowledgements:" id="bXD-tr-LaK"/>
+                                <segue destination="1y0-De-UIL" kind="unwind" unwindAction="segueFromAcknowledgements:" id="TSO-6v-fNc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -226,9 +231,9 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpa-pK-m45">
-                                <rect key="frame" x="543" y="22.5" width="37" height="30"/>
-                                <state key="normal" title="Done"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpa-pK-m45">
+                                <rect key="frame" x="20" y="23" width="57" height="30"/>
+                                <state key="normal" title="Back" image="Back"/>
                                 <connections>
                                     <segue destination="ScE-GW-alt" kind="unwind" unwindAction="sequeFromThirdParty:" id="Toc-hL-Phz"/>
                                 </connections>
@@ -241,9 +246,9 @@
                             <constraint firstItem="hbl-WQ-SiZ" firstAttribute="centerX" secondItem="dq0-TG-XRG" secondAttribute="centerX" id="Uh2-zd-pNV"/>
                             <constraint firstItem="hbl-WQ-SiZ" firstAttribute="top" secondItem="4IY-oB-YfX" secondAttribute="bottom" constant="8" symbolic="YES" id="WcM-nW-jAV"/>
                             <constraint firstItem="Ksn-jN-Zl3" firstAttribute="leading" secondItem="dq0-TG-XRG" secondAttribute="leadingMargin" id="ePJ-kk-imu"/>
-                            <constraint firstItem="tpa-pK-m45" firstAttribute="baseline" secondItem="hbl-WQ-SiZ" secondAttribute="baseline" id="his-si-PAH"/>
+                            <constraint firstItem="tpa-pK-m45" firstAttribute="centerY" secondItem="hbl-WQ-SiZ" secondAttribute="centerY" id="his-si-PAH"/>
                             <constraint firstItem="vG8-ee-Rcf" firstAttribute="top" secondItem="Ksn-jN-Zl3" secondAttribute="bottom" constant="8" symbolic="YES" id="slG-uH-NtW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tpa-pK-m45" secondAttribute="trailing" id="uMw-us-EQh"/>
+                            <constraint firstItem="tpa-pK-m45" firstAttribute="leading" secondItem="dq0-TG-XRG" secondAttribute="leadingMargin" id="uMw-us-EQh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -273,6 +278,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Back" width="17" height="30"/>
         <image name="PartyUP Black" width="669" height="183"/>
     </resources>
 </document>

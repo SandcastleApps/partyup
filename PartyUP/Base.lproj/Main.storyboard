@@ -88,7 +88,7 @@
                             <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="24" maxY="0.0"/>
                             <state key="normal" image="Logo"/>
                             <connections>
-                                <segue destination="eKO-5N-ikP" kind="presentation" modalTransitionStyle="partialCurl" id="6jn-Bq-laD"/>
+                                <segue destination="eKO-5N-ikP" kind="presentation" id="6jn-Bq-laD"/>
                             </connections>
                         </button>
                         <barButtonItem key="rightBarButtonItem" id="JLt-Ac-9ZV">
