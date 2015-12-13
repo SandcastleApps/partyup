@@ -80,6 +80,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+		if let searchString = searchController.searchBar.text {
+			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
+		}
 		searchController.searchBar.searchBarStyle = .Minimal
 		venues = parties?.venues
 	}
@@ -88,7 +91,6 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		if let searchString = searchController.searchBar.text where searchController.active {
 			searchController.searchBar.searchBarStyle = .Prominent
 			venues = parties?.venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
-			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
 	}
 
@@ -100,6 +102,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				let viewerVC = segue.destinationViewController as! SampleTastingContoller
 				viewerVC.partyId = party.unique
 				viewerVC.title = party.name
+				Flurry.logEvent("Venue_Videos", withParameters: ["venue" : party.name])
 			}
 		}
     }

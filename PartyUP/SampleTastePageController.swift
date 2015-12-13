@@ -192,9 +192,6 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	}
 
 	func playerBufferingStateDidChange(player: Player) {
-		if player.bufferingState == .Ready {
-			//player.playFromBeginning()
-		}
 	}
 
 	// MARK: Timer
