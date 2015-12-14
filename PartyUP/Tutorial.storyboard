@@ -9,7 +9,7 @@
         <!--Tutorial Root Controller-->
         <scene sceneID="8wc-i8-cok">
             <objects>
-                <viewController title="Tutorial Root Controller" id="fSO-Li-OLX" customClass="TutorialController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Tutorial Root Controller" modalTransitionStyle="crossDissolve" id="fSO-Li-OLX" customClass="TutorialController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Omj-2B-253"/>
                         <viewControllerLayoutGuide type="bottom" id="XgN-fR-uAO"/>
