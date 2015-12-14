@@ -18,11 +18,22 @@ class AcknowledgementsController: UITableViewController {
 		}
 	}
 
+	@IBAction func tutorial(sender: UIButton) {
+		let story = UIStoryboard.init(name: "Tutorial", bundle: nil)
+		if let tutorial = story.instantiateInitialViewController() {
+			presentViewController(tutorial, animated: true, completion: nil)
+		}
+	}
+
 	@IBAction func recruit(sender: UIButton) {
 		presentShareActions(self)
 	}
 
 	@IBAction func sequeFromThirdParty(segue: UIStoryboardSegue) {
+
+	}
+
+	@IBAction func sequeFromTutorial(segue: UIStoryboardSegue) {
 
 	}
 }
