@@ -19,5 +19,7 @@
 		<string>Sydney, NS, Canada</string>
 		<string>Halifax, NS, Canada</string>
 	</array>
+	<key>Tutorial</key>
+	<true/>
 </dict>
 </plist>

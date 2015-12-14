@@ -57,6 +57,9 @@
 		1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
 		1FDA455B1C1CECD200F5E458 /* ShareUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */; };
+		1FDA455E1C1DAF5D00F5E458 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FDA455D1C1DAF5D00F5E458 /* Tutorial.storyboard */; };
+		1FDA45601C1DB02300F5E458 /* TutorialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA455F1C1DB02300F5E458 /* TutorialController.swift */; };
+		1FDA45621C1E2D5400F5E458 /* TutorialPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA45611C1E2D5400F5E458 /* TutorialPageController.swift */; };
 		1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */; };
 		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; };
 		1FF2BA9A1BCAC7A200336651 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF2BA991BCAC7A200336651 /* CoreData.framework */; };
@@ -127,6 +130,9 @@
 		1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+RuntimeAttributes.swift"; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
 		1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareUtilities.swift; sourceTree = "<group>"; };
+		1FDA455D1C1DAF5D00F5E458 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		1FDA455F1C1DB02300F5E458 /* TutorialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialController.swift; sourceTree = "<group>"; };
+		1FDA45611C1E2D5400F5E458 /* TutorialPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageController.swift; sourceTree = "<group>"; };
 		1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyRootController.swift; sourceTree = "<group>"; };
 		1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptSampleController.swift; sourceTree = "<group>"; };
 		1FF2BA991BCAC7A200336651 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -244,6 +250,7 @@
 				1FDA2F261BB1914100D33540 /* Party */,
 				1FDA2F271BB1916D00D33540 /* Taste Sample */,
 				1F8BF1BF1C1C558900221D82 /* Acknowledgements */,
+				1FDA455C1C1DAEFB00F5E458 /* Tutorial */,
 				1F03C3721BA84DDC0037D7D8 /* Model */,
 				1F03C3711BA84C5E0037D7D8 /* Support */,
 				1F2950A81C069D6100BCBF87 /* User Defaults */,
@@ -328,6 +335,16 @@
 				1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */,
 			);
 			name = "Bake Sample";
+			sourceTree = "<group>";
+		};
+		1FDA455C1C1DAEFB00F5E458 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				1FDA455D1C1DAF5D00F5E458 /* Tutorial.storyboard */,
+				1FDA455F1C1DB02300F5E458 /* TutorialController.swift */,
+				1FDA45611C1E2D5400F5E458 /* TutorialPageController.swift */,
+			);
+			name = Tutorial;
 			sourceTree = "<group>";
 		};
 		F45C5C08936EE0B946D71CE9 /* Pods */ = {
@@ -455,6 +472,7 @@
 				1F263C821BE39A53009A3565 /* Settings.bundle in Resources */,
 				1F8BF1C41C1C55DD00221D82 /* Acknowledge.storyboard in Resources */,
 				1F71B5E11C0897E800F5740E /* Home.gpx in Resources */,
+				1FDA455E1C1DAF5D00F5E458 /* Tutorial.storyboard in Resources */,
 				1FBD40141C120F6C0093D852 /* Localizable.strings in Resources */,
 				1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */,
 				1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */,
@@ -557,6 +575,7 @@
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */,
+				1FDA45601C1DB02300F5E458 /* TutorialController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
 				1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */,
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
@@ -571,6 +590,7 @@
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
 				1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
+				1FDA45621C1E2D5400F5E458 /* TutorialPageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

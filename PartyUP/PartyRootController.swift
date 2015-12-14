@@ -143,6 +143,15 @@ class PartyRootController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
+		let defaults = NSUserDefaults.standardUserDefaults()
+		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
+			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
+			let story = UIStoryboard.init(name: "Tutorial", bundle: nil)
+			if let tutorial = story.instantiateInitialViewController() {
+				presentViewController(tutorial, animated: true, completion: nil)
+			}
+		}
+
 		UIView.animateWithDuration(0.5,
 			delay: 3,
 			options: [.AllowUserInteraction, .CurveEaseInOut],
@@ -215,6 +224,10 @@ class PartyRootController: UIViewController {
 	}
 
 	@IBAction func segueFromAcknowledgements(segue: UIStoryboardSegue) {
+
+	}
+
+	@IBAction func segueFromTutorial(segue: UIStoryboardSegue) {
 
 	}
 

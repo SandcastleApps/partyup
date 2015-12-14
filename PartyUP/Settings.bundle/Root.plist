@@ -47,14 +47,22 @@
 			<string>NumberPad</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Jump To Camera</string>
 			<key>Key</key>
 			<string>CameraJump</string>
 			<key>DefaultValue</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Tutorial</string>
+			<key>Key</key>
+			<string>Tutorial</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
