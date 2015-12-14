@@ -54,7 +54,7 @@ class PartyRootController: UIViewController {
 
 	func resolveLocalPlacemark() {
 		busyIndicator.startAnimating()
-		busyLabel.text = "locating"
+		busyLabel.text = NSLocalizedString("locating", comment: "Status message in bottom bar while determining user location")
 
 		do {
 			try SwiftLocation.shared.currentLocation(.City, timeout: 60,
@@ -115,7 +115,7 @@ class PartyRootController: UIViewController {
 
 	func fetchPlaceVenues(place: PartyPlace) {
 		busyIndicator.startAnimating()
-		busyLabel.text = "fetching"
+		busyLabel.text = NSLocalizedString("fetching", comment: "Status in bottom bar while fetching venues")
 
 		if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
 			let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)

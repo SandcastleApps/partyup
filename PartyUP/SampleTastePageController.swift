@@ -42,23 +42,23 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 			switch components.hour {
 			case 1:
-				stringy = "1 hour "
+				stringy = NSLocalizedString("1 hour ", comment: "Relative sample hour, be sure to leave the space at the end")
 			case let x where x > 1:
-				stringy = "\(x) hours "
+				stringy = NSLocalizedString("\(x) hours ", comment: "Relative sampe hours, be sure to leave the space at the end")
 			default:
 				stringy = ""
 			}
 
 			switch components.minute {
 			case 1:
-				stringy += "1 minute "
+				stringy += NSLocalizedString("1 minute ", comment: "Relative sample minute, be sure to leave space at end")
 			case let x where x > 1:
-				stringy += "\(x) minutes "
+				stringy += NSLocalizedString("\(x) minutes ", comment: "Relative sample minutes, be sure to leave space at end")
 			default:
 				stringy += ""
 			}
 
-			stringy += stringy.isEmpty ? "very fresh" : "ago"
+			stringy += stringy.isEmpty ? NSLocalizedString("very fresh", comment: "Samples less than a minue old") : NSLocalizedString("ago", comment:"Samples more than a minute old")
 
 			return stringy
 		} else {
