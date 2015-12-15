@@ -73,9 +73,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0W-1x-MpE">
-                                <rect key="frame" x="179" y="267" width="241" height="65"/>
+                                <rect key="frame" x="219.5" y="267" width="160" height="65"/>
                                 <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="45"/>
-                                <state key="normal" title="Take me to the party!">
+                                <state key="normal" title="Let's Party!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
