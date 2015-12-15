@@ -109,6 +109,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 				vision.cameraDevice = .Back
 			}
 		}
+		Flurry.logEvent("Selfie_Toggle", withParameters: ["camera" : "\(vision.cameraDevice)"])
 	}
 
 	func resetTimerBar() {
@@ -169,6 +170,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 				if let duration = videoDict?[PBJVisionVideoCapturedDurationKey] as? Double where duration >= minVideoDuration {
 					host?.recordedSample(NSURL(fileURLWithPath: out))
 				} else {
+					Flurry.logEvent("Short_Sample")
 					if let error = try? NSFileManager.defaultManager().removeItemAtPath(out) {
 						NSLog("Failed to delete cancelled video with error: \(error)")
 					}
