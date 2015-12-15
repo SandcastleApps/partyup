@@ -12,8 +12,15 @@ class TutorialController: UIViewController, UIPageViewControllerDataSource {
 
 	let pageCount = 4
 
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return .LightContent
+	}
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		UIPageControl.appearance().pageIndicatorTintColor = UIColor.lightGrayColor()
+		UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.orangeColor()
 
 		if let page = dequeTutorialPageController(0) {
 			(childViewControllers.first as? UIPageViewController)?.dataSource = self

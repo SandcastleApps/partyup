@@ -33,7 +33,7 @@ class AcknowledgementsController: UITableViewController {
 
 	}
 
-	@IBAction func sequeFromTutorial(segue: UIStoryboardSegue) {
+	@IBAction func segueFromTutorial(segue: UIStoryboardSegue) {
 
 	}
 }

@@ -24,18 +24,25 @@
                                     <segue destination="MPA-Y1-b6v" kind="embed" id="DEj-W2-IRp"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kv-7z-6T0">
+                                <rect key="frame" x="550" y="569" width="30" height="26"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <state key="normal" title="Skip"/>
+                                <connections>
+                                    <segue destination="e9Z-6y-jZo" kind="unwind" unwindAction="segueFromTutorial:" id="ek1-3Y-fY3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="XgN-fR-uAO" firstAttribute="top" secondItem="ziT-jO-b8s" secondAttribute="bottom" id="CZH-93-Syv"/>
                             <constraint firstItem="ziT-jO-b8s" firstAttribute="leading" secondItem="ccD-lq-a2n" secondAttribute="leading" id="FHH-yB-SdY"/>
+                            <constraint firstItem="XgN-fR-uAO" firstAttribute="top" secondItem="0kv-7z-6T0" secondAttribute="bottom" constant="5" id="Kb5-TW-NZK"/>
                             <constraint firstItem="ziT-jO-b8s" firstAttribute="trailing" secondItem="ccD-lq-a2n" secondAttribute="trailing" id="Ppe-5x-MhI"/>
                             <constraint firstItem="ziT-jO-b8s" firstAttribute="top" secondItem="ccD-lq-a2n" secondAttribute="topMargin" id="f2u-th-JRy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0kv-7z-6T0" secondAttribute="trailing" id="t9a-Dl-RUg"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="doneButton" destination="Y0W-1x-MpE" id="hKS-Qz-Rec"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9SB-iR-mVB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="e9Z-6y-jZo" userLabel="Exit" sceneMemberID="exit"/>
@@ -45,7 +52,7 @@
         <!--Tutorial Page View Controller-->
         <scene sceneID="7Ld-MP-QUR">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="MPA-Y1-b6v" userLabel="Tutorial Page View Controller" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="MPA-Y1-b6v" userLabel="Tutorial Page View Controller" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qoy-jn-MEj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="80" y="204"/>
@@ -66,7 +73,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0W-1x-MpE">
-                                <rect key="frame" x="179.5" y="267.5" width="241" height="65"/>
+                                <rect key="frame" x="179" y="267" width="241" height="65"/>
                                 <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="45"/>
                                 <state key="normal" title="Take me to the party!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -84,16 +91,10 @@
                             <constraint firstItem="5ED-NO-6fT" firstAttribute="top" secondItem="BG4-QL-ecq" secondAttribute="topMargin" id="gfG-qj-PRy"/>
                             <constraint firstItem="Y0W-1x-MpE" firstAttribute="centerY" secondItem="BG4-QL-ecq" secondAttribute="centerY" id="lJQ-hI-c6q"/>
                             <constraint firstItem="5ED-NO-6fT" firstAttribute="leading" secondItem="BG4-QL-ecq" secondAttribute="leading" id="onP-1l-MXR"/>
-                            <constraint firstItem="5ED-NO-6fT" firstAttribute="top" secondItem="pta-e9-o1V" secondAttribute="bottom" constant="8" symbolic="YES" id="qKb-w8-E5N"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="qKb-w8-E5N"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="doneButton" destination="Y0W-1x-MpE" id="Nyd-G8-Yh4"/>
+                        <outlet property="doneButton" destination="Y0W-1x-MpE" id="V2r-y8-sV7"/>
                         <outlet property="imageView" destination="5ED-NO-6fT" id="WQf-x9-Inf"/>
                     </connections>
                 </viewController>
