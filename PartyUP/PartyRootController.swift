@@ -18,6 +18,7 @@ class PartyRootController: UIViewController {
 	@IBOutlet weak var cameraImage: UIImageView!
 	@IBOutlet weak var busyIndicator: UIActivityIndicatorView!
 	@IBOutlet weak var busyLabel: UILabel!
+	@IBOutlet weak var ackButton: UIButton!
 
 	private let progressHud = JGProgressHUD(style: .Light)
 
@@ -27,6 +28,8 @@ class PartyRootController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		UIView.animateWithDuration(0.5, delay: 0, options: [.Autoreverse, .Repeat], animations: { self.ackButton.alpha = 0.85 }, completion: nil)
 
 		resolvePopularPlacemarks()
 		resolveLocalPlacemark()

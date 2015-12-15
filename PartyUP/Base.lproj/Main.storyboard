@@ -113,6 +113,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="ackButton" destination="2su-dS-pTj" id="ro4-ik-IO7"/>
                         <outlet property="busyIndicator" destination="bt6-ov-25O" id="VLh-Jo-UXD"/>
                         <outlet property="busyLabel" destination="RyV-iu-gQ1" id="Oe1-hl-7Uh"/>
                         <outlet property="cameraImage" destination="h0V-rg-StC" id="USP-r9-Kqf"/>
