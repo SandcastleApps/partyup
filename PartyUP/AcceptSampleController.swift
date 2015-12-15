@@ -32,7 +32,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		}
 	}
 
-	@IBOutlet weak var venueLabel: UILabel!
 	@IBOutlet weak var venue: UIButton! {
 		didSet {
 			venueButtonState()
@@ -142,7 +141,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		review.hidden = true
 		comment.hidden = true
 		venue.hidden = true
-		venueLabel.hidden = true
 	}
 
 	override func viewDidAppear(animated: Bool) {
@@ -153,12 +151,10 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		review.transform = CGAffineTransformMakeTranslation(0, offset)
 		comment.transform = CGAffineTransformMakeTranslation(0, offset)
 		venue.transform = CGAffineTransformMakeTranslation(0, offset)
-		venueLabel.transform = CGAffineTransformMakeTranslation(0, offset)
 
 		review.hidden = false
 		comment.hidden = false
 		venue.hidden = false
-		venueLabel.hidden = false
 
 		UIView.animateWithDuration(0.5,
 			delay: 0,
@@ -177,7 +173,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			options: [],
 			animations: {
 				self.venue.transform = CGAffineTransformIdentity
-				self.venueLabel.transform = CGAffineTransformIdentity
 			},
 			completion: nil)
 
