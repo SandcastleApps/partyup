@@ -7,7 +7,7 @@
 /* Class = "UIButton"; normalTitle = "Share PartyUP"; ObjectID = "8u3-TN-INi"; */
 "8u3-TN-INi.normalTitle" = "Share PartyUP";
 
-/* Class = "UILabel"; text = "Venues by Foursquare"; ObjectID = "Eb9-qS-WJN"; */
+/* (No Commment) */
 "Eb9-qS-WJN.text" = "Venues Provided by Foursquare";
 
 /* Class = "UIButton"; selectedTitle = "Record"; ObjectID = "FcL-8R-2uI"; */
@@ -18,6 +18,9 @@
 
 /* Class = "UIViewController"; title = "Accept Sample"; ObjectID = "RAd-iG-AkU"; */
 "RAd-iG-AkU.title" = "Accept Sample";
+
+/* Class = "UILabel"; text = "status"; ObjectID = "RyV-iu-gQ1"; */
+"RyV-iu-gQ1.text" = "status";
 
 /* Class = "UIViewController"; title = "Pick Party"; ObjectID = "SEJ-wv-10Q"; */
 "SEJ-wv-10Q.title" = "Pick Party";
@@ -50,7 +53,7 @@
 "e7q-b2-FE6.title" = "Accept";
 
 /* Class = "UILabel"; text = "To prevent this from happening"; ObjectID = "lgg-35-Bnb"; */
-"lgg-35-Bnb.text" = "To prevent this from happening";
+"lgg-35-Bnb.text" = "More people on PartyUP means more videos!";
 
 /* Class = "UIButton"; normalTitle = "Venue"; ObjectID = "qgR-vF-K22"; */
 "qgR-vF-K22.normalTitle" = "Venue";
@@ -65,5 +68,5 @@
 "tPz-jc-M19.text" = "Crap! No More Videos";
 
 /* Class = "UILabel"; text = "I'm partying at:"; ObjectID = "x6a-m8-fg9"; */
-"x6a-m8-fg9.text" = "We're partying at:";
+"x6a-m8-fg9.text" = "";
 

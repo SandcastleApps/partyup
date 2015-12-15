@@ -1,25 +1,43 @@
+/* Relative sampe hours, be sure to leave the space at the end */
+"(x) hours " = "(x) hours ";
+
+/* Relative sample minutes, be sure to leave space at end */
+"(x) minutes " = "(x) minutes ";
+
+/* Relative sample hour, be sure to leave the space at the end */
+"1 hour " = "1 hour ";
+
+/* Relative sample minute, be sure to leave space at end */
+"1 minute " = "1 minute ";
+
+/* Share login alert title */
+"Accounts" = "Accounts";
+
+/* Share sheet cancel action */
+"Cancel" = "Cancel";
+
 /* Hud title when failed due to no video */
 "Couldn't queue video for upload." = "Upload Failed";
 
 /* Hud title for waiting for location determination */
 "Determining Venue" = "Determining where you are partying";
 
-/* Hud while fetching venues */
-"Fetching Venues" = "Fetching Venues";
+/* (No Commment) */
+"Fetching Venues" = "Finding Venues";
 
 /* Comment placeholder text */
-"How goes the party?" = "How's the party?!";
+"How goes the party?" = "How's the party?";
 
 /* Recruitment default text */
 "Lets Party!
-" = "Wow, just downloaded the best party app ever, its called PartyUP! You need to get this now at";
+" = "Wow, just downloaded the best party app ever, its called PartyUP! PartyUPtonight.com";
 
 /* Hud detail for location services threw an error */
 "Location services are unavailable." = "Location services are unavailable";
 
 /* Hud detail location caught error
    Hud detail location onFail message */
-"Location services failure." = "Location services failure";
+"Location services failure." = "Locations Services Failure";
 
 /* Default in cell when venue name is nil */
 "Mysterious Venue" = "Mysterious Venue :| wtf bro?";
@@ -33,8 +51,14 @@
 /* Hud detail indicating no video available */
 "No video available." = "No video available";
 
+/* Share login alert action */
+"OK" = "OK";
+
 /* Hud detail after successfully uploaded sample */
 "Party On!" = "Thanks :)";
+
+/* Share login alert message */
+"Please login to a (title) account to share." = "Please login to a (title) account to share.";
 
 /* Hud title when failed due to no video */
 "Preparation Failed" = "Video Preparation Failed";
@@ -44,6 +68,9 @@
 
 /* Title of the region picker */
 "Region" = "Party Places";
+
+/* Share action title */
+"Share PartyUP" = "Share PartyUP";
 
 /* Hud title after successfully uploaded sample */
 "Submission Done" = "Party On!";
@@ -79,11 +106,23 @@
 "Venue Query Failed" = "Venue Query Failed";
 
 /* Hud detail for no nearby venue */
-"You are not at a supported venue." = "You can't record video if you aren't out yet :(";
+"You are not at a supported venue." = "You can't record video if you aren't out yet!";
 
 /* Hud detail for location service failure */
 "Your location couldn't be determined for unknown reasons." = "Your location couldn't be determined for unknown reasons.";
 
 /* Hud detail for poor locaiton accuracy */
 "Your location couldn't be determined with acceptable accuracy." = "Your location couldn't be determined with acceptable accuracy.";
+
+/* Samples more than a minute old */
+"ago" = "ago";
+
+/* Status in bottom bar while fetching venues */
+"fetching" = "searching";
+
+/* Status message in bottom bar while determining user location */
+"locating" = "locating";
+
+/* Samples less than a minue old */
+"very fresh" = "Very fresh";
 

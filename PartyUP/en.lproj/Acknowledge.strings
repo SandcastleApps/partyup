@@ -1,0 +1,54 @@
+/* Class = "UILabel"; text = "Todd Mercer"; ObjectID = "33Y-fH-urV"; */
+"33Y-fH-urV.text" = "Todd Mercer";
+
+/* Class = "UILabel"; text = "Fritz Vander Heide"; ObjectID = "Alc-HN-12R"; */
+"Alc-HN-12R.text" = "Fritz Vander Heide";
+
+/* Class = "UILabel"; text = "Pixel Dyer"; ObjectID = "BVg-MT-fCF"; */
+"BVg-MT-fCF.text" = "Pixel Dyer";
+
+/* Class = "UILabel"; text = "Third Party Libraries"; ObjectID = "CeJ-gq-gEn"; */
+"CeJ-gq-gEn.text" = "Third Party Libraries";
+
+/* Class = "UITableViewSection"; headerTitle = "Sandcastle Application Development"; ObjectID = "E50-SU-y0s"; */
+"E50-SU-y0s.headerTitle" = "Sandcastle Application Development";
+
+/* Class = "UILabel"; text = "Julie O'Kruk"; ObjectID = "ELp-ko-W37"; */
+"ELp-ko-W37.text" = "Julie O'Kruk";
+
+/* Class = "UILabel"; text = "Laird"; ObjectID = "JHE-04-mfg"; */
+"JHE-04-mfg.text" = "Laird";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "ORv-mb-TPi"; */
+"ORv-mb-TPi.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "Tutorial"; ObjectID = "Sta-zU-QOd"; */
+"Sta-zU-QOd.normalTitle" = "Tutorial";
+
+/* Class = "UINavigationItem"; title = "Feedback"; ObjectID = "VTj-qJ-bCZ"; */
+"VTj-qJ-bCZ.title" = "Feedback";
+
+/* Class = "UITableViewSection"; headerTitle = "Acknowledgements"; ObjectID = "Z6h-8E-Ifd"; */
+"Z6h-8E-Ifd.headerTitle" = "Acknowledgements";
+
+/* Class = "UINavigationItem"; title = "Acknowledgements"; ObjectID = "hPU-qk-jYw"; */
+"hPU-qk-jYw.title" = "Acknowledgements";
+
+/* Class = "UITableViewController"; title = "Ackowledgements"; ObjectID = "k3x-Sk-Gdv"; */
+"k3x-Sk-Gdv.title" = "Acknowledgements";
+
+/* Class = "UIButton"; normalTitle = "Recruit your friends"; ObjectID = "kDp-co-4A6"; */
+"kDp-co-4A6.normalTitle" = "Share PartyUP!";
+
+/* Class = "UIButton"; normalTitle = "Provide Feedback"; ObjectID = "kKt-1x-wKT"; */
+"kKt-1x-wKT.normalTitle" = "Provide Feedback";
+
+/* Class = "UINavigationController"; title = "AcknowldgeRoot"; ObjectID = "lKr-Eh-10R"; */
+"lKr-Eh-10R.title" = "AcknowldgeRoot";
+
+/* Class = "UILabel"; text = "Code Mason"; ObjectID = "r8W-hm-58R"; */
+"r8W-hm-58R.text" = "Code Mason";
+
+/* Class = "UINavigationItem"; title = "Third Party Libraries"; ObjectID = "uVY-CP-tzz"; */
+"uVY-CP-tzz.title" = "Third Party Libraries";
+

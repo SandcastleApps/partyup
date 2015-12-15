@@ -137,6 +137,7 @@
 		1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyRootController.swift; sourceTree = "<group>"; };
 		1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptSampleController.swift; sourceTree = "<group>"; };
 		1FF051E21C1FB61800A7A67C /* WebPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebPageController.swift; sourceTree = "<group>"; };
+		1FF051E41C1FCB5900A7A67C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Acknowledge.strings; sourceTree = "<group>"; };
 		1FF2BA991BCAC7A200336651 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
 		E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.debug.xcconfig"; sourceTree = "<group>"; };
@@ -652,6 +653,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F8BF1C31C1C55DD00221D82 /* Base */,
+				1FF051E41C1FCB5900A7A67C /* en */,
 			);
 			name = Acknowledge.storyboard;
 			sourceTree = "<group>";
