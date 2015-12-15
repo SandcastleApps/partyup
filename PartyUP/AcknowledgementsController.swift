@@ -35,10 +35,19 @@ class AcknowledgementsController: UITableViewController {
 	@IBAction func pushFeedback(sender: UIButton) {
 		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
 			webVC.url = NSURL(string: "https://www.surveymonkey.com/r/***REMOVED***")
+			webVC.purpose = NSLocalizedString("Feedback", comment: "Title of the Feedback webview")
 			navigationController?.pushViewController(webVC, animated: true)
 		}
 	}
 	
+	@IBAction func pushSupport(sender: UIButton) {
+		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
+			webVC.url = NSURL(string: "http://www.partyuptonight.com/support.html")
+			webVC.purpose = NSLocalizedString("Support", comment: "Title of the Support webview")
+			navigationController?.pushViewController(webVC, animated: true)
+		}
+	}
+
 	@IBAction func segueFromThirdParty(segue: UIStoryboardSegue) {
 
 	}

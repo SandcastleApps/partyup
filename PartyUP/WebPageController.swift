@@ -26,4 +26,15 @@ class WebPageController: UIViewController {
 		}
 	}
 
+	var purpose: String? {
+		didSet {
+			navigationController?.title = purpose ?? "Unknown Page"
+		}
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		navigationItem.title = purpose ?? "Unknown Page"
+	}
 }
