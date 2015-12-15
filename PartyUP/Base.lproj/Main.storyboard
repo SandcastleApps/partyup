@@ -22,22 +22,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2FC-d8-V6C">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FC-d8-V6C">
                                 <rect key="frame" x="0.0" y="64" width="600" height="502"/>
                                 <connections>
                                     <segue destination="r5F-kz-7J0" kind="embed" identifier="Party Embed Segue" id="7iQ-eP-NRF"/>
                                 </connections>
                             </containerView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="Google" translatesAutoresizingMaskIntoConstraints="NO" id="Wcf-3W-xUV">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Google" translatesAutoresizingMaskIntoConstraints="NO" id="Wcf-3W-xUV">
                                 <rect key="frame" x="228" y="574" width="144" height="18"/>
                             </imageView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tdY-rZ-2Mh">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdY-rZ-2Mh">
                                 <rect key="frame" x="20" y="574" width="200" height="18"/>
                                 <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bt6-ov-25O">
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bt6-ov-25O">
                                         <rect key="frame" x="0.0" y="-1" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyV-iu-gQ1">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyV-iu-gQ1">
                                         <rect key="frame" x="28" y="4" width="24.5" height="10"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -264,7 +264,7 @@
                                             <constraint firstAttribute="height" constant="100" id="iYg-sJ-lHf"/>
                                             <constraint firstAttribute="width" constant="100" id="m0Q-d5-6Ba"/>
                                         </constraints>
-                                        <inset key="contentEdgeInsets" minX="40" minY="40" maxX="40" maxY="40"/>
+                                        <inset key="contentEdgeInsets" minX="30" minY="25" maxX="30" maxY="25"/>
                                         <state key="normal" image="Logo"/>
                                         <state key="selected" title="Record"/>
                                         <userDefinedRuntimeAttributes>
