@@ -11,11 +11,7 @@ import UIKit
 class AcknowledgementsController: UITableViewController {
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Third Party Segue" {
-			if let targetVC = segue.destinationViewController as? RichTextController {
-				targetVC.url = NSBundle.mainBundle().URLForResource("Acknowledgments", withExtension: "rtf")
-			}
-		}
+
 	}
 
 	@IBAction func tutorial(sender: UIButton) {
@@ -29,7 +25,21 @@ class AcknowledgementsController: UITableViewController {
 		presentShareActions(self)
 	}
 
-	@IBAction func sequeFromThirdParty(segue: UIStoryboardSegue) {
+	@IBAction func pushThirdParty(sender: UITapGestureRecognizer) {
+		if let richVC = storyboard?.instantiateViewControllerWithIdentifier("Rich Text Controller") as? RichTextController {
+			richVC.url = NSBundle.mainBundle().URLForResource("Acknowledgments", withExtension: "rtf")
+			navigationController?.pushViewController(richVC, animated: true)
+		}
+	}
+
+	@IBAction func pushFeedback(sender: UIButton) {
+		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
+			webVC.url = NSURL(string: "https://www.surveymonkey.com/r/***REMOVED***")
+			navigationController?.pushViewController(webVC, animated: true)
+		}
+	}
+	
+	@IBAction func segueFromThirdParty(segue: UIStoryboardSegue) {
 
 	}
 
