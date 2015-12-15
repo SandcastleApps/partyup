@@ -30,6 +30,9 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
+		timerBar.trackTintColor = UIColor.lightGrayColor()
+		timerBar.roundedCorners = 1
+
 		let pvLayer = vision.previewLayer
 		pvLayer.frame = preview.bounds
 		pvLayer.cornerRadius = 10
@@ -111,7 +114,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	func resetTimerBar() {
 		timer?.invalidate()
 		timerBar.progress = 0.0
-		timerBar.progressTintColor = UIColor.yellowColor()
+		timerBar.progressTintColor = UIColor(red: 0.93, green: 0.02, blue: 0.54, alpha: 1.0)
 	}
 
 	// MARK: - Recording
@@ -120,7 +123,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		timerBar.progress = CGFloat(vision.capturedVideoSeconds / maxVideoDuration)
 
 		if timerBar.progress >= 0.5 {
-			timerBar.progressTintColor = UIColor.greenColor()
+			timerBar.progressTintColor = UIColor(red: 0.98, green: 0.66, blue: 0.26, alpha: 1.0)
 		}
 
 		if timerBar.progress >= 1.0 {
@@ -179,7 +182,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	func vision(vision: PBJVision, willStartVideoCaptureToFile fileName: String) -> String {
 		dispatch_async(dispatch_get_main_queue()) {
 			self.resetTimerBar()
-			self.timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("observeTimerInterval"), userInfo: nil, repeats: true)
+			self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("observeTimerInterval"), userInfo: nil, repeats: true)
 		}
 
 		return fileName
