@@ -208,6 +208,7 @@ class PartyRootController: UIViewController {
 			doneBlock: { (picker, row, value) in
 				self.fetchPlaceVenues(self.regions[row])
 				self.selectedRegion = row
+				Flurry.logEvent("Selected_Town", withParameters: ["town" : self.regions[row]])
 			},
 			cancelBlock: { (picker) in
 				// cancelled
@@ -216,11 +217,10 @@ class PartyRootController: UIViewController {
 	}
 
 	@IBAction func sequeFromBaking(segue: UIStoryboardSegue) {
-
 	}
 
 	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
-
+		Flurry.logEvent("Returned_From_Tasting")
 	}
 
 	@IBAction func segueFromAcknowledgements(segue: UIStoryboardSegue) {

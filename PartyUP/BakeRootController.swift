@@ -26,6 +26,8 @@ class BakeRootController: UIViewController {
 
 		progressHud.delegate = self
 
+		Flurry.logEvent("Entering_Bakery")
+
 		do {
 			try SwiftLocation.shared.currentLocation(.Neighborhood, timeout: 30,
 				onSuccess: { (location) in
@@ -87,7 +89,7 @@ class BakeRootController: UIViewController {
 			recordController.recordButton.enabled = true
 			progressHud.dismissAnimated(true);
 		} else {
-			Flurry.logError("Neighborhood_No_Venues", message: "There are no venues near users location", error: nil)
+			Flurry.logEvent("Neighborhood_No_Venues")
 			presentResultHud(progressHud,
 				inView: view,
 				withTitle: NSLocalizedString("Unsupported Venue", comment: "Hud title for no nearby venue"),
