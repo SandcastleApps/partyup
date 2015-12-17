@@ -285,25 +285,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33n-D5-WX7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3227" y="-2717"/>
+            <point key="canvasLocation" x="3212" y="-2032"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="M16-Y2-wYD">
-            <objects>
-                <navigationController storyboardIdentifier="Third Party Navigator" id="Zdg-6e-o7z" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kdR-Rb-X5t">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="0ho-AO-qfO" kind="relationship" relationship="rootViewController" id="blJ-kc-Bcn"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hnh-xZ-V8O" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3227" y="-2032"/>
-        </scene>
-        <!--Feedback-->
+        <!--Title-->
         <scene sceneID="Vaa-8c-cBV">
             <objects>
                 <viewController storyboardIdentifier="Feedback Controller" id="yuY-8z-wZC" customClass="WebPageController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
@@ -328,7 +312,7 @@
                             <constraint firstItem="CxW-EE-A2T" firstAttribute="leading" secondItem="6vh-Hi-xly" secondAttribute="leading" id="pQ2-rn-b2z"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Feedback" id="VTj-qJ-bCZ">
+                    <navigationItem key="navigationItem" title="Title" id="VTj-qJ-bCZ">
                         <barButtonItem key="leftBarButtonItem" image="Back" id="ceC-x8-tRn">
                             <connections>
                                 <segue destination="uec-hi-ikg" kind="unwind" unwindAction="segueFromThirdParty:" id="YIt-CX-p7u"/>
@@ -342,58 +326,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AtA-p9-GSo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="uec-hi-ikg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3919" y="-2717"/>
-        </scene>
-        <!--Third Party Libraries-->
-        <scene sceneID="05k-ON-FaI">
-            <objects>
-                <viewController storyboardIdentifier="Rich Text Controller" modalTransitionStyle="flipHorizontal" id="0ho-AO-qfO" customClass="RichTextController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="4IY-oB-YfX"/>
-                        <viewControllerLayoutGuide type="bottom" id="vG8-ee-Rcf"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="dq0-TG-XRG">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ksn-jN-Zl3">
-                                <rect key="frame" x="0.0" y="72" width="600" height="519.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Ksn-jN-Zl3" firstAttribute="trailing" secondItem="dq0-TG-XRG" secondAttribute="trailing" id="EsD-9y-w4J"/>
-                            <constraint firstItem="Ksn-jN-Zl3" firstAttribute="top" secondItem="4IY-oB-YfX" secondAttribute="bottom" constant="8" symbolic="YES" id="NR5-1G-74S"/>
-                            <constraint firstItem="Ksn-jN-Zl3" firstAttribute="leading" secondItem="dq0-TG-XRG" secondAttribute="leading" id="ePJ-kk-imu"/>
-                            <constraint firstItem="vG8-ee-Rcf" firstAttribute="top" secondItem="Ksn-jN-Zl3" secondAttribute="bottom" constant="8" symbolic="YES" id="slG-uH-NtW"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Third Party Libraries" id="uVY-CP-tzz">
-                        <barButtonItem key="leftBarButtonItem" image="Back" id="mpZ-7P-syI">
-                            <connections>
-                                <segue destination="ScE-GW-alt" kind="unwind" unwindAction="segueFromThirdParty:" id="9af-nl-z64"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="richText" destination="Ksn-jN-Zl3" id="cgX-Tq-Wco"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M4g-3S-3yc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="ScE-GW-alt" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="3919" y="-2032"/>
+            <point key="canvasLocation" x="3940" y="-2032"/>
         </scene>
         <!--AcknowldgeRoot-->
         <scene sceneID="eib-81-iRY">

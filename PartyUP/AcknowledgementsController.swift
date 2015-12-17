@@ -26,8 +26,9 @@ class AcknowledgementsController: UITableViewController {
 	}
 
 	@IBAction func pushThirdParty(sender: UITapGestureRecognizer) {
-		if let richVC = storyboard?.instantiateViewControllerWithIdentifier("Rich Text Controller") as? RichTextController {
+		if let richVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
 			richVC.url = NSBundle.mainBundle().URLForResource("Acknowledgments", withExtension: "rtf")
+			richVC.purpose = NSLocalizedString("Third Party Libraries", comment: "Title of the Third Party Libraries webview")
 			navigationController?.pushViewController(richVC, animated: true)
 		}
 	}
