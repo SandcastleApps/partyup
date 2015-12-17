@@ -121,6 +121,7 @@
 		1F9896901C2239E300B0DB29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Baking.strings; sourceTree = "<group>"; };
 		1F9896921C2239F000B0DB29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tasting.storyboard; sourceTree = "<group>"; };
 		1F9896951C2239F300B0DB29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Tasting.strings; sourceTree = "<group>"; };
+		1F9896961C223D7700B0DB29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Tutorial.strings; sourceTree = "<group>"; };
 		1F9997441BB323D5003457E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
 		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
@@ -143,7 +144,6 @@
 		1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptSampleController.swift; sourceTree = "<group>"; };
 		1FF051E21C1FB61800A7A67C /* WebPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebPageController.swift; sourceTree = "<group>"; };
 		1FF051E41C1FCB5900A7A67C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Acknowledge.strings; sourceTree = "<group>"; };
-		1FF051E61C20560100A7A67C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
 		1FF051E81C20562E00A7A67C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
 		1FF2BA991BCAC7A200336651 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
@@ -722,8 +722,8 @@
 		1FF051E71C20560100A7A67C /* Tutorial.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1FF051E61C20560100A7A67C /* en */,
 				1FF051E81C20562E00A7A67C /* Base */,
+				1F9896961C223D7700B0DB29 /* en */,
 			);
 			name = Tutorial.storyboard;
 			sourceTree = "<group>";
