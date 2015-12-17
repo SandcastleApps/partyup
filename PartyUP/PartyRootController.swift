@@ -29,7 +29,7 @@ class PartyRootController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		UIView.animateWithDuration(0.5, delay: 0, options: [.Autoreverse, .Repeat], animations: { self.ackButton.alpha = 0.85 }, completion: nil)
+		UIView.animateWithDuration(0.5, delay: 0, options: [.Autoreverse, .Repeat, .AllowUserInteraction], animations: { self.ackButton.alpha = 0.85 }, completion: nil)
 
 		resolvePopularPlacemarks()
 		resolveLocalPlacemark()
