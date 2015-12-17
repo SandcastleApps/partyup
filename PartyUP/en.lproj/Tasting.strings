@@ -1,0 +1,24 @@
+
+/* Class = "UIButton"; normalTitle = "Share PartyUP"; ObjectID = "8u3-TN-INi"; */
+"8u3-TN-INi.normalTitle" = "Share PartyUP";
+
+/* Class = "UILabel"; text = "Time"; ObjectID = "Sy6-pN-RsA"; */
+"Sy6-pN-RsA.text" = "Time";
+
+/* Class = "UIPageViewController"; title = "Taste Pages Navigator"; ObjectID = "Tnu-BU-9Zn"; */
+"Tnu-BU-9Zn.title" = "Taste Pages Navigator";
+
+/* Class = "UIViewController"; title = "Taste Sample Root"; ObjectID = "ZcT-Fn-GTh"; */
+"ZcT-Fn-GTh.title" = "Taste Sample Root";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "dCM-JW-bfo"; */
+"dCM-JW-bfo.title" = "Title";
+
+/* Class = "UILabel"; text = "To prevent this from happening"; ObjectID = "lgg-35-Bnb"; */
+"lgg-35-Bnb.text" = "To prevent this from happening";
+
+/* Class = "UIViewController"; title = "Taste Sample Page"; ObjectID = "qqy-na-3Zk"; */
+"qqy-na-3Zk.title" = "Taste Sample Page";
+
+/* Class = "UILabel"; text = "Crap! No More Videos"; ObjectID = "tPz-jc-M19"; */
+"tPz-jc-M19.text" = "Crap! No More Videos";

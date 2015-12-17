@@ -1,0 +1,18 @@
+
+/* Class = "UIViewController"; title = "Record Sample"; ObjectID = "8VR-ye-Fdg"; */
+"8VR-ye-Fdg.title" = "Record Sample";
+
+/* Class = "UIButton"; selectedTitle = "Record"; ObjectID = "FcL-8R-2uI"; */
+"FcL-8R-2uI.selectedTitle" = "Record";
+
+/* Class = "UIViewController"; title = "Accept Sample"; ObjectID = "RAd-iG-AkU"; */
+"RAd-iG-AkU.title" = "Accept Sample";
+
+/* Class = "UINavigationItem"; title = "Record"; ObjectID = "dSe-6C-185"; */
+"dSe-6C-185.title" = "Record";
+
+/* Class = "UINavigationItem"; title = "Accept"; ObjectID = "e7q-b2-FE6"; */
+"e7q-b2-FE6.title" = "Accept";
+
+/* Class = "UIButton"; normalTitle = "Venue"; ObjectID = "qgR-vF-K22"; */
+"qgR-vF-K22.normalTitle" = "Venue";
