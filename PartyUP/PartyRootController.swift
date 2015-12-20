@@ -185,7 +185,7 @@ class PartyRootController: UIViewController {
 
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
 		if identifier == "Bake Sample Segue" {
-			if presentedViewController is BakeRootController {
+			if presentedViewController != nil {
 				return false
 			}
 		}
