@@ -97,6 +97,8 @@ class PartyRootController: UIViewController {
 					self.busyIndicator.stopAnimating()
 					self.busyLabel.text = ""
 
+					self.partyPicker.parties = nil
+
 					Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
 					presentResultHud(self.progressHud,
 						inView: self.view,
@@ -108,11 +110,13 @@ class PartyRootController: UIViewController {
 			busyIndicator.stopAnimating()
 			busyLabel.text = ""
 
-			presentResultHud(progressHud,
-				inView: view,
-				withTitle: NSLocalizedString("Undeterined Location", comment: "Hud title location caught error"),
-				andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location caught error"),
-				indicatingSuccess: false)
+			partyPicker.parties = nil
+
+			let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services turned off alert title"),
+				message: NSLocalizedString("Please enable location services for PartyUP to see parties near you.", comment: "Location services turned off alert message"),
+				preferredStyle: .Alert)
+				alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services unavailable alert button"), style: .Default, handler: nil))
+			presentViewController(alert, animated: true, completion: nil)
 		}
 	}
 
