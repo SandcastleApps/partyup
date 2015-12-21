@@ -28,6 +28,20 @@ func pull<Wrap: DynamoObjectWrapper where Wrap.DynamoRep == AWSDynamoDBObjectMod
 
 }
 
+func count<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBModeling, Wrap.DynamoKey: NSObject>(key: Wrap.DynamoKey, resultBlock: (Int) -> Void) {
+    let queryInput = AWSDynamoDBQueryInput()
+    queryInput.tableName = Wrap.DynamoRep.dynamoDBTableName()
+    queryInput.select = .Count
+    queryInput.keyConditionExpression = "\(Wrap.DynamoRep.hashKeyAttribute())=:hashval"
+    queryInput.expressionAttributeValues = [":hashval" : ["S" : key as! String]]
+    AWSDynamoDB.defaultDynamoDB().query(queryInput).continueWithBlock { (task) in
+        guard task.error == nil else { NSLog("Error Counting \(Wrap.self): \(task.error)"); return nil }
+        guard task.exception == nil else { NSLog("Exception Counting \(Wrap.self): \(task.exception)"); return nil }
+        
+        return nil
+    }
+}
+
 func fetch<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBObjectModel, Wrap.DynamoKey: NSObject>(key: Wrap.DynamoKey, resultBlock: ([Wrap]) -> Void) {
 	let query = AWSDynamoDBQueryExpression()
 	query.hashKeyValues = key
