@@ -28,7 +28,17 @@ func pull<Wrap: DynamoObjectWrapper where Wrap.DynamoRep == AWSDynamoDBObjectMod
 
 }
 
+struct QueryFilter<T> {
+    let field: String
+    let op : String
+    let value: T
+}
+
 func count<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBModeling, Wrap.DynamoKey: NSObject>(key: Wrap.DynamoKey, type: Wrap.Type, resultBlock: (Int) -> Void) {
+    count(key, filter: QueryFilter(field: "", op: "", value: 0), type: type, resultBlock: resultBlock)
+}
+
+func count<T, Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBModeling, Wrap.DynamoKey: NSObject>(key: Wrap.DynamoKey, filter: QueryFilter<T>, type: Wrap.Type, resultBlock: (Int) -> Void) {
     
     let keyValue = AWSDynamoDBAttributeValue()
     
@@ -42,6 +52,19 @@ func count<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBModeling, 
     default:
         keyValue.NIL = 0
     }
+    
+//    let filterValue = AWSDynamoDBAttributeValue()
+//    
+//    switch filter!.value.self {
+//    case is NSString:
+//        keyValue.S = key as! String
+//    case is NSNumber:
+//        keyValue.N = "\(key)"
+//    case is NSData:
+//        keyValue.B = key as! NSData
+//    default:
+//        keyValue.NIL = 0
+//    }
 
     let queryInput = AWSDynamoDBQueryInput()
     queryInput.tableName = Wrap.DynamoRep.dynamoDBTableName()
