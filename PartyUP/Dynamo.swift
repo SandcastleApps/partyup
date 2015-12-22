@@ -28,15 +28,26 @@ func pull<Wrap: DynamoObjectWrapper where Wrap.DynamoRep == AWSDynamoDBObjectMod
 
 }
 
-func count<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBModeling, Wrap.DynamoKey: NSObject>(key: Wrap.DynamoKey, resultBlock: (Int) -> Void) {
+func count<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBModeling, Wrap.DynamoKey: NSObject>(key: Wrap.DynamoKey, sucker: Wrap, resultBlock: (Int) -> Void) {
+	let keyValue = AWSDynamoDBAttributeValue(/*dictionary: ["S" : key as! String]*/)
+	keyValue.S = key as! String
+//	let condition = AWSDynamoDBCondition()
+//	condition.comparisonOperator = .EQ
+//	condition.attributeValueList = [keyValue]
     let queryInput = AWSDynamoDBQueryInput()
     queryInput.tableName = Wrap.DynamoRep.dynamoDBTableName()
     queryInput.select = .Count
-    queryInput.keyConditionExpression = "\(Wrap.DynamoRep.hashKeyAttribute())=:hashval"
-    queryInput.expressionAttributeValues = [":hashval" : ["S" : key as! String]]
+    queryInput.keyConditionExpression = "\(Wrap.DynamoRep.hashKeyAttribute()) = :hashval"
+//	if let key = key as? String {
+		queryInput.expressionAttributeValues = [":hashval" : keyValue]
+//	}
     AWSDynamoDB.defaultDynamoDB().query(queryInput).continueWithBlock { (task) in
         guard task.error == nil else { NSLog("Error Counting \(Wrap.self): \(task.error)"); return nil }
         guard task.exception == nil else { NSLog("Exception Counting \(Wrap.self): \(task.exception)"); return nil }
+
+		if let result = task.result as? AWSDynamoDBQueryOutput {
+			resultBlock(result.count.integerValue)
+		}
         
         return nil
     }
