@@ -17,6 +17,7 @@ final class Venue: CustomDebugStringConvertible
 	let name: String
 	let details: String?
 	let location: CLLocation
+	var vitality: Int64?
 
 	init(unique: String, open: NSTimeInterval, close: NSTimeInterval, name: String, details: String?, location: CLLocation) {
 		self.unique = unique
