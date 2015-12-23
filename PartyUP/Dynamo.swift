@@ -50,27 +50,34 @@ func count<T, Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBModelin
     case is NSData:
         keyValue.B = key as! NSData
     default:
-        keyValue.NIL = 0
+        break
     }
-    
-//    let filterValue = AWSDynamoDBAttributeValue()
-//    
-//    switch filter!.value.self {
-//    case is NSString:
-//        keyValue.S = key as! String
-//    case is NSNumber:
-//        keyValue.N = "\(key)"
-//    case is NSData:
-//        keyValue.B = key as! NSData
-//    default:
-//        keyValue.NIL = 0
-//    }
 
-    let queryInput = AWSDynamoDBQueryInput()
-    queryInput.tableName = Wrap.DynamoRep.dynamoDBTableName()
-    queryInput.select = .Count
-    queryInput.keyConditionExpression = "\(Wrap.DynamoRep.hashKeyAttribute()) = :hashval"
-    queryInput.expressionAttributeValues = [":hashval" : keyValue]
+	let queryInput = AWSDynamoDBQueryInput()
+	queryInput.tableName = Wrap.DynamoRep.dynamoDBTableName()
+	queryInput.select = .Count
+	queryInput.expressionAttributeNames = ["#h" : Wrap.DynamoRep.hashKeyAttribute()]
+	queryInput.keyConditionExpression = "#h = :hashval"
+	queryInput.expressionAttributeValues = [":hashval" : keyValue]
+
+	if !filter.op.isEmpty {
+		let filterValue = AWSDynamoDBAttributeValue()
+
+		switch filter.value.self {
+		case is NSString:
+			filterValue.S = filter.value as! String
+		case is NSNumber:
+			filterValue.N = "\(filter.value)"
+		case is NSData:
+			filterValue.B = filter.value as! NSData
+		default:
+			break
+		}
+
+		queryInput.expressionAttributeNames["#r"] = filter.field
+		queryInput.filterExpression = "#r \(filter.op) :rangeval"
+		queryInput.expressionAttributeValues[":rangeval"] = filterValue
+	}
 
     AWSDynamoDB.defaultDynamoDB().query(queryInput).continueWithBlock { (task) in
         guard task.error == nil else { NSLog("Error Counting \(Wrap.self): \(task.error)"); return nil }
