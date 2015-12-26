@@ -10,7 +10,7 @@ target 'PartyUP' do
 	pod 'UIImageView-Letters', '~> 1.1'
 	pod 'SwiftLocation', '~> 0.2'
 	pod 'PBJVision', '~> 0.4'
-	pod 'Player', '~> 0.0'
+	pod 'Player', '~> 0.1'
 	pod 'ActionSheetPicker-3.0', '~> 2.0'
 	pod 'JGProgressHUD', '~> 1.3'
 	pod 'Flurry-iOS-SDK', '~> 7.3'

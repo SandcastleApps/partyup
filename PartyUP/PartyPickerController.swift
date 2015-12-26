@@ -22,13 +22,13 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	var parties: PartyPlace? {
-		willSet {
-			if newValue !== parties {
+		didSet {
+			if parties !== oldValue {
+				searchController.active = false
+				searchBarCancelButtonClicked(searchController.searchBar)
 				partyTable?.setContentOffset(CGPointZero, animated: false)
 			}
-		}
-		didSet {
-			venues = parties?.venues
+
 			refreshControl?.endRefreshing()
 		}
 	}
@@ -83,7 +83,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		if let searchString = searchController.searchBar.text {
 			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
-		searchController.searchBar.searchBarStyle = .Minimal
+		searchBar.searchBarStyle = .Minimal
 		venues = parties?.venues
 	}
 

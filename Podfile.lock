@@ -12,7 +12,7 @@ PODS:
   - Flurry-iOS-SDK/FlurrySDK (7.3.0)
   - JGProgressHUD (1.3.1)
   - PBJVision (0.4.2)
-  - Player (0.0.8)
+  - Player (0.1.0)
   - SwiftLocation (0.2.0)
   - SwiftyJSON (2.3.0)
   - UIImageView-Letters (1.1.4)
@@ -26,7 +26,7 @@ DEPENDENCIES:
   - Flurry-iOS-SDK (~> 7.3)
   - JGProgressHUD (~> 1.3)
   - PBJVision (~> 0.4)
-  - Player (~> 0.0)
+  - Player (~> 0.1)
   - SwiftLocation (~> 0.2)
   - SwiftyJSON (~> 2.3)
   - UIImageView-Letters (~> 1.1)
@@ -41,7 +41,7 @@ SPEC CHECKSUMS:
   Flurry-iOS-SDK: 054befae0fa0244fb000985bfe757d70f87a9f60
   JGProgressHUD: 153053a21d81208cb5f659691996bcefce6a9885
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
-  Player: 31becc185d219b96dac5419ce90745095940ab92
+  Player: e05be4073ea64fce1981869898ad9796c27cdd2b
   SwiftLocation: ea78ae4a822581bde7379d98c8513273723c8840
   SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
   UIImageView-Letters: f62db28076797adf3560ab7410647dc6899b9eef

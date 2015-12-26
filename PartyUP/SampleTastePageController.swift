@@ -131,21 +131,20 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
+		player.stop()
+		timer?.invalidate()
 	}
 
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		visible = true
+
 		player.delegate = self
 		if player.bufferingState == .Ready {
 			player.playFromBeginning()
 		}
 
 		Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description], timed: true)
-	}
-
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		visible = true
 	}
 
 	override func viewDidDisappear(animated: Bool) {
