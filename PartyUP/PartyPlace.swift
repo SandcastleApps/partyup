@@ -14,14 +14,12 @@ import Flurry_iOS_SDK
 
 class PartyPlace {
 	let place: CLPlacemark
-	let sticky: Bool
 	var venues: [Venue]?
 
 	private static let placesKey = "***REMOVED***"
 
-	init(place: CLPlacemark, sticky: Bool = true) {
+	init(place: CLPlacemark) {
 		self.place = place
-		self.sticky = sticky
 	}
 
 	func fetch(radius: Int, categories: String, completion: (Bool, Bool) -> Void) {

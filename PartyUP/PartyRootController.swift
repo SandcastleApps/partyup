@@ -71,7 +71,7 @@ class PartyRootController: UIViewController {
 								if let index = self.regions.indexOf({ $0?.place.locality == place?.locality }) {
 									self.regions[0] = self.regions[index]
 								} else {
-									self.regions[0] = PartyPlace(place: place!, sticky: false)
+									self.regions[0] = PartyPlace(place: place!)
 								}
 								self.fetchPlaceVenues(self.regions.first!)
 
