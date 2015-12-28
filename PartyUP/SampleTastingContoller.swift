@@ -16,7 +16,6 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 	var partyId: String? {
 		didSet {
 			if let party = partyId {
-                count(party, filter: QueryFilter(field: "time", op: ">", value: 1450829152.917634), type: Sample.self) { (count) in NSLog("\(party) = \(count)") }
 				fetch(party) { (let samples: [Sample]) in
 					let sorted = samples.sort{ $0.time.compare($1.time) == .OrderedDescending }.filter{ abs($0.time.timeIntervalSinceNow) < NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)}
 					dispatch_async(dispatch_get_main_queue()) {self.samples = sorted}

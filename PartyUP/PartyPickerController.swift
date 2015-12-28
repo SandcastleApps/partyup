@@ -55,6 +55,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self)
 	}
 
+	func updateRowAtIndex(index: Int) {
+		partyTable.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .None)
+	}
+
     // MARK: - Table view data source
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -78,6 +82,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
         return cell
 	}
+
+	// MARK: - Search
 
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
 		if let searchString = searchController.searchBar.text {

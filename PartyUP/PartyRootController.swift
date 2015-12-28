@@ -136,6 +136,9 @@ class PartyRootController: UIViewController {
 					}
 
 					if !more {
+						let staleDate = NSDate().timeIntervalSince1970 - NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
+						place.venues?.forEach { $0.updateVitalitySince(staleDate)}
+						
 						self.busyIndicator.stopAnimating()
 						self.busyLabel.text = ""
 					}
