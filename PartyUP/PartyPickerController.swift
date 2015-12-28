@@ -87,7 +87,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath)
 		cell.textLabel!.text = venues?[indexPath.row].name ?? NSLocalizedString("Mysterious Venue", comment: "Default in cell when venue name is nil")
-        cell.detailTextLabel!.text = "\(venues?[indexPath.row].vitality ?? 0) videos"
+        cell.detailTextLabel!.text = String(count: venues?[indexPath.row].vitality ?? 0, repeatedValue: Character("💃"))
 		cell.imageView?.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
 		cell.imageView?.setImageWithString(cell.textLabel!.text, color: UIColor.orangeColor(), circular:  true)
 
