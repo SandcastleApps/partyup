@@ -49,14 +49,22 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		searchController.searchBar.searchBarStyle = .Minimal
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateVenueDisplay:"), name: Venue.VitalityUpdateNotification, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 	@IBAction func updateLocalVenues() {
 		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self)
 	}
 
-	func updateRowAtIndex(index: Int) {
-		partyTable.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .None)
+    func updateVenueDisplay(note: NSNotification) {
+        if let index = venues?.indexOf({ $0.unique == (note.object as? Venue)?.unique }) {
+            partyTable.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .None)
+        }
 	}
 
     // MARK: - Table view data source
@@ -76,7 +84,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath)
 		cell.textLabel!.text = venues?[indexPath.row].name ?? NSLocalizedString("Mysterious Venue", comment: "Default in cell when venue name is nil")
-		cell.detailTextLabel!.text = venues?[indexPath.row].vitality > 0 ? "💃" : ""
+        cell.detailTextLabel!.text = "\(venues?[indexPath.row].vitality ?? 0) videos"
 		cell.imageView?.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
 		cell.imageView?.setImageWithString(cell.textLabel!.text, color: UIColor.orangeColor(), circular:  true)
 

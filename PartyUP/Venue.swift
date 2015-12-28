@@ -11,7 +11,7 @@ import CoreLocation
 
 final class Venue: CustomDebugStringConvertible
 {
-	let VitalityUpdateNotification = "VitalityUpdateNotification"
+	static let VitalityUpdateNotification = "VitalityUpdateNotification"
 
 	let unique: String
 	let open: NSTimeInterval
@@ -19,9 +19,9 @@ final class Venue: CustomDebugStringConvertible
 	let name: String
 	let details: String?
 	let location: CLLocation
-	var vitality: Int64? {
+	var vitality: Int? {
 		didSet {
-			NSNotificationCenter.defaultCenter().postNotificationName(VitalityUpdateNotification, object: self)
+			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self)
 		}
 	}
 
@@ -45,7 +45,7 @@ final class Venue: CustomDebugStringConvertible
 
 	func updateVitalitySince(time: NSTimeInterval) {
 		let fil = QueryFilter(field: "time", op: ">", value: NSNumber(double: time))
-		count(unique, filter: fil, type: Sample.self) { (count) in dispatch_async(dispatch_get_main_queue()) { NSLog("\(count)")/*self.vitality = count*/ } }
+		count(unique, filter: fil, type: Sample.self) { (count) in dispatch_async(dispatch_get_main_queue()) { self.vitality = count } }
 	}
 
 	var debugDescription: String {

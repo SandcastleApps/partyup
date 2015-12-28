@@ -117,34 +117,38 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	func fetchPlaceVenues(place: PartyPlace) {
-		busyIndicator.startAnimating()
-		busyLabel.text = NSLocalizedString("fetching", comment: "Status in bottom bar while fetching venues")
-
-		if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
-			let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
-			place.fetch(radius, categories: categories) { (success, more) in
-				dispatch_async(dispatch_get_main_queue()) {
-					if success {
-						self.partyPicker.parties = self.regions[self.selectedRegion]
-					} else {
-						presentResultHud(self.progressHud,
-							inView: self.view,
-							withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
-							andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
-							indicatingSuccess: false)
-					}
-
-					if !more {
-						let staleDate = NSDate().timeIntervalSince1970 - NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
-						place.venues?.forEach { $0.updateVitalitySince(staleDate)}
-						
-						self.busyIndicator.stopAnimating()
-						self.busyLabel.text = ""
-					}
-				}
-			}
-		}
+	func fetchPlaceVenues(place: PartyPlace!) {
+        if let place = place {
+            busyIndicator.startAnimating()
+            busyLabel.text = NSLocalizedString("fetching", comment: "Status in bottom bar while fetching venues")
+            
+            if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
+                let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
+                place.fetch(radius, categories: categories) { (success, more) in
+                    dispatch_async(dispatch_get_main_queue()) {
+                        if success {
+                            self.partyPicker.parties = self.regions[self.selectedRegion]
+                        } else {
+                            presentResultHud(self.progressHud,
+                                inView: self.view,
+                                withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
+                                andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
+                                indicatingSuccess: false)
+                        }
+                        
+                        if !more {
+                            let staleDate = NSDate().timeIntervalSince1970 - NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
+                            place.venues?.forEach { $0.updateVitalitySince(staleDate)}
+                            
+                            self.busyIndicator.stopAnimating()
+                            self.busyLabel.text = ""
+                        }
+                    }
+                }
+            }
+        } else {
+            self.partyPicker.parties = self.regions[self.selectedRegion]
+        }
 	}
 
 	override func viewDidAppear(animated: Bool) {
