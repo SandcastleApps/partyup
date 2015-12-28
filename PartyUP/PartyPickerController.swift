@@ -21,14 +21,17 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		}
 	}
 
+	private var venueTotal = 0
+
 	var parties: PartyPlace? {
-		willSet {
-			if newValue !== parties {
-				partyTable?.setContentOffset(CGPointZero, animated: false)
-			}
-		}
 		didSet {
-			venues = parties?.venues
+			if parties !== oldValue || parties?.venues?.count > venueTotal {
+				searchController.active = false
+				searchBarCancelButtonClicked(searchController.searchBar)
+				partyTable?.setContentOffset(CGPointZero, animated: false)
+				venueTotal = parties?.venues?.count ?? 0
+			}
+
 			refreshControl?.endRefreshing()
 		}
 	}
@@ -83,7 +86,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		if let searchString = searchController.searchBar.text {
 			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
-		searchController.searchBar.searchBarStyle = .Minimal
+		searchBar.searchBarStyle = .Minimal
 		venues = parties?.venues
 	}
 

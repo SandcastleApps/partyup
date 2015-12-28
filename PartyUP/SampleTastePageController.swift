@@ -131,21 +131,20 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
+		player.stop()
+		timer?.invalidate()
 	}
 
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		visible = true
+
 		player.delegate = self
 		if player.bufferingState == .Ready {
 			player.playFromBeginning()
 		}
 
 		Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description], timed: true)
-	}
-
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		visible = true
 	}
 
 	override func viewDidDisappear(animated: Bool) {
@@ -181,6 +180,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	func playerPlaybackStateDidChange(player: Player) {
 		switch player.playbackState! {
 		case .Failed:
+			NSLog("Sample playback failed on page \(page) \(sample)")
 			fallthrough
 		case .Paused:
 			fallthrough
@@ -192,6 +192,12 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	}
 
 	func playerBufferingStateDidChange(player: Player) {
+		switch player.bufferingState {
+		case .Some(.Delayed):
+			NSLog("Sample buffering delayed on page \(page) \(sample)")
+		default:
+			break
+		}
 	}
 
 	// MARK: Timer

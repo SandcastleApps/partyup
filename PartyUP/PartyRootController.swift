@@ -23,7 +23,7 @@ class PartyRootController: UIViewController {
 	private let progressHud = JGProgressHUD(style: .Light)
 
 	private var partyPicker: PartyPickerController!
-	private var regions: [PartyPlace] = []
+	private var regions: [PartyPlace!] = [nil]
 	private var selectedRegion = 0
 
     override func viewDidLoad() {
@@ -35,8 +35,12 @@ class PartyRootController: UIViewController {
 		resolveLocalPlacemark()
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("resolveLocalPlacemark"), name: PartyPickerController.VenueRefreshRequest, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("refreshSelectedRegion"), name: PartyPickerController.VenueRefreshRequest, object: nil)
     }
+
+	func refreshSelectedRegion() {
+		fetchPlaceVenues(regions[selectedRegion])
+	}
 
 	func resolvePopularPlacemarks() {
 		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
@@ -54,7 +58,6 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-
 	func resolveLocalPlacemark() {
 		busyIndicator.startAnimating()
 		busyLabel.text = NSLocalizedString("locating", comment: "Status message in bottom bar while determining user location")
@@ -65,16 +68,10 @@ class PartyRootController: UIViewController {
 					SwiftLocation.shared.reverseCoordinates(.Apple, coordinates: location?.coordinate,
 						onSuccess: { (place) in
 							dispatch_async(dispatch_get_main_queue(), {
-								if let local = self.regions.first where local.sticky == false {
-									self.regions.removeFirst()
-								}
-
-								if let index = self.regions.indexOf({ $0.place.locality == place?.locality }) {
-									if index > 0 {
-										swap(&self.regions[0], &self.regions[index])
-									}
+								if let index = self.regions.indexOf({ $0?.place.locality == place?.locality }) {
+									self.regions[0] = self.regions[index]
 								} else {
-									self.regions.insert(PartyPlace(place: place!, sticky: false), atIndex: 0)
+									self.regions[0] = PartyPlace(place: place!, sticky: false)
 								}
 								self.fetchPlaceVenues(self.regions.first!)
 
@@ -97,6 +94,8 @@ class PartyRootController: UIViewController {
 					self.busyIndicator.stopAnimating()
 					self.busyLabel.text = ""
 
+					self.partyPicker.parties = nil
+
 					Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
 					presentResultHud(self.progressHud,
 						inView: self.view,
@@ -108,11 +107,13 @@ class PartyRootController: UIViewController {
 			busyIndicator.stopAnimating()
 			busyLabel.text = ""
 
-			presentResultHud(progressHud,
-				inView: view,
-				withTitle: NSLocalizedString("Undeterined Location", comment: "Hud title location caught error"),
-				andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location caught error"),
-				indicatingSuccess: false)
+			partyPicker.parties = nil
+
+			let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services turned off alert title"),
+				message: NSLocalizedString("Please enable location services for PartyUP to see parties near you.", comment: "Location services turned off alert message"),
+				preferredStyle: .Alert)
+				alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services unavailable alert button"), style: .Default, handler: nil))
+			presentViewController(alert, animated: true, completion: nil)
 		}
 	}
 
@@ -185,7 +186,7 @@ class PartyRootController: UIViewController {
 
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
 		if identifier == "Bake Sample Segue" {
-			if presentedViewController is BakeRootController {
+			if presentedViewController != nil {
 				return false
 			}
 		}
@@ -205,13 +206,18 @@ class PartyRootController: UIViewController {
 	}
 
 	@IBAction func chooseLocation(sender: UIBarButtonItem) {
+		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
-			rows: regions.map { $0.place.locality! },
-			initialSelection: selectedRegion,
+			rows: choices,
+			initialSelection: 0,
 			doneBlock: { (picker, row, value) in
-				self.fetchPlaceVenues(self.regions[row])
 				self.selectedRegion = row
-				Flurry.logEvent("Selected_Town", withParameters: ["town" : self.regions[row]])
+				if row == 0 {
+					self.resolveLocalPlacemark()
+				} else {
+					self.fetchPlaceVenues(self.regions[row])
+				}
+				Flurry.logEvent("Selected_Town", withParameters: ["town" : choices[row]])
 			},
 			cancelBlock: { (picker) in
 				// cancelled

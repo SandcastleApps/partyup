@@ -19,7 +19,7 @@ If you're looking for a video player library written in Objective-C, checkout [P
 
 ### CocoaPods
 
-`Player` is available and recommended for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/). Swift is supported as of version 0.36.
+`Player` is available and recommended for installation using the Cocoa dependency manager [CocoaPods](http://cocoapods.org/).
 
 To integrate, add the following to your `Podfile`:
 
@@ -39,6 +39,21 @@ To integrate, add the following line to your `Cartfile`:
 
 ```ogdl
 github "piemonte/Player" >= 0.0.5
+```
+
+### Swift Package Manager
+
+Installation can be done with the [Swift Package Manager](https://swift.org/package-manager/), add the following in your `Package.swift` :
+
+```Swift
+import PackageDescription
+
+let package = Package(
+    name: "HellowWorld",
+    dependencies: [
+        .Package(url: "https://github.com/piemonte/Player.git", majorVersion: 0)]),
+    ]
+)
 ```
 
 ### Manual
@@ -64,7 +79,8 @@ Allocate and add the `Player` controller to your view hierarchy.
 Provide the file path to the resource you would like to play locally or stream. Ensure you're including the file extension.
 
 ``` Swift
- self.player.path = "Video.mp4"
+let videoUrl: NSURL = // file or http url
+self.player.setUrl(videoUrl)
 ```
 
 play/pause/chill
