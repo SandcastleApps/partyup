@@ -21,12 +21,15 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		}
 	}
 
+	private var venueTotal = 0
+
 	var parties: PartyPlace? {
 		didSet {
-			if parties !== oldValue {
+			if parties !== oldValue || parties?.venues?.count > venueTotal {
 				searchController.active = false
 				searchBarCancelButtonClicked(searchController.searchBar)
 				partyTable?.setContentOffset(CGPointZero, animated: false)
+				venueTotal = parties?.venues?.count ?? 0
 			}
 
 			refreshControl?.endRefreshing()

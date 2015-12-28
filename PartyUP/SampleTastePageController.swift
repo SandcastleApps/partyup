@@ -180,6 +180,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	func playerPlaybackStateDidChange(player: Player) {
 		switch player.playbackState! {
 		case .Failed:
+			NSLog("Sample playback failed on page \(page) \(sample)")
 			fallthrough
 		case .Paused:
 			fallthrough
@@ -191,6 +192,12 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	}
 
 	func playerBufferingStateDidChange(player: Player) {
+		switch player.bufferingState {
+		case .Some(.Delayed):
+			NSLog("Sample buffering delayed on page \(page) \(sample)")
+		default:
+			break
+		}
 	}
 
 	// MARK: Timer
