@@ -18,6 +18,7 @@ final class Venue: CustomDebugStringConvertible
 	let close: NSTimeInterval
 	let name: String
 	let details: String?
+	let vicinity: String?
 	let location: CLLocation
 	var vitality: Int? {
 		didSet {
@@ -25,12 +26,13 @@ final class Venue: CustomDebugStringConvertible
 		}
 	}
 
-	init(unique: String, open: NSTimeInterval, close: NSTimeInterval, name: String, details: String?, location: CLLocation) {
+	init(unique: String, open: NSTimeInterval, close: NSTimeInterval, name: String, details: String?, vicinity: String, location: CLLocation) {
 		self.unique = unique
 		self.open = open
 		self.close = close
 		self.name = name
 		self.details = details
+		self.vicinity = vicinity
 		self.location = location
 	}
 
@@ -40,6 +42,7 @@ final class Venue: CustomDebugStringConvertible
 		self.close = 0
 		self.name = venue["name"].stringValue
 		self.details = nil //venue["description"].string
+		self.vicinity = venue["vicinity"].stringValue.componentsSeparatedByString(",").first
 		self.location = CLLocation(latitude: venue["geometry"]["location"]["lat"].doubleValue, longitude: venue["geometry"]["location"]["lng"].doubleValue)
 	}
 
