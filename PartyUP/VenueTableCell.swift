@@ -11,9 +11,14 @@ import UIKit
 class VenueTableCell: UITableViewCell {
 
 	@IBOutlet weak private var dotImage: UIImageView!
-	@IBOutlet weak var venueLabel: UILabel!
-	@IBOutlet weak var detailLabel: UILabel!
-	@IBOutlet weak var vitalityLabel: UILabel!
+	@IBOutlet weak private var venueLabel: UILabel!
+	@IBOutlet weak private var detailLabel: UILabel!
+	@IBOutlet weak private var vitalityLabel: UILabel!
+    
+    private struct VenueTableConstants {
+        static let VitalityDivisor = 3
+        static let VitalityCap = 5
+    }
 
 	var venue: Venue? {
 		didSet {
@@ -21,9 +26,11 @@ class VenueTableCell: UITableViewCell {
 				venueLabel.text = venue.name ?? NSLocalizedString("Mysterious Venue", comment: "Default in cell when venue name is nil")
 				dotImage.setImageWithString(venueLabel.text, color: UIColor.orangeColor(), circular:  true)
 				detailLabel.text = venue.vicinity
-				vitalityLabel.text = String(count: venue.vitality ?? 0, repeatedValue: Character("💃"))
+                if var vitality = venue.vitality {
+                    vitality = vitality / VenueTableConstants.VitalityDivisor + (vitality % VenueTableConstants.VitalityDivisor > 0 ? 1 : 0)
+                    vitalityLabel.text = String(count: min(vitality, VenueTableConstants.VitalityCap), repeatedValue: Character("💃"))
+                }
 			}
 		}
 	}
-
 }
