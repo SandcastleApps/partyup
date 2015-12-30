@@ -29,7 +29,9 @@ class VenueTableCell: UITableViewCell {
                 if var vitality = venue.vitality {
                     vitality = vitality / VenueTableConstants.VitalityDivisor + (vitality % VenueTableConstants.VitalityDivisor > 0 ? 1 : 0)
                     vitalityLabel.text = String(count: min(vitality, VenueTableConstants.VitalityCap), repeatedValue: Character("💃"))
-                }
+				} else {
+					vitalityLabel.text = ""
+				}
 			}
 		}
 	}

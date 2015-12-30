@@ -22,7 +22,9 @@ final class Venue: CustomDebugStringConvertible
 	let location: CLLocation
 	var vitality: Int? {
 		didSet {
-			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self)
+			if oldValue != vitality {
+				NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self)
+			}
 		}
 	}
 
