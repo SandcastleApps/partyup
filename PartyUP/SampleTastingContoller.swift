@@ -8,10 +8,12 @@
 
 import UIKit
 
-class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
+class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var loadingProgress: UIActivityIndicatorView!
+	@IBOutlet weak var nextPage: UIButton!
+	@IBOutlet weak var previousPage: UIButton!
 
 	var partyId: String? {
 		didSet {
@@ -24,13 +26,26 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 		}
 	}
 
+	@IBAction func flipPage(sender: UIButton) {
+		if let pvc = childViewControllers.first as? UIPageViewController {
+			if let index = (pvc.viewControllers?.first as? PageProtocol)?.page {
+				if let page = dequeTastePageController(index + sender.tag) {
+					pvc.setViewControllers([page], direction: sender.tag > 0 ? UIPageViewControllerNavigationDirection.Forward : UIPageViewControllerNavigationDirection.Reverse, animated: true, completion: nil)
+					updateNavigationArrows(pvc)
+				}
+			}
+		}
+	}
+
 	private var samples: [Sample]? {
 		didSet {
 			loadingProgress.stopAnimating()
 			
-			if let page = dequeTastePageController(0) {
-				(childViewControllers.first as? UIPageViewController)?.dataSource = self
-				(childViewControllers.first as? UIPageViewController)?.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+			if let page = dequeTastePageController(0), pvc = childViewControllers.first as? UIPageViewController {
+				pvc.dataSource = self
+				pvc.delegate = self
+				pvc.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+				updateNavigationArrows(pvc)
 			}
 		}
 	}
@@ -67,5 +82,19 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource {
 		}
 
 		return nil
+	}
+
+	func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+		if completed {
+			updateNavigationArrows(pageViewController)
+		}
+	}
+
+	func updateNavigationArrows(pageViewController: UIPageViewController)
+	{
+		if let index = (pageViewController.viewControllers?.first as? PageProtocol)?.page {
+			previousPage.hidden = index == 0
+			nextPage.hidden = index == samples?.count
+		}
 	}
 }
