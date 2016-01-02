@@ -79,42 +79,58 @@ class PartyRootController: UIViewController {
 							})
 						},
 						onFail: { (error) in
-							self.busyIndicator.stopAnimating()
-							self.busyLabel.text = ""
-
-							Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
-							presentResultHud(self.progressHud,
-								inView: self.view,
-								withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
-								andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location onFail message"),
-								indicatingSuccess: false)
+							dispatch_async(dispatch_get_main_queue(), {
+								self.locationServicesFailureHandler(
+									NSLocalizedString("Locality Lookup Failed", comment: "Hud title reverse geocode onFail message"),
+									message: NSLocalizedString("Had some trouble looking up your city", comment: "Hud detail reverse geocode onFail message"),
+									error: error)
+							})
 					})
 				},
 				onFail: { (error) in
-					self.busyIndicator.stopAnimating()
-					self.busyLabel.text = ""
-
-					self.partyPicker.parties = nil
-
-					Flurry.logError("City_Determination_Failed", message: error!.localizedDescription, error: error)
-					presentResultHud(self.progressHud,
-						inView: self.view,
-						withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
-						andDetail: NSLocalizedString("Location services failure.", comment: "Hud detail location onFail message"),
-						indicatingSuccess: false)
+					dispatch_async(dispatch_get_main_queue(), {
+						if let error = error where error.domain == NSCocoaErrorDomain && error.code == 0 {
+							self.locationServicesUnavailableHandler(NSLocalizedString("Please enable \"While Using the App\" location access for PartyUP to see parties near you.", comment: "Location services denied alert message"))
+						} else {
+							self.locationServicesFailureHandler(
+								NSLocalizedString("Undetermined Location", comment: "Hud title location onFail message"),
+								message: NSLocalizedString("Location services failure.", comment: "Hud detail location onFail message"),
+								error: error)
+						}
+					})
 			})
 		} catch {
-			busyIndicator.stopAnimating()
-			busyLabel.text = ""
-
-			partyPicker.parties = nil
-
-			let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services turned off alert title"),
-				message: NSLocalizedString("Please enable location services for PartyUP to see parties near you.", comment: "Location services turned off alert message"),
-				preferredStyle: .Alert)
-				alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services unavailable alert button"), style: .Default, handler: nil))
-			presentViewController(alert, animated: true, completion: nil)
+			locationServicesUnavailableHandler(NSLocalizedString("Please enable location services to see parties near you.", comment: "Location services disabled alert message"))
 		}
+	}
+
+	func locationServicesFailureHandler(title: String, message: String, error: NSError?) {
+		self.busyIndicator.stopAnimating()
+		self.busyLabel.text = ""
+
+		regions[0] = nil
+		partyPicker.parties = regions[selectedRegion]
+
+		Flurry.logError("City_Determination_Failed", message: error?.localizedDescription, error: error)
+		presentResultHud(self.progressHud,
+			inView: self.view,
+			withTitle: title,
+			andDetail: message,
+			indicatingSuccess: false)
+	}
+
+	func locationServicesUnavailableHandler(message: String) {
+		busyIndicator.stopAnimating()
+		busyLabel.text = ""
+
+		regions[0] = nil
+		partyPicker.parties = regions[selectedRegion]
+
+		let alert = UIAlertController(title: NSLocalizedString("Location Services Disabled", comment: "Location services disabled alert title"),
+			message:message,
+			preferredStyle: .Alert)
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services disabled alert button"), style: .Default, handler: nil))
+		presentViewController(alert, animated: true, completion: nil)
 	}
 
 	func fetchPlaceVenues(place: PartyPlace!) {
@@ -248,7 +264,9 @@ class PartyRootController: UIViewController {
 	}
 
 	func observeApplicationBecameActive() {
-		if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) {
+		if regions.first! == nil {
+			resolveLocalPlacemark()
+		} else if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) {
 			if shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
 				performSegueWithIdentifier("Bake Sample Segue", sender: nil)
 			}

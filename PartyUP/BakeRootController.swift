@@ -46,21 +46,23 @@ class BakeRootController: UIViewController {
 					}
 				},
 				onFail: { (error) in
-					dispatch_async(dispatch_get_main_queue()) { self.locals = [Venue](); Flurry.logError("Neighborhood_Determination_Failed", message: error?.localizedDescription, error: error); presentResultHud(self.progressHud,
-						inView: self.view,
-						withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for poor location accuracy"),
-						andDetail: NSLocalizedString("Your location couldn't be determined with acceptable accuracy.", comment: "Hud detail for poor locaiton accuracy"),
-						indicatingSuccess: false)
+					dispatch_async(dispatch_get_main_queue()) {
+						self.locals = [Venue]();
+						if let error = error {
+							Flurry.logError("Neighborhood_Determination_Failed", message: error.localizedDescription, error: error)
+							presentResultHud(self.progressHud,
+								inView: self.view,
+								withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for poor location accuracy"),
+								andDetail: NSLocalizedString("Your location couldn't be determined with acceptable accuracy.", comment: "Hud detail for poor locaiton accuracy"),
+								indicatingSuccess: false)
+						}
+						
 					}
 			})
 		} catch {
 			locals = [Venue]()
 			Flurry.logError("Neighborhood_Error_Thrown", message: "The currentLocation call threw an error", error: nil)
-			presentResultHud(progressHud,
-				inView: view,
-				withTitle: NSLocalizedString("Undetermined Location", comment: "Hud title for location services threw an error"),
-				andDetail: NSLocalizedString("Location services are unavailable.", comment: "Hud detail for location services threw an error"),
-				indicatingSuccess: false)
+			locationServicesUnavailableHandler(NSLocalizedString("You will need to enable location services to submit videos to PartyUP.", comment: "Location services disabled alert message"))
 		}
 
 		recordController = storyboard!.instantiateViewControllerWithIdentifier("RecordSample") as! RecordSampleController
@@ -71,6 +73,14 @@ class BakeRootController: UIViewController {
 		recordController.transitionStartY = recordController.preview.frame.origin.y
 		recordController.didMoveToParentViewController(self)
     }
+
+	func locationServicesUnavailableHandler(message: String) {
+		let alert = UIAlertController(title: NSLocalizedString("Location Services Disabled", comment: "Location services disabled alert title"),
+			message:message,
+			preferredStyle: .Alert)
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services disabled alert button"), style: .Default, handler: nil))
+		presentViewController(alert, animated: true, completion: nil)
+	}
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
