@@ -93,8 +93,16 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 	func updateNavigationArrows(pageViewController: UIPageViewController)
 	{
 		if let index = (pageViewController.viewControllers?.first as? PageProtocol)?.page {
-			previousPage.hidden = index == 0
-			nextPage.hidden = index == samples?.count
+			let prev = !(index > 0)
+			let next = !(index < samples?.count)
+
+			if prev != previousPage.hidden {
+				UIView.animateWithDuration(0.5, animations: { self.previousPage.transform = prev ? CGAffineTransformMakeScale(0.1, 0.1) : CGAffineTransformIdentity }, completion: { (done) in self.previousPage.hidden = prev })
+			}
+
+			if next != nextPage.hidden {
+				UIView.animateWithDuration(0.5, animations: { self.nextPage.transform = next ? CGAffineTransformMakeScale(0.1, 0.1) : CGAffineTransformIdentity }, completion: { (done) in self.nextPage.hidden = next })
+			}
 		}
 	}
 }
