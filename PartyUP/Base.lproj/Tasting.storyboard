@@ -35,26 +35,23 @@
                                 </constraints>
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
-                            <button hidden="YES" opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFr-IG-sx6" userLabel="PreviousPage">
+                            <button hidden="YES" opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFr-IG-sx6" userLabel="PreviousPage">
                                 <rect key="frame" x="0.0" y="452" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="TFK-Gf-G0r"/>
                                     <constraint firstAttribute="height" constant="50" id="YtV-x3-fMz"/>
                                 </constraints>
-                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="10"/>
-                                <state key="normal" title="&lt;">
-                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="10"/>
+                                <state key="normal" image="Left"/>
                                 <connections>
                                     <action selector="flipPage:" destination="ZcT-Fn-GTh" eventType="touchUpInside" id="Aja-cc-reF"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ah-Tn-bnF" userLabel="Next Page">
+                            <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ah-Tn-bnF" userLabel="Next Page">
                                 <rect key="frame" x="550" y="452" width="50" height="50"/>
-                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="10"/>
-                                <state key="normal" title="&gt;">
-                                    <color key="titleColor" red="0.98039215690000003" green="0.6588235294" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="10"/>
+                                <state key="normal" image="Right"/>
                                 <connections>
                                     <action selector="flipPage:" destination="ZcT-Fn-GTh" eventType="touchUpInside" id="URz-Qa-eQp"/>
                                 </connections>
@@ -267,6 +264,8 @@
     </scenes>
     <resources>
         <image name="Dots" width="58" height="12"/>
+        <image name="Left" width="15" height="12"/>
         <image name="Logo" width="77" height="96"/>
+        <image name="Right" width="15" height="12"/>
     </resources>
 </document>
