@@ -229,6 +229,7 @@ class PartyRootController: UIViewController {
 	}
 
 	@IBAction func chooseLocation(sender: UIBarButtonItem) {
+		partyPicker.defocusSearch()
 		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
 			rows: choices,
