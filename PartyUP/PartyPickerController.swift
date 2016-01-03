@@ -54,8 +54,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		searchController.searchBar.searchBarStyle = .Minimal
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateVenueDisplay:"), name: Venue.VitalityUpdateNotification, object: nil)
+
+		let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: Selector("updateVenueDisplay:"), name: Venue.VitalityUpdateNotification, object: nil)
     }
     
     deinit {

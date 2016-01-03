@@ -34,8 +34,9 @@ class PartyRootController: UIViewController {
 		resolvePopularPlacemarks()
 		resolveLocalPlacemark()
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("refreshSelectedRegion"), name: PartyPickerController.VenueRefreshRequest, object: nil)
+		let nc = NSNotificationCenter.defaultCenter()
+		nc.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		nc.addObserver(self, selector: Selector("refreshSelectedRegion"), name: PartyPickerController.VenueRefreshRequest, object: nil)
     }
 
 	func refreshSelectedRegion() {
