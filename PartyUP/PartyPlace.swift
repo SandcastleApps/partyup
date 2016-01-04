@@ -8,33 +8,32 @@
 
 import Foundation
 import CoreLocation
+import LMGeocoder
 import Alamofire
 import SwiftyJSON
 import Flurry_iOS_SDK
 
 class PartyPlace {
-	let place: CLPlacemark
+	let place: LMAddress
 	var venues: [Venue]?
 
 	private static let placesKey = "***REMOVED***"
 
-	init(place: CLPlacemark) {
+	init(place: LMAddress) {
 		self.place = place
 	}
 
 	func fetch(radius: Int, categories: String, completion: (Bool, Bool) -> Void) {
 		if venues == nil {
-			if let loc = place.location {
-				venues = [Venue]()
-				let params = ["location" : "\(loc.coordinate.latitude),\(loc.coordinate.longitude)",
-					"types" : categories,
-					"rankby" : "distance",
-					"key" : PartyPlace.placesKey]
-				Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
-					.validate()
-					.responseJSON { response in
-						self.grokResponse(completion, response: response)
-				}
+			venues = [Venue]()
+			let params = ["location" : "\(place.coordinate.latitude),\(place.coordinate.longitude)",
+				"types" : categories,
+				"rankby" : "distance",
+				"key" : PartyPlace.placesKey]
+			Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
+				.validate()
+				.responseJSON { response in
+					self.grokResponse(completion, response: response)
 			}
 		} else {
 			completion(true, false)
