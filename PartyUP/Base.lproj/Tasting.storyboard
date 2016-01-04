@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -35,13 +35,40 @@
                                 </constraints>
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
+                            <button hidden="YES" opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFr-IG-sx6" userLabel="PreviousPage">
+                                <rect key="frame" x="0.0" y="452" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="TFK-Gf-G0r"/>
+                                    <constraint firstAttribute="height" constant="50" id="YtV-x3-fMz"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="10"/>
+                                <state key="normal" image="Left"/>
+                                <connections>
+                                    <action selector="flipPage:" destination="ZcT-Fn-GTh" eventType="touchUpInside" id="Aja-cc-reF"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ah-Tn-bnF" userLabel="Next Page">
+                                <rect key="frame" x="550" y="452" width="50" height="50"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="10"/>
+                                <state key="normal" image="Right"/>
+                                <connections>
+                                    <action selector="flipPage:" destination="ZcT-Fn-GTh" eventType="touchUpInside" id="URz-Qa-eQp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="top" secondItem="NsN-s1-SY6" secondAttribute="bottom" id="30V-KF-sJX"/>
+                            <constraint firstItem="8ah-Tn-bnF" firstAttribute="trailing" secondItem="isp-Rs-W1K" secondAttribute="trailing" id="5Dg-d7-v6s"/>
+                            <constraint firstItem="8ah-Tn-bnF" firstAttribute="centerY" secondItem="DFr-IG-sx6" secondAttribute="centerY" id="7SN-Dh-cic"/>
+                            <constraint firstItem="xzm-k1-wwA" firstAttribute="top" secondItem="DFr-IG-sx6" secondAttribute="bottom" id="Ew3-CQ-lRM"/>
+                            <constraint firstItem="DFr-IG-sx6" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leading" id="cp9-dS-fbz"/>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leading" id="eJH-iS-MfQ"/>
                             <constraint firstItem="GzV-3i-FzN" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="kcJ-ZG-7at"/>
+                            <constraint firstItem="8ah-Tn-bnF" firstAttribute="height" secondItem="DFr-IG-sx6" secondAttribute="height" id="pN9-b1-UE3"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Nzd-Vm-PKO" secondAttribute="bottom" id="rF3-sX-OAz"/>
+                            <constraint firstItem="8ah-Tn-bnF" firstAttribute="width" secondItem="DFr-IG-sx6" secondAttribute="width" id="vcq-EY-Edv"/>
                             <constraint firstItem="GzV-3i-FzN" firstAttribute="centerX" secondItem="isp-Rs-W1K" secondAttribute="centerX" id="yXz-lB-Vua"/>
                             <constraint firstAttribute="trailing" secondItem="Nzd-Vm-PKO" secondAttribute="trailing" id="zTs-9S-to6"/>
                         </constraints>
@@ -55,6 +82,8 @@
                     <connections>
                         <outlet property="container" destination="Nzd-Vm-PKO" id="KVK-bz-ZCv"/>
                         <outlet property="loadingProgress" destination="GzV-3i-FzN" id="Cdh-Nq-ROK"/>
+                        <outlet property="nextPage" destination="8ah-Tn-bnF" id="6KP-Ba-wZD"/>
+                        <outlet property="previousPage" destination="DFr-IG-sx6" id="hxc-gC-qnL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B2h-8L-w9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -235,6 +264,8 @@
     </scenes>
     <resources>
         <image name="Dots" width="58" height="12"/>
+        <image name="Left" width="15" height="12"/>
         <image name="Logo" width="77" height="96"/>
+        <image name="Right" width="15" height="12"/>
     </resources>
 </document>

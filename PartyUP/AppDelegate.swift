@@ -86,7 +86,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
 
+		application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
+
 		return true
+	}
+
+	func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+//		let localNote = UILocalNotification()
+//		localNote.alertAction = "find a party"
+//		localNote.alertBody = "Let's see what kind of fun we can have and contribute some video on the way!"
+//		localNote.fireDate = NSDate(timeIntervalSinceNow: 5)
+//		localNote.repeatInterval = .Minute
+//		application.scheduleLocalNotification(localNote)
 	}
 
 	func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {

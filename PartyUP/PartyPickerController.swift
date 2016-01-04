@@ -26,8 +26,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	var parties: PartyPlace? {
 		didSet {
 			if parties !== oldValue || parties?.venues?.count > venueTotal {
-				searchController.active = false
-				searchBarCancelButtonClicked(searchController.searchBar)
+				cancelSearch()
 				venueTotal = parties?.venues?.count ?? 0
 
 				if parties !== oldValue {
@@ -55,8 +54,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		searchController.searchBar.searchBarStyle = .Minimal
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateVenueDisplay:"), name: Venue.VitalityUpdateNotification, object: nil)
+
+		let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: Selector("updateVenueDisplay:"), name: Venue.VitalityUpdateNotification, object: nil)
     }
     
     deinit {
@@ -94,6 +94,17 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	// MARK: - Search
+
+	func cancelSearch() {
+		searchController.active = false
+		searchBarCancelButtonClicked(searchController.searchBar)
+	}
+
+	func defocusSearch() {
+		if searchController.searchBar.isFirstResponder() {
+			searchController.searchBar.resignFirstResponder()
+		}
+	}
 
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
 		if let searchString = searchController.searchBar.text {
