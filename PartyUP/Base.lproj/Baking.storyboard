@@ -85,7 +85,13 @@
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-eA-L1I" userLabel="Status">
                                         <rect key="frame" x="279" y="290" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
+                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSC-ej-6Uw" userLabel="Status">
+                                        <rect key="frame" x="279" y="290" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -93,14 +99,21 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Bre-eA-L1I" firstAttribute="centerY" secondItem="e7N-lt-t9J" secondAttribute="centerY" id="39g-v9-sHA"/>
+                                    <constraint firstItem="wSC-ej-6Uw" firstAttribute="baseline" secondItem="Bre-eA-L1I" secondAttribute="baseline" id="3js-Qv-tc5"/>
+                                    <constraint firstItem="wSC-ej-6Uw" firstAttribute="leading" secondItem="lhj-Vi-QG8" secondAttribute="trailing" constant="8" symbolic="YES" id="5Ky-TO-96v">
+                                        <variation key="heightClass=regular" constant="40"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="wSC-ej-6Uw" secondAttribute="trailing" constant="16" id="7eS-d2-DfH">
+                                        <variation key="heightClass=regular" constant="0.0"/>
+                                    </constraint>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="lhj-Vi-QG8" secondAttribute="centerX" id="8Qc-wa-tMS"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="e7N-lt-t9J" secondAttribute="centerX" id="Ep1-5e-PQD"/>
                                     <constraint firstItem="lhj-Vi-QG8" firstAttribute="height" secondItem="FcL-8R-2uI" secondAttribute="height" multiplier="1.2:1" id="Fo8-IL-Ghg"/>
-                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="trailing" secondItem="lhj-Vi-QG8" secondAttribute="leading" constant="8" symbolic="YES" id="NQF-zu-di9">
-                                        <variation key="heightClass=regular" constant="8" symbolic="YES"/>
-                                    </constraint>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerY" secondItem="e7N-lt-t9J" secondAttribute="centerY" id="Uk3-xf-35i"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerY" secondItem="lhj-Vi-QG8" secondAttribute="centerY" id="aiw-4A-EZ6"/>
+                                    <constraint firstItem="lhj-Vi-QG8" firstAttribute="leading" secondItem="Bre-eA-L1I" secondAttribute="trailing" constant="29" id="gtg-fN-IQn">
+                                        <variation key="heightClass=regular" constant="40"/>
+                                    </constraint>
                                     <constraint firstItem="Bre-eA-L1I" firstAttribute="leading" secondItem="e7N-lt-t9J" secondAttribute="leading" constant="20" symbolic="YES" id="iiz-53-0JO">
                                         <variation key="heightClass=regular" constant="0.0"/>
                                     </constraint>
@@ -111,17 +124,21 @@
                                         <exclude reference="lhj-Vi-QG8"/>
                                         <exclude reference="FcL-8R-2uI"/>
                                         <exclude reference="Bre-eA-L1I"/>
+                                        <exclude reference="wSC-ej-6Uw"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="39g-v9-sHA"/>
-                                        <exclude reference="NQF-zu-di9"/>
                                         <exclude reference="iiz-53-0JO"/>
                                         <exclude reference="Fo8-IL-Ghg"/>
+                                        <exclude reference="gtg-fN-IQn"/>
                                         <exclude reference="vfM-6t-Kec"/>
                                         <exclude reference="8Qc-wa-tMS"/>
                                         <exclude reference="Ep1-5e-PQD"/>
                                         <exclude reference="Uk3-xf-35i"/>
                                         <exclude reference="aiw-4A-EZ6"/>
+                                        <exclude reference="3js-Qv-tc5"/>
+                                        <exclude reference="5Ky-TO-96v"/>
+                                        <exclude reference="7eS-d2-DfH"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
@@ -129,17 +146,21 @@
                                         <include reference="lhj-Vi-QG8"/>
                                         <include reference="FcL-8R-2uI"/>
                                         <include reference="Bre-eA-L1I"/>
+                                        <include reference="wSC-ej-6Uw"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="39g-v9-sHA"/>
-                                        <include reference="NQF-zu-di9"/>
                                         <include reference="iiz-53-0JO"/>
                                         <include reference="Fo8-IL-Ghg"/>
+                                        <include reference="gtg-fN-IQn"/>
                                         <include reference="vfM-6t-Kec"/>
                                         <include reference="8Qc-wa-tMS"/>
                                         <include reference="Ep1-5e-PQD"/>
                                         <include reference="Uk3-xf-35i"/>
                                         <include reference="aiw-4A-EZ6"/>
+                                        <include reference="3js-Qv-tc5"/>
+                                        <include reference="5Ky-TO-96v"/>
+                                        <include reference="7eS-d2-DfH"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -194,8 +215,9 @@
                         <outlet property="naviBar" destination="Aq5-uh-elp" id="NjK-oq-bRS"/>
                         <outlet property="preview" destination="TZp-pU-snf" id="Svs-BO-dEA"/>
                         <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>
-                        <outlet property="recordStatus" destination="Bre-eA-L1I" id="fcN-U6-1OO"/>
                         <outlet property="timerBar" destination="lhj-Vi-QG8" id="A5l-CV-jBL"/>
+                        <outletCollection property="countdownLabels" destination="wSC-ej-6Uw" collectionClass="NSMutableArray" id="M8W-cB-slv"/>
+                        <outletCollection property="countdownLabels" destination="Bre-eA-L1I" collectionClass="NSMutableArray" id="d3m-5C-c8P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47u-Gd-lAd" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -17,8 +17,8 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	@IBOutlet weak var timerBar: DACircularProgressView!
 	@IBOutlet weak var preview: UIView!
 	@IBOutlet weak var naviBar: UINavigationBar!
-    @IBOutlet weak var recordStatus: UILabel!
-
+    @IBOutlet var countdownLabels: [UILabel]!
+    
 	var transitionStartY: CGFloat = 0.0
 
 	private let maxVideoDuration = 10.0
@@ -117,20 +117,36 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		timer?.invalidate()
 		timerBar.progress = 0.0
 		timerBar.progressTintColor = UIColor(red: 0.93, green: 0.02, blue: 0.54, alpha: 1.0)
+        countdownLabels.forEach { (count) in
+            count.textColor = timerBar.progressTintColor
+        }
+        lastReportedTime = -1
 	}
 
 	// MARK: - Recording
+    
+    var lastReportedTime = -1
 
 	func observeTimerInterval() {
 		timerBar.progress = CGFloat(vision.capturedVideoSeconds / maxVideoDuration)
 
 		if timerBar.progress >= 0.5 {
 			timerBar.progressTintColor = UIColor(red: 0.98, green: 0.66, blue: 0.26, alpha: 1.0)
+            countdownLabels.forEach { (count) in count.textColor = timerBar.progressTintColor }
 		}
 
 		if timerBar.progress >= 1.0 {
 			endRecording(false)
 		}
+        
+        let captured = Int(vision.capturedVideoSeconds)
+        if lastReportedTime < captured {
+            lastReportedTime = captured
+            countdownLabels.forEach { (count) in count.text = "\(lastReportedTime - Int(minVideoDuration))" }
+            
+            countdownLabels.forEach { (count) in count.transform = CGAffineTransformIdentity; count.alpha = 1.0 }
+            UIView.animateWithDuration(0.9, animations: { self.countdownLabels.forEach { (count) in count.transform = CGAffineTransformMakeScale(3, 3); count.alpha = 0.0 } }, completion: nil)
+        }
 	}
 
 	@IBAction func startRecording() {
@@ -146,9 +162,13 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 				self.timerBar.transform = CGAffineTransformMakeScale(1.2, 1.2)
 			},
 			completion: nil)
+        
+        countdownLabels.forEach { (count) in count.hidden = false }
 	}
 
     func endRecording(abandon: Bool = false) {
+        countdownLabels.forEach { (count) in count.hidden = true }
+        
         if vision.capturedVideoSeconds < minVideoDuration || abandon {
             vision.cancelVideoCapture()
         } else {
