@@ -9,6 +9,7 @@
 import UIKit
 import ActionSheetPicker_3_0
 import INTULocationManager
+import LMGeocoder
 import CoreLocation
 import JGProgressHUD
 import Flurry_iOS_SDK
@@ -46,15 +47,15 @@ class PartyRootController: UIViewController {
 	func resolvePopularPlacemarks() {
 		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
 			for city in cities {
-//				INTULocationManager.shared.reverseAddress(.GoogleMaps, address: city, region: nil,
-//					onSuccess: { (place) in
-//						dispatch_async(dispatch_get_main_queue(), {
-//							self.regions.append(PartyPlace(place: place!))
-//						})
-//					},
-//					onFail: { (error) in
-//						NSLog("Place Error: \(error)")
-//				})
+				LMGeocoder.sharedInstance().geocodeAddressString(city, service: .GoogleService) { (places, error) in
+					if let place = places.first as? LMAddress where error == nil {
+						dispatch_async(dispatch_get_main_queue(), {
+							self.regions.append(PartyPlace(place: place))
+						})
+					} else {
+						NSLog("Place Error: \(error)")
+					}
+				}
 			}
 		}
 	}
@@ -65,26 +66,23 @@ class PartyRootController: UIViewController {
 
 		INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.City, timeout: 60) { (location, accuracy, status) in
 				if status == .Success {
-					print("success: \(location) \(accuracy)")
-					//					INTULocationManager.shared.reverseCoordinates(.Apple, coordinates: location?.coordinate,
-					//						onSuccess: { (place) in
-					//							dispatch_async(dispatch_get_main_queue(), {
-					//								if let index = self.regions.indexOf({ $0?.place.locality == place?.locality }) {
-					//									self.regions[0] = self.regions[index]
-					//								} else {
-					//									self.regions[0] = PartyPlace(place: place!)
-					//								}
-					//								self.fetchPlaceVenues(self.regions.first!)
-					//
-					//								Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
-					//							}),
-					//							onFail: { (error) in
-					//								self.locationServicesFailureHandler(
-					//									NSLocalizedString("Locality Lookup Failed", comment: "Hud title reverse geocode onFail message"),
-					//										message: NSLocalizedString("Had some trouble looking up your city", comment: "Hud detail reverse geocode onFail message"),
-					//										error: error)
-					//							}
-					//					}
+					LMGeocoder.sharedInstance().reverseGeocodeCoordinate(location.coordinate, service: .GoogleService) { (places, error) in
+							if let place = places.first as? LMAddress where error == nil {
+								dispatch_async(dispatch_get_main_queue(), {
+									if let index = self.regions.indexOf({ $0?.place.locality == place.locality }) {
+										self.regions[0] = self.regions[index]
+									} else {
+										self.regions[0] = PartyPlace(place: place)
+									}
+									self.fetchPlaceVenues(self.regions.first!)
+
+									Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
+								})
+							} else {
+								self.handleLocationErrors(true, message: NSLocalizedString("Locality Lookup Failed", comment: "Hud message for failed locality lookup"))
+								Flurry.logError("City_Locality_Failed", message: error.localizedDescription, error: error)
+							}
+					}
 				} else {
 					var message = "Unknown Error"
 					var hud = true
@@ -110,28 +108,33 @@ class PartyRootController: UIViewController {
 						message = NSLocalizedString("Strange, very strange.", comment: "Location services succeeded but we went to error.")
 						hud = true
 					}
-					dispatch_async(dispatch_get_main_queue()) {
-						self.busyIndicator.stopAnimating()
-						self.busyLabel.text = ""
-						self.regions[0] = nil
-						self.partyPicker.parties = self.regions[self.selectedRegion]
 
-						if hud == true {
-							presentResultHud(self.progressHud,
-								inView: self.view,
-								withTitle: NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"),
-								andDetail: message,
-								indicatingSuccess: false)
-						} else {
-							let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
-								message:message,
-								preferredStyle: .Alert)
-							alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services disabled alert button"), style: .Default, handler: nil))
-							self.presentViewController(alert, animated: true, completion: nil)
-						}
+					self.handleLocationErrors(hud, message: message)
 
-						Flurry.logError("City_Determination_Failed", message: "Reason \(status)", error: nil)
-					}
+					Flurry.logError("City_Determination_Failed", message: "Reason \(status)", error: nil)
+			}
+		}
+	}
+
+	func handleLocationErrors(hud: Bool, message: String) {
+		dispatch_async(dispatch_get_main_queue()) {
+			self.busyIndicator.stopAnimating()
+			self.busyLabel.text = ""
+			self.regions[0] = nil
+			self.partyPicker.parties = self.regions[self.selectedRegion]
+
+			if hud == true {
+				presentResultHud(self.progressHud,
+					inView: self.view,
+					withTitle: NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"),
+					andDetail: message,
+					indicatingSuccess: false)
+			} else {
+				let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
+					message:message,
+					preferredStyle: .Alert)
+				alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services disabled alert button"), style: .Default, handler: nil))
+				self.presentViewController(alert, animated: true, completion: nil)
 			}
 		}
 	}
