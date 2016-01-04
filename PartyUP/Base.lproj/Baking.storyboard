@@ -83,13 +83,13 @@
                                             <action selector="stopRecording" destination="8VR-ye-Fdg" eventType="touchUpInside" id="Q1M-9u-7K0"/>
                                         </connections>
                                     </button>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-eA-L1I" userLabel="Status">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-eA-L1I" userLabel="Status">
                                         <rect key="frame" x="279" y="290" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSC-ej-6Uw" userLabel="Status">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSC-ej-6Uw" userLabel="Status">
                                         <rect key="frame" x="279" y="290" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -129,6 +129,9 @@
                                     <mask key="constraints">
                                         <exclude reference="39g-v9-sHA"/>
                                         <exclude reference="iiz-53-0JO"/>
+                                        <exclude reference="3js-Qv-tc5"/>
+                                        <exclude reference="5Ky-TO-96v"/>
+                                        <exclude reference="7eS-d2-DfH"/>
                                         <exclude reference="Fo8-IL-Ghg"/>
                                         <exclude reference="gtg-fN-IQn"/>
                                         <exclude reference="vfM-6t-Kec"/>
@@ -136,9 +139,6 @@
                                         <exclude reference="Ep1-5e-PQD"/>
                                         <exclude reference="Uk3-xf-35i"/>
                                         <exclude reference="aiw-4A-EZ6"/>
-                                        <exclude reference="3js-Qv-tc5"/>
-                                        <exclude reference="5Ky-TO-96v"/>
-                                        <exclude reference="7eS-d2-DfH"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
@@ -151,6 +151,9 @@
                                     <mask key="constraints">
                                         <include reference="39g-v9-sHA"/>
                                         <include reference="iiz-53-0JO"/>
+                                        <include reference="3js-Qv-tc5"/>
+                                        <include reference="5Ky-TO-96v"/>
+                                        <include reference="7eS-d2-DfH"/>
                                         <include reference="Fo8-IL-Ghg"/>
                                         <include reference="gtg-fN-IQn"/>
                                         <include reference="vfM-6t-Kec"/>
@@ -158,9 +161,6 @@
                                         <include reference="Ep1-5e-PQD"/>
                                         <include reference="Uk3-xf-35i"/>
                                         <include reference="aiw-4A-EZ6"/>
-                                        <include reference="3js-Qv-tc5"/>
-                                        <include reference="5Ky-TO-96v"/>
-                                        <include reference="7eS-d2-DfH"/>
                                     </mask>
                                 </variation>
                             </view>
