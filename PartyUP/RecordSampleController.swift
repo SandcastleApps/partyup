@@ -17,6 +17,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	@IBOutlet weak var timerBar: DACircularProgressView!
 	@IBOutlet weak var preview: UIView!
 	@IBOutlet weak var naviBar: UINavigationBar!
+    @IBOutlet weak var recordStatus: UILabel!
 
 	var transitionStartY: CGFloat = 0.0
 
@@ -128,7 +129,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		}
 
 		if timerBar.progress >= 1.0 {
-			stopRecording()
+			endRecording(false)
 		}
 	}
 
@@ -147,8 +148,12 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			completion: nil)
 	}
 
-	@IBAction func stopRecording() {
-		vision.endVideoCapture()
+    func endRecording(abandon: Bool = false) {
+        if vision.capturedVideoSeconds < minVideoDuration || abandon {
+            vision.cancelVideoCapture()
+        } else {
+            vision.endVideoCapture()
+        }
 
 		UIView.animateWithDuration(0.5,
 			delay: 0,
@@ -161,24 +166,31 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			},
 			completion: nil)
 	}
+    
+    @IBAction func stopRecording() {
+        endRecording(false)
+    }
+    
+    @IBAction func abandonRecording() {
+        endRecording(true)
+    }
 
 	// MARK: - PBJ Delegate
 
 	func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
-		if error == nil {
+        resetTimerBar()
+        
+		if let err = error {
+            if err.domain == PBJVisionErrorDomain && err.code == PBJVisionErrorType.Cancelled.rawValue {
+                Flurry.logEvent("Truncated_Sample")
+            } else {
+                Flurry.logError("Video_Capture_Error", message: error?.localizedDescription, error: error)
+            }
+        } else {
 			if let out = videoDict?[PBJVisionVideoPathKey] as? String {
-				if let duration = videoDict?[PBJVisionVideoCapturedDurationKey] as? Double where duration >= minVideoDuration {
-					host?.recordedSample(NSURL(fileURLWithPath: out))
-				} else {
-					Flurry.logEvent("Short_Sample")
-					if let error = try? NSFileManager.defaultManager().removeItemAtPath(out) {
-						NSLog("Failed to delete cancelled video with error: \(error)")
-					}
-				}
+                host?.recordedSample(NSURL(fileURLWithPath: out))
 			}
-		}
-
-		resetTimerBar()
+        }
 	}
 
 	func vision(vision: PBJVision, willStartVideoCaptureToFile fileName: String) -> String {
