@@ -59,10 +59,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-PartyUP/Alamofire.framework'
   install_framework 'Pods-PartyUP/DACircularProgress.framework'
   install_framework 'Pods-PartyUP/Flurry_iOS_SDK.framework'
+  install_framework 'Pods-PartyUP/INTULocationManager.framework'
   install_framework 'Pods-PartyUP/JGProgressHUD.framework'
   install_framework 'Pods-PartyUP/PBJVision.framework'
   install_framework 'Pods-PartyUP/Player.framework'
-  install_framework 'Pods-PartyUP/SwiftLocation.framework'
   install_framework 'Pods-PartyUP/SwiftyJSON.framework'
   install_framework 'Pods-PartyUP/UIImageView_Letters.framework'
 fi
@@ -74,10 +74,10 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-PartyUP/Alamofire.framework'
   install_framework 'Pods-PartyUP/DACircularProgress.framework'
   install_framework 'Pods-PartyUP/Flurry_iOS_SDK.framework'
+  install_framework 'Pods-PartyUP/INTULocationManager.framework'
   install_framework 'Pods-PartyUP/JGProgressHUD.framework'
   install_framework 'Pods-PartyUP/PBJVision.framework'
   install_framework 'Pods-PartyUP/Player.framework'
-  install_framework 'Pods-PartyUP/SwiftLocation.framework'
   install_framework 'Pods-PartyUP/SwiftyJSON.framework'
   install_framework 'Pods-PartyUP/UIImageView_Letters.framework'
 fi

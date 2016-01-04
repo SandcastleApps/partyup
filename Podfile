@@ -8,7 +8,7 @@ target 'PartyUP' do
 	pod 'Alamofire', '~> 3.1'
 	pod 'SwiftyJSON', '~> 2.3'
 	pod 'UIImageView-Letters', '~> 1.1'
-	pod 'SwiftLocation', '~> 0.2'
+	pod 'INTULocationManager', '~> 4.1'
 	pod 'PBJVision', '~> 0.4'
 	pod 'Player', '~> 0.1'
 	pod 'ActionSheetPicker-3.0', '~> 2.0'
