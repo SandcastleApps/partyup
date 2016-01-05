@@ -20,7 +20,7 @@ def purge_handler(event, context):
     dynamodb = boto3.resource('dynamodb')
 
     table = dynamodb.Table('Samples')
-    filter = Attr('time').lte(decimal.Decimal(time.time()-43200))
+    filter = Attr('time').lte(decimal.Decimal(time.time()-86400))
 
     with table.batch_writer() as batch:
         response = table.scan(

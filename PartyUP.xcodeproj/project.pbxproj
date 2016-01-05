@@ -111,7 +111,7 @@
 		1F427A221BA59F4C00E622CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F71B5DE1C0897E800F5740E /* Governors.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Governors.gpx; path = Globetrotter/Governors.gpx; sourceTree = SOURCE_ROOT; };
 		1F71B5DF1C0897E800F5740E /* Home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Home.gpx; path = Globetrotter/Home.gpx; sourceTree = SOURCE_ROOT; };
-		1F7463981C04A0AE00182278 /* purge.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = purge.py; path = PartyUPLambda/purge.py; sourceTree = "<group>"; };
+		1F7463981C04A0AE00182278 /* purge.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = purge.py; path = PartyUPLambda/purge.py; sourceTree = "<group>"; usesTabs = 0; };
 		1F7687931BFE278200D96768 /* HudUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudUtilities.swift; sourceTree = "<group>"; };
 		1F8BF1C01C1C55C500221D82 /* AcknowledgementsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcknowledgementsController.swift; sourceTree = "<group>"; };
 		1F8BF1C31C1C55DD00221D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Acknowledge.storyboard; sourceTree = "<group>"; };
