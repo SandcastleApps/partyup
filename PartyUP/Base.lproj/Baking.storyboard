@@ -78,9 +78,9 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="abandonRecording" destination="8VR-ye-Fdg" eventType="touchUpOutside" id="1M5-uW-P4i"/>
                                             <action selector="startRecording" destination="8VR-ye-Fdg" eventType="touchDown" id="LVD-pD-ud2"/>
-                                            <action selector="stopRecording" destination="8VR-ye-Fdg" eventType="touchUpInside" id="Q1M-9u-7K0"/>
+                                            <action selector="stopRecording" destination="8VR-ye-Fdg" eventType="touchUpInside" id="4Mo-ya-3JM"/>
+                                            <action selector="stopRecording" destination="8VR-ye-Fdg" eventType="touchUpOutside" id="s4n-aA-Xik"/>
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-eA-L1I" userLabel="Status">

@@ -136,7 +136,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		}
 
 		if timerBar.progress >= 1.0 {
-			endRecording(false)
+			stopRecording()
 		}
         
         let captured = Int(vision.capturedVideoSeconds)
@@ -166,10 +166,10 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
         countdownLabels.forEach { (count) in count.hidden = false }
 	}
 
-    func endRecording(abandon: Bool = false) {
+    @IBAction func stopRecording() {
         countdownLabels.forEach { (count) in count.hidden = true }
         
-        if vision.capturedVideoSeconds < minVideoDuration || abandon {
+        if vision.capturedVideoSeconds < minVideoDuration {
             vision.cancelVideoCapture()
         } else {
             vision.endVideoCapture()
@@ -186,14 +186,6 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			},
 			completion: nil)
 	}
-    
-    @IBAction func stopRecording() {
-        endRecording(false)
-    }
-    
-    @IBAction func abandonRecording() {
-        endRecording(true)
-    }
 
 	// MARK: - PBJ Delegate
 
