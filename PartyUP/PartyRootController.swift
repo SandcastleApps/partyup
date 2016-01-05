@@ -47,7 +47,7 @@ class PartyRootController: UIViewController {
 	func resolvePopularPlacemarks() {
 		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
 			for city in cities {
-				LMGeocoder.sharedInstance().geocodeAddressString(city, service: .GoogleService) { (places, error) in
+				LMGeocoder().geocodeAddressString(city, service: .AppleService) { (places, error) in
 					if let place = places.first as? LMAddress where error == nil {
 						dispatch_async(dispatch_get_main_queue(), {
 							self.regions.append(PartyPlace(place: place))
@@ -66,7 +66,7 @@ class PartyRootController: UIViewController {
 
 		INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.City, timeout: 60) { (location, accuracy, status) in
 				if status == .Success {
-					LMGeocoder.sharedInstance().reverseGeocodeCoordinate(location.coordinate, service: .GoogleService) { (places, error) in
+					LMGeocoder().reverseGeocodeCoordinate(location.coordinate, service: .GoogleService) { (places, error) in
 							if let place = places.first as? LMAddress where error == nil {
 								dispatch_async(dispatch_get_main_queue(), {
 									if let index = self.regions.indexOf({ $0?.place.locality == place.locality }) {
@@ -272,7 +272,9 @@ class PartyRootController: UIViewController {
 
 	func observeApplicationBecameActive() {
 		if regions.first! == nil {
-			resolveLocalPlacemark()
+			if INTULocationManager.locationServicesState() == .Available {
+				resolveLocalPlacemark()
+			}
 		} else if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) {
 			if shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
 				performSegueWithIdentifier("Bake Sample Segue", sender: nil)
