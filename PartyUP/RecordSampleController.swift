@@ -132,20 +132,28 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 		if timerBar.progress >= 0.5 {
 			timerBar.progressTintColor = UIColor(red: 0.98, green: 0.66, blue: 0.26, alpha: 1.0)
-            countdownLabels.forEach { (count) in count.textColor = timerBar.progressTintColor }
 		}
 
 		if timerBar.progress >= 1.0 {
 			stopRecording()
 		}
         
-        let captured = Int(vision.capturedVideoSeconds)
+        let captured = Int(min(vision.capturedVideoSeconds, minVideoDuration))
         if lastReportedTime < captured {
             lastReportedTime = captured
-            countdownLabels.forEach { (count) in count.text = "\(lastReportedTime - Int(minVideoDuration))" }
+            
+            var counter = "👌"
+            var alpha: CGFloat = 1.0
+            var scale: CGFloat = 2
+            if lastReportedTime < Int(minVideoDuration) {
+                counter = "\(Int(minVideoDuration) - lastReportedTime)"
+                alpha = 0.0
+                scale = 3
+            }
+            countdownLabels.forEach { (count) in count.text = counter }
             
             countdownLabels.forEach { (count) in count.transform = CGAffineTransformIdentity; count.alpha = 1.0 }
-            UIView.animateWithDuration(0.9, animations: { self.countdownLabels.forEach { (count) in count.transform = CGAffineTransformMakeScale(3, 3); count.alpha = 0.0 } }, completion: nil)
+            UIView.animateWithDuration(0.9, animations: { self.countdownLabels.forEach { (count) in count.transform = CGAffineTransformMakeScale(scale, scale); count.alpha = alpha } }, completion: nil)
         }
 	}
 
@@ -163,7 +171,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			},
 			completion: nil)
         
-        countdownLabels.forEach { (count) in count.hidden = false }
+        countdownLabels.forEach { (count) in count.hidden = false; count.text = nil }
 	}
 
     @IBAction func stopRecording() {
