@@ -26,7 +26,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	var parties: PartyPlace? {
 		didSet {
 			if parties !== oldValue || parties?.venues?.count > venueTotal {
-				cancelSearch()
+				updateSearchResultsForSearchController(searchController)
 				venueTotal = parties?.venues?.count ?? 0
 
 				if parties !== oldValue {
@@ -118,6 +118,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		if let searchString = searchController.searchBar.text where searchController.active {
 			searchController.searchBar.searchBarStyle = .Prominent
 			venues = parties?.venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
+		} else {
+			venues = parties?.venues
 		}
 	}
 
