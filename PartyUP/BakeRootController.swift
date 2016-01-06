@@ -20,6 +20,7 @@ class BakeRootController: UIViewController {
 	var venues = [Venue]()
 
 	private var locals: [Venue]!
+	private var locationRequestId: INTULocationRequestID = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ class BakeRootController: UIViewController {
 
 		Flurry.logEvent("Entering_Bakery")
 
-		INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.Neighborhood, timeout: 30) { (location, accuracy, status) in
+		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.Neighborhood, timeout: 30) { (location, accuracy, status) in
 			if status == .Success {
 				let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
 				let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }.sort { $0.location.distanceFromLocation(location) < $1.location.distanceFromLocation(location) }
@@ -88,6 +89,10 @@ class BakeRootController: UIViewController {
 		recordController.transitionStartY = recordController.preview.frame.origin.y
 		recordController.didMoveToParentViewController(self)
     }
+
+	deinit {
+		INTULocationManager.sharedInstance().cancelLocationRequest(locationRequestId)
+	}
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
