@@ -24,7 +24,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "PartyUP/AcceptSampleController.swift"
@@ -48,18 +48,18 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             condition = "error != nil"
             continueAfterRunningActions = "Yes"
             filePath = "PartyUP/RecordSampleController.swift"
-            timestampString = "471904884.885256"
+            timestampString = "473722351.542366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "vision(_:capturedVideo:error:)"
-            landmarkType = "5">
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "RecordSampleController"
+            landmarkType = "3">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
@@ -68,6 +68,38 @@
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PartyUP.RecordSampleController.endRecording (PartyUP.RecordSampleController)(Swift.Bool) -&gt; ()"
+                  moduleName = "PartyUP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fritz/Projects/PartyUp/PartyUP/RecordSampleController.swift"
+                  timestampString = "473713391.310909"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PartyUP.RecordSampleController.(endRecording (PartyUP.RecordSampleController) -&gt; (Swift.Bool) -&gt; ()).(default argument 0)"
+                  moduleName = "PartyUP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fritz/Projects/PartyUp/PartyUP/RecordSampleController.swift"
+                  timestampString = "473713391.31104"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
