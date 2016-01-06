@@ -47,8 +47,8 @@ class PartyRootController: UIViewController {
 	func resolvePopularPlacemarks() {
 		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
 			for city in cities {
-				LMGeocoder().geocodeAddressString(city, service: .AppleService) { (places, error) in
-					if let place = places.first as? LMAddress where error == nil {
+				LMGeocoder().geocodeAddressString(city, service: .GoogleService) { (places, error) in
+					if let place = places?.first as? LMAddress where error == nil {
 						dispatch_async(dispatch_get_main_queue(), {
 							self.regions.append(PartyPlace(place: place))
 						})
@@ -66,8 +66,8 @@ class PartyRootController: UIViewController {
 
 		INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.City, timeout: 60) { (location, accuracy, status) in
 				if status == .Success {
-					LMGeocoder().reverseGeocodeCoordinate(location.coordinate, service: .GoogleService) { (places, error) in
-							if let place = places.first as? LMAddress where error == nil {
+					LMGeocoder().reverseGeocodeCoordinate(location.coordinate, service: .AppleService) { (places, error) in
+							if let place = places?.first as? LMAddress where error == nil {
 								dispatch_async(dispatch_get_main_queue(), {
 									if let index = self.regions.indexOf({ $0?.place.locality == place.locality }) {
 										self.regions[0] = self.regions[index]
@@ -80,7 +80,7 @@ class PartyRootController: UIViewController {
 								})
 							} else {
 								self.handleLocationErrors(true, message: NSLocalizedString("Locality Lookup Failed", comment: "Hud message for failed locality lookup"))
-								Flurry.logError("City_Locality_Failed", message: error.localizedDescription, error: error)
+								Flurry.logError("City_Locality_Failed", message: error?.localizedDescription, error: error)
 							}
 					}
 				} else {
