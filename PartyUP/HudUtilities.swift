@@ -13,6 +13,7 @@ func presentResultHud(hud: JGProgressHUD, inView view: UIView, withTitle title: 
 		hud.showInView(view, animated: false)
 	}
 
+    hud.tag = success ? 1 : 2
 	hud.indicatorView = success ? JGProgressHUDSuccessIndicatorView() : JGProgressHUDErrorIndicatorView()
 	hud.textLabel.text = title
 	hud.interactionType = .BlockAllTouches

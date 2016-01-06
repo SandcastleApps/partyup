@@ -152,6 +152,10 @@ class BakeRootController: UIViewController {
 
 extension BakeRootController: JGProgressHUDDelegate {
 	func progressHUD(progressHUD: JGProgressHUD!, didDismissFromView view: UIView!) {
-		performSegueWithIdentifier("Sampling Done Segue", sender: nil)
+        if progressHUD.tag != 0 {
+            performSegueWithIdentifier("Sampling Done Segue", sender: nil)
+        } else {
+            progressHUD.tag = 0
+        }
 	}
 }
