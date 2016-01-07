@@ -30,6 +30,7 @@
 		1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */; };
 		1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */; };
 		1F263C821BE39A53009A3565 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C811BE39A53009A3565 /* Settings.bundle */; };
+		1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
 		1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A041BA59F4C00E622CF /* Main.storyboard */; };
 		1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A071BA59F4C00E622CF /* Assets.xcassets */; };
@@ -97,6 +98,7 @@
 		1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakeRootController.swift; sourceTree = "<group>"; };
 		1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyDefaults.plist; sourceTree = "<group>"; };
 		1F263C811BE39A53009A3565 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyNotify.plist; sourceTree = "<group>"; };
 		1F4279FD1BA59F4C00E622CF /* PartyUP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartyUP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A001BA59F4C00E622CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F427A051BA59F4C00E622CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		1F03C3711BA84C5E0037D7D8 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */,
 				1FBD401B1C120F6C0093D852 /* InfoPlist.strings */,
 				1FBD40161C120F6C0093D852 /* Localizable.strings */,
 				1F9509941BACACE8005BDC18 /* UrlUtilities.swift */,
@@ -491,6 +494,7 @@
 				1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */,
 				1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */,
 				1F98968C1C2239DE00B0DB29 /* Baking.storyboard in Resources */,
+				1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */,
 				1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */,
 				1F71B5E01C0897E800F5740E /* Governors.gpx in Resources */,
 				1FBD40191C120F6C0093D852 /* InfoPlist.strings in Resources */,

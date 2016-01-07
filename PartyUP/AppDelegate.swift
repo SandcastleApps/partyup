@@ -92,12 +92,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-//		let localNote = UILocalNotification()
-//		localNote.alertAction = "find a party"
-//		localNote.alertBody = "Let's see what kind of fun we can have and contribute some video on the way!"
-//		localNote.fireDate = NSDate(timeIntervalSinceNow: 5)
-//		localNote.repeatInterval = .Minute
-//		application.scheduleLocalNotification(localNote)
+		if let notifyUrl = NSBundle.mainBundle().URLForResource("PartyNotify", withExtension: "plist") {
+			if let notifications = NSArray(contentsOfURL: notifyUrl) as? [[String:AnyObject]] {
+				for notify in notifications {
+					let localNote = UILocalNotification()
+					localNote.alertAction = notify["AlertAction"] as? String ?? "find a party"
+					localNote.alertBody = notify["AlertBody"] as? String ?? "Let's have some fun!"
+					localNote.fireDate = notify["FiteDate"] as? NSDate
+					//localNote.repeatInterval = .Minute
+					application.scheduleLocalNotification(localNote)
+				}
+			}
+		}
 	}
 
 	func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
