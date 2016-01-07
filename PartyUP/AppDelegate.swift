@@ -92,13 +92,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        application.cancelAllLocalNotifications()
 		if let notifyUrl = NSBundle.mainBundle().URLForResource("PartyNotify", withExtension: "plist") {
 			if let notifications = NSArray(contentsOfURL: notifyUrl) as? [[String:AnyObject]] {
+                let calendar = NSCalendar.currentCalendar()
 				for notify in notifications {
 					let localNote = UILocalNotification()
 					localNote.alertAction = notify["AlertAction"] as? String ?? "find a party"
 					localNote.alertBody = notify["AlertBody"] as? String ?? "Let's have some fun!"
-					localNote.fireDate = notify["FiteDate"] as? NSDate
+					localNote.fireDate = notify["FireDate"] as? NSDate
 					//localNote.repeatInterval = .Minute
 					application.scheduleLocalNotification(localNote)
 				}
