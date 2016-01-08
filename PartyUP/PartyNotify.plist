@@ -23,6 +23,8 @@
 		<integer>5</integer>
 		<key>randomize</key>
 		<true/>
+		<key>tag</key>
+		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>messages</key>
@@ -46,6 +48,8 @@
 		<integer>5</integer>
 		<key>randomize</key>
 		<true/>
+		<key>tag</key>
+		<integer>2</integer>
 	</dict>
 </array>
 </plist>

@@ -103,11 +103,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		AWSS3TransferUtility.interceptApplication(application, handleEventsForBackgroundURLSession: AwsConstants.BackgroundSession, completionHandler: completionHandler)
 	}
 
-	func scheduleNotificationsFromUrl(url: NSURL, inApplication application: UIApplication, withNotificationSettings notificationSetting: UIUserNotificationSettings) {
+	func scheduleNotificationsFromUrl(url: NSURL, inApplication application: UIApplication, withNotificationSettings notificationSettings: UIUserNotificationSettings) {
 		if let notifications = NSArray(contentsOfURL: url) as? [[String:AnyObject]] {
 			let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
 			for notify in notifications {
-				if let when = notify["when"] as? [String:Int], what = notify["messages"] as? [String], action = notify["action"] as? String where what.count > 0 {
+				if let when = notify["when"] as? [String:Int], what = notify["messages"] as? [String], action = notify["action"] as? String, tag = notify["tag"] as? Int where what.count > 0 {
 					let relative = NSDateComponents()
 					relative.calendar = calendar
 					relative.hour = when["hour"] ?? NSDateComponentUndefined
@@ -121,6 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 							let localNote = UILocalNotification()
 							localNote.alertAction = action
 							localNote.alertBody = what[randomize ? Int(arc4random_uniform(UInt32(what.count))) : i % what.count]
+                            localNote.userInfo = ["tag" : tag]
 							localNote.soundName = UILocalNotificationDefaultSoundName
 							localNote.fireDate = date
 							localNote.timeZone = NSTimeZone.defaultTimeZone()
