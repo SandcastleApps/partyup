@@ -3,14 +3,49 @@
 <plist version="1.0">
 <array>
 	<dict>
-		<key>AlertBody</key>
-		<string>Weekend!  Wahoo!</string>
-		<key>AlertAction</key>
+		<key>messages</key>
+		<array>
+			<string>Attend a mighty fine shindig</string>
+			<string>Time to do some networking</string>
+		</array>
+		<key>action</key>
 		<string>find a party</string>
-		<key>FireDate</key>
-		<date>2016-01-07T04:20:00Z</date>
-		<key>RepeatInterval</key>
-		<integer>0</integer>
+		<key>when</key>
+		<dict>
+			<key>weekday</key>
+			<integer>6</integer>
+			<key>hour</key>
+			<integer>21</integer>
+			<key>minute</key>
+			<integer>0</integer>
+		</dict>
+		<key>prebook</key>
+		<integer>5</integer>
+		<key>randomize</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>messages</key>
+		<array>
+			<string>Let&apos;s go have some fun!</string>
+			<string>No matter where you go, there you are</string>
+			<string>No one goes there because it&apos;s too crowded</string>
+		</array>
+		<key>action</key>
+		<string>find a party</string>
+		<key>when</key>
+		<dict>
+			<key>weekday</key>
+			<integer>7</integer>
+			<key>hour</key>
+			<integer>20</integer>
+			<key>minute</key>
+			<integer>0</integer>
+		</dict>
+		<key>prebook</key>
+		<integer>5</integer>
+		<key>randomize</key>
+		<true/>
 	</dict>
 </array>
 </plist>

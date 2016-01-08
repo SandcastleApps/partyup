@@ -94,17 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
         application.cancelAllLocalNotifications()
 		if let notifyUrl = NSBundle.mainBundle().URLForResource("PartyNotify", withExtension: "plist") {
-			if let notifications = NSArray(contentsOfURL: notifyUrl) as? [[String:AnyObject]] {
-                let calendar = NSCalendar.currentCalendar()
-				for notify in notifications {
-					let localNote = UILocalNotification()
-					localNote.alertAction = notify["AlertAction"] as? String ?? "find a party"
-					localNote.alertBody = notify["AlertBody"] as? String ?? "Let's have some fun!"
-					localNote.fireDate = notify["FireDate"] as? NSDate
-					//localNote.repeatInterval = .Minute
-					application.scheduleLocalNotification(localNote)
-				}
-			}
+			scheduleNotificationsFromUrl(notifyUrl, inApplication: application, withNotificationSettings: notificationSettings)
 		}
 	}
 
@@ -113,5 +103,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		AWSS3TransferUtility.interceptApplication(application, handleEventsForBackgroundURLSession: AwsConstants.BackgroundSession, completionHandler: completionHandler)
 	}
 
+	func scheduleNotificationsFromUrl(url: NSURL, inApplication application: UIApplication, withNotificationSettings notificationSetting: UIUserNotificationSettings) {
+		if let notifications = NSArray(contentsOfURL: url) as? [[String:AnyObject]] {
+			let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+			for notify in notifications {
+				if let when = notify["when"] as? [String:Int], what = notify["messages"] as? [String], action = notify["action"] as? String where what.count > 0 {
+					let relative = NSDateComponents()
+					relative.calendar = calendar
+					relative.hour = when["hour"] ?? NSDateComponentUndefined
+					relative.minute = when["minute"] ?? NSDateComponentUndefined
+					relative.weekday = when["weekday"] ?? NSDateComponentUndefined
+					let iterations = notify["prebook"] as? Int ?? 0
+					let randomize = notify["randomize"] as? Bool ?? false
+					var date = NSDate()
+					for i in 0..<iterations {
+						if let futureDate = calendar?.nextDateAfterDate(date, matchingComponents: relative, options: .MatchNextTime) {
+							let localNote = UILocalNotification()
+							localNote.alertAction = action
+							localNote.alertBody = what[randomize ? Int(arc4random_uniform(UInt32(what.count))) : i % what.count]
+							localNote.soundName = UILocalNotificationDefaultSoundName
+							localNote.fireDate = date
+							localNote.timeZone = NSTimeZone.defaultTimeZone()
+							application.scheduleLocalNotification(localNote)
+							date = futureDate
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
