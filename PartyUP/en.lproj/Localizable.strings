@@ -13,6 +13,10 @@
 /* Share login alert title */
 "Accounts" = "Accounts";
 
+/* Location services unknown error hud message
+   Location services unknown error hud message while recording */
+"An unknown location services error occured, sorry about that." = "An unknown location services error occured, sorry about that.";
+
 /* Share sheet cancel action */
 "Cancel" = "Cancel";
 
@@ -22,21 +26,35 @@
 /* Hud title for waiting for location determination */
 "Determining Venue" = "Determining where you are partying";
 
+/* Location determination failure hud title */
+"Failed to find you" = "Failed to find you";
+
+/* Title of the Feedback webview */
+"Feedback" = "Feedback";
+
 /* (No Commment) */
 "Fetching Venues" = "Finding Venues";
 
+/* The local choice of location */
+"Here" = "Current Location";
+
 /* Comment placeholder text */
-"How goes the party?" = "How's the party?";
+"How goes the party?" = "How's The Party?";
 
 /* Recruitment default text */
 "Lets Party!
-" = "Wow, just downloaded the best party app ever, its called PartyUP! PartyUPtonight.com";
+" = "Wow, just downloaded the best nightlife app ever, its called PartyUP! PartyUPtonight.com";
 
-/* Hud detail for location services threw an error */
+/* Hud message for failed locality lookup */
+"Locality Lookup Failed" = "Locality Lookup Failed";
+
+/* Location services unavailable alert title */
+"Location Services Unavailable" = "Location Services Unavailable";
+
+/* (No Commment) */
 "Location services are unavailable." = "Location services are unavailable";
 
-/* Hud detail location caught error
-   Hud detail location onFail message */
+/* (No Commment) */
 "Location services failure." = "Locations Services Failure";
 
 /* Default in cell when venue name is nil */
@@ -57,6 +75,18 @@
 /* Hud detail after successfully uploaded sample */
 "Party On!" = "Thanks :)";
 
+/* Location services denied alert message */
+"Please enable \"While Using the App\" location access for PartyUP to see parties near you." = "Please enable \"While Using the App\" location access for PartyUP to see parties near you.";
+
+/* Location services denied alert message while recording */
+"Please enable \"While Using the App\" location access for PartyUP to submit videos." = "Please enable \"While Using the App\" location access for PartyUP to submit videos.";
+
+/* Location services disabled alert message */
+"Please enable location services to see parties near you." = " Please enable Location Services to see parties near you.";
+
+/* Location services disabled alert message while recording */
+"Please enable location services to submit videos." = "Please enable Location Services to submit videos.";
+
 /* Share login alert message */
 "Please login to a (title) account to share." = "Please login to a (title) account to share.";
 
@@ -69,8 +99,14 @@
 /* Title of the region picker */
 "Region" = "Party Places";
 
+/* Default location services disabled alert button */
+"Roger" = "Roger";
+
 /* Share action title */
 "Share PartyUP" = "Share PartyUP";
+
+/* Location services succeeded but we went to error. */
+"Strange, very strange." = "Strange, very strange. Please try again";
 
 /* Hud title after successfully uploaded sample */
 "Submission Done" = "Party On!";
@@ -78,23 +114,30 @@
 /* Hud title after unsuccessfully uploaded sample */
 "Submission Failed" = "Submission Failed";
 
+/* Title of the Support webview */
+"Support" = "Support";
+
 /* Hud detail failed to fetch venues from foursquare */
 "The venue query failed." = "Your service must really suck :(";
 
-/* Hud title location caught error */
+/* Title of the Third Party Libraries webview */
+"Third Party Libraries" = "Third Party Libraries";
+
+/* Location services timeout hud message while recording
+   Location services timeout hud message. */
+"Timed out determining your location, try again later." = "Timed out determining your location, please try again.";
+
+/* (No Commment) */
 "Undeterined Location" = "Undetermined Location";
 
-/* Hud title for location services threw an error
-   Hud title for poor location accuracy
-   Hud title for unknown location failure
-   Hud title location onFail message */
+/* Location determination failure hud title */
 "Undetermined Location" = "Undetermined Location";
 
 /* Hud title for no nearby venue */
 "Unsupported Venue" = "Unsupported Venue";
 
 /* Hud title when failed due to no video */
-"Upload Failed" = "Upload Failed :( Sorry";
+"Upload Failed" = "Upload Failed :( Please try again";
 
 /* Hud title while uploading a video */
 "Uploading Party Video" = "Uploading Video";
@@ -106,12 +149,12 @@
 "Venue Query Failed" = "Venue Query Failed";
 
 /* Hud detail for no nearby venue */
-"You are not at a supported venue." = "You can't record video if you aren't out yet!";
+"You are not at a supported venue." = "You can only record videos at nightlife venues!";
 
-/* Hud detail for location service failure */
+/* (No Commment) */
 "Your location couldn't be determined for unknown reasons." = "Your location couldn't be determined for unknown reasons.";
 
-/* Hud detail for poor locaiton accuracy */
+/* (No Commment) */
 "Your location couldn't be determined with acceptable accuracy." = "Your location couldn't be determined with acceptable accuracy.";
 
 /* Samples more than a minute old */
@@ -124,5 +167,5 @@
 "locating" = "locating";
 
 /* Samples less than a minue old */
-"very fresh" = "Very fresh";
+"very fresh" = "Right Now!";
 

@@ -16,16 +16,19 @@
 /* Class = "UILabel"; text = "Julie O'Kruk"; ObjectID = "ELp-ko-W37"; */
 "ELp-ko-W37.text" = "Julie O'Kruk";
 
+/* Class = "UIButton"; normalTitle = "Support"; ObjectID = "FQu-xE-ajE"; */
+"FQu-xE-ajE.normalTitle" = "Support";
+
 /* Class = "UILabel"; text = "Laird"; ObjectID = "JHE-04-mfg"; */
 "JHE-04-mfg.text" = "Laird";
 
 /* Class = "UIBarButtonItem"; title = " "; ObjectID = "ORv-mb-TPi"; */
-"ORv-mb-TPi.title" = " ";
+"ORv-mb-TPi.title" = "";
 
 /* Class = "UIButton"; normalTitle = "Tutorial"; ObjectID = "Sta-zU-QOd"; */
 "Sta-zU-QOd.normalTitle" = "Tutorial";
 
-/* Class = "UINavigationItem"; title = "Feedback"; ObjectID = "VTj-qJ-bCZ"; */
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "VTj-qJ-bCZ"; */
 "VTj-qJ-bCZ.title" = "Feedback";
 
 /* Class = "UITableViewSection"; headerTitle = "Acknowledgements"; ObjectID = "Z6h-8E-Ifd"; */
@@ -44,11 +47,11 @@
 "kKt-1x-wKT.normalTitle" = "Provide Feedback";
 
 /* Class = "UINavigationController"; title = "AcknowldgeRoot"; ObjectID = "lKr-Eh-10R"; */
-"lKr-Eh-10R.title" = "AcknowldgeRoot";
+"lKr-Eh-10R.title" = "AcknowledgeRoot";
 
 /* Class = "UILabel"; text = "Code Mason"; ObjectID = "r8W-hm-58R"; */
 "r8W-hm-58R.text" = "Code Mason";
 
-/* Class = "UINavigationItem"; title = "Third Party Libraries"; ObjectID = "uVY-CP-tzz"; */
+/* (No Commment) */
 "uVY-CP-tzz.title" = "Third Party Libraries";
 

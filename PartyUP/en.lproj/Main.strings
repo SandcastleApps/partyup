@@ -1,22 +1,25 @@
 /* Class = "UIBarButtonItem"; title = " "; ObjectID = "2us-ah-9tt"; */
 "2us-ah-9tt.title" = "";
 
-/* Class = "UIViewController"; title = "Record Sample"; ObjectID = "8VR-ye-Fdg"; */
+/* (No Commment) */
 "8VR-ye-Fdg.title" = "Record Sample";
 
-/* Class = "UIButton"; normalTitle = "Share PartyUP"; ObjectID = "8u3-TN-INi"; */
+/* (No Commment) */
 "8u3-TN-INi.normalTitle" = "Share PartyUP";
 
 /* (No Commment) */
 "Eb9-qS-WJN.text" = "Venues Provided by Foursquare";
 
-/* Class = "UIButton"; selectedTitle = "Record"; ObjectID = "FcL-8R-2uI"; */
+/* (No Commment) */
 "FcL-8R-2uI.selectedTitle" = "Record";
 
-/* Class = "UILabel"; text = "Subtitle"; ObjectID = "QZH-LZ-68X"; */
+/* Class = "UILabel"; text = "Vicinity"; ObjectID = "Mxh-OR-niV"; */
+"Mxh-OR-niV.text" = "Vicinity";
+
+/* (No Commment) */
 "QZH-LZ-68X.text" = "Subtitle";
 
-/* Class = "UIViewController"; title = "Accept Sample"; ObjectID = "RAd-iG-AkU"; */
+/* (No Commment) */
 "RAd-iG-AkU.title" = "Accept Sample";
 
 /* Class = "UILabel"; text = "status"; ObjectID = "RyV-iu-gQ1"; */
@@ -25,13 +28,13 @@
 /* Class = "UIViewController"; title = "Pick Party"; ObjectID = "SEJ-wv-10Q"; */
 "SEJ-wv-10Q.title" = "Pick Party";
 
-/* Class = "UILabel"; text = "Time"; ObjectID = "Sy6-pN-RsA"; */
+/* (No Commment) */
 "Sy6-pN-RsA.text" = "Time";
 
-/* Class = "UILabel"; text = "Title"; ObjectID = "TRJ-2D-VxC"; */
+/* (No Commment) */
 "TRJ-2D-VxC.text" = "Title";
 
-/* Class = "UIPageViewController"; title = "Taste Pages Navigator"; ObjectID = "Tnu-BU-9Zn"; */
+/* (No Commment) */
 "Tnu-BU-9Zn.title" = "Taste Pages Navigator";
 
 /* Class = "UIBarButtonItem"; title = " "; ObjectID = "WRy-pu-28X"; */
@@ -40,33 +43,36 @@
 /* Class = "UINavigationController"; title = "PartyUP Navigator"; ObjectID = "YPM-4j-oTK"; */
 "YPM-4j-oTK.title" = "PartyUP Navigator";
 
-/* Class = "UIViewController"; title = "Taste Sample Root"; ObjectID = "ZcT-Fn-GTh"; */
+/* (No Commment) */
 "ZcT-Fn-GTh.title" = "Taste Sample Root";
 
-/* Class = "UINavigationItem"; title = "Title"; ObjectID = "dCM-JW-bfo"; */
+/* (No Commment) */
 "dCM-JW-bfo.title" = "Title";
 
-/* Class = "UINavigationItem"; title = "Record"; ObjectID = "dSe-6C-185"; */
+/* (No Commment) */
 "dSe-6C-185.title" = "Record";
 
-/* Class = "UINavigationItem"; title = "Accept"; ObjectID = "e7q-b2-FE6"; */
+/* (No Commment) */
 "e7q-b2-FE6.title" = "Accept";
 
-/* Class = "UILabel"; text = "To prevent this from happening"; ObjectID = "lgg-35-Bnb"; */
-"lgg-35-Bnb.text" = "More people on PartyUP means more videos!";
+/* (No Commment) */
+"lgg-35-Bnb.text" = "Check back soon or invite some friends!";
 
-/* Class = "UIButton"; normalTitle = "Venue"; ObjectID = "qgR-vF-K22"; */
+/* Class = "UILabel"; text = "Label"; ObjectID = "nw6-xT-BRo"; */
+"nw6-xT-BRo.text" = "Label";
+
+/* (No Commment) */
 "qgR-vF-K22.normalTitle" = "Venue";
 
-/* Class = "UIViewController"; title = "Taste Sample Page"; ObjectID = "qqy-na-3Zk"; */
+/* (No Commment) */
 "qqy-na-3Zk.title" = "Taste Sample Page";
 
 /* Class = "UITableViewController"; title = "Select Party"; ObjectID = "r5F-kz-7J0"; */
 "r5F-kz-7J0.title" = "Select Party";
 
-/* Class = "UILabel"; text = "Crap! No More Videos"; ObjectID = "tPz-jc-M19"; */
-"tPz-jc-M19.text" = "Crap! No More Videos";
+/* (No Commment) */
+"tPz-jc-M19.text" = "Looks like there's no more videos...";
 
-/* Class = "UILabel"; text = "I'm partying at:"; ObjectID = "x6a-m8-fg9"; */
+/* (No Commment) */
 "x6a-m8-fg9.text" = "";
 

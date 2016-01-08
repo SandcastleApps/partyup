@@ -1,4 +1,3 @@
-
 /* Class = "UIButton"; normalTitle = "Share PartyUP"; ObjectID = "8u3-TN-INi"; */
 "8u3-TN-INi.normalTitle" = "Share PartyUP";
 
@@ -15,10 +14,11 @@
 "dCM-JW-bfo.title" = "Title";
 
 /* Class = "UILabel"; text = "To prevent this from happening"; ObjectID = "lgg-35-Bnb"; */
-"lgg-35-Bnb.text" = "More people on PartyUP means more videos!";
+"lgg-35-Bnb.text" = "Check back soon or invite some friends!";
 
 /* Class = "UIViewController"; title = "Taste Sample Page"; ObjectID = "qqy-na-3Zk"; */
 "qqy-na-3Zk.title" = "Taste Sample Page";
 
 /* Class = "UILabel"; text = "Crap! No More Videos"; ObjectID = "tPz-jc-M19"; */
-"tPz-jc-M19.text" = "Crap! No More Videos";
+"tPz-jc-M19.text" = "Looks like there's no more videos...";
+

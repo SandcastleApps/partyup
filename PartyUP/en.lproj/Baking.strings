@@ -1,6 +1,8 @@
-
 /* Class = "UIViewController"; title = "Record Sample"; ObjectID = "8VR-ye-Fdg"; */
 "8VR-ye-Fdg.title" = "Record Sample";
+
+/* Class = "UILabel"; text = " "; ObjectID = "Bre-eA-L1I"; */
+"Bre-eA-L1I.text" = "";
 
 /* Class = "UIButton"; selectedTitle = "Record"; ObjectID = "FcL-8R-2uI"; */
 "FcL-8R-2uI.selectedTitle" = "Record";
@@ -16,3 +18,7 @@
 
 /* Class = "UIButton"; normalTitle = "Venue"; ObjectID = "qgR-vF-K22"; */
 "qgR-vF-K22.normalTitle" = "Venue";
+
+/* Class = "UILabel"; text = " "; ObjectID = "wSC-ej-6Uw"; */
+"wSC-ej-6Uw.text" = "";
+
