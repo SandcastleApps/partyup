@@ -6,7 +6,8 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "Acknowledgments.rtf"
+      "filename" : "Acknowledgments.rtf",
+      "universal-type-identifier" : "public.rtf"
     }
   ]
 }
