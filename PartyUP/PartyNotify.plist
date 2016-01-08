@@ -5,8 +5,14 @@
 	<dict>
 		<key>messages</key>
 		<array>
-			<string>Attend a mighty fine shindig</string>
-			<string>Time to do some networking</string>
+			<string>It&apos;s Friday, let&apos;s get turnt 😜</string>
+			<string>Tonight is going to be EPIC 😁</string>
+			<string>we&apos;re a little durnk rigt now</string>
+			<string>Happy Friday! Keep your friends close and the vodka closer 🍸</string>
+			<string>Friday, Friday, gotta PartyUP on Friday 💁🏼</string>
+			<string>It&apos;s Freaky Friday, let&apos;s raaaage!</string>
+			<string>My name&apos;s PartyUP, and I like to Party 👨🏻</string>
+			<string>Let&apos;s kill it this weekend! 💃</string>
 		</array>
 		<key>action</key>
 		<string>find a party</string>
@@ -29,9 +35,14 @@
 	<dict>
 		<key>messages</key>
 		<array>
-			<string>Let&apos;s go have some fun!</string>
-			<string>No matter where you go, there you are</string>
-			<string>No one goes there because it&apos;s too crowded</string>
+			<string>Saturdays were made for partying! Have fun tonight 💃</string>
+			<string>We&apos;re ready to rage tonight, are you? 😉</string>
+			<string>It&apos;s Saturday Night baby, time to #PartyUP</string>
+			<string>To TurnUP or not to TurnUP, that is a dumb question. 😈</string>
+			<string>Let&apos;s get crazy tonight 😝</string>
+			<string>Tonight is going to be Legen.....dary</string>
+			<string>24 Hours in a day, 24 beers in a case. Coincidence?</string>
+			<string>No Ragrets. Let&apos;s Party! 😊</string>
 		</array>
 		<key>action</key>
 		<string>find a party</string>
