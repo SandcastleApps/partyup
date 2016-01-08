@@ -15,10 +15,7 @@ class RecruitPageController: UIViewController, PageProtocol {
 	@IBOutlet weak var shareButton: UIButton!
 	
 	override func viewDidLoad() {
-		var options : UIViewAnimationOptions = .Autoreverse
-		options.insert(.Repeat)
-		options.insert(.AllowUserInteraction)
-		UIView.animateWithDuration(1.0, delay: 0, options: options, animations: { self.shareButton.alpha = 0.5 }, completion: nil)
+		UIView.animateWithDuration(1.0, delay: 0, options: [.Autoreverse, .Repeat, .AllowUserInteraction], animations: { self.shareButton.alpha = 0.5 }, completion: nil)
 	}
 
 	@IBAction func recruit(sender: UIButton) {
