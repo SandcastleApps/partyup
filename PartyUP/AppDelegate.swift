@@ -104,34 +104,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func scheduleNotificationsFromUrl(url: NSURL, inApplication application: UIApplication, withNotificationSettings notificationSettings: UIUserNotificationSettings) {
-		if let notifications = NSArray(contentsOfURL: url) as? [[String:AnyObject]] {
-			let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-			for notify in notifications {
-				if let when = notify["when"] as? [String:Int], what = notify["messages"] as? [String], action = notify["action"] as? String, tag = notify["tag"] as? Int where what.count > 0 {
-					let relative = NSDateComponents()
-					relative.calendar = calendar
-					relative.hour = when["hour"] ?? NSDateComponentUndefined
-					relative.minute = when["minute"] ?? NSDateComponentUndefined
-					relative.weekday = when["weekday"] ?? NSDateComponentUndefined
-					let iterations = notify["prebook"] as? Int ?? 0
-					let randomize = notify["randomize"] as? Bool ?? false
-					var date = NSDate()
-					for i in 0..<iterations {
-						if let futureDate = calendar?.nextDateAfterDate(date, matchingComponents: relative, options: .MatchNextTime) {
-							let localNote = UILocalNotification()
-							localNote.alertAction = action
-							localNote.alertBody = what[randomize ? Int(arc4random_uniform(UInt32(what.count))) : i % what.count]
-                            localNote.userInfo = ["tag" : tag]
-							localNote.soundName = UILocalNotificationDefaultSoundName
-							localNote.fireDate = date
-							localNote.timeZone = NSTimeZone.defaultTimeZone()
-							application.scheduleLocalNotification(localNote)
-							date = futureDate
-						}
-					}
-				}
-			}
-		}
+        if let notifications = NSArray(contentsOfURL: url) as? [[String:AnyObject]] {
+            for notify in notifications {
+                scheduleNotificationFromDictionary(notify, inApplication: application, withNotificationSettings: notificationSettings)
+            }
+        }
 	}
+    
+    func scheduleNotificationFromDictionary(notify: [String : AnyObject], inApplication application: UIApplication, withNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        if let when = notify["when"] as? [String:Int],
+            what = notify["messages"] as? [String],
+            action = notify["action"] as? String,
+            tag = notify["tag"] as? Int where what.count > 0 {
+            let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+            let relative = NSDateComponents()
+            relative.calendar = calendar
+            relative.hour = when["hour"] ?? NSDateComponentUndefined
+            relative.minute = when["minute"] ?? NSDateComponentUndefined
+            relative.weekday = when["weekday"] ?? NSDateComponentUndefined
+            let iterations = notify["prebook"] as? Int ?? 0
+            let randomize = notify["randomize"] as? Bool ?? false
+            var date = NSDate()
+            for i in 0..<iterations {
+                if let futureDate = calendar?.nextDateAfterDate(date, matchingComponents: relative, options: .MatchNextTime) {
+                    let localNote = UILocalNotification()
+                    localNote.alertAction = action
+                    localNote.alertBody = what[randomize ? Int(arc4random_uniform(UInt32(what.count))) : i % what.count]
+                    localNote.userInfo = ["tag" : tag]
+                    localNote.soundName = "drink.caf"
+                    localNote.fireDate = date
+                    localNote.timeZone = NSTimeZone.defaultTimeZone()
+                    application.scheduleLocalNotification(localNote)
+                    date = futureDate
+                }
+            }
+        }
+    }
 }
 

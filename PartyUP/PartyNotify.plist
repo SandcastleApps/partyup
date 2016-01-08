@@ -15,12 +15,12 @@
 			<key>weekday</key>
 			<integer>6</integer>
 			<key>hour</key>
-			<integer>21</integer>
+			<integer>22</integer>
 			<key>minute</key>
-			<integer>0</integer>
+			<integer>30</integer>
 		</dict>
 		<key>prebook</key>
-		<integer>5</integer>
+		<integer>10</integer>
 		<key>randomize</key>
 		<true/>
 		<key>tag</key>
@@ -40,12 +40,12 @@
 			<key>weekday</key>
 			<integer>7</integer>
 			<key>hour</key>
-			<integer>20</integer>
+			<integer>22</integer>
 			<key>minute</key>
-			<integer>0</integer>
+			<integer>30</integer>
 		</dict>
 		<key>prebook</key>
-		<integer>5</integer>
+		<integer>10</integer>
 		<key>randomize</key>
 		<true/>
 		<key>tag</key>

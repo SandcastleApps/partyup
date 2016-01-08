@@ -44,6 +44,7 @@
 		1F8BF1C41C1C55DD00221D82 /* Acknowledge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C21C1C55DD00221D82 /* Acknowledge.storyboard */; };
 		1F9509951BACACE8005BDC18 /* UrlUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* UrlUtilities.swift */; };
 		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; };
+		1F9879861C401D060079467E /* drink.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1F9879851C401D060079467E /* drink.caf */; };
 		1F98968C1C2239DE00B0DB29 /* Baking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F98968E1C2239DE00B0DB29 /* Baking.storyboard */; };
 		1F9896911C2239F000B0DB29 /* Tasting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9896931C2239F000B0DB29 /* Tasting.storyboard */; };
 		1F9997451BB323D5003457E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9997441BB323D5003457E2 /* AVFoundation.framework */; };
@@ -119,6 +120,7 @@
 		1F8BF1C31C1C55DD00221D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Acknowledge.storyboard; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* UrlUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlUtilities.swift; sourceTree = "<group>"; };
 		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
+		1F9879851C401D060079467E /* drink.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = drink.caf; sourceTree = "<group>"; };
 		1F98968D1C2239DE00B0DB29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Baking.storyboard; sourceTree = "<group>"; };
 		1F9896901C2239E300B0DB29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Baking.strings; sourceTree = "<group>"; };
 		1F9896921C2239F000B0DB29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tasting.storyboard; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 		1F03C3711BA84C5E0037D7D8 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				1F9879851C401D060079467E /* drink.caf */,
 				1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */,
 				1FBD401B1C120F6C0093D852 /* InfoPlist.strings */,
 				1FBD40161C120F6C0093D852 /* Localizable.strings */,
@@ -492,6 +495,7 @@
 				1FF051E51C20560100A7A67C /* Tutorial.storyboard in Resources */,
 				1FBD40141C120F6C0093D852 /* Localizable.strings in Resources */,
 				1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */,
+				1F9879861C401D060079467E /* drink.caf in Resources */,
 				1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */,
 				1F98968C1C2239DE00B0DB29 /* Baking.storyboard in Resources */,
 				1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */,
