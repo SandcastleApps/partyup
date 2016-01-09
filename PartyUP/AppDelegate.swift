@@ -132,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     localNote.alertBody = what[randomize ? Int(arc4random_uniform(UInt32(what.count))) : i % what.count]
                     localNote.userInfo = ["tag" : tag]
                     localNote.soundName = "drink.caf"
-                    localNote.fireDate = date
+                    localNote.fireDate = futureDate
                     localNote.timeZone = NSTimeZone.defaultTimeZone()
                     application.scheduleLocalNotification(localNote)
                     date = futureDate
