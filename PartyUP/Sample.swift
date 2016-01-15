@@ -20,6 +20,14 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		get { return NSURL(fileURLWithPath: user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4") }
 	}
 
+	var identifier: NSData {
+		get {
+			var raw = Array<UInt8>(count: 17, repeatedValue: stamp)
+			UIDevice.currentDevice().identifierForVendor?.getUUIDBytes(&raw)
+			return NSData(bytes: &raw, length: raw.count)
+		}
+	}
+
 	init(user: NSUUID, time: NSDate, comment: String?, stamp: UsageStamp) {
 		self.user = user
 		self.time = time
@@ -86,14 +94,6 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 
 	typealias DynamoRep = SampleDB
 	typealias DynamoKey = NSString
-
-	private var identifier: NSData {
-		get {
-			var raw = Array<UInt8>(count: 17, repeatedValue: stamp)
-			UIDevice.currentDevice().identifierForVendor?.getUUIDBytes(&raw)
-			return NSData(bytes: &raw, length: raw.count)
-		}
-	}
 
 	//MARK - Internal Stamp Factory
 
