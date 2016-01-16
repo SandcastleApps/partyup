@@ -21,6 +21,7 @@ enum Vote: Int, CustomDebugStringConvertible {
 			case Up:
 				return "Up"
 			}
+		}
 	}
 }
 
@@ -59,14 +60,16 @@ final class SampleVote: DynamoObjectWrapper, CustomDebugStringConvertible
 	}
 
 	internal var dynamo: SampleVoteDB {
-//		get {
-//			let db = SampleVoteDB()
-//			db.sample = NSData(bytes: sample.bytes, length: sample.)
-//			db.user = user
-//			db.vote = NSNumber(integer: vote.rawValue)
-//
-//			return db
-//		}
+		get {
+			let db = SampleVoteDB()
+			db.sample = sample
+			let raw = Array<UInt8>(count: 16, repeatedValue: 0)
+			user.getUUIDBytes(UnsafeMutablePointer<UInt8>(raw))
+			db.user = NSData(bytes: raw, length: raw.count)
+			db.vote = NSNumber(integer: vote.rawValue)
+
+			return db
+		}
 	}
 
 	internal class SampleVoteDB: AWSDynamoDBObjectModel, AWSDynamoDBModeling
