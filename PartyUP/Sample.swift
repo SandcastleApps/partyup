@@ -15,6 +15,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	let user: NSUUID
 	let time: NSDate
 	var comment: String?
+	let votes: Int
 
 	var media: NSURL {
 		get { return NSURL(fileURLWithPath: user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4") }
@@ -28,11 +29,12 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		}
 	}
 
-	init(user: NSUUID, time: NSDate, comment: String?, stamp: UsageStamp) {
+	init(user: NSUUID, time: NSDate, comment: String?, stamp: UsageStamp, votes: Int) {
 		self.user = user
 		self.time = time
 		self.comment = comment
 		self.stamp = stamp
+		self.votes = votes
 	}
 
 	convenience init(comment: String? = nil) {
@@ -40,14 +42,15 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			user: UIDevice.currentDevice().identifierForVendor!,
 			time: NSDate(),
 			comment: comment,
-			stamp: StampFactory.stamper
+			stamp: StampFactory.stamper,
+			votes: 0
 		)
 
 		StampFactory.stamper = StampFactory.stamper &+ 1
 	}
 
 	var debugDescription: String {
-		get { return "User = \(user.UUIDString) stamp = \(stamp)\nTimestamp = \(time)\nComment = \(comment)\n" }
+		get { return "User = \(user.UUIDString) stamp = \(stamp)\nTimestamp = \(time)\nComment = \(comment)\nVotes = \(votes)\n" }
 	}
 
 	//MARK - Internal Dynamo Representation
@@ -57,7 +60,8 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			user: NSUUID(UUIDBytes: UnsafePointer(data.id!.bytes)),
 			time: NSDate(timeIntervalSince1970: data.time!.doubleValue),
 			comment: data.comment,
-			stamp: (UnsafePointer<UInt8>(data.id!.bytes) + 16).memory
+			stamp: (UnsafePointer<UInt8>(data.id!.bytes) + 16).memory,
+			votes: data.votes?.integerValue ?? 0
 		)
 	}
 
@@ -67,6 +71,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			db.time = time.timeIntervalSince1970
 			db.comment = comment
 			db.id = identifier
+			db.votes = votes
 
 			return db
 		}
@@ -78,6 +83,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		var event: String?
 		var time: NSNumber?
 		var comment: String?
+		var votes: NSNumber?
 
 		@objc static func dynamoDBTableName() -> String {
 			return "Samples"
