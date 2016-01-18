@@ -1,0 +1,140 @@
+{
+    "Records":
+    [
+     {
+     "eventID": "1",
+     "eventVersion": "1.0",
+     "dynamodb":
+     {
+     "Keys":
+     {
+     "sample":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     }
+     },
+     "NewImage":
+     {
+     "sample":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     },
+     "vote":
+     {
+     "N": "1"
+     }
+     },
+     "StreamViewType": "NEW_AND_OLD_IMAGES",
+     "SequenceNumber": "111",
+     "SizeBytes": 26
+     },
+     "awsRegion": "us-west-2",
+     "eventName": "INSERT",
+     "eventSourceARN": "arn:aws:dynamodb:us-east-1:227245631010:table/Votes/stream/2016-01-16T23:01:15.294",
+     "eventSource": "aws:dynamodb"
+     },
+     {
+     "eventID": "2",
+     "eventVersion": "1.0",
+     "dynamodb":
+     {
+     "OldImage":
+     {
+     "sample":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     },
+     "vote":
+     {
+     "N": "1"
+     }
+     },
+     "SequenceNumber": "222",
+     "Keys":
+     {
+     "sample":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     }
+     },
+     "SizeBytes": 59,
+     "NewImage":
+     {
+     "sample":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     },
+     "vote":
+     {
+     "N": "-1"
+     }
+     },
+     "StreamViewType": "NEW_AND_OLD_IMAGES"
+     },
+     "awsRegion": "us-west-2",
+     "eventName": "MODIFY",
+     "eventSourceARN": "arn:aws:dynamodb:us-east-1:227245631010:table/Votes/stream/2016-01-16T23:01:15.294",
+     "eventSource": "aws:dynamodb"
+     },
+     {
+     "eventID": "3",
+     "eventVersion": "1.0",
+     "dynamodb":
+     {
+     "Keys":
+     {
+     "sample":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     }
+     },
+     "SizeBytes": 38,
+     "SequenceNumber": "333",
+     "OldImage":
+     {
+     "sample":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     },
+     "vote":
+     {
+     "N": "-1"
+     }
+     },
+     "StreamViewType": "NEW_AND_OLD_IMAGES"
+     },
+     "awsRegion": "us-west-2",
+     "eventName": "REMOVE",
+     "eventSourceARN": "arn:aws:dynamodb:us-east-1:227245631010:table/Votes/stream/2016-01-16T23:01:15.294",
+     "eventSource": "aws:dynamodb"
+     }
+     ]
+}

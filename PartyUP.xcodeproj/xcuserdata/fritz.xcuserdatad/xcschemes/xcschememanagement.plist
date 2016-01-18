@@ -19,9 +19,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>PartyVote.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>19</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1F3BA58E1C4C72DF00F3079F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1F4279FC1BA59F4C00E622CF</key>
 		<dict>
 			<key>primary</key>
