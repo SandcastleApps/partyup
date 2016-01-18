@@ -13,6 +13,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	typealias UsageStamp = UInt8
 
 	let user: NSUUID
+    let event: String
 	let time: NSDate
 	var comment: String?
 	let rating: [Int]
@@ -29,17 +30,19 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		}
 	}
 
-	init(user: NSUUID, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int]) {
+    init(user: NSUUID, event: String, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int]) {
 		self.user = user
+        self.event = event
 		self.time = time
 		self.comment = comment
 		self.stamp = stamp
 		self.rating = rating
 	}
 
-	convenience init(comment: String? = nil) {
+    convenience init(event: String, comment: String? = nil) {
 		self.init(
 			user: UIDevice.currentDevice().identifierForVendor!,
+            event: event,
 			time: NSDate(),
 			comment: comment,
 			stamp: StampFactory.stamper,
@@ -50,7 +53,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	}
 
 	var debugDescription: String {
-		get { return "User = \(user.UUIDString) stamp = \(stamp)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
+		get { return "User = \(user.UUIDString) stamp = \(stamp)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
 	}
 
 	//MARK - Internal Dynamo Representation
@@ -58,6 +61,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	internal convenience init(data: SampleDB) {
 		self.init(
 			user: NSUUID(UUIDBytes: UnsafePointer(data.id!.bytes)),
+            event: data.event!,
 			time: NSDate(timeIntervalSince1970: data.time!.doubleValue),
 			comment: data.comment,
 			stamp: (UnsafePointer<UInt8>(data.id!.bytes) + 16).memory,
@@ -71,6 +75,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			db.time = time.timeIntervalSince1970
 			db.comment = comment
 			db.id = identifier
+            db.event = event
 			db.ups = rating[0]
 			db.downs = rating[1]
 
