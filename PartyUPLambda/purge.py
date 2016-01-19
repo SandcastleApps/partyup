@@ -1,12 +1,15 @@
 """
 Scan through the Samples table for oldish entries and remove them.
 """
-
+import logging
 import json
 import boto3
 import time
 import decimal
 from boto3.dynamodb.conditions import Key, Attr
+
+logger = logging.getLogger()
+logger.setLevel(logging.ERROR)
 
 def purge_item(item, batch):
     response = batch.delete_item(
