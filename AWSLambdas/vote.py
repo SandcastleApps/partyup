@@ -1,6 +1,6 @@
 """
     Watch Votes stream and update Sample ups and downs
-"""
+    """
 
 import json
 import boto3
@@ -8,6 +8,7 @@ import time
 import decimal
 import base64
 from boto3.dynamodb.conditions import Key, Attr
+from decimal import Decimal
 
 def consolidate_disposition(disposition_map, records):
     for record in records:
@@ -27,10 +28,14 @@ def vote_handler(event, context):
     
     ratings = dict()
     consolidate_disposition(ratings, event['Records'])
-
-    for (sample, vote) in ratings.iteritems():
-        ident = sample[0:19]
-        event = base64.standard_b64decode(sample[18:])
-        print ident
-        print event
     
+    for (sample, vote) in ratings.iteritems():
+        ident = "b74z7/Q1TdqouIVyIXp+DQU=" """sample[0:19]"""
+        event = "ChIJ1QvXETf7Z0sRBkcNQqQ89ag" """base64.standard_b64decode(sample[18:])"""
+        up = 1
+        down = -1
+        table.update_item(
+                          Key={'event': event, 'id': ident},
+                          UpdateExpression='ADD ups :up, downs :down',
+                          ExpressionAttributeValues={':up':{'N': up}, ':down':{'N': down}}
+                          )
