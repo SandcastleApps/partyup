@@ -10,7 +10,7 @@
      {
      "sample":
      {
-     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     "B": "5eRqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
      },
      "user":
      {
@@ -21,7 +21,7 @@
      {
      "sample":
      {
-     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     "B": "5eRqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
      },
      "user":
      {
@@ -50,7 +50,7 @@
      {
      "sample":
      {
-     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     "B": "5eRqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
      },
      "user":
      {
@@ -66,7 +66,7 @@
      {
      "sample":
      {
-     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     "B": "5eRqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
      },
      "user":
      {
@@ -78,7 +78,7 @@
      {
      "sample":
      {
-     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     "B": "5eRqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
      },
      "user":
      {
@@ -105,7 +105,7 @@
      {
      "sample":
      {
-     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     "B": "6bRqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
      },
      "user":
      {
@@ -118,7 +118,7 @@
      {
      "sample":
      {
-     "B": "5eRqUkXCQSW/9pdQLVRlOQE="
+     "B": "6bRqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
      },
      "user":
      {
@@ -133,6 +133,46 @@
      },
      "awsRegion": "us-west-2",
      "eventName": "REMOVE",
+     "eventSourceARN": "arn:aws:dynamodb:us-east-1:227245631010:table/Votes/stream/2016-01-16T23:01:15.294",
+     "eventSource": "aws:dynamodb"
+     },
+     {
+     "eventID": "4",
+     "eventVersion": "1.0",
+     "dynamodb":
+     {
+     "Keys":
+     {
+     "sample":
+     {
+     "B": "71RqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     }
+     },
+     "NewImage":
+     {
+     "sample":
+     {
+     "B": "71RqUkXCQSW/9pdQLVRlOQRDaElKQy1KZVVqRDdaMHNSUTFIYXBsU21pREU="
+     },
+     "user":
+     {
+     "B": "5eRqUkXCQSW/9pdQLVRlOQ=="
+     },
+     "vote":
+     {
+     "N": "1"
+     }
+     },
+     "StreamViewType": "NEW_AND_OLD_IMAGES",
+     "SequenceNumber": "444",
+     "SizeBytes": 26
+     },
+     "awsRegion": "us-west-2",
+     "eventName": "INSERT",
      "eventSourceARN": "arn:aws:dynamodb:us-east-1:227245631010:table/Votes/stream/2016-01-16T23:01:15.294",
      "eventSource": "aws:dynamodb"
      }
