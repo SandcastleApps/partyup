@@ -19,7 +19,6 @@ protocol DynamoObjectWrapper
 
 func push<Wrap: DynamoObjectWrapper where Wrap.DynamoRep: AWSDynamoDBObjectModel, Wrap.DynamoRep: AWSDynamoDBModeling, Wrap.DynamoKey: NSObject>(wrapper: Wrap, key: Wrap.DynamoKey) -> AWSTask {
 	let db = wrapper.dynamo
-	db.setValue(key, forKey: Wrap.DynamoRep.hashKeyAttribute())
 
 	return AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db)
 }
