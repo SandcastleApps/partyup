@@ -25,7 +25,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	var identifier: NSData {
 		get {
 			var raw = Array<UInt8>(count: 17, repeatedValue: stamp)
-			UIDevice.currentDevice().identifierForVendor?.getUUIDBytes(&raw)
+			user.getUUIDBytes(&raw)
 			return NSData(bytes: &raw, length: raw.count)
 		}
 	}
