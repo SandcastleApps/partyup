@@ -59,7 +59,11 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	func updateRating(upDelta up: Int, downDelta down: Int) {
 		let updateInput = AWSDynamoDBUpdateItemInput()
 		updateInput.tableName = SampleDB.dynamoDBTableName()
-		updateInput.key = ["event" : event, "id" : identifier]
+        let hash = AWSDynamoDBAttributeValue()
+        hash.S = event
+        let range = AWSDynamoDBAttributeValue()
+        range.B = identifier
+		updateInput.key = ["event" : hash, "id" : range]
 		updateInput.updateExpression = "SET ups=ups+:up, downs=downs+:down"
 		let upped = AWSDynamoDBAttributeValue()
 		upped.N = "\(up)"
