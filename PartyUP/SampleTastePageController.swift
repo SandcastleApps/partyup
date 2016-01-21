@@ -162,6 +162,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			NSLog("Result of vote submission: \(task.error)")
 			return nil
 		}
+		sample.updateRating(upDelta: 1, downDelta: 0)
 	}
 
 	// MARK: Player

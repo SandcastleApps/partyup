@@ -16,7 +16,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
     let event: String
 	let time: NSDate
 	var comment: String?
-	let rating: [Int]
+	var rating: [Int]
 
 	var media: NSURL {
 		get { return NSURL(fileURLWithPath: user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4") }
@@ -54,6 +54,36 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 
 	var debugDescription: String {
 		get { return "User = \(user.UUIDString) stamp = \(stamp)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
+	}
+
+	func updateRating(upDelta up: Int, downDelta down: Int) {
+		let updateInput = AWSDynamoDBUpdateItemInput()
+		updateInput.tableName = SampleDB.dynamoDBTableName()
+		updateInput.key = ["event" : event, "id" : identifier]
+		updateInput.updateExpression = "SET ups=ups+:up, downs=downs+:down"
+		let upped = AWSDynamoDBAttributeValue()
+		upped.N = "\(up)"
+		let downed = AWSDynamoDBAttributeValue()
+		downed.N = "\(down)"
+		updateInput.expressionAttributeValues = [":up" : upped, ":down" : downed]
+		updateInput.returnValues = .UpdatedNew
+		AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).continueWithBlock { (task) in
+			if let error = task.error {
+				NSLog("Error updating vote: \(error)")
+				return nil
+			}
+			if let exception = task.exception {
+				NSLog("Exception updating vote: \(exception)")
+				return nil
+			}
+
+			if let result = task.result as? AWSDynamoDBUpdateItemOutput {
+				self.rating[0] = Int(result.attributes["ups"]?.N ?? "0") ?? 0
+				self.rating[1] = Int(result.attributes["downs"]?.N ?? "0") ?? 0
+			}
+
+			return nil
+		}
 	}
 
 	//MARK - Internal Dynamo Representation
