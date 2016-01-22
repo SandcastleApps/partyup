@@ -57,36 +57,30 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	}
 
 	func updateRating(upDelta up: Int, downDelta down: Int) {
-		let updateInput = AWSDynamoDBUpdateItemInput()
-		updateInput.tableName = SampleDB.dynamoDBTableName()
-        let hash = AWSDynamoDBAttributeValue()
-        hash.S = event
-        let range = AWSDynamoDBAttributeValue()
-        range.B = identifier
-		updateInput.key = ["event" : hash, "id" : range]
-		updateInput.updateExpression = "SET ups=ups+:up, downs=downs+:down"
-		let upped = AWSDynamoDBAttributeValue()
-		upped.N = "\(up)"
-		let downed = AWSDynamoDBAttributeValue()
-		downed.N = "\(down)"
-		updateInput.expressionAttributeValues = [":up" : upped, ":down" : downed]
-		updateInput.returnValues = .UpdatedNew
-		AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).continueWithBlock { (task) in
-			if let error = task.error {
-				NSLog("Error updating vote: \(error)")
+		if let hash = wrapValue(event), range = wrapValue(identifier), up = wrapValue(up), down = wrapValue(down) {
+			let updateInput = AWSDynamoDBUpdateItemInput()
+			updateInput.tableName = SampleDB.dynamoDBTableName()
+			updateInput.key = ["event" : hash, "id" : range]
+			updateInput.updateExpression = "SET ups=ups+:up, downs=downs+:down"
+			updateInput.expressionAttributeValues = [":up" : up, ":down" : down]
+			updateInput.returnValues = .UpdatedNew
+			AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).continueWithBlock { (task) in
+				if let error = task.error {
+					NSLog("Error updating vote: \(error)")
+					return nil
+				}
+				if let exception = task.exception {
+					NSLog("Exception updating vote: \(exception)")
+					return nil
+				}
+
+				if let result = task.result as? AWSDynamoDBUpdateItemOutput {
+					self.rating[0] = Int(result.attributes["ups"]?.N ?? "0") ?? 0
+					self.rating[1] = Int(result.attributes["downs"]?.N ?? "0") ?? 0
+				}
+
 				return nil
 			}
-			if let exception = task.exception {
-				NSLog("Exception updating vote: \(exception)")
-				return nil
-			}
-
-			if let result = task.result as? AWSDynamoDBUpdateItemOutput {
-				self.rating[0] = Int(result.attributes["ups"]?.N ?? "0") ?? 0
-				self.rating[1] = Int(result.attributes["downs"]?.N ?? "0") ?? 0
-			}
-
-			return nil
 		}
 	}
 
