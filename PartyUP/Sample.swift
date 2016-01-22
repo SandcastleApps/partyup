@@ -8,6 +8,23 @@
 
 import AWSDynamoDB
 
+enum Vote: Int, CustomDebugStringConvertible {
+    case Down = -1, Meh = 0, Up = 1
+    
+    var debugDescription: String {
+        get {
+            switch self {
+            case Down:
+                return "Down"
+            case Meh:
+                return "Meh"
+            case Up:
+                return "Up"
+            }
+        }
+    }
+}
+
 final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 {
 	typealias UsageStamp = UInt8
@@ -29,6 +46,15 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			return NSData(bytes: &raw, length: raw.count)
 		}
 	}
+    
+    var vote: Vote? {
+        willSet {
+            
+        }
+        didSet {
+            print("Vote: \(vote)", terminator: "\n")
+        }
+    }
 
     init(user: NSUUID, event: String, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int]) {
 		self.user = user
@@ -37,6 +63,17 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		self.comment = comment
 		self.stamp = stamp
 		self.rating = rating
+        
+        AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithBlock { task in
+            guard task.error == nil else { return nil }
+            guard task.exception == nil else {return nil }
+            
+            if let result = task.result as? VoteDB {
+                dispatch_async(dispatch_get_main_queue()) { self.vote = Vote(rawValue: result.vote?.integerValue ?? 0) }
+            }
+            
+            return nil
+        }
 	}
 
     convenience init(event: String, comment: String? = nil) {
@@ -149,4 +186,37 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			{ if let raw = NSData(contentsOfFile: path) { return UnsafePointer<UInt8>(raw.bytes).memory } else { return 0 }  }()
 			{ didSet { NSData(bytes: &stamper, length: 1).writeToFile(path, atomically: true)} }
 	}
+    
+    //MARK - Internal Dynamo Vote
+    
+    private class VoteDB: AWSDynamoDBObjectModel, AWSDynamoDBModeling
+    {
+        var sample: NSData?
+        var user: NSData?
+        var vote: NSNumber?
+        
+        @objc static func dynamoDBTableName() -> String {
+            return "Votes"
+        }
+        
+        @objc static func hashKeyAttribute() -> String! {
+            return "sample"
+        }
+        
+        @objc static func rangeKeyAttribute() -> String! {
+            return "user"
+        }
+        
+        static func hashKeyGenerator(event: String, sample: NSData) -> NSData {
+            let combined = NSMutableData(data: sample)
+            combined.appendData(event.dataUsingEncoding(NSUTF8StringEncoding)!)
+            return combined
+        }
+        
+        static func rangeKeyGenerator(user: NSUUID) -> NSData {
+            let raw = Array<UInt8>(count: 16, repeatedValue: 0)
+            user.getUUIDBytes(UnsafeMutablePointer<UInt8>(raw))
+            return NSData(bytes: raw, length: raw.count)
+        }
+    }
 }

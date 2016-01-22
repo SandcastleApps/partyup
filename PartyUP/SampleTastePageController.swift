@@ -157,12 +157,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	}
 
 	@IBAction func placeVote(sender: UISegmentedControl) {
-        let vote = SampleVote(sample: sample.identifier, event: sample.event, vote: Vote(rawValue: sender.selectedSegmentIndex - 1)!)
-		push(vote, key: sample.identifier).continueWithBlock { task in
-			NSLog("Result of vote submission: \(task.error)")
-			return nil
-		}
-		sample.updateRating(upDelta: 1, downDelta: 0)
+        sample.vote = Vote(rawValue: sender.selectedSegmentIndex - 1)
 	}
 
 	// MARK: Player
