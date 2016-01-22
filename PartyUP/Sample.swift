@@ -61,8 +61,8 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			let updateInput = AWSDynamoDBUpdateItemInput()
 			updateInput.tableName = SampleDB.dynamoDBTableName()
 			updateInput.key = ["event" : hash, "id" : range]
-			updateInput.updateExpression = "SET ups=ups+:up, downs=downs+:down"
-			updateInput.expressionAttributeValues = [":up" : up, ":down" : down]
+			updateInput.updateExpression = "SET ups=if_not_exists(ups,:zero)+:up, downs=if_not_exists(downs,:zero)+:down"
+            updateInput.expressionAttributeValues = [":up" : up, ":down" : down, ":zero" : wrapValue(0)!]
 			updateInput.returnValues = .UpdatedNew
 			AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).continueWithBlock { (task) in
 				if let error = task.error {
@@ -75,8 +75,10 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 				}
 
 				if let result = task.result as? AWSDynamoDBUpdateItemOutput {
-					self.rating[0] = Int(result.attributes["ups"]?.N ?? "0") ?? 0
-					self.rating[1] = Int(result.attributes["downs"]?.N ?? "0") ?? 0
+                    let rate = [Int(result.attributes["ups"]?.N ?? "0") ?? 0, Int(result.attributes["downs"]?.N ?? "0") ?? 0]
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.rating = rate
+                    }
 				}
 
 				return nil
