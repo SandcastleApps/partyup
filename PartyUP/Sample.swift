@@ -48,11 +48,19 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	}
     
     var vote: Vote? {
-        willSet {
-            
-        }
         didSet {
-            print("Vote: \(vote)", terminator: "\n")
+			if vote != oldValue && oldValue != nil {
+				let db = VoteDB()
+				db.sample = VoteDB.hashKeyGenerator(event, sample: identifier)
+				db.user = VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)
+				db.vote = NSNumber(integer: vote?.rawValue ?? 0)
+				AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db).continueWithSuccessBlock { task in
+					let upDelta = oldValue == .Up ? -1 : self.vote == .Up ? 1 : 0
+					let downDelta = oldValue == .Down ? -1 : self.vote == .Down ? 1 : 0
+					self.updateRating(upDelta: upDelta, downDelta: downDelta)
+					return nil
+				}
+			}
         }
     }
 
@@ -64,14 +72,11 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		self.stamp = stamp
 		self.rating = rating
         
-        AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithBlock { task in
-            guard task.error == nil else { return nil }
-            guard task.exception == nil else {return nil }
-            
-            if let result = task.result as? VoteDB {
-                dispatch_async(dispatch_get_main_queue()) { self.vote = Vote(rawValue: result.vote?.integerValue ?? 0) }
-            }
-            
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithSuccessBlock { task in
+			if let result = task.result as? VoteDB {
+				dispatch_async(dispatch_get_main_queue()) { self.vote = Vote(rawValue: result.vote?.integerValue ?? 0) }
+			}
+
             return nil
         }
 	}
@@ -93,7 +98,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		get { return "User = \(user.UUIDString) stamp = \(stamp)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
 	}
 
-	func updateRating(upDelta up: Int, downDelta down: Int) {
+	private func updateRating(upDelta up: Int, downDelta down: Int) {
 		if let hash = wrapValue(event), range = wrapValue(identifier), up = wrapValue(up), down = wrapValue(down) {
 			let updateInput = AWSDynamoDBUpdateItemInput()
 			updateInput.tableName = SampleDB.dynamoDBTableName()
@@ -101,16 +106,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			updateInput.updateExpression = "SET ups=if_not_exists(ups,:zero)+:up, downs=if_not_exists(downs,:zero)+:down"
             updateInput.expressionAttributeValues = [":up" : up, ":down" : down, ":zero" : wrapValue(0)!]
 			updateInput.returnValues = .UpdatedNew
-			AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).continueWithBlock { (task) in
-				if let error = task.error {
-					NSLog("Error updating vote: \(error)")
-					return nil
-				}
-				if let exception = task.exception {
-					NSLog("Exception updating vote: \(exception)")
-					return nil
-				}
-
+			AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).continueWithSuccessBlock { (task) in
 				if let result = task.result as? AWSDynamoDBUpdateItemOutput {
                     let rate = [Int(result.attributes["ups"]?.N ?? "0") ?? 0, Int(result.attributes["downs"]?.N ?? "0") ?? 0]
                     dispatch_async(dispatch_get_main_queue()) {
@@ -189,7 +185,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
     
     //MARK - Internal Dynamo Vote
     
-    private class VoteDB: AWSDynamoDBObjectModel, AWSDynamoDBModeling
+    internal class VoteDB: AWSDynamoDBObjectModel, AWSDynamoDBModeling
     {
         var sample: NSData?
         var user: NSData?
