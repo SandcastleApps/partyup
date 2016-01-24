@@ -23,6 +23,8 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
 	@IBOutlet weak var videoReview: UIView!
+	@IBOutlet weak var voteLabel: UILabel!
+	@IBOutlet var voteButtons: [UIButton]!
 
 	private let player = Player()
 	private var timer: NSTimer?
@@ -80,6 +82,8 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			commentLabel.text = comment
 		}
 
+		updateVoteIndicators()
+
 		player.view.translatesAutoresizingMaskIntoConstraints = false
 		player.view.layer.cornerRadius = 10
 		player.view.layer.masksToBounds = true
@@ -126,7 +130,10 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 		player.setUrl(PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!))
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		let notify = NSNotificationCenter.defaultCenter()
+		notify.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		notify.addObserver(self, selector: Selector("updateVoteIndicators"), name: Sample.RatingUpdateNotification, object: sample)
+		notify.addObserver(self, selector: Selector("updateVoteIndicators"), name: Sample.VoteUpdateNotification, object: sample)
 	}
 
 	deinit {
@@ -156,8 +163,17 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 		visible = false
 	}
 
-	@IBAction func placeVote(sender: UISegmentedControl) {
-        sample.vote = Vote(rawValue: sender.selectedSegmentIndex - 1)
+	func updateVoteIndicators() {
+		voteButtons[0].selected = sample.vote == .Down
+		voteButtons[1].selected = sample.vote == .Up
+
+		voteLabel.text = "\(sample.rating[0] - sample.rating[1])"
+	}
+
+	@IBAction func placeVote(sender: UIButton) {
+		let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
+		sample.setVote(vote)
+		voteButtons.forEach { button in button.selected = false }
 	}
 
 	// MARK: Player

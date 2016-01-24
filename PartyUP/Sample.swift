@@ -27,13 +27,20 @@ enum Vote: Int, CustomDebugStringConvertible {
 
 final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 {
+	static let RatingUpdateNotification = "SampleRatingUpdateNotification"
+	static let VoteUpdateNotification = "SampleVoteUpdateNotification"
+
 	typealias UsageStamp = UInt8
 
 	let user: NSUUID
     let event: String
 	let time: NSDate
 	var comment: String?
-	var rating: [Int]
+	var rating: [Int] {
+		didSet {
+			NSNotificationCenter.defaultCenter().postNotificationName(Sample.RatingUpdateNotification, object: self)
+		}
+	}
 
 	var media: NSURL {
 		get { return NSURL(fileURLWithPath: user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4") }
@@ -47,22 +54,11 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		}
 	}
     
-    var vote: Vote? {
-        didSet {
-			if vote != oldValue && oldValue != nil {
-				let db = VoteDB()
-				db.sample = VoteDB.hashKeyGenerator(event, sample: identifier)
-				db.user = VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)
-				db.vote = NSNumber(integer: vote?.rawValue ?? 0)
-				AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db).continueWithSuccessBlock { task in
-					let upDelta = oldValue == .Up ? -1 : self.vote == .Up ? 1 : 0
-					let downDelta = oldValue == .Down ? -1 : self.vote == .Down ? 1 : 0
-					self.updateRating(upDelta: upDelta, downDelta: downDelta)
-					return nil
-				}
-			}
-        }
-    }
+	var vote = Vote.Meh {
+		didSet {
+			NSNotificationCenter.defaultCenter().postNotificationName(Sample.VoteUpdateNotification, object: self)
+		}
+	}
 
     init(user: NSUUID, event: String, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int]) {
 		self.user = user
@@ -74,7 +70,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
         
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithSuccessBlock { task in
 			if let result = task.result as? VoteDB {
-				dispatch_async(dispatch_get_main_queue()) { self.vote = Vote(rawValue: result.vote?.integerValue ?? 0) }
+				dispatch_async(dispatch_get_main_queue()) { self.vote = Vote(rawValue: result.vote?.integerValue ?? 0)! }
 			}
 
             return nil
@@ -96,6 +92,24 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 
 	var debugDescription: String {
 		get { return "User = \(user.UUIDString) stamp = \(stamp)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
+	}
+
+	func setVote(vote: Vote) {
+		if vote != self.vote {
+			let db = VoteDB()
+			db.sample = VoteDB.hashKeyGenerator(event, sample: identifier)
+			db.user = VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)
+			db.vote = NSNumber(integer: vote.rawValue)
+			AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db).continueWithBlock { task in
+				if task.error == nil && task.exception == nil {
+					let upDelta = self.vote == .Up ? -1 : vote == .Up ? 1 : 0
+					let downDelta = self.vote == .Down ? -1 : vote == .Down ? 1 : 0
+					self.updateRating(upDelta: upDelta, downDelta: downDelta)
+					dispatch_async(dispatch_get_main_queue()) { self.vote = vote }
+				}
+				return nil
+			}
+		}
 	}
 
 	private func updateRating(upDelta up: Int, downDelta down: Int) {
