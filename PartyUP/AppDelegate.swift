@@ -22,6 +22,7 @@ struct PartyUpPreferences
 	static let CameraJump = "CameraJump"
 	static let StickyTowns = "StickyTowns"
 	static let PlayTutorial = "Tutorial"
+    static let SampleSuppressionThreshold = "SampleSuppressionThreshold"
 }
 
 struct PartyUpConstants

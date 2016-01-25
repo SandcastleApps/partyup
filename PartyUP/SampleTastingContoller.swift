@@ -19,7 +19,9 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 		didSet {
 			if let party = partyId {
 				fetch(party) { (let samples: [Sample]) in
-					let sorted = samples.sort{ $0.time.compare($1.time) == .OrderedDescending }.filter{ abs($0.time.timeIntervalSinceNow) < NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)}
+                    let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
+                    let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
+					let sorted = samples.sort{ $0.time.compare($1.time) == .OrderedDescending }.filter{ (abs($0.time.timeIntervalSinceNow) < stale) && ($0.rating[0] - $0.rating[1] > suppress) }
 					dispatch_async(dispatch_get_main_queue()) {self.samples = sorted}
 				}
 			}
