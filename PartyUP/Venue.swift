@@ -29,7 +29,7 @@ final class Venue: CustomDebugStringConvertible
 		}
 	}
 
-	init(unique: String, open: NSTimeInterval, close: NSTimeInterval, name: String, details: String?, vicinity: String, location: CLLocation) {
+	init(unique: String, open: NSTimeInterval, close: NSTimeInterval, name: String, details: String?, vicinity: String?, location: CLLocation) {
 		self.unique = unique
 		self.open = open
 		self.close = close
@@ -39,14 +39,16 @@ final class Venue: CustomDebugStringConvertible
 		self.location = location
 	}
 
-	init(venue: JSON) {
-		self.unique = venue["place_id"].stringValue
-		self.open = 0
-		self.close = 0
-		self.name = venue["name"].stringValue
-		self.details = nil //venue["description"].string
-		self.vicinity = venue["vicinity"].stringValue.componentsSeparatedByString(",").first
-		self.location = CLLocation(latitude: venue["geometry"]["location"]["lat"].doubleValue, longitude: venue["geometry"]["location"]["lng"].doubleValue)
+	convenience init(venue: JSON) {
+		self.init(
+			unique: venue["place_id"].stringValue,
+			open: 0,
+			close: 0,
+			name: venue["name"].stringValue,
+			details: nil, //venue["description"].string,
+			vicinity: venue["vicinity"].stringValue.componentsSeparatedByString(",").first,
+			location: CLLocation(latitude: venue["geometry"]["location"]["lat"].doubleValue, longitude: venue["geometry"]["location"]["lng"].doubleValue)
+		)
 	}
 
 	func updateVitalitySince(time: NSTimeInterval, withSuppression suppress: Int) {
