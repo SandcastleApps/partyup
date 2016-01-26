@@ -14,19 +14,11 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 	@IBOutlet weak var loadingProgress: UIActivityIndicatorView!
 	@IBOutlet weak var nextPage: UIButton!
 	@IBOutlet weak var previousPage: UIButton!
-
-	var partyId: String? {
-		didSet {
-			if let party = partyId {
-				fetch(party) { (let samples: [Sample]) in
-                    let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
-                    let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
-					let sorted = samples.sort{ $0.time.compare($1.time) == .OrderedDescending }.filter{ (abs($0.time.timeIntervalSinceNow) < stale) && ($0.rating[0] - $0.rating[1] > suppress) }
-					dispatch_async(dispatch_get_main_queue()) {self.samples = sorted}
-				}
-			}
-		}
-	}
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateSampleDisplay()
+    }
 
 	@IBAction func flipPage(sender: UIButton) {
 		if let pvc = childViewControllers.first as? UIPageViewController {
@@ -39,18 +31,22 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 		}
 	}
 
-	private var samples: [Sample]? {
+    var samples: [Sample]? {
 		didSet {
-			loadingProgress.stopAnimating()
-			
-			if let page = dequeTastePageController(0), pvc = childViewControllers.first as? UIPageViewController {
-				pvc.dataSource = self
-				pvc.delegate = self
-				pvc.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
-				updateNavigationArrows(pvc)
-			}
+            updateSampleDisplay()
 		}
 	}
+    
+    private func updateSampleDisplay() {
+        loadingProgress?.stopAnimating()
+        
+        if let page = dequeTastePageController(0), pvc = childViewControllers.first as? UIPageViewController {
+            pvc.dataSource = self
+            pvc.delegate = self
+            pvc.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+            updateNavigationArrows(pvc)
+        }
+    }
 
 	func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
 		var toVC: UIViewController?

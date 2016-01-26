@@ -129,7 +129,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		if segue.identifier == "Sample Tasting Segue" {
 			if let selection = partyTable.indexPathForSelectedRow, party = venues?[selection.row] {
 				let viewerVC = segue.destinationViewController as! SampleTastingContoller
-				viewerVC.partyId = party.unique
+				viewerVC.samples = party.samples
 				viewerVC.title = party.name
 				Flurry.logEvent("Venue_Videos", withParameters: ["venue" : party.name])
 			}
