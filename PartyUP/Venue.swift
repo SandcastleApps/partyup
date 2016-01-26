@@ -8,6 +8,7 @@
 
 import SwiftyJSON
 import CoreLocation
+import AWSDynamoDB
 
 final class Venue: CustomDebugStringConvertible
 {
@@ -48,9 +49,22 @@ final class Venue: CustomDebugStringConvertible
 		self.location = CLLocation(latitude: venue["geometry"]["location"]["lat"].doubleValue, longitude: venue["geometry"]["location"]["lng"].doubleValue)
 	}
 
-	func updateVitalitySince(time: NSTimeInterval) {
-		let fil = QueryFilter(field: "time", op: ">", value: NSNumber(double: time))
-		count(unique, filter: fil, type: Sample.self) { (count) in dispatch_async(dispatch_get_main_queue()) { self.vitality = count } }
+	func updateVitalitySince(time: NSTimeInterval, withSuppression suppress: Int) {
+		let queryInput = AWSDynamoDBQueryInput()
+		queryInput.tableName = "Samples"
+		queryInput.select = .Count
+		queryInput.keyConditionExpression = "#e = :hashval"
+		queryInput.filterExpression = "#t > :time"
+		queryInput.expressionAttributeNames = ["#e": "event", "#t": "time"]
+		queryInput.expressionAttributeValues = [":hashval" : wrapValue(unique)!, ":time" : wrapValue(time)!]
+
+		AWSDynamoDB.defaultDynamoDB().query(queryInput).continueWithBlock { (task) in
+			if let result = task.result as? AWSDynamoDBQueryOutput {
+				dispatch_async(dispatch_get_main_queue()) { self.vitality = result.count.integerValue }
+			}
+
+			return nil
+		}
 	}
 
 	var debugDescription: String {
