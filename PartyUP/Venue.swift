@@ -21,11 +21,15 @@ final class Venue: CustomDebugStringConvertible
 	let details: String?
 	let vicinity: String?
 	let location: CLLocation
-	var vitality: Int? {
+	var samples: [Sample]? {
 		didSet {
-			if oldValue != vitality {
-				NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self)
-			}
+			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self)
+		}
+	}
+
+	var vitality: Int {
+		get {
+			return samples?.count ?? 0
 		}
 	}
 
@@ -51,18 +55,18 @@ final class Venue: CustomDebugStringConvertible
 		)
 	}
 
-	func updateVitalitySince(time: NSTimeInterval, withSuppression suppress: Int) {
-		let queryInput = AWSDynamoDBQueryInput()
-		queryInput.tableName = "Samples"
-		queryInput.select = .Count
-		queryInput.keyConditionExpression = "#e = :hashval"
-		queryInput.filterExpression = "#t > :time"
-		queryInput.expressionAttributeNames = ["#e": "event", "#t": "time"]
-		queryInput.expressionAttributeValues = [":hashval" : wrapValue(unique)!, ":time" : wrapValue(time)!]
-
-		AWSDynamoDB.defaultDynamoDB().query(queryInput).continueWithBlock { (task) in
-			if let result = task.result as? AWSDynamoDBQueryOutput {
-				dispatch_async(dispatch_get_main_queue()) { self.vitality = result.count.integerValue }
+	func fetchSamplesSince(time: NSTimeInterval, withSuppression suppress: Int) {
+		let query = AWSDynamoDBQueryExpression()
+		query.hashKeyValues = unique
+		query.filterExpression = "#t > :stale"
+		query.expressionAttributeNames = ["#t": "time"]
+		query.expressionAttributeValues = [":stale" : wrapValue(time)!]
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(Sample.SampleDB.self, expression: query).continueWithBlock { (task) in
+			if let result = task.result as? AWSDynamoDBPaginatedOutput {
+				if let items = result.items as? [Sample.SampleDB] {
+					let wraps = items.map { Sample(data: $0) }.filter { $0.rating[0] - $0.rating[1] > suppress }
+					dispatch_async(dispatch_get_main_queue()) { self.samples = wraps }
+				}
 			}
 
 			return nil
