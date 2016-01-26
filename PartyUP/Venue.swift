@@ -60,11 +60,11 @@ final class Venue: CustomDebugStringConvertible
 		query.hashKeyValues = unique
 		query.filterExpression = "#t > :stale"
 		query.expressionAttributeNames = ["#t": "time"]
-		query.expressionAttributeValues = [":stale" : wrapValue(time)!]
+        query.expressionAttributeValues = [":stale" : NSNumber(double: time)]
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(Sample.SampleDB.self, expression: query).continueWithBlock { (task) in
 			if let result = task.result as? AWSDynamoDBPaginatedOutput {
 				if let items = result.items as? [Sample.SampleDB] {
-					let wraps = items.map { Sample(data: $0) }.filter { $0.rating[0] - $0.rating[1] > suppress }
+                    let wraps = items.map { Sample(data: $0) }.filter { $0.rating[0] - $0.rating[1] > suppress }.sort { $0.time.compare($1.time) == .OrderedDescending }
 					dispatch_async(dispatch_get_main_queue()) { self.samples = wraps }
 				}
 			}
