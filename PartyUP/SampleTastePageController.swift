@@ -34,35 +34,8 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	private var displayRelativeTime = true
 
 	private func formatTime(time: NSDate, relative: Bool) -> String {
-		if let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) where relative {
-			let components = calendar.components([NSCalendarUnit.Hour, NSCalendarUnit.Minute],
-				fromDate: time,
-				toDate: NSDate(),
-				options: [])
-
-			var stringy = ""
-
-			switch components.hour {
-			case 1:
-				stringy = NSLocalizedString("1 hour ", comment: "Relative sample hour, be sure to leave the space at the end")
-			case let x where x > 1:
-				stringy = NSLocalizedString("\(x) hours ", comment: "Relative sampe hours, be sure to leave the space at the end")
-			default:
-				stringy = ""
-			}
-
-			switch components.minute {
-			case 1:
-				stringy += NSLocalizedString("1 minute ", comment: "Relative sample minute, be sure to leave space at end")
-			case let x where x > 1:
-				stringy += NSLocalizedString("\(x) minutes ", comment: "Relative sample minutes, be sure to leave space at end")
-			default:
-				stringy += ""
-			}
-
-			stringy += stringy.isEmpty ? NSLocalizedString("very fresh", comment: "Samples less than a minue old") : NSLocalizedString("ago", comment:"Samples more than a minute old")
-
-			return stringy
+		if relative {
+            return formatRelativeDateFrom(time)
 		} else {
 			return SampleTastePageController.timeFormatter.stringFromDate(time)
 		}
