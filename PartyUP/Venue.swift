@@ -33,6 +33,8 @@ final class Venue: CustomDebugStringConvertible
 		}
 	}
 
+	private var lastSampleRetrieved: [NSObject: AnyObject]?
+
 	init(unique: String, open: NSTimeInterval, close: NSTimeInterval, name: String, details: String?, vicinity: String?, location: CLLocation) {
 		self.unique = unique
 		self.open = open
@@ -61,11 +63,17 @@ final class Venue: CustomDebugStringConvertible
 		query.filterExpression = "#t > :stale"
 		query.expressionAttributeNames = ["#t": "time"]
         query.expressionAttributeValues = [":stale" : NSNumber(double: time)]
+		if let last = lastSampleRetrieved {
+			query.exclusiveStartKey = last
+		}
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(Sample.SampleDB.self, expression: query).continueWithBlock { (task) in
 			if let result = task.result as? AWSDynamoDBPaginatedOutput {
 				if let items = result.items as? [Sample.SampleDB] {
-                    let wraps = items.map { Sample(data: $0) }.filter { $0.rating[0] - $0.rating[1] > suppress }.sort { $0.time.compare($1.time) == .OrderedDescending }
-					dispatch_async(dispatch_get_main_queue()) { self.samples = wraps }
+					if let last = items.last {
+						self.lastSampleRetrieved = ["event" : wrapValue(last.event!)!, "id" : wrapValue(last.id!)!]
+					}
+                    let wraps = items.filter { ($0.ups?.integerValue ?? 0) - ($0.downs?.integerValue ?? 0) > suppress }.map { Sample(data: $0) }.sort { $0.time.compare($1.time) == .OrderedDescending }
+					dispatch_async(dispatch_get_main_queue()) { self.samples = wraps + (self.samples ?? []) }
 				}
 			}
 
