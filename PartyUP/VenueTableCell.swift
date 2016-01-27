@@ -17,17 +17,21 @@ class VenueTableCell: UITableViewCell {
     
     private struct VenueTableConstants {
         static let VitalityDivisor = 3
-        static let VitalityCap = 5
+        static let VitalityCap = 10
     }
 
 	var venue: Venue? {
 		didSet {
 			if let venue = venue {
 				venueLabel.text = venue.name ?? NSLocalizedString("Mysterious Venue", comment: "Default in cell when venue name is nil")
-				dotImage.setImageWithString(venueLabel.text, color: UIColor.orangeColor(), circular:  true)
+                let vitality = venue.vitality < VenueTableConstants.VitalityCap ? "\(venue.vitality)" : "🔥"
+				dotImage.setImageWithString(vitality, color: UIColor.orangeColor(), circular:  true)
 				detailLabel.text = venue.vicinity
-				let vitality = venue.vitality / VenueTableConstants.VitalityDivisor + (venue.vitality % VenueTableConstants.VitalityDivisor > 0 ? 1 : 0)
-				vitalityLabel.text = String(count: min(vitality, VenueTableConstants.VitalityCap), repeatedValue: Character("💃"))
+                if let time = venue.samples?.first?.time {
+                    vitalityLabel.text = formatRelativeDateFrom(time, toDate: NSDate(), compact: true)
+                } else {
+                    vitalityLabel.text = ""
+                }
 			}
 		}
 	}
