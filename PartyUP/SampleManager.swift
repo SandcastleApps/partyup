@@ -22,7 +22,7 @@ class SampleManager
 		case SubmissionException(exception: NSException)
 	}
 
-	typealias SampleSubmission = (sample: Sample, event: String, completion: (ErrorType?)->Void)
+	typealias SampleSubmission = (sample: Sample, completion: (ErrorType?)->Void)
 	private var queue = [(SampleSubmission)]()
 	private var active: SampleSubmission?
 
@@ -32,8 +32,8 @@ class SampleManager
 		return sharedManager
 	}
 
-	func submit(sample: Sample, event: String, completion: (ErrorType?)->Void) {
-		queue.append((sample, event, completion))
+	func submit(sample: Sample, completion: (ErrorType?)->Void) {
+		queue.append((sample, completion))
 		if active == nil {
 			process(nil)
 		}
@@ -92,7 +92,7 @@ class SampleManager
 			contentType: videoUrl.mime,
 			expression: uploadExpr,
 			completionHander: nil).continueWithSuccessBlock({ (task) in
-				return push(submission.sample, key: submission.event) }).continueWithBlock({ (task) in
+				return AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(submission.sample.dynamo)}).continueWithBlock({ (task) in
 					try! NSFileManager.defaultManager().removeItemAtURL(videoUrl)
 
 					dispatch_async(dispatch_get_main_queue()) { self.process(task) }

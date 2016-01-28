@@ -25,7 +25,7 @@ enum Vote: Int, CustomDebugStringConvertible {
     }
 }
 
-final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
+final class Sample: CustomDebugStringConvertible
 {
 	static let RatingUpdateNotification = "SampleRatingUpdateNotification"
 	static let VoteUpdateNotification = "SampleVoteUpdateNotification"
@@ -33,7 +33,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	typealias UsageStamp = UInt8
 
 	let user: NSUUID
-    let event: String
+    unowned let event: Venue
 	let time: NSDate
 	var comment: String?
 	var rating: [Int] {
@@ -60,7 +60,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		}
 	}
 
-    init(user: NSUUID, event: String, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int]) {
+    init(user: NSUUID, event: Venue, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int]) {
 		self.user = user
         self.event = event
 		self.time = time
@@ -68,7 +68,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 		self.stamp = stamp
 		self.rating = rating
         
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithSuccessBlock { task in
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithSuccessBlock { task in
 			if let result = task.result as? VoteDB {
 				dispatch_async(dispatch_get_main_queue()) { self.vote = Vote(rawValue: result.vote?.integerValue ?? 0)! }
 			}
@@ -77,7 +77,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
         }
 	}
 
-    convenience init(event: String, comment: String? = nil) {
+    convenience init(event: Venue, comment: String? = nil) {
 		self.init(
 			user: UIDevice.currentDevice().identifierForVendor!,
             event: event,
@@ -97,7 +97,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	func setVote(vote: Vote) {
 		if vote != self.vote {
 			let db = VoteDB()
-			db.sample = VoteDB.hashKeyGenerator(event, sample: identifier)
+			db.sample = VoteDB.hashKeyGenerator(event.unique, sample: identifier)
 			db.user = VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)
 			db.vote = NSNumber(integer: vote.rawValue)
 			AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db).continueWithBlock { task in
@@ -113,7 +113,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 	}
 
 	private func updateRating(upDelta up: Int, downDelta down: Int) {
-		if let hash = wrapValue(event), range = wrapValue(identifier), up = wrapValue(up), down = wrapValue(down) {
+		if let hash = wrapValue(event.unique), range = wrapValue(identifier), up = wrapValue(up), down = wrapValue(down) {
 			let updateInput = AWSDynamoDBUpdateItemInput()
 			updateInput.tableName = SampleDB.dynamoDBTableName()
 			updateInput.key = ["event" : hash, "id" : range]
@@ -135,10 +135,10 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 
 	//MARK - Internal Dynamo Representation
 
-	internal convenience init(data: SampleDB) {
+    internal convenience init(data: SampleDB, event: Venue) {
 		self.init(
 			user: NSUUID(UUIDBytes: UnsafePointer(data.id!.bytes)),
-            event: data.event!,
+            event: event,
 			time: NSDate(timeIntervalSince1970: data.time!.doubleValue),
 			comment: data.comment,
 			stamp: (UnsafePointer<UInt8>(data.id!.bytes) + 16).memory,
@@ -152,7 +152,7 @@ final class Sample: DynamoObjectWrapper, CustomDebugStringConvertible
 			db.time = time.timeIntervalSince1970
 			db.comment = comment
 			db.id = identifier
-            db.event = event
+            db.event = event.unique
 			db.ups = rating[0]
 			db.downs = rating[1]
 

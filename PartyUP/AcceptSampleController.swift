@@ -267,11 +267,11 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				progressHud.showInView(view, animated: true)
 				var statement: String? = comment.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 				statement = statement?.isEmpty ?? true || comment.textColor != UIColor.blackColor() ? nil : statement
-				let place = venues[selectedLocal].unique
+				let place = venues[selectedLocal]
                 let sample = Sample(event: place, comment: statement)
-				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place], timed: true)
+				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place.unique], timed: true)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-				SampleManager.defaultManager().submit(sample, event: place) {(error) in
+				SampleManager.defaultManager().submit(sample) {(error) in
 					if error == nil {
 						Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : true])
 						presentResultHud(self.progressHud,

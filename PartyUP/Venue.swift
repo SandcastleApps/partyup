@@ -64,7 +64,7 @@ final class Venue: CustomDebugStringConvertible
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(Sample.SampleDB.self, expression: query).continueWithBlock { (task) in
 			if let result = task.result as? AWSDynamoDBPaginatedOutput {
 				if let items = result.items as? [Sample.SampleDB] {
-                    let wraps = items.filter { ($0.ups?.integerValue ?? 0) - ($0.downs?.integerValue ?? 0) > suppress }.map { Sample(data: $0) }.sort { $0.time.compare($1.time) == .OrderedDescending }
+                    let wraps = items.filter { ($0.ups?.integerValue ?? 0) - ($0.downs?.integerValue ?? 0) > suppress }.map { Sample(data: $0, event: self) }.sort { $0.time.compare($1.time) == .OrderedDescending }
 					dispatch_async(dispatch_get_main_queue()) { self.samples = wraps }
 				}
 			}
