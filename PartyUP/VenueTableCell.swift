@@ -27,8 +27,13 @@ class VenueTableCell: UITableViewCell {
                 let vitality = venue.vitality < VenueTableConstants.VitalityCap ? "\(venue.vitality)" : "🔥"
 				dotImage.setImageWithString(vitality, color: UIColor.orangeColor(), circular:  true)
 				detailLabel.text = venue.vicinity
-                if let time = venue.samples?.first?.time {
-                    vitalityLabel.text = formatRelativeDateFrom(time, toDate: NSDate(), compact: true)
+                if let time = venue.samples?.first?.time, calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) {
+						let components = calendar.components([NSCalendarUnit.Hour, NSCalendarUnit.Minute],
+							fromDate: time,
+							toDate: NSDate(),
+							options: [])
+
+						vitalityLabel.text = String(format: "%d:%02d", components.hour,components.minute)
                 } else {
                     vitalityLabel.text = ""
                 }
