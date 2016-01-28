@@ -24,7 +24,20 @@ class VenueTableCell: UITableViewCell {
 		didSet {
 			if let venue = venue {
 				venueLabel.text = venue.name ?? NSLocalizedString("Mysterious Venue", comment: "Default in cell when venue name is nil")
-                let vitality = venue.vitality < VenueTableConstants.VitalityCap ? "\(venue.vitality)" : "🔥"
+                var vitality = ""
+                switch venue.vitality {
+                case 0:
+                    vitality = "🌑"
+                case 1...3:
+                    vitality = "🌘"
+                case 4...6:
+                    vitality = "🌗"
+                case 7...10:
+                    vitality = "🌖"
+                default:
+                    vitality = "🌕"
+                }
+                
 				dotImage.setImageWithString(vitality, color: UIColor.orangeColor(), circular:  true)
 				detailLabel.text = venue.vicinity
                 if let time = venue.samples?.first?.time, calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) {
@@ -33,7 +46,7 @@ class VenueTableCell: UITableViewCell {
 							toDate: NSDate(),
 							options: [])
 
-						vitalityLabel.text = String(format: "%d:%02d", components.hour,components.minute)
+                    vitalityLabel.text = components.hour > 0 ? "\(components.hour)h" : components.minute > 0 ? "\(components.minute)m" : ">1m"
                 } else {
                     vitalityLabel.text = ""
                 }
