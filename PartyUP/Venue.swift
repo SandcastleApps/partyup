@@ -55,7 +55,10 @@ final class Venue: CustomDebugStringConvertible
 		)
 	}
 
-	func fetchSamplesSince(time: NSTimeInterval, withSuppression suppress: Int) {
+	func fetchSamples() {
+		let time = NSDate().timeIntervalSince1970 - NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
+		let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
+
 		let query = AWSDynamoDBQueryExpression()
 		query.hashKeyValues = unique
 		query.filterExpression = "#t > :stale"

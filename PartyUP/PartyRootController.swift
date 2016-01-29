@@ -159,9 +159,7 @@ class PartyRootController: UIViewController {
                         }
                         
                         if !more {
-                            let staleDate = NSDate().timeIntervalSince1970 - NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
-							let suppression = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
-                            place.venues?.forEach { $0.fetchSamplesSince(staleDate, withSuppression: suppression)}
+                            place.venues?.forEach { $0.fetchSamples() }
                             
                             self.busyIndicator.stopAnimating()
                             self.busyLabel.text = ""
