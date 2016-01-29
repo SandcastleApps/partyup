@@ -10,7 +10,7 @@ import UIKit
 
 class VenueTableCell: UITableViewCell {
 
-	@IBOutlet weak private var dotImage: UIImageView!
+    @IBOutlet weak var vitalityDot: UILabel!
 	@IBOutlet weak private var venueLabel: UILabel!
 	@IBOutlet weak private var detailLabel: UILabel!
 	@IBOutlet weak private var vitalityLabel: UILabel!
@@ -35,18 +35,14 @@ class VenueTableCell: UITableViewCell {
 			var vitality = ""
 			switch venue.vitality {
 			case 0:
-				vitality = "🌑"
-			case 1...3:
-				vitality = "🌘"
-			case 4...6:
-				vitality = "🌗"
-			case 7...10:
-				vitality = "🌖"
+				vitality = "🎈"
+			case 1...5:
+				vitality = "💃🏻"
 			default:
-				vitality = "🌕"
+				vitality = "🔥"
 			}
 
-			dotImage.setImageWithString(vitality, color: UIColor.orangeColor(), circular:  true)
+			vitalityDot.text = vitality
 			detailLabel.text = venue.vicinity
 			updateVitalityTime()
 		}
