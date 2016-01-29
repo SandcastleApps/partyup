@@ -48,16 +48,20 @@ class VenueTableCell: UITableViewCell {
 
 			dotImage.setImageWithString(vitality, color: UIColor.orangeColor(), circular:  true)
 			detailLabel.text = venue.vicinity
-			if let time = venue.samples?.first?.time, calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) {
-				let components = calendar.components([NSCalendarUnit.Hour, NSCalendarUnit.Minute],
-					fromDate: time,
-					toDate: NSDate(),
-					options: [])
+			updateVitalityTime()
+		}
+	}
 
-				vitalityLabel.text = components.hour > 0 ? "\(components.hour)h" : components.minute > 0 ? "\(components.minute)m" : "<1m"
-			} else {
-				vitalityLabel.text = ""
-			}
+	func updateVitalityTime() {
+		if let time = venue?.samples?.first?.time, calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) {
+			let components = calendar.components([NSCalendarUnit.Hour, NSCalendarUnit.Minute],
+				fromDate: time,
+				toDate: NSDate(),
+				options: [])
+
+			vitalityLabel.text = components.hour > 0 ? "\(components.hour)h" : components.minute > 0 ? "\(components.minute)m" : "<1m"
+		} else {
+			vitalityLabel.text = ""
 		}
 	}
 }
