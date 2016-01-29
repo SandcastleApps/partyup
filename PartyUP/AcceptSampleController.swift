@@ -279,9 +279,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 							withTitle: NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
 							andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample"),
 							indicatingSuccess: true)
-//						let venue = self.venues[self.selectedLocal]
-//						venue.vitality? += 1
-//						NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: venue)
+						self.venues[self.selectedLocal].fetchSamples()
 					} else {
 						Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false])
 						Flurry.logError("Submission_Failed", message: "\(error)", error: nil)

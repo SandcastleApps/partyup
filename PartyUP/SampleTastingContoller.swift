@@ -17,8 +17,11 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateSampleDisplay()
     }
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
 
 	@IBAction func flipPage(sender: UIButton) {
 		if let pvc = childViewControllers.first as? UIPageViewController {
@@ -31,9 +34,31 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 		}
 	}
 
-    var samples: [Sample]? {
+	var venues: [Venue]? {
 		didSet {
-            updateSampleDisplay()
+			let notify = NSNotificationCenter.defaultCenter()
+			if let venues = venues {
+				for venue in venues {
+					observations.insert(venue)
+					notify.addObserver(self, selector: Selector("sampleFetchObserver:"), name: Venue.VitalityUpdateNotification, object: venue)
+					venue.fetchSamples()
+				}
+			}
+		}
+	}
+
+    private var samples = [Sample]()
+	private var observations = Set<Venue>()
+
+	func sampleFetchObserver(note: NSNotification) {
+		if let venue = note.object as? Venue {
+			if observations.remove(venue) != nil, let local = venue.samples {
+				samples.appendContentsOf(local)
+				if observations.isEmpty {
+					samples.sortInPlace { $0.time.compare($1.time) == .OrderedDescending }
+					updateSampleDisplay()
+				}
+			}
 		}
 	}
     
@@ -67,12 +92,12 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 
 	func dequeTastePageController(page: Int) -> UIViewController? {
 		if page >= 0 {
-			if let localSamples = samples where page < localSamples.count {
+			if page < samples.count {
 				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Sample Taste Page Controller") as? SampleTastePageController
 				pageVC?.page = page
-				pageVC?.sample = localSamples[page]
+				pageVC?.sample = samples[page]
 				return pageVC
-			} else if samples?.count ?? 0 == page {
+			} else if samples.count == page {
 				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Recruit Page Controller") as? RecruitPageController
 				pageVC?.page = page
 				return pageVC
@@ -92,7 +117,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 	{
 		if let index = (pageViewController.viewControllers?.first as? PageProtocol)?.page {
 			let prev = !(index > 0)
-			let next = !(index < samples?.count)
+			let next = !(index < samples.count)
 
 			if prev != previousPage.hidden {
 				UIView.animateWithDuration(0.5, animations: { self.previousPage.transform = prev ? CGAffineTransformMakeScale(0.1, 0.1) : CGAffineTransformIdentity }, completion: { (done) in self.previousPage.hidden = prev })
