@@ -159,8 +159,6 @@ class PartyRootController: UIViewController {
                         }
                         
                         if !more {
-                            place.venues?.forEach { $0.fetchSamples() }
-                            
                             self.busyIndicator.stopAnimating()
                             self.busyLabel.text = ""
                         }

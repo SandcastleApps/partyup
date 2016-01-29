@@ -36,6 +36,9 @@ class PartyPlace {
 					self.grokResponse(completion, response: response)
 			}
 		} else {
+			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
+			let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
+			venues?.forEach { $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress) }
 			completion(true, false)
 		}
 	}

@@ -37,11 +37,13 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 	var venues: [Venue]? {
 		didSet {
 			let notify = NSNotificationCenter.defaultCenter()
+			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
+			let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
 			if let venues = venues {
 				for venue in venues {
 					observations.insert(venue)
 					notify.addObserver(self, selector: Selector("sampleFetchObserver:"), name: Venue.VitalityUpdateNotification, object: venue)
-					venue.fetchSamples()
+					venue.fetchSamples(withStaleInterval: stale, andSuppression: suppress)
 				}
 			}
 		}

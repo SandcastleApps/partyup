@@ -41,6 +41,8 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		self.details = details
 		self.vicinity = vicinity
 		self.location = location
+
+		fetchSamples()
 	}
 
 	convenience init(venue: JSON) {
@@ -55,10 +57,11 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		)
 	}
 
-	func fetchSamples() {
-		let time = NSDate().timeIntervalSince1970 - NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
-		let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
+	func fetchSamples(
+		withStaleInterval stale: NSTimeInterval = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval),
+		andSuppression suppress: Int = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)) {
 
+		let time = NSDate().timeIntervalSince1970 - stale
 		let query = AWSDynamoDBQueryExpression()
 		query.hashKeyValues = unique
 		query.filterExpression = "#t > :stale"
