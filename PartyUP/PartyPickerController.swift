@@ -54,23 +54,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		searchController.searchBar.searchBarStyle = .Minimal
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
-
-		let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: Selector("updateVenueDisplay:"), name: Venue.VitalityUpdateNotification, object: nil)
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 	@IBAction func updateLocalVenues() {
 		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self)
-	}
-
-    func updateVenueDisplay(note: NSNotification) {
-        if let index = venues?.indexOf({ $0.unique == (note.object as? Venue)?.unique }) {
-            partyTable.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .None)
-        }
 	}
 
     // MARK: - Table view data source
