@@ -10,7 +10,7 @@ import SwiftyJSON
 import CoreLocation
 import AWSDynamoDB
 
-final class Venue: CustomDebugStringConvertible
+final class Venue: Hashable, CustomDebugStringConvertible
 {
 	static let VitalityUpdateNotification = "VitalityUpdateNotification"
 
@@ -79,4 +79,12 @@ final class Venue: CustomDebugStringConvertible
 	var debugDescription: String {
 		get { return "Unique = \(unique)\nopen = \(open)\nclose = \(close)\nname = \(name)\ndetails = \(details)\nlocation = \(location)" }
 	}
+
+	var hashValue: Int {
+		get { return unique.hashValue }
+	}
+}
+
+func ==(lhs: Venue, rhs: Venue) -> Bool {
+	return lhs.unique == rhs.unique
 }
