@@ -54,7 +54,7 @@ class VenueTableCell: UITableViewCell {
 					toDate: NSDate(),
 					options: [])
 
-				vitalityLabel.text = components.hour > 0 ? "\(components.hour)h" : components.minute > 0 ? "\(components.minute)m" : ">1m"
+				vitalityLabel.text = components.hour > 0 ? "\(components.hour)h" : components.minute > 0 ? "\(components.minute)m" : "<1m"
 			} else {
 				vitalityLabel.text = ""
 			}
