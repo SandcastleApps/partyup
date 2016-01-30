@@ -29,7 +29,7 @@ class BakeRootController: UIViewController {
 
 		Flurry.logEvent("Entering_Bakery")
 
-		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.House, timeout: 5) { (location, accuracy, status) in
+		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.House, timeout: 10) { (location, accuracy, status) in
 			if status == .Success || (status == .TimedOut && accuracy.rawValue >= INTULocationAccuracy.Block.rawValue) {
 				let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
 				let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }.sort { $0.location.distanceFromLocation(location) < $1.location.distanceFromLocation(location) }
