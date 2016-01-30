@@ -38,6 +38,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		}
 	}
 
+	private var freshTimer: NSTimer?
 	private var searchController: UISearchController!
 
 	@IBOutlet var partyTable: UITableView!
@@ -54,10 +55,33 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		searchController.searchBar.searchBarStyle = .Minimal
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
+
+		freshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("updateFreshnessIndicators"), userInfo: nil, repeats: true)
+
+		let nc = NSNotificationCenter.defaultCenter()
+		nc.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		nc.addObserver(self, selector: Selector("observeApplicationBecameInactive"), name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
+
+	deinit {
+		freshTimer?.invalidate()
+	}
+
+	func observeApplicationBecameActive() {
+		freshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("updateFreshnessIndicators"), userInfo: nil, repeats: true)
+		updateFreshnessIndicators()
+	}
+
+	func observeApplicationBecameInactive() {
+		freshTimer?.invalidate()
+	}
 
 	@IBAction func updateLocalVenues() {
 		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self)
+	}
+
+	func updateFreshnessIndicators() {
+		partyTable.visibleCells.forEach { ($0 as? VenueTableCell)?.updateVitalityTime() }
 	}
 
     // MARK: - Table view data source
