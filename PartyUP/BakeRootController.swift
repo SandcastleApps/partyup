@@ -20,6 +20,7 @@ class BakeRootController: UIViewController {
 	var venues = [Venue]()
 
 	private var locals: [Venue]!
+	private let locationRetryMax = 2
 	private var locationRequestId: INTULocationRequestID = 0
 
     override func viewDidLoad() {
@@ -29,7 +30,23 @@ class BakeRootController: UIViewController {
 
 		Flurry.logEvent("Entering_Bakery")
 
-		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.House, timeout: 10) { (location, accuracy, status) in
+		determineLocation(remainingRetries: locationRetryMax)
+
+		recordController = storyboard!.instantiateViewControllerWithIdentifier("RecordSample") as! RecordSampleController
+		acceptController = storyboard!.instantiateViewControllerWithIdentifier("AcceptSample") as! AcceptSampleController
+
+		addChildViewController(recordController)
+		view.addSubview(recordController.view)
+		recordController.transitionStartY = recordController.preview.frame.origin.y
+		recordController.didMoveToParentViewController(self)
+    }
+
+	deinit {
+		INTULocationManager.sharedInstance().cancelLocationRequest(locationRequestId)
+	}
+
+	func determineLocation(var remainingRetries retry: Int) {
+		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.House, timeout: 3 * NSTimeInterval(1 + locationRetryMax - retry)) { (location, accuracy, status) in
 			if status == .Success || (status == .TimedOut && accuracy.rawValue >= INTULocationAccuracy.Block.rawValue) {
 				let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
 				let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }.sort { $0.location.distanceFromLocation(location) < $1.location.distanceFromLocation(location) }
@@ -46,9 +63,11 @@ class BakeRootController: UIViewController {
 				case .ServicesDenied:
 					message = NSLocalizedString("Please enable \"While Using the App\" location access for PartyUP to submit videos.", comment: "Location services denied alert message while recording")
 					hud = false
+					retry = 0
 				case .ServicesDisabled:
 					message = NSLocalizedString("Please enable location services to submit videos.", comment: "Location services disabled alert message while recording")
 					hud = false
+					retry = 0
 				case .TimedOut:
 					message = NSLocalizedString("Timed out determining your location, try again later.", comment: "Location services timeout hud message while recording")
 					hud = true
@@ -60,38 +79,30 @@ class BakeRootController: UIViewController {
 					hud = true
 				}
 				dispatch_async(dispatch_get_main_queue()) {
-					self.locals = [Venue]()
-
-					if hud == true {
-						presentResultHud(self.progressHud,
-							inView: self.view,
-							withTitle: NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title"),
-							andDetail: message,
-							indicatingSuccess: false)
+					if retry > 0 {
+						self.determineLocation(remainingRetries: retry - 1)
 					} else {
-						let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
-							message:message,
-							preferredStyle: .Alert)
-						alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services disabled alert button"), style: .Default, handler: { (action) in self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }))
-						self.presentViewController(alert, animated: true, completion: nil)
-					}
+						self.locals = [Venue]()
 
-					Flurry.logError("Neighborhood_Determination_Failed", message: "Reason \(status)", error: nil)
+						if hud == true {
+							presentResultHud(self.progressHud,
+								inView: self.view,
+								withTitle: NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title"),
+								andDetail: message,
+								indicatingSuccess: false)
+						} else {
+							let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
+								message:message,
+								preferredStyle: .Alert)
+							alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services disabled alert button"), style: .Default, handler: { (action) in self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }))
+							self.presentViewController(alert, animated: true, completion: nil)
+						}
+
+						Flurry.logError("Neighborhood_Determination_Failed", message: "Reason \(status)", error: nil)
+					}
 				}
 			}
 		}
-
-		recordController = storyboard!.instantiateViewControllerWithIdentifier("RecordSample") as! RecordSampleController
-		acceptController = storyboard!.instantiateViewControllerWithIdentifier("AcceptSample") as! AcceptSampleController
-
-		addChildViewController(recordController)
-		view.addSubview(recordController.view)
-		recordController.transitionStartY = recordController.preview.frame.origin.y
-		recordController.didMoveToParentViewController(self)
-    }
-
-	deinit {
-		INTULocationManager.sharedInstance().cancelLocationRequest(locationRequestId)
 	}
 
 	override func viewDidAppear(animated: Bool) {
