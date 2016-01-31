@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D13b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -142,9 +143,9 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" tag="-1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpR-Vf-xMl" userLabel="Down">
-                                <rect key="frame" x="515" y="563" width="22" height="22"/>
+                                <rect key="frame" x="503" y="552" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="BMh-wc-Sha"/>
+                                    <constraint firstAttribute="height" constant="44" id="BMh-wc-Sha"/>
                                     <constraint firstAttribute="width" secondItem="qpR-Vf-xMl" secondAttribute="height" multiplier="1:1" id="YVe-fr-dle"/>
                                     <constraint firstAttribute="width" constant="22" id="cbK-5C-ZgN"/>
                                 </constraints>
@@ -160,9 +161,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcm-Ri-sef" userLabel="Up">
-                                <rect key="frame" x="558" y="563" width="22" height="22"/>
+                                <rect key="frame" x="547" y="552" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="Gf2-Qk-tM1"/>
+                                    <constraint firstAttribute="height" constant="44" id="Gf2-Qk-tM1"/>
                                     <constraint firstAttribute="width" secondItem="Gcm-Ri-sef" secondAttribute="height" multiplier="1:1" id="Hl4-MT-mkc"/>
                                     <constraint firstAttribute="width" constant="22" id="th8-n1-dcU"/>
                                 </constraints>
@@ -192,8 +193,8 @@
                         <constraints>
                             <constraint firstItem="n4K-5j-O8G" firstAttribute="centerY" secondItem="Gcm-Ri-sef" secondAttribute="centerY" id="1kF-fd-nji"/>
                             <constraint firstItem="e0F-a8-syX" firstAttribute="trailing" secondItem="EGl-He-1VL" secondAttribute="trailingMargin" id="1qq-4q-dXd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gcm-Ri-sef" secondAttribute="trailing" id="34k-XJ-xfr"/>
-                            <constraint firstItem="n4K-5j-O8G" firstAttribute="leading" secondItem="qpR-Vf-xMl" secondAttribute="trailing" id="368-Ux-UuT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Gcm-Ri-sef" secondAttribute="trailing" constant="-11" id="34k-XJ-xfr"/>
+                            <constraint firstItem="qpR-Vf-xMl" firstAttribute="trailing" secondItem="n4K-5j-O8G" secondAttribute="centerX" id="368-Ux-UuT"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="9vd-yg-KC7"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="EiK-hs-lL9"/>
                             <constraint firstItem="n4K-5j-O8G" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="bottom" constant="8" symbolic="YES" id="Eob-eF-nnd"/>
@@ -206,7 +207,7 @@
                             <constraint firstItem="e0F-a8-syX" firstAttribute="top" secondItem="n4K-5j-O8G" secondAttribute="bottom" constant="8" symbolic="YES" id="qmg-JI-zCr"/>
                             <constraint firstItem="DNJ-K7-UNE" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="top" constant="5" id="rIS-w6-1v9"/>
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="e0F-a8-syX" secondAttribute="bottom" constant="8" symbolic="YES" id="tGy-Ys-kGe"/>
-                            <constraint firstItem="Gcm-Ri-sef" firstAttribute="leading" secondItem="n4K-5j-O8G" secondAttribute="trailing" id="vP0-z8-JLm"/>
+                            <constraint firstItem="Gcm-Ri-sef" firstAttribute="leading" secondItem="n4K-5j-O8G" secondAttribute="centerX" id="vP0-z8-JLm"/>
                             <constraint firstItem="n4K-5j-O8G" firstAttribute="centerY" secondItem="Sy6-pN-RsA" secondAttribute="centerY" id="wgw-YD-wH2"/>
                         </constraints>
                     </view>
