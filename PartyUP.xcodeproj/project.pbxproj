@@ -41,6 +41,7 @@
 		1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */; };
 		1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */; };
 		1F263C821BE39A53009A3565 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C811BE39A53009A3565 /* Settings.bundle */; };
+		1F2DDB251C5E658C00E28DE4 /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DDB241C5E658C00E28DE4 /* Promotion.swift */; };
 		1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
 		1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A041BA59F4C00E622CF /* Main.storyboard */; };
@@ -111,6 +112,7 @@
 		1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakeRootController.swift; sourceTree = "<group>"; };
 		1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyDefaults.plist; sourceTree = "<group>"; };
 		1F263C811BE39A53009A3565 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		1F2DDB241C5E658C00E28DE4 /* Promotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
 		1F3BA5931C4C752900F3079F /* vote.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = vote.py; path = AWSLambdas/vote.py; sourceTree = "<group>"; usesTabs = 0; };
 		1F3BA5941C4D168000F3079F /* VoteStream.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = VoteStream.json; sourceTree = "<group>"; usesTabs = 0; };
 		1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyNotify.plist; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 		1F03C3721BA84DDC0037D7D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1F2DDB241C5E658C00E28DE4 /* Promotion.swift */,
 				1F06C7821BBB10F0006444DF /* SampleManager.swift */,
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
 				1F03C3771BA8500F0037D7D8 /* Sample.swift */,
@@ -636,6 +639,7 @@
 				1FDA45601C1DB02300F5E458 /* TutorialController.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
 				1FF051E31C1FB61800A7A67C /* WebPageController.swift in Sources */,
+				1F2DDB251C5E658C00E28DE4 /* Promotion.swift in Sources */,
 				1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */,
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
 				1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */,
