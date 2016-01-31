@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UIImageView_Letters
 import Flurry_iOS_SDK
 import CoreLocation
 
