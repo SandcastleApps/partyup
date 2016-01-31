@@ -7,7 +7,6 @@ target 'PartyUP' do
 	pod 'DACircularProgress'
 	pod 'Alamofire', '~> 3.1'
 	pod 'SwiftyJSON', '~> 2.3'
-	pod 'UIImageView-Letters', '~> 1.1'
 	pod 'INTULocationManager', '~> 4.1'
 	pod 'LMGeocoder', '~> 1.0'
 	pod 'PBJVision', '~> 0.4'

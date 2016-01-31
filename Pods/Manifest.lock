@@ -16,7 +16,6 @@ PODS:
   - PBJVision (0.4.2)
   - Player (0.1.0)
   - SwiftyJSON (2.3.0)
-  - UIImageView-Letters (1.1.4)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0)
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - PBJVision (~> 0.4)
   - Player (~> 0.1)
   - SwiftyJSON (~> 2.3)
-  - UIImageView-Letters (~> 1.1)
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 11f2053085d3088dc1ef9d38a9f11c18b528dd9e
@@ -47,6 +45,5 @@ SPEC CHECKSUMS:
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   Player: e05be4073ea64fce1981869898ad9796c27cdd2b
   SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
-  UIImageView-Letters: f62db28076797adf3560ab7410647dc6899b9eef
 
 COCOAPODS: 0.38.2

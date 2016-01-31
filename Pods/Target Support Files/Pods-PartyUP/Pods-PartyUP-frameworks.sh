@@ -65,7 +65,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-PartyUP/PBJVision.framework'
   install_framework 'Pods-PartyUP/Player.framework'
   install_framework 'Pods-PartyUP/SwiftyJSON.framework'
-  install_framework 'Pods-PartyUP/UIImageView_Letters.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-PartyUP/AWSCore.framework'
@@ -81,5 +80,4 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-PartyUP/PBJVision.framework'
   install_framework 'Pods-PartyUP/Player.framework'
   install_framework 'Pods-PartyUP/SwiftyJSON.framework'
-  install_framework 'Pods-PartyUP/UIImageView_Letters.framework'
 fi

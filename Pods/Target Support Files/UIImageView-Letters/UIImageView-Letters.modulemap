@@ -1,6 +1,0 @@
-framework module UIImageView_Letters {
-  umbrella header "UIImageView-Letters-umbrella.h"
-
-  export *
-  module * { export * }
-}
