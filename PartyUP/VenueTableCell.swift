@@ -24,10 +24,16 @@ class VenueTableCell: UITableViewCell {
 			if let venue = venue {
 				let nc = NSNotificationCenter.defaultCenter()
 				nc.addObserver(self, selector: Selector("updateVitalityDisplay"), name: Venue.VitalityUpdateNotification, object: venue)
+				nc.addObserver(self, selector: Selector("updatePromotionalMaterial"), name: Venue.PromotionUpdateNotification, object: venue)
 				venueLabel.text = venue.name ?? NSLocalizedString("Mysterious Venue", comment: "Default in cell when venue name is nil")
 				updateVitalityDisplay()
+				updatePromotionalMaterial()
 			}
 		}
+	}
+
+	func updatePromotionalMaterial() {
+		detailLabel.text = venue?.promotion?.tagline
 	}
 
 	func updateVitalityDisplay() {
@@ -43,7 +49,6 @@ class VenueTableCell: UITableViewCell {
 			}
 
 			vitalityDot.text = vitality
-			detailLabel.text = venue.vicinity
 			updateVitalityTime()
 		}
 	}

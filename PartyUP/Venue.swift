@@ -13,6 +13,7 @@ import AWSDynamoDB
 final class Venue: Hashable, CustomDebugStringConvertible
 {
 	static let VitalityUpdateNotification = "VitalityUpdateNotification"
+	static let PromotionUpdateNotification = "PromotionUpdateNotification"
 
 	let unique: String
 	let open: NSTimeInterval
@@ -21,6 +22,11 @@ final class Venue: Hashable, CustomDebugStringConvertible
 	let details: String?
 	let vicinity: String?
 	let location: CLLocation
+	var promotion: Promotion? {
+		didSet {
+			NSNotificationCenter.defaultCenter().postNotificationName(Venue.PromotionUpdateNotification, object: self)
+		}
+	}
 	var samples: [Sample]? {
 		didSet {
 			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self)
@@ -42,6 +48,7 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		self.vicinity = vicinity
 		self.location = location
 
+		fetchPromotion()
 		fetchSamples()
 	}
 
@@ -55,6 +62,16 @@ final class Venue: Hashable, CustomDebugStringConvertible
 			vicinity: venue["vicinity"].stringValue.componentsSeparatedByString(",").first,
 			location: CLLocation(latitude: venue["geometry"]["location"]["lat"].doubleValue, longitude: venue["geometry"]["location"]["lng"].doubleValue)
 		)
+	}
+
+	func fetchPromotion() {
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(Promotion.PromotionDB.self, hashKey: unique, rangeKey: nil).continueWithSuccessBlock{ task in
+			if let result = task.result as? Promotion.PromotionDB {
+				dispatch_async(dispatch_get_main_queue()) { self.promotion = Promotion(data: result, venue: self) }
+			}
+
+			return nil
+		}
 	}
 
 	func fetchSamples(

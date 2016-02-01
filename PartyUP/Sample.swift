@@ -182,9 +182,6 @@ final class Sample: CustomDebugStringConvertible
 		}
 	}
 
-	typealias DynamoRep = SampleDB
-	typealias DynamoKey = NSString
-
 	//MARK - Internal Stamp Factory
 
 	private let stamp: UsageStamp
