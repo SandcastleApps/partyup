@@ -38,7 +38,7 @@ class PartyPlace {
 		} else {
 			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
 			let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
-			venues?.forEach { $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress) }
+			venues?.forEach { $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress); $0.fetchPromotion() }
 			completion(true, false)
 		}
 	}

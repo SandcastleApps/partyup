@@ -60,6 +60,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		let nc = NSNotificationCenter.defaultCenter()
 		nc.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
 		nc.addObserver(self, selector: Selector("observeApplicationBecameInactive"), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+		nc.addObserver(self, selector: Selector("updatePromotions:"), name: Venue.PromotionUpdateNotification, object: nil)
     }
 
 	deinit {
@@ -81,6 +82,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	func updateFreshnessIndicators() {
 		partyTable.visibleCells.forEach { ($0 as? VenueTableCell)?.updateVitalityTime() }
+	}
+
+	func updatePromotions(note: NSNotification) {
+		updateSearchResultsForSearchController(searchController)
 	}
 
     // MARK: - Table view data source
@@ -129,7 +134,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			searchController.searchBar.searchBarStyle = .Prominent
 			venues = parties?.venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
 		} else {
-			venues = parties?.venues
+			venues = parties?.venues?.sort { $0.promotion?.placement > $1.promotion?.placement }
 		}
 	}
 

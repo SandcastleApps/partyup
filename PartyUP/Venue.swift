@@ -24,7 +24,9 @@ final class Venue: Hashable, CustomDebugStringConvertible
 	let location: CLLocation
 	var promotion: Promotion? {
 		didSet {
-			NSNotificationCenter.defaultCenter().postNotificationName(Venue.PromotionUpdateNotification, object: self)
+			if promotion != oldValue {
+				NSNotificationCenter.defaultCenter().postNotificationName(Venue.PromotionUpdateNotification, object: self)
+			}
 		}
 	}
 	var samples: [Sample]? {
@@ -66,10 +68,12 @@ final class Venue: Hashable, CustomDebugStringConvertible
 
 	func fetchPromotion() {
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(Promotion.PromotionDB.self, hashKey: unique, rangeKey: nil).continueWithSuccessBlock{ task in
-			if let result = task.result as? Promotion.PromotionDB {
+			if let result = task.result as? Promotion.PromotionDB where result.venue != nil {
 				dispatch_async(dispatch_get_main_queue()) { self.promotion = Promotion(data: result, venue: self) }
+			} else {
+				self.promotion = nil
 			}
-
+			
 			return nil
 		}
 	}
