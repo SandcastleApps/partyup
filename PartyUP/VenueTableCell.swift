@@ -34,15 +34,11 @@ class VenueTableCell: UITableViewCell {
 
 	func updatePromotionalMaterial() {
 		detailLabel.text = venue?.promotion?.tagline
-		switch venue?.promotion?.placement {
-		case .Some(2):
-			contentView.backgroundColor = UIColor.redColor()
-		case .Some(1):
-			contentView.backgroundColor = UIColor.orangeColor()
-		default:
-			contentView.backgroundColor = UIColor.whiteColor()
-		}
-		
+        if venue?.promotion?.placement > 0 {
+            contentView.superview?.backgroundColor = UIColor(red: 251/255, green: 176/255, blue: 64/255, alpha: 0.07)
+        } else {
+           contentView.superview?.backgroundColor = UIColor.whiteColor()
+        }
 	}
 
 	func updateVitalityDisplay() {
