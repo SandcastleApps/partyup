@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D13b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -140,7 +140,7 @@
                                     <constraint firstAttribute="width" constant="22" id="cbK-5C-ZgN"/>
                                 </constraints>
                                 <state key="normal" image="Down"/>
-                                <state key="selected" image="Down" backgroundImage="Star"/>
+                                <state key="selected" image="DownSelect"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="cbK-5C-ZgN"/>
@@ -158,7 +158,7 @@
                                     <constraint firstAttribute="width" constant="22" id="th8-n1-dcU"/>
                                 </constraints>
                                 <state key="normal" image="Up"/>
-                                <state key="selected" image="Up" backgroundImage="Star"/>
+                                <state key="selected" image="UpSelect"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="th8-n1-dcU"/>
@@ -309,10 +309,11 @@
     </scenes>
     <resources>
         <image name="Down" width="12" height="15"/>
+        <image name="DownSelect" width="18" height="20"/>
         <image name="Left" width="15" height="12"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Right" width="15" height="12"/>
-        <image name="Star" width="18" height="20"/>
         <image name="Up" width="12" height="15"/>
+        <image name="UpSelect" width="18" height="20"/>
     </resources>
 </document>
