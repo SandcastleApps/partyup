@@ -25,7 +25,7 @@ enum Vote: Int, CustomDebugStringConvertible {
     }
 }
 
-final class Sample: CustomDebugStringConvertible
+final class Sample: CustomDebugStringConvertible, Equatable
 {
 	static let RatingUpdateNotification = "SampleRatingUpdateNotification"
 	static let VoteUpdateNotification = "SampleVoteUpdateNotification"
@@ -226,4 +226,8 @@ final class Sample: CustomDebugStringConvertible
             return NSData(bytes: raw, length: raw.count)
         }
     }
+}
+
+func ==(lhs: Sample, rhs: Sample) -> Bool {
+	return (lhs.user == rhs.user) && (lhs.event == rhs.event) && (lhs.stamp == rhs.stamp)
 }

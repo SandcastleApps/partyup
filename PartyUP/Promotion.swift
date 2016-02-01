@@ -8,7 +8,7 @@
 
 import AWSDynamoDB
 
-final class Promotion: CustomDebugStringConvertible
+final class Promotion: CustomDebugStringConvertible, Equatable
 {
     unowned let venue: Venue
     let placement: Int
@@ -59,5 +59,9 @@ final class Promotion: CustomDebugStringConvertible
             return "venue"
         }
     }
+}
+
+func ==(lhs: Promotion, rhs: Promotion) -> Bool {
+	return (lhs.placement == rhs.placement) && (lhs.tagline == rhs.tagline)
 }
 
