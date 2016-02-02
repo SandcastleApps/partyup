@@ -85,10 +85,26 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func updatePromotions(note: NSNotification) {
-		if let what = note.object as? Venue {
-			if let src = venues?.indexOf(what) {
-				venues?.removeAtIndex(src)
-				if let dst = venues?.indexOf( { ($0.promotion?.placement) ?? 0 <= (what.promotion?.placement ?? 0) } ) {
+		let oldPlace = (note.userInfo?["old"] as? Promotion)?.placement ?? 0
+		if let what = note.object as? Venue, locals = venues {
+			var src: Int?
+			var dst: Int?
+			let whatPlace = what.promotion?.placement ?? 0
+			if oldPlace != whatPlace {
+				for (index, venue) in locals.enumerate() {
+					if venue == what {
+						src = index
+					} else if dst == nil && (venue.promotion?.placement) ?? 0 <= whatPlace {
+						dst = index - (src != nil ? 1 : 0)
+					}
+
+					if src != nil && dst != nil {
+						break
+					}
+				}
+
+				if let src = src, dst = dst where src != dst {
+					venues?.removeAtIndex(src)
 					venues?.insert(what, atIndex: dst)
 					partyTable.moveRowAtIndexPath(NSIndexPath(forRow: src, inSection: 0), toIndexPath: NSIndexPath(forRow: dst, inSection: 0))
 				}
