@@ -16,7 +16,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	private var venues: [Venue]? {
 		didSet {
-			partyTable?.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+			partyTable?.reloadData()
 		}
 	}
 
@@ -169,23 +169,22 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Sample Tasting Segue" {
-			if let selection = partyTable.indexPathForSelectedRow {
-				let viewerVC = segue.destinationViewController as! SampleTastingContoller
-				if selection.section == 0 {
-					viewerVC.venues = venues
-					viewerVC.title = parties?.place.locality
-					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
-				} else {
-					if let party = venues?[selection.row] {
-						viewerVC.venues = [party]
-						viewerVC.title = party.name
-						Flurry.logEvent("Venue_Videos", withParameters: ["venue" : party.name])
-					}
-				}
-			}
-
-
-		}
+        if let id = segue.identifier where id.hasPrefix("SampleTasteSegue") {
+            if let selection = partyTable.indexPathForSelectedRow {
+                if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
+                    if selection.section == 0  {
+                        viewerVC.venues = venues
+                        viewerVC.title = parties?.place.locality
+                        Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
+                    } else {
+                        if let party = venues?[selection.row] {
+                            viewerVC.venues = [party]
+                            viewerVC.title = party.name
+                            Flurry.logEvent("Venue_Videos", withParameters: ["venue" : party.name])
+                        }
+                    }
+                }
+            }
+        }
     }
 }
