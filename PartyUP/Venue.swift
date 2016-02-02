@@ -25,7 +25,7 @@ final class Venue: Hashable, CustomDebugStringConvertible
 	var promotion: Promotion? {
 		didSet {
 			if promotion != oldValue {
-				NSNotificationCenter.defaultCenter().postNotificationName(Venue.PromotionUpdateNotification, object: self)
+				NSNotificationCenter.defaultCenter().postNotificationName(Venue.PromotionUpdateNotification, object: self, userInfo: oldValue != nil ?["old" : oldValue!] : nil)
 			}
 		}
 	}
