@@ -85,7 +85,15 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func updatePromotions(note: NSNotification) {
-		updateSearchResultsForSearchController(searchController)
+		if let what = note.object as? Venue {
+			if let src = venues?.indexOf(what) {
+				venues?.removeAtIndex(src)
+				if let dst = venues?.indexOf( { ($0.promotion?.placement) ?? 0 <= (what.promotion?.placement ?? 0) } ) {
+					venues?.insert(what, atIndex: dst)
+					partyTable.moveRowAtIndexPath(NSIndexPath(forRow: src, inSection: 0), toIndexPath: NSIndexPath(forRow: dst, inSection: 0))
+				}
+			}
+		}
 	}
 
     // MARK: - Table view data source
@@ -132,7 +140,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		if let searchString = searchController.searchBar.text where searchController.active {
 			searchController.searchBar.searchBarStyle = .Prominent
-			venues = parties?.venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
+			venues = parties?.venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }.sort { $0.promotion?.placement > $1.promotion?.placement }
 		} else {
 			venues = parties?.venues?.sort { $0.promotion?.placement > $1.promotion?.placement }
 		}
