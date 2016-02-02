@@ -16,7 +16,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	private var venues: [Venue]? {
 		didSet {
-			partyTable?.reloadData()
+			partyTable?.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
 		}
 	}
 
@@ -106,7 +106,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				if let src = src, dst = dst where src != dst {
 					venues?.removeAtIndex(src)
 					venues?.insert(what, atIndex: dst)
-					partyTable.moveRowAtIndexPath(NSIndexPath(forRow: src, inSection: 0), toIndexPath: NSIndexPath(forRow: dst, inSection: 0))
+					partyTable.moveRowAtIndexPath(NSIndexPath(forRow: src, inSection: 1), toIndexPath: NSIndexPath(forRow: dst, inSection: 1))
 				}
 			}
 		}
@@ -115,21 +115,25 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Table view data source
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return parties?.place.locality
+		return section == 0 ? parties?.place.locality : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
 	}
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return venues?.count ?? 0
+		return section == 0 ? 1 : venues?.count ?? 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! VenueTableCell 
-		cell.venue = venues?[indexPath.row]
-        return cell
+		if indexPath.section == 1 {
+			let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! VenueTableCell
+			cell.venue = venues?[indexPath.row]
+			return cell
+		} else {
+			return tableView.dequeueReusableCellWithIdentifier("AllParty", forIndexPath: indexPath)
+		}
 	}
 
 	// MARK: - Search
@@ -166,12 +170,22 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "Sample Tasting Segue" {
-			if let selection = partyTable.indexPathForSelectedRow, party = venues?[selection.row] {
+			if let selection = partyTable.indexPathForSelectedRow {
 				let viewerVC = segue.destinationViewController as! SampleTastingContoller
-				viewerVC.venues = [party]
-				viewerVC.title = party.name
-				Flurry.logEvent("Venue_Videos", withParameters: ["venue" : party.name])
+				if selection.section == 0 {
+					viewerVC.venues = venues
+					viewerVC.title = parties?.place.locality
+					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
+				} else {
+					if let party = venues?[selection.row] {
+						viewerVC.venues = [party]
+						viewerVC.title = party.name
+						Flurry.logEvent("Venue_Videos", withParameters: ["venue" : party.name])
+					}
+				}
 			}
+
+
 		}
     }
 }
