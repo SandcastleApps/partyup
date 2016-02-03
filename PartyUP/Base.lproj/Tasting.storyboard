@@ -74,7 +74,7 @@
                             <constraint firstAttribute="trailing" secondItem="Nzd-Vm-PKO" secondAttribute="trailing" id="zTs-9S-to6"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="dCM-JW-bfo"/>
+                    <navigationItem key="navigationItem" id="dCM-JW-bfo"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <fixedSimulatedSizeMetrics key="simulatedDestinationMetrics">
                         <size key="portraitSize" width="600" height="502"/>
@@ -309,11 +309,11 @@
     </scenes>
     <resources>
         <image name="Down" width="12" height="15"/>
-        <image name="DownSelect" width="18" height="20"/>
+        <image name="DownSelect" width="21" height="24"/>
         <image name="Left" width="15" height="12"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Right" width="15" height="12"/>
         <image name="Up" width="12" height="15"/>
-        <image name="UpSelect" width="18" height="20"/>
+        <image name="UpSelect" width="21" height="24"/>
     </resources>
 </document>

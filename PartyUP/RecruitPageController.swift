@@ -18,6 +18,12 @@ class RecruitPageController: UIViewController, PageProtocol {
 		UIView.animateWithDuration(1.0, delay: 0, options: [.Autoreverse, .Repeat, .AllowUserInteraction], animations: { self.shareButton.alpha = 0.5 }, completion: nil)
 	}
 
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+
+		navigationController?.navigationBar.topItem?.title = NSLocalizedString("Share", comment: "Recruitment page navigation title")
+	}
+
 	@IBAction func recruit(sender: UIButton) {
 		presentShareActions(self)
 	}

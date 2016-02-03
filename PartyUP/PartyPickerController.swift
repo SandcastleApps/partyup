@@ -16,11 +16,14 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	private var venues: [Venue]? {
 		didSet {
+			videoTotal = 0
+			venues?.forEach { videoTotal += $0.samples?.count ?? 0 }
 			partyTable?.reloadData()
 		}
 	}
 
 	private var venueTotal = 0
+	private var videoTotal = 0
 
 	var parties: PartyPlace? {
 		didSet {
@@ -132,7 +135,11 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			cell.venue = venues?[indexPath.row]
 			return cell
 		} else {
-			return tableView.dequeueReusableCellWithIdentifier("AllParty", forIndexPath: indexPath)
+			let cell = tableView.dequeueReusableCellWithIdentifier("AllParty", forIndexPath: indexPath)
+			let locality = parties?.place.locality ?? NSLocalizedString("this hick town", comment: "All parties list item title unknown city")
+			cell.textLabel?.text = NSLocalizedString("All parties in \(locality)", comment: "All parties list item title")
+			cell.detailTextLabel?.text = NSLocalizedString("\(videoTotal) videos", comment: "All parties list item detail")
+			return cell
 		}
 	}
 
@@ -174,12 +181,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
                 if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
                     if selection.section == 0  {
                         viewerVC.venues = venues
-                        viewerVC.title = parties?.place.locality
                         Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
                     } else {
                         if let party = venues?[selection.row] {
                             viewerVC.venues = [party]
-                            viewerVC.title = party.name
                             Flurry.logEvent("Venue_Videos", withParameters: ["venue" : party.name])
                         }
                     }

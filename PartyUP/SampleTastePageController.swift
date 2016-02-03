@@ -119,6 +119,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 		super.viewDidAppear(animated)
 		visible = true
 
+		navigationController?.navigationBar.topItem?.title = sample.event.name
 		player.delegate = self
 		if player.bufferingState == .Ready {
 			player.playFromBeginning()
