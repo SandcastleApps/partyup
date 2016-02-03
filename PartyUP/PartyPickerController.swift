@@ -16,14 +16,11 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	private var venues: [Venue]? {
 		didSet {
-			videoTotal = 0
-			venues?.forEach { videoTotal += $0.samples?.count ?? 0 }
 			partyTable?.reloadData()
 		}
 	}
 
 	private var venueTotal = 0
-	private var videoTotal = 0
 
 	var parties: PartyPlace? {
 		didSet {
@@ -84,6 +81,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func updateFreshnessIndicators() {
+		(partyTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? AnimalTableCell)?.updateVitalityTime()
 		partyTable.visibleCells.forEach { ($0 as? VenueTableCell)?.updateVitalityTime() }
 	}
 
@@ -135,10 +133,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			cell.venue = venues?[indexPath.row]
 			return cell
 		} else {
-			let cell = tableView.dequeueReusableCellWithIdentifier("AllParty", forIndexPath: indexPath)
-			let locality = parties?.place.locality ?? NSLocalizedString("this hick town", comment: "All parties list item title unknown city")
-			cell.textLabel?.text = NSLocalizedString("All parties in \(locality)", comment: "All parties list item title")
-			cell.detailTextLabel?.text = NSLocalizedString("\(videoTotal) videos", comment: "All parties list item detail")
+			let cell = tableView.dequeueReusableCellWithIdentifier("PartyAnimal", forIndexPath: indexPath) as! AnimalTableCell
+			cell.locality = parties?.place.locality
+			cell.venues = venues
 			return cell
 		}
 	}

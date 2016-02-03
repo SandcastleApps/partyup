@@ -134,36 +134,59 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AllParty" textLabel="MV2-fr-c0E" detailTextLabel="K4p-kL-gsi" imageView="7kl-Io-Zbf" rowHeight="80" style="IBUITableViewCellStyleSubtitle" id="QDS-1L-all">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PartyAnimal" rowHeight="80" id="Al8-pg-QDa" customClass="AnimalTableCell" customModule="PartyUP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QDS-1L-all" id="IAh-ye-7IU">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Everything" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MV2-fr-c0E">
-                                            <rect key="frame" x="61" y="24" width="77.5" height="19.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
+                                            <rect key="frame" x="59" y="24.5" width="500" height="19.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K4p-kL-gsi">
-                                            <rect key="frame" x="61" y="43.5" width="30.5" height="13.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tagline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5X-mt-rMi" userLabel="Tagline Label">
+                                            <rect key="frame" x="59" y="48" width="38" height="13.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Send_13" id="7kl-Io-Zbf">
-                                            <rect key="frame" x="15" y="22" width="31" height="35"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jq-9a-QOQ" userLabel="Vitality Label">
+                                            <rect key="frame" x="29" y="61" width="0.0" height="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🎈" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFf-Hu-FCF" userLabel="Vitality Dot">
+                                            <rect key="frame" x="14" y="22" width="30" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="Q1u-lD-0rU"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="k5X-mt-rMi" firstAttribute="leading" secondItem="w2t-hX-Wgr" secondAttribute="leading" id="HWz-Kg-QFn"/>
+                                        <constraint firstItem="KFf-Hu-FCF" firstAttribute="leading" secondItem="ThR-GC-Wot" secondAttribute="leadingMargin" constant="6" id="Jna-e2-hS8"/>
+                                        <constraint firstItem="1Jq-9a-QOQ" firstAttribute="centerX" secondItem="KFf-Hu-FCF" secondAttribute="centerX" id="Mo8-n4-DKl"/>
+                                        <constraint firstItem="w2t-hX-Wgr" firstAttribute="leading" secondItem="KFf-Hu-FCF" secondAttribute="trailing" constant="15" id="VwB-A3-cAk"/>
+                                        <constraint firstItem="1Jq-9a-QOQ" firstAttribute="top" secondItem="KFf-Hu-FCF" secondAttribute="bottom" constant="3" id="WJo-eR-mgB"/>
+                                        <constraint firstItem="KFf-Hu-FCF" firstAttribute="centerY" secondItem="ThR-GC-Wot" secondAttribute="centerY" id="cJV-Nc-lE3"/>
+                                        <constraint firstItem="w2t-hX-Wgr" firstAttribute="centerY" secondItem="ThR-GC-Wot" secondAttribute="centerY" multiplier="6:7" id="dqK-9D-owE"/>
+                                        <constraint firstItem="k5X-mt-rMi" firstAttribute="top" secondItem="w2t-hX-Wgr" secondAttribute="bottom" constant="4" id="hn6-12-gfN"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="w2t-hX-Wgr" secondAttribute="trailing" id="pNg-9m-WtO"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="ax0-KD-6QZ" kind="show" identifier="SampleTasteSegueAll" id="xvG-kO-FXm"/>
+                                    <outlet property="cityLabel" destination="w2t-hX-Wgr" id="gVP-bq-P9S"/>
+                                    <outlet property="taglineLabel" destination="k5X-mt-rMi" id="9M2-aM-ynm"/>
+                                    <outlet property="vitalityDot" destination="KFf-Hu-FCF" id="Q9m-4u-dTw"/>
+                                    <outlet property="vitalityLabel" destination="1Jq-9a-QOQ" id="7Y2-b4-QhH"/>
+                                    <segue destination="ax0-KD-6QZ" kind="show" identifier="SampleTasteSegueAnimal" id="Ksl-nl-lBz"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PartyPooper" rowHeight="80" id="3TU-OM-H3C" customClass="VenueTableCell" customModule="PartyUP" customModuleProvider="target">
@@ -174,13 +197,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">
-                                            <rect key="frame" x="59" y="24" width="500" height="20"/>
+                                            <rect key="frame" x="59" y="24" width="500" height="19.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Vicinity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehr-lb-jBg" userLabel="Vicinity">
-                                            <rect key="frame" x="59" y="48" width="39" height="14"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tagline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehr-lb-jBg" userLabel="Tagline Label">
+                                            <rect key="frame" x="59" y="48" width="38" height="13.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -307,9 +330,8 @@
         <image name="Google" width="144" height="18"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Mark" width="30" height="35"/>
-        <image name="Send_13" width="31" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="v4R-zo-FVe"/>
+        <segue reference="Ksl-nl-lBz"/>
     </inferredMetricsTieBreakers>
 </document>
