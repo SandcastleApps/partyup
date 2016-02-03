@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -138,24 +138,18 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
-                                            <rect key="frame" x="59" y="24.5" width="500" height="19.5"/>
+                                            <rect key="frame" x="59" y="24" width="500" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tagline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5X-mt-rMi" userLabel="Tagline Label">
-                                            <rect key="frame" x="59" y="48" width="38" height="13.5"/>
+                                            <rect key="frame" x="59" y="48" width="38" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jq-9a-QOQ" userLabel="Vitality Label">
-                                            <rect key="frame" x="29" y="61" width="0.0" height="0.0"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🎈" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFf-Hu-FCF" userLabel="Vitality Dot">
@@ -167,18 +161,33 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Freshness" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jq-9a-QOQ" userLabel="Vitality Label">
+                                            <rect key="frame" x="505" y="48" width="54" height="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="1Jq-9a-QOQ" firstAttribute="height" secondItem="k5X-mt-rMi" secondAttribute="height" id="0xe-cq-ewT"/>
+                                        <constraint firstItem="1Jq-9a-QOQ" firstAttribute="baseline" secondItem="k5X-mt-rMi" secondAttribute="baseline" id="CPG-6s-Ngs"/>
                                         <constraint firstItem="k5X-mt-rMi" firstAttribute="leading" secondItem="w2t-hX-Wgr" secondAttribute="leading" id="HWz-Kg-QFn"/>
                                         <constraint firstItem="KFf-Hu-FCF" firstAttribute="leading" secondItem="ThR-GC-Wot" secondAttribute="leadingMargin" constant="6" id="Jna-e2-hS8"/>
                                         <constraint firstItem="1Jq-9a-QOQ" firstAttribute="centerX" secondItem="KFf-Hu-FCF" secondAttribute="centerX" id="Mo8-n4-DKl"/>
                                         <constraint firstItem="w2t-hX-Wgr" firstAttribute="leading" secondItem="KFf-Hu-FCF" secondAttribute="trailing" constant="15" id="VwB-A3-cAk"/>
                                         <constraint firstItem="1Jq-9a-QOQ" firstAttribute="top" secondItem="KFf-Hu-FCF" secondAttribute="bottom" constant="3" id="WJo-eR-mgB"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="1Jq-9a-QOQ" secondAttribute="trailing" id="WvS-2m-Yfz"/>
                                         <constraint firstItem="KFf-Hu-FCF" firstAttribute="centerY" secondItem="ThR-GC-Wot" secondAttribute="centerY" id="cJV-Nc-lE3"/>
                                         <constraint firstItem="w2t-hX-Wgr" firstAttribute="centerY" secondItem="ThR-GC-Wot" secondAttribute="centerY" multiplier="6:7" id="dqK-9D-owE"/>
                                         <constraint firstItem="k5X-mt-rMi" firstAttribute="top" secondItem="w2t-hX-Wgr" secondAttribute="bottom" constant="4" id="hn6-12-gfN"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="w2t-hX-Wgr" secondAttribute="trailing" id="pNg-9m-WtO"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Mo8-n4-DKl"/>
+                                            <exclude reference="WJo-eR-mgB"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -193,17 +202,17 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TU-OM-H3C" id="AWb-fz-eaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">
-                                            <rect key="frame" x="59" y="24" width="500" height="19.5"/>
+                                            <rect key="frame" x="59" y="24" width="500" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tagline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehr-lb-jBg" userLabel="Tagline Label">
-                                            <rect key="frame" x="59" y="48" width="38" height="13.5"/>
+                                            <rect key="frame" x="59" y="48" width="38" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -274,7 +283,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ8-vF-11W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1110" y="-625"/>
+            <point key="canvasLocation" x="1110" y="-626"/>
         </scene>
         <!--PartyUP Navigator-->
         <scene sceneID="HOt-fe-NMd">
@@ -332,6 +341,6 @@
         <image name="Mark" width="30" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ksl-nl-lBz"/>
+        <segue reference="v4R-zo-FVe"/>
     </inferredMetricsTieBreakers>
 </document>

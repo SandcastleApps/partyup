@@ -28,32 +28,60 @@ class AnimalTableCell: UITableViewCell {
 		didSet {
 			if let venues = venues {
 				let nc = NSNotificationCenter.defaultCenter()
-				venues.forEach { nc.addObserver(self, selector: Selector("updateVitalityDisplay"), name: Venue.VitalityUpdateNotification, object: $0) }
+                videoTotal = 0
+                venues.forEach { venue in
+                    self.videoTotal += venue.samples?.count ?? 0
+                    self.videoDate = greaterDate(one: venue.samples?.first?.time, two: videoDate)
+                    nc.addObserver(self, selector: Selector("updateVitality:"), name: Venue.VitalityUpdateNotification, object: venue)
+                }
 			}
 			updateVitalityDisplay()
 		}
 	}
+    
+    private var videoTotal: Int = 0
+    private var videoDate: NSDate?
+    
+    func updateVitality(note: NSNotification) {
+        if let venue = note.object as? Venue {
+            videoTotal = venues?.reduce(0) { (total, venue) in total! + (venue.samples?.count ?? 0) } ?? 0
+            videoDate = greaterDate(one: venue.samples?.first?.time, two: videoDate)
+        }
+    }
 
-	func updateVitalityDisplay() {
-		if let venues = venues {
-			let videoTotal = venues.reduce(0) { (total, venue) in total + (venue.samples?.count ?? 0) }
-			var vitality = ""
-			switch videoTotal {
-			case 0:
-				vitality = "🎈"
-			case 1...5:
-				vitality = "💃🏻"
-			default:
-				vitality = "🔥"
-			}
-
-			vitalityDot.text = vitality
-			taglineLabel.text = NSLocalizedString("\(videoTotal) videos", comment: "All venues cell video count label")
-			updateVitalityTime()
-		}
-	}
+    func updateVitalityDisplay() {
+        var vitality = ""
+        switch videoTotal {
+        case 0:
+            vitality = "🎈"
+        case 1...5:
+            vitality = "💃🏻"
+        default:
+            vitality = "🔥"
+        }
+        
+        vitalityDot.text = vitality
+        taglineLabel.text = NSLocalizedString("\(videoTotal) videos", comment: "All venues cell video count label")
+        updateVitalityTime()
+    }
 
 	func updateVitalityTime() {
-		
+        if let time = videoDate {
+            vitalityLabel.text = formatRelativeDateFrom(time, toDate: NSDate(), compact: true)
+        } else {
+            vitalityLabel.text = nil
+        }
 	}
+}
+
+private func greaterDate(one one: NSDate?, two: NSDate?) -> NSDate? {
+    if let one = one {
+        if let two = two {
+            return one.compare(two) == .OrderedAscending ? one : two
+        } else {
+            return one
+        }
+    } else {
+        return two
+    }
 }
