@@ -202,7 +202,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			cancelBlock: { (picker) in
 				// cancelled
 			},
-			origin: view)
+			origin: sender)
 	}
 
 	// MARK: - Text View

@@ -249,7 +249,7 @@ class PartyRootController: UIViewController {
 			cancelBlock: { (picker) in
 				// cancelled
 			},
-			origin: view)
+			origin: sender)
 	}
 
 	@IBAction func sequeFromBaking(segue: UIStoryboardSegue) {

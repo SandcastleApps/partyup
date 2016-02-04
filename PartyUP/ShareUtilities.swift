@@ -10,7 +10,7 @@ import UIKit
 import Social
 import Flurry_iOS_SDK
 
-func presentShareActions(presenting: UIViewController) {
+func presentShareActionsOn(presenting: UIViewController, atOrigin origin: UIView) {
 	let text = NSLocalizedString("Lets Party!\n", comment: "Recruitment default text")
 	let url = NSURL(string: "http://partyuptonight.com")
 	let image = UIImage(named: "BlackLogo")
@@ -38,5 +38,11 @@ func presentShareActions(presenting: UIViewController) {
 		}))
 	}
 	sheet.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Share sheet cancel action"), style: .Cancel, handler: nil))
+    
+    if let pop = sheet.popoverPresentationController {
+        pop.sourceView = origin
+        pop.sourceRect = origin.bounds
+    }
+    
 	presenting.presentViewController(sheet, animated: true, completion: nil)
 }
