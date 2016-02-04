@@ -31,7 +31,7 @@ final class Venue: Hashable, CustomDebugStringConvertible
 	}
 	var samples: [Sample]? {
 		didSet {
-			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self)
+			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : oldValue?.count ?? 0])
 		}
 	}
 
