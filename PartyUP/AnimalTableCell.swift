@@ -29,8 +29,9 @@ class AnimalTableCell: UITableViewCell {
 			if let venues = venues {
 				let nc = NSNotificationCenter.defaultCenter()
                 videoTotal = 0
+				videoDate = nil
                 venues.forEach { venue in
-                    self.videoTotal += venue.samples?.count ?? 0
+                    self.videoTotal += venue.vitality
                     self.videoDate = greaterDate(one: venue.samples?.first?.time, two: videoDate)
                     nc.addObserver(self, selector: Selector("updateVitality:"), name: Venue.VitalityUpdateNotification, object: venue)
                 }
@@ -43,9 +44,10 @@ class AnimalTableCell: UITableViewCell {
     private var videoDate: NSDate?
     
     func updateVitality(note: NSNotification) {
-        if let venue = note.object as? Venue {
-            videoTotal = venues?.reduce(0) { (total, venue) in total! + (venue.samples?.count ?? 0) } ?? 0
+        if let venue = note.object as? Venue, oldCount = note.userInfo?["old count"] as? Int {
+            videoTotal += venue.vitality - oldCount
             videoDate = greaterDate(one: venue.samples?.first?.time, two: videoDate)
+			updateVitalityDisplay()
         }
     }
 
@@ -77,7 +79,7 @@ class AnimalTableCell: UITableViewCell {
 private func greaterDate(one one: NSDate?, two: NSDate?) -> NSDate? {
     if let one = one {
         if let two = two {
-            return one.compare(two) == .OrderedAscending ? one : two
+            return one.compare(two) == .OrderedDescending ? one : two
         } else {
             return one
         }
