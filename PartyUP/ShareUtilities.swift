@@ -10,10 +10,11 @@ import UIKit
 import Social
 import Flurry_iOS_SDK
 
-func presentShareActionsOn(presenting: UIViewController, atOrigin origin: UIView) {
-	let text = NSLocalizedString("Lets Party!\n", comment: "Recruitment default text")
-	let url = NSURL(string: "http://partyuptonight.com")
-	let image = UIImage(named: "BlackLogo")
+func presentShareActionsOn(presenting: UIViewController,
+		atOrigin origin: UIView,
+	withMessage message: String = NSLocalizedString("Lets Party!\n", comment: "Recruitment default text"),
+					url: NSURL = NSURL(string: "http://partyuptonight.com")!,
+				  image: UIImage = UIImage(named: "BlackLogo")!) {
 	let sheet = UIAlertController(title: NSLocalizedString("Share PartyUP", comment: "Share action title"), message: nil, preferredStyle: .ActionSheet)
 	let services = ["Facebook" : SLServiceTypeFacebook, "Twitter" : SLServiceTypeTwitter]
 
@@ -22,7 +23,7 @@ func presentShareActionsOn(presenting: UIViewController, atOrigin origin: UIView
 			{ (action) in
 				if SLComposeViewController.isAvailableForServiceType(service){
 					let shareSheet:SLComposeViewController = SLComposeViewController(forServiceType: service)
-					shareSheet.setInitialText(text)
+					shareSheet.setInitialText(message)
 					shareSheet.addURL(url)
 					shareSheet.addImage(image)
 					presenting.presentViewController(shareSheet, animated: true) {
