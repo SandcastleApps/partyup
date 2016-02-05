@@ -179,7 +179,7 @@
                                 </connections>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n4K-5j-O8G">
-                                <rect key="frame" x="537" y="564" width="21" height="20"/>
+                                <rect key="frame" x="537" y="564" width="21" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="38O-DJ-ZgO"/>
                                     <constraint firstAttribute="width" constant="21" id="RTg-hn-VM4"/>
@@ -188,6 +188,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5lH-oF-CEa">
+                                <rect key="frame" x="459" y="552" width="44" height="44"/>
+                                <state key="normal" title="💬"/>
+                                <connections>
+                                    <action selector="shareSample:" destination="qqy-na-3Zk" eventType="touchUpInside" id="vHg-m1-5wK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -195,9 +202,13 @@
                             <constraint firstItem="e0F-a8-syX" firstAttribute="trailing" secondItem="EGl-He-1VL" secondAttribute="trailingMargin" id="1qq-4q-dXd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Gcm-Ri-sef" secondAttribute="trailing" constant="-11" id="34k-XJ-xfr"/>
                             <constraint firstItem="qpR-Vf-xMl" firstAttribute="trailing" secondItem="n4K-5j-O8G" secondAttribute="centerX" id="368-Ux-UuT"/>
+                            <constraint firstItem="5lH-oF-CEa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Sy6-pN-RsA" secondAttribute="trailing" constant="-10" id="5IJ-7R-vuI"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="9vd-yg-KC7"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="top" secondItem="ilR-tH-076" secondAttribute="bottom" constant="8" symbolic="YES" id="EiK-hs-lL9"/>
                             <constraint firstItem="n4K-5j-O8G" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="bottom" constant="8" symbolic="YES" id="Eob-eF-nnd"/>
+                            <constraint firstItem="5lH-oF-CEa" firstAttribute="centerY" secondItem="qpR-Vf-xMl" secondAttribute="centerY" id="SlF-wf-BqD"/>
+                            <constraint firstItem="qpR-Vf-xMl" firstAttribute="leading" secondItem="5lH-oF-CEa" secondAttribute="trailing" id="Sxm-JW-wbm"/>
+                            <constraint firstItem="5lH-oF-CEa" firstAttribute="width" secondItem="qpR-Vf-xMl" secondAttribute="width" id="UHj-PU-nhm"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="width" secondItem="EGl-He-1VL" secondAttribute="width" constant="-10" id="a4D-hs-Ipc"/>
                             <constraint firstItem="qpR-Vf-xMl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Sy6-pN-RsA" secondAttribute="trailing" constant="8" symbolic="YES" id="diN-b2-2yV"/>
                             <constraint firstItem="Sy6-pN-RsA" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leadingMargin" id="i1b-Jb-TZI"/>
@@ -205,12 +216,18 @@
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="height" secondItem="EGl-He-1VL" secondAttribute="width" id="kjD-cg-CK9"/>
                             <constraint firstItem="DNJ-K7-UNE" firstAttribute="trailing" secondItem="WNy-Cg-5eP" secondAttribute="trailing" constant="-5" id="noT-CU-HiI"/>
                             <constraint firstItem="n4K-5j-O8G" firstAttribute="centerY" secondItem="qpR-Vf-xMl" secondAttribute="centerY" id="oEj-uP-cxG"/>
+                            <constraint firstItem="5lH-oF-CEa" firstAttribute="height" secondItem="qpR-Vf-xMl" secondAttribute="height" id="qix-rr-Gg8"/>
                             <constraint firstItem="e0F-a8-syX" firstAttribute="top" secondItem="n4K-5j-O8G" secondAttribute="bottom" constant="8" symbolic="YES" id="qmg-JI-zCr"/>
                             <constraint firstItem="DNJ-K7-UNE" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="top" constant="5" id="rIS-w6-1v9"/>
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="e0F-a8-syX" secondAttribute="bottom" constant="8" symbolic="YES" id="tGy-Ys-kGe"/>
                             <constraint firstItem="Gcm-Ri-sef" firstAttribute="leading" secondItem="n4K-5j-O8G" secondAttribute="centerX" id="vP0-z8-JLm"/>
                             <constraint firstItem="n4K-5j-O8G" firstAttribute="centerY" secondItem="Sy6-pN-RsA" secondAttribute="centerY" id="wgw-YD-wH2"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="diN-b2-2yV"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>

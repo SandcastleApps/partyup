@@ -13,8 +13,8 @@ import Flurry_iOS_SDK
 func presentShareActionsOn(presenting: UIViewController,
 		atOrigin origin: UIView,
 	withMessage message: String = NSLocalizedString("Lets Party!\n", comment: "Recruitment default text"),
-					url: NSURL = NSURL(string: "http://partyuptonight.com")!,
-				  image: UIImage = UIImage(named: "BlackLogo")!) {
+					url: NSURL? = NSURL(string: "http://partyuptonight.com"),
+				  image: UIImage? = UIImage(named: "BlackLogo")) {
 	let sheet = UIAlertController(title: NSLocalizedString("Share PartyUP", comment: "Share action title"), message: nil, preferredStyle: .ActionSheet)
 	let services = ["Facebook" : SLServiceTypeFacebook, "Twitter" : SLServiceTypeTwitter]
 
