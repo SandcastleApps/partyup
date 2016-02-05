@@ -48,7 +48,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 	@IBAction func shareSample(sender: UIButton) {
 		let message = NSLocalizedString("PartyUP at \(sample.event.name)", comment: "Share video message prefix")
-		presentShareActionsOn(self, atOrigin: timeLabel, withMessage: message, url: PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!))
+		presentShareActionsOn(self, atOrigin: sender, withMessage: message, url: PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!))
 	}
 
     override func viewDidLoad() {
