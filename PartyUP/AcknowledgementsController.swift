@@ -22,7 +22,7 @@ class AcknowledgementsController: UITableViewController {
 	}
 
 	@IBAction func recruit(sender: UIButton) {
-        presentShareActionsOn(self, atOrigin: sender)
+        presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share PartyUP", comment: "Share action prompt"))
 	}
 
 	@IBAction func pushThirdParty(sender: UITapGestureRecognizer) {

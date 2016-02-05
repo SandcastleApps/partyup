@@ -25,7 +25,7 @@ class RecruitPageController: UIViewController, PageProtocol {
 	}
 
 	@IBAction func recruit(sender: UIButton) {
-		presentShareActionsOn(self, atOrigin: sender)
+		presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share PartyUP", comment: "Share action prompt"))
 	}
 
 }
