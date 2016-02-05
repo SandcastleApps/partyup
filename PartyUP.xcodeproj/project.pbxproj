@@ -81,7 +81,6 @@
 		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; };
 		1FF051E31C1FB61800A7A67C /* WebPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF051E21C1FB61800A7A67C /* WebPageController.swift */; };
 		1FF051E51C20560100A7A67C /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF051E71C20560100A7A67C /* Tutorial.storyboard */; };
-		1FF2BA9A1BCAC7A200336651 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF2BA991BCAC7A200336651 /* CoreData.framework */; };
 		7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -178,7 +177,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FF2BA9A1BCAC7A200336651 /* CoreData.framework in Frameworks */,
 				1F9997451BB323D5003457E2 /* AVFoundation.framework in Frameworks */,
 				1F03C37C1BA8E1950037D7D8 /* CoreLocation.framework in Frameworks */,
 				7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */,
