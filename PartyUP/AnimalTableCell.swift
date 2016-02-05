@@ -17,7 +17,7 @@ class AnimalTableCell: UITableViewCell {
 	var locality: String? {
 		didSet {
 			let place = locality != nil ? locality! : NSLocalizedString("this hick town", comment: "Default city name in all venues cell")
-			cityLabel?.text = NSLocalizedString("All videos in ", comment: "All venues cell title prefix") + place
+			cityLabel?.text = NSLocalizedString("All party videos in ", comment: "All venues cell title prefix") + place
 		}
 	}
 
