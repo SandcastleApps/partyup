@@ -28,7 +28,7 @@ struct PartyUpPreferences
 struct PartyUpConstants
 {
 	static let StorageKeyPrefix = "media"
-	static let ContentDistribution = NSURL(scheme: "http", host: "drh93nkfgtaww.cloudfront.net", path: "/" + StorageKeyPrefix)!
+	static let ContentDistribution = NSURL(scheme: "http", host: "media.partyuptonight.com", path: "/" + StorageKeyPrefix)!
 	static let StorageBucket = "com.sandcastleapps.partyup"
 	static let TitleLogo: ()->UIImageView = {
 		let logoView = UIImageView(image: UIImage(named: "Logo"))
