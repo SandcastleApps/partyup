@@ -124,7 +124,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return section == 0 ? 1 : venues?.count ?? 0
+		return section == 0 ? 2 : venues?.count ?? 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -135,7 +135,21 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		} else {
 			let cell = tableView.dequeueReusableCellWithIdentifier("PartyAnimal", forIndexPath: indexPath) as! AnimalTableCell
 			cell.locality = parties?.place.locality
-			cell.venues = venues
+			switch indexPath.row {
+			case 0:
+				cell.title = NSLocalizedString("All party videos in ", comment: "All venues cell title prefix")
+				cell.venues = venues
+			case 1:
+				cell.title = NSLocalizedString("Pregame party videos for ", comment: "Pregame cell title prefix")
+				if let pregame = parties?.pregame {
+					cell.venues = [pregame]
+				} else {
+					cell.venues = [Venue]()
+				}
+			default:
+				cell.title = "Your shouldn't see this"
+				cell.venues = [Venue]()
+			}
 			return cell
 		}
 	}
@@ -177,8 +191,19 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
             if let selection = partyTable.indexPathForSelectedRow {
                 if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
                     if selection.section == 0  {
-                        viewerVC.venues = venues
-                        Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
+						switch selection.row {
+						case 0:
+							viewerVC.venues = venues
+							Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
+						case 1:
+							if let pregame = parties?.pregame {
+								viewerVC.venues = [pregame]
+							} else {
+								viewerVC.venues = [Venue]()
+							}
+						default:
+							viewerVC.venues = [Venue]()
+						}
                     } else {
                         if let party = venues?[selection.row] {
                             viewerVC.venues = [party]

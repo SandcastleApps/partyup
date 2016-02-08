@@ -18,6 +18,7 @@ class BakeRootController: UIViewController {
 	private let progressHud = JGProgressHUD(style: .Light)
 
 	var venues = [Venue]()
+	var pregame: Venue?
 
 	private var locals: [Venue]!
 	private let locationRetryMax = 2
@@ -117,6 +118,10 @@ class BakeRootController: UIViewController {
 
 	func collectSample(filteredVenues: [Venue]) {
 		locals = filteredVenues
+
+		if let pregame = pregame {
+			locals.append(pregame)
+		}
 
 		if locals.count > 0 {
 			recordController.recordButton.enabled = true

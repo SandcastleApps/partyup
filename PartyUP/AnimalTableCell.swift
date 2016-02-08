@@ -13,11 +13,13 @@ class AnimalTableCell: UITableViewCell {
 	@IBOutlet weak var taglineLabel: UILabel!
 	@IBOutlet weak var vitalityDot: UILabel!
 	@IBOutlet weak var vitalityLabel: UILabel!
+
+	var title = ""
 	
 	var locality: String? {
 		didSet {
 			let place = locality != nil ? locality! : NSLocalizedString("this hick town", comment: "Default city name in all venues cell")
-			cityLabel?.text = NSLocalizedString("All party videos in ", comment: "All venues cell title prefix") + place
+			cityLabel?.text = title + place
 		}
 	}
 
