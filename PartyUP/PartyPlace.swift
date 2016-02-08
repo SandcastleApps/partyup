@@ -22,7 +22,7 @@ class PartyPlace {
 
 	init(place: LMAddress) {
 		self.place = place
-		self.pregame = Venue(unique: "@" + place.locality + "$" + place.administrativeArea, open: 0, close: 0, name: place.locality, details: nil, vicinity: place.administrativeArea, location: CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude))
+		self.pregame = Venue(unique: "@" + place.locality + "$" + place.administrativeArea, open: 0, close: 0, name: place.locality + " " + NSLocalizedString("Pregame Feed", comment: "Place name suffix for pregame venue"), details: nil, vicinity: place.administrativeArea, location: CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude))
 	}
 
 	func fetch(radius: Int, categories: String, completion: (Bool, Bool) -> Void) {
