@@ -14,6 +14,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	static let VenueRefreshRequest = "VenueListRefreshRequest"
 
+	enum PartyTableSection: Int {
+		case Animal = 0, Venue = 1
+	}
+
 	private var venues: [Venue]? {
 		didSet {
 			partyTable?.reloadData()
@@ -186,32 +190,24 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let id = segue.identifier where id.hasPrefix("SampleTasteSegue") {
-            if let selection = partyTable.indexPathForSelectedRow {
-                if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
-                    if selection.section == 0  {
-						switch selection.row {
-						case 0:
-							viewerVC.venues = venues
-							Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
-						case 1:
-							if let pregame = parties?.pregame {
-								viewerVC.venues = [pregame]
-							} else {
-								viewerVC.venues = [Venue]()
-							}
-						default:
-							viewerVC.venues = [Venue]()
-						}
-                    } else {
-                        if let party = venues?[selection.row] {
-                            viewerVC.venues = [party]
-                            Flurry.logEvent("Venue_Videos", withParameters: ["venue" : party.name])
-                        }
-                    }
-                }
-            }
-        }
-    }
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if let selection = (sender as? UITableViewCell).flatMap( {partyTable.indexPathForCell($0)} ) {
+			if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
+				switch (PartyTableSection(rawValue: selection.section), selection.row) {
+				case (.Some(.Venue), let row):
+					viewerVC.venues = (venues?[row]).map { [$0] }
+					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : venues?[row].name ?? "Mystery Venue"])
+				case (.Some(.Animal), 0):
+					viewerVC.venues = venues
+					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
+				case (.Some(.Animal), 1):
+					viewerVC.venues = (parties?.pregame).map { [$0] }
+					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.pregame.name ?? "Pregame"])
+				default:
+					viewerVC.venues = nil
+					Flurry.logError("Invalid_Party_Selection", message: "An invalid selection was made in the party picking table", error: nil)
+				}
+			}
+		}
+	}
 }
