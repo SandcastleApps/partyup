@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AnimalTableCell: UITableViewCell {
+class AnimalTableCell: PartyTableCell {
 	@IBOutlet weak var cityLabel: UILabel!
 	@IBOutlet weak var taglineLabel: UILabel!
 	@IBOutlet weak var vitalityDot: UILabel!
@@ -69,7 +69,7 @@ class AnimalTableCell: UITableViewCell {
         updateVitalityTime()
     }
 
-	func updateVitalityTime() {
+	override func updateVitalityTime() {
         if let time = videoDate {
             vitalityLabel.text = formatRelativeDateFrom(time, toDate: NSDate(), compact: true)
         } else {

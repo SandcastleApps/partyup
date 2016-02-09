@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VenueTableCell: UITableViewCell {
+class VenueTableCell: PartyTableCell {
 
     @IBOutlet weak var vitalityDot: UILabel!
 	@IBOutlet weak private var venueLabel: UILabel!
@@ -58,7 +58,7 @@ class VenueTableCell: UITableViewCell {
 		}
 	}
 
-	func updateVitalityTime() {
+	override func updateVitalityTime() {
 		if let time = venue?.samples?.first?.time, calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) {
 			let components = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute],
 				fromDate: time,

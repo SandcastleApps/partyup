@@ -86,8 +86,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func updateFreshnessIndicators() {
-		(partyTable.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? AnimalTableCell)?.updateVitalityTime()
-		partyTable.visibleCells.forEach { ($0 as? VenueTableCell)?.updateVitalityTime() }
+		partyTable.visibleCells.forEach { ($0 as? PartyTableCell)?.updateVitalityTime() }
 	}
 
 	func updatePromotions(note: NSNotification) {

@@ -65,6 +65,7 @@
 		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
 		1F9B5D0E1C596D6A000E7574 /* DateUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B5D0D1C596D6A000E7574 /* DateUtilities.swift */; };
 		1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */; };
+		1FB916501C6A42D700ED62DE /* PartyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9164F1C6A42D700ED62DE /* PartyTableCell.swift */; };
 		1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */; };
 		1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD40041C11E1060093D852 /* PageProtocol.swift */; };
 		1FBD400A1C120F6B0093D852 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FBD400C1C120F6B0093D852 /* InfoPlist.strings */; };
@@ -148,6 +149,7 @@
 		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
 		1F9B5D0D1C596D6A000E7574 /* DateUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtilities.swift; sourceTree = "<group>"; };
 		1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Halifax.gpx; path = Globetrotter/Halifax.gpx; sourceTree = SOURCE_ROOT; };
+		1FB9164F1C6A42D700ED62DE /* PartyTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyTableCell.swift; sourceTree = "<group>"; };
 		1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitPageController.swift; sourceTree = "<group>"; };
 		1FBD40041C11E1060093D852 /* PageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageProtocol.swift; sourceTree = "<group>"; };
 		1FBD40061C120F6B0093D852 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */,
 				1F08469C1C32C0490064FBDD /* VenueTableCell.swift */,
 				1F10FD951C624A050090743C /* AnimalTableCell.swift */,
+				1FB9164F1C6A42D700ED62DE /* PartyTableCell.swift */,
 			);
 			name = Party;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
 				1FDA45621C1E2D5400F5E458 /* TutorialPageController.swift in Sources */,
+				1FB916501C6A42D700ED62DE /* PartyTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
