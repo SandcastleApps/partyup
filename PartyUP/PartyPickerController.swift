@@ -14,8 +14,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	static let VenueRefreshRequest = "VenueListRefreshRequest"
 
-	enum PartyTableSection: Int {
-		case Animal = 0, Venue = 1
+	private struct PartySections {
+		static let animal = 0
+		static let venue = 1
 	}
 
 	private var venues: [Venue]? {
@@ -193,14 +194,14 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if let selection = (sender as? UITableViewCell).flatMap( {partyTable.indexPathForCell($0)} ) {
 			if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
-				switch (PartyTableSection(rawValue: selection.section), selection.row) {
-				case (.Some(.Venue), let row):
+				switch (selection.section, selection.row) {
+				case (PartySections.venue, let row):
 					viewerVC.venues = (venues?[row]).map { [$0] }
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : venues?[row].name ?? "Mystery Venue"])
-				case (.Some(.Animal), 0):
+				case (PartySections.animal, 0):
 					viewerVC.venues = venues
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
-				case (.Some(.Animal), 1):
+				case (PartySections.animal, 1):
 					viewerVC.venues = (parties?.pregame).map { [$0] }
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.pregame.name ?? "Pregame"])
 				default:
