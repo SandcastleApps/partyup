@@ -121,7 +121,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Table view data source
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return section == 0 ? parties?.place.locality : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
+		return section == PartySections.animal ? parties?.place.locality : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
 	}
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -129,11 +129,11 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return section == 0 ? 2 : venues?.count ?? 0
+		return section == PartySections.animal ? 2 : venues?.count ?? 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		if indexPath.section == 1 {
+		if indexPath.section == PartySections.venue {
 			let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! VenueTableCell
 			cell.venue = venues?[indexPath.row]
 			return cell
