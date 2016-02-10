@@ -41,7 +41,6 @@
 		1F10FD961C624A050090743C /* AnimalTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F10FD951C624A050090743C /* AnimalTableCell.swift */; };
 		1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */; };
 		1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */; };
-		1F263C821BE39A53009A3565 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C811BE39A53009A3565 /* Settings.bundle */; };
 		1F2DDB251C5E658C00E28DE4 /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DDB241C5E658C00E28DE4 /* Promotion.swift */; };
 		1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
@@ -110,10 +109,11 @@
 		1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1F06C7821BBB10F0006444DF /* SampleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleManager.swift; sourceTree = "<group>"; };
 		1F08469C1C32C0490064FBDD /* VenueTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueTableCell.swift; sourceTree = "<group>"; };
+		1F09183A1C6B80440020B498 /* Settings_Deploy.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Deploy.bundle; sourceTree = "<group>"; };
 		1F10FD951C624A050090743C /* AnimalTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalTableCell.swift; sourceTree = "<group>"; };
 		1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakeRootController.swift; sourceTree = "<group>"; };
 		1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyDefaults.plist; sourceTree = "<group>"; };
-		1F263C811BE39A53009A3565 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		1F263C811BE39A53009A3565 /* Settings_Develop.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Develop.bundle; sourceTree = "<group>"; };
 		1F2DDB241C5E658C00E28DE4 /* Promotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
 		1F3BA5931C4C752900F3079F /* vote.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = vote.py; path = AWSLambdas/vote.py; sourceTree = "<group>"; usesTabs = 0; };
 		1F3BA5941C4D168000F3079F /* VoteStream.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = VoteStream.json; sourceTree = "<group>"; usesTabs = 0; };
@@ -249,7 +249,8 @@
 			isa = PBXGroup;
 			children = (
 				1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */,
-				1F263C811BE39A53009A3565 /* Settings.bundle */,
+				1F09183A1C6B80440020B498 /* Settings_Deploy.bundle */,
+				1F263C811BE39A53009A3565 /* Settings_Develop.bundle */,
 			);
 			name = "User Defaults";
 			sourceTree = "<group>";
@@ -514,7 +515,6 @@
 			files = (
 				1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */,
 				1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */,
-				1F263C821BE39A53009A3565 /* Settings.bundle in Resources */,
 				1F8BF1C41C1C55DD00221D82 /* Acknowledge.storyboard in Resources */,
 				1F71B5E11C0897E800F5740E /* Home.gpx in Resources */,
 				1F9896911C2239F000B0DB29 /* Tasting.storyboard in Resources */,
