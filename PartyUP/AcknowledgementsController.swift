@@ -9,6 +9,14 @@
 import UIKit
 
 class AcknowledgementsController: UITableViewController {
+    @IBOutlet weak var versionLabel: UILabel! {
+        didSet {
+            let bundle = NSBundle.mainBundle()
+            let version = bundle.objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? "?.?"
+            let build = bundle.objectForInfoDictionaryKey("CFBundleVersion") as? String ?? "?"
+            versionLabel.text = "v\(version)(\(build))"
+        }
+    }
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
