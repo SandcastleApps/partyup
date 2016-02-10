@@ -132,30 +132,33 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		var cell: PartyTableCell
 		if indexPath.section == PartySections.venue {
-			let cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! VenueTableCell
-			cell.venue = venues?[indexPath.row]
-			return cell
+			cell = tableView.dequeueReusableCellWithIdentifier("PartyPooper", forIndexPath: indexPath) as! VenueTableCell
+			if let venue = venues?[indexPath.row] {
+				cell.title = venue.name
+				cell.venues = [venue]
+			}
 		} else {
-			let cell = tableView.dequeueReusableCellWithIdentifier("PartyAnimal", forIndexPath: indexPath) as! AnimalTableCell
-			cell.locality = parties?.place.locality
+			cell = tableView.dequeueReusableCellWithIdentifier("PartyAnimal", forIndexPath: indexPath) as! AnimalTableCell
+			let locality = parties?.place.locality ?? NSLocalizedString("Hick Town", comment: "Default locality name")
 			switch indexPath.row {
 			case 0:
-				cell.title = NSLocalizedString("All party videos in ", comment: "All venues cell title prefix")
+				cell.title = NSLocalizedString("All party videos in \(locality)", comment: "All venues cell title prefix")
 				cell.venues = venues
 			case 1:
-				cell.title = NSLocalizedString("Pregame party videos for ", comment: "Pregame cell title prefix")
+				cell.title = NSLocalizedString("Pregame party videos for \(locality)", comment: "Pregame cell title prefix")
 				if let pregame = parties?.pregame {
 					cell.venues = [pregame]
 				} else {
-					cell.venues = [Venue]()
+					cell.venues = nil
 				}
 			default:
 				cell.title = "Your shouldn't see this"
-				cell.venues = [Venue]()
+				cell.venues = nil
 			}
-			return cell
 		}
+		return cell
 	}
 
 	// MARK: - Search

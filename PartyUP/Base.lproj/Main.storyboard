@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -138,7 +138,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
@@ -191,10 +191,10 @@
                                 </tableViewCellContentView>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="cityLabel" destination="w2t-hX-Wgr" id="gVP-bq-P9S"/>
-                                    <outlet property="taglineLabel" destination="k5X-mt-rMi" id="9M2-aM-ynm"/>
-                                    <outlet property="vitalityDot" destination="KFf-Hu-FCF" id="Q9m-4u-dTw"/>
-                                    <outlet property="vitalityLabel" destination="1Jq-9a-QOQ" id="7Y2-b4-QhH"/>
+                                    <outlet property="taglineLabel" destination="k5X-mt-rMi" id="3WP-Iq-uvN"/>
+                                    <outlet property="venueLabel" destination="w2t-hX-Wgr" id="IfO-Li-iY1"/>
+                                    <outlet property="vitalityDot" destination="KFf-Hu-FCF" id="yMl-yK-6Df"/>
+                                    <outlet property="vitalityLabel" destination="1Jq-9a-QOQ" id="ihM-Bo-k0a"/>
                                     <segue destination="ax0-KD-6QZ" kind="show" identifier="SampleTasteSegueAnimal" id="Ksl-nl-lBz"/>
                                 </connections>
                             </tableViewCell>
@@ -202,7 +202,7 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TU-OM-H3C" id="AWb-fz-eaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">
@@ -246,10 +246,10 @@
                                 </tableViewCellContentView>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="detailLabel" destination="ehr-lb-jBg" id="ww7-da-Gso"/>
-                                    <outlet property="venueLabel" destination="2w9-Ke-igB" id="IQc-WL-e4a"/>
-                                    <outlet property="vitalityDot" destination="QbL-kc-epJ" id="s1d-5R-Jkd"/>
-                                    <outlet property="vitalityLabel" destination="Ymt-jn-jpW" id="IxC-CY-bPn"/>
+                                    <outlet property="taglineLabel" destination="ehr-lb-jBg" id="4xu-B2-owa"/>
+                                    <outlet property="venueLabel" destination="2w9-Ke-igB" id="jcv-Yt-G5c"/>
+                                    <outlet property="vitalityDot" destination="QbL-kc-epJ" id="jcT-Su-JMP"/>
+                                    <outlet property="vitalityLabel" destination="Ymt-jn-jpW" id="6AG-yu-FKo"/>
                                     <segue destination="ax0-KD-6QZ" kind="show" identifier="SampleTasteSegueVenue" id="v4R-zo-FVe"/>
                                 </connections>
                             </tableViewCell>
