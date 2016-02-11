@@ -17,7 +17,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	@IBOutlet weak var timerBar: DACircularProgressView!
 	@IBOutlet weak var preview: UIView!
 	@IBOutlet weak var naviBar: UINavigationBar!
-    @IBOutlet var countdownLabels: [UILabel]!
+    @IBOutlet weak var countdownLabel: UILabel!
     
 	var transitionStartY: CGFloat = 0.0
 
@@ -117,9 +117,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		timer?.invalidate()
 		timerBar.progress = 0.0
 		timerBar.progressTintColor = UIColor(red: 0.93, green: 0.02, blue: 0.54, alpha: 1.0)
-        countdownLabels.forEach { (count) in
-            count.textColor = timerBar.progressTintColor
-        }
+        countdownLabel.textColor = timerBar.progressTintColor
         lastReportedTime = -1
 	}
 
@@ -150,10 +148,10 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
                 alpha = 0.0
                 scale = 3
             }
-            countdownLabels.forEach { (count) in count.text = counter }
-            
-            countdownLabels.forEach { (count) in count.transform = CGAffineTransformIdentity; count.alpha = 1.0 }
-            UIView.animateWithDuration(0.9, animations: { self.countdownLabels.forEach { (count) in count.transform = CGAffineTransformMakeScale(scale, scale); count.alpha = alpha } }, completion: nil)
+            countdownLabel.text = counter
+            countdownLabel.transform = CGAffineTransformIdentity
+            countdownLabel.alpha = 1.0
+            UIView.animateWithDuration(0.9, animations: { self.countdownLabel.transform = CGAffineTransformMakeScale(scale, scale); self.countdownLabel.alpha = alpha }, completion: nil)
         }
 	}
 
@@ -166,16 +164,19 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			initialSpringVelocity: 10,
 			options: [],
 			animations: {
-				self.recordButton.transform = CGAffineTransformMakeScale(1.2, 1.2)
-				self.timerBar.transform = CGAffineTransformMakeScale(1.2, 1.2)
+				self.recordButton.transform = CGAffineTransformMakeScale(1.5, 1.5)
+				self.timerBar.transform = CGAffineTransformMakeScale(1.5, 1.5)
 			},
 			completion: nil)
         
-        countdownLabels.forEach { (count) in count.hidden = false; count.text = nil }
+        recordButton.alpha = 0.2
+        countdownLabel.hidden = false
+        countdownLabel.text = nil
 	}
 
     @IBAction func stopRecording() {
-        countdownLabels.forEach { (count) in count.hidden = true }
+        countdownLabel.hidden = true
+        recordButton.alpha = 1.0
         
         if vision.capturedVideoSeconds < minVideoDuration {
             vision.cancelVideoCapture()

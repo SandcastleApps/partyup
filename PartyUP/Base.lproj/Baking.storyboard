@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D13b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -86,38 +85,34 @@
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-eA-L1I" userLabel="Status">
                                         <rect key="frame" x="279" y="290" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Bre-eA-L1I" secondAttribute="height" multiplier="1:1" id="Ycd-6Z-LLz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="50"/>
                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
-                                    </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSC-ej-6Uw" userLabel="Status">
-                                        <rect key="frame" x="279" y="290" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
-                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Ycd-6Z-LLz"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="Ycd-6Z-LLz"/>
+                                            </mask>
+                                        </variation>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="centerY" secondItem="e7N-lt-t9J" secondAttribute="centerY" id="39g-v9-sHA"/>
-                                    <constraint firstItem="wSC-ej-6Uw" firstAttribute="baseline" secondItem="Bre-eA-L1I" secondAttribute="baseline" id="3js-Qv-tc5"/>
-                                    <constraint firstItem="wSC-ej-6Uw" firstAttribute="leading" secondItem="lhj-Vi-QG8" secondAttribute="trailing" constant="8" symbolic="YES" id="5Ky-TO-96v">
-                                        <variation key="heightClass=regular" constant="40"/>
-                                    </constraint>
-                                    <constraint firstAttribute="trailing" secondItem="wSC-ej-6Uw" secondAttribute="trailing" constant="16" id="7eS-d2-DfH">
-                                        <variation key="heightClass=regular" constant="0.0"/>
-                                    </constraint>
+                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="centerX" secondItem="FcL-8R-2uI" secondAttribute="centerX" id="4eg-wZ-596"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="lhj-Vi-QG8" secondAttribute="centerX" id="8Qc-wa-tMS"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="e7N-lt-t9J" secondAttribute="centerX" id="Ep1-5e-PQD"/>
                                     <constraint firstItem="lhj-Vi-QG8" firstAttribute="height" secondItem="FcL-8R-2uI" secondAttribute="height" multiplier="1.2:1" id="Fo8-IL-Ghg"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerY" secondItem="e7N-lt-t9J" secondAttribute="centerY" id="Uk3-xf-35i"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerY" secondItem="lhj-Vi-QG8" secondAttribute="centerY" id="aiw-4A-EZ6"/>
-                                    <constraint firstItem="lhj-Vi-QG8" firstAttribute="leading" secondItem="Bre-eA-L1I" secondAttribute="trailing" constant="29" id="gtg-fN-IQn">
-                                        <variation key="heightClass=regular" constant="40"/>
-                                    </constraint>
-                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="leading" secondItem="e7N-lt-t9J" secondAttribute="leading" constant="20" symbolic="YES" id="iiz-53-0JO">
-                                        <variation key="heightClass=regular" constant="0.0"/>
-                                    </constraint>
+                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="centerY" secondItem="FcL-8R-2uI" secondAttribute="centerY" id="jAC-hG-PLf"/>
+                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="0.8:1" id="jSq-sR-JGc"/>
                                     <constraint firstItem="lhj-Vi-QG8" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="1.2:1" id="vfM-6t-Kec"/>
                                 </constraints>
                                 <variation key="default">
@@ -125,16 +120,12 @@
                                         <exclude reference="lhj-Vi-QG8"/>
                                         <exclude reference="FcL-8R-2uI"/>
                                         <exclude reference="Bre-eA-L1I"/>
-                                        <exclude reference="wSC-ej-6Uw"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="39g-v9-sHA"/>
-                                        <exclude reference="iiz-53-0JO"/>
-                                        <exclude reference="3js-Qv-tc5"/>
-                                        <exclude reference="5Ky-TO-96v"/>
-                                        <exclude reference="7eS-d2-DfH"/>
+                                        <exclude reference="4eg-wZ-596"/>
+                                        <exclude reference="jAC-hG-PLf"/>
+                                        <exclude reference="jSq-sR-JGc"/>
                                         <exclude reference="Fo8-IL-Ghg"/>
-                                        <exclude reference="gtg-fN-IQn"/>
                                         <exclude reference="vfM-6t-Kec"/>
                                         <exclude reference="8Qc-wa-tMS"/>
                                         <exclude reference="Ep1-5e-PQD"/>
@@ -147,16 +138,12 @@
                                         <include reference="lhj-Vi-QG8"/>
                                         <include reference="FcL-8R-2uI"/>
                                         <include reference="Bre-eA-L1I"/>
-                                        <include reference="wSC-ej-6Uw"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <include reference="39g-v9-sHA"/>
-                                        <include reference="iiz-53-0JO"/>
-                                        <include reference="3js-Qv-tc5"/>
-                                        <include reference="5Ky-TO-96v"/>
-                                        <include reference="7eS-d2-DfH"/>
+                                        <include reference="4eg-wZ-596"/>
+                                        <include reference="jAC-hG-PLf"/>
+                                        <include reference="jSq-sR-JGc"/>
                                         <include reference="Fo8-IL-Ghg"/>
-                                        <include reference="gtg-fN-IQn"/>
                                         <include reference="vfM-6t-Kec"/>
                                         <include reference="8Qc-wa-tMS"/>
                                         <include reference="Ep1-5e-PQD"/>
@@ -213,17 +200,16 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="countdownLabel" destination="Bre-eA-L1I" id="Fvz-ZR-C4O"/>
                         <outlet property="naviBar" destination="Aq5-uh-elp" id="NjK-oq-bRS"/>
                         <outlet property="preview" destination="TZp-pU-snf" id="Svs-BO-dEA"/>
                         <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>
                         <outlet property="timerBar" destination="lhj-Vi-QG8" id="A5l-CV-jBL"/>
-                        <outletCollection property="countdownLabels" destination="wSC-ej-6Uw" collectionClass="NSMutableArray" id="M8W-cB-slv"/>
-                        <outletCollection property="countdownLabels" destination="Bre-eA-L1I" collectionClass="NSMutableArray" id="d3m-5C-c8P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47u-Gd-lAd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2552" y="-1303"/>
+            <point key="canvasLocation" x="2552" y="-1303.5"/>
         </scene>
         <!--Accept Sample-->
         <scene sceneID="Va5-qe-swp">
