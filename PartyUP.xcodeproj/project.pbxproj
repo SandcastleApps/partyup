@@ -49,8 +49,6 @@
 		1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */; };
 		1F427A161BA59F4C00E622CF /* PartyUPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A151BA59F4C00E622CF /* PartyUPTests.swift */; };
 		1F427A211BA59F4C00E622CF /* PartyUPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */; };
-		1F71B5E01C0897E800F5740E /* Governors.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F71B5DE1C0897E800F5740E /* Governors.gpx */; };
-		1F71B5E11C0897E800F5740E /* Home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F71B5DF1C0897E800F5740E /* Home.gpx */; };
 		1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7687931BFE278200D96768 /* HudUtilities.swift */; };
 		1F8BF1C11C1C55C500221D82 /* AcknowledgementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C01C1C55C500221D82 /* AcknowledgementsController.swift */; };
 		1F8BF1C41C1C55DD00221D82 /* Acknowledge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C21C1C55DD00221D82 /* Acknowledge.storyboard */; };
@@ -63,7 +61,6 @@
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
 		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
 		1F9B5D0E1C596D6A000E7574 /* DateUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B5D0D1C596D6A000E7574 /* DateUtilities.swift */; };
-		1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */; };
 		1FB916501C6A42D700ED62DE /* PartyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9164F1C6A42D700ED62DE /* PartyTableCell.swift */; };
 		1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */; };
 		1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD40041C11E1060093D852 /* PageProtocol.swift */; };
@@ -170,6 +167,7 @@
 		1FF051E41C1FCB5900A7A67C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Acknowledge.strings; sourceTree = "<group>"; };
 		1FF051E81C20562E00A7A67C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
 		1FF2BA991BCAC7A200336651 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		278EBC8A59A48011B5054E11 /* Pods-PartyUP.deployment.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.deployment.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.deployment.xcconfig"; sourceTree = "<group>"; };
 		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
 		E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -397,6 +395,7 @@
 			children = (
 				E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */,
 				32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */,
+				278EBC8A59A48011B5054E11 /* Pods-PartyUP.deployment.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -412,6 +411,7 @@
 				1F4279F91BA59F4C00E622CF /* Sources */,
 				1F4279FA1BA59F4C00E622CF /* Frameworks */,
 				1F4279FB1BA59F4C00E622CF /* Resources */,
+				1F0918821C6C1C880020B498 /* Copy Settings Bundle */,
 				D406C41E4BF32F7A8002EA8B /* Embed Pods Frameworks */,
 				F85F7E22C476F7FF283C6632 /* Copy Pods Resources */,
 			);
@@ -516,17 +516,14 @@
 				1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */,
 				1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */,
 				1F8BF1C41C1C55DD00221D82 /* Acknowledge.storyboard in Resources */,
-				1F71B5E11C0897E800F5740E /* Home.gpx in Resources */,
 				1F9896911C2239F000B0DB29 /* Tasting.storyboard in Resources */,
 				1FF051E51C20560100A7A67C /* Tutorial.storyboard in Resources */,
 				1FBD40141C120F6C0093D852 /* Localizable.strings in Resources */,
 				1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */,
 				1F9879861C401D060079467E /* drink.caf in Resources */,
-				1FAB0ECB1C0B856600E3B392 /* Halifax.gpx in Resources */,
 				1F98968C1C2239DE00B0DB29 /* Baking.storyboard in Resources */,
 				1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */,
 				1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */,
-				1F71B5E01C0897E800F5740E /* Governors.gpx in Resources */,
 				1FBD40191C120F6C0093D852 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,6 +547,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1F0918821C6C1C880020B498 /* Copy Settings Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/PartyUP/Settings_$(SANDCASTLE_DEPLOYMENT).bundle",
+			);
+			name = "Copy Settings Bundle";
+			outputPaths = (
+				"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Settings.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -r ${SCRIPT_INPUT_FILE_0} ${SCRIPT_OUTPUT_FILE_0}\necho \"copying from ${SCRIPT_INPUT_FILE_0} to ${SCRIPT_OUTPUT_FILE_0}\"";
+		};
 		1F3BA58F1C4C72DF00F3079F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -784,6 +797,99 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1F0918781C6C110C0020B498 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SANDCASTLE_DEPLOYMENT = Deploy;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Deployment;
+		};
+		1F0918791C6C110C0020B498 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 278EBC8A59A48011B5054E11 /* Pods-PartyUP.deployment.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = PartyUP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sandcastleapps.PartyUP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Deployment;
+		};
+		1F09187A1C6C110C0020B498 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = PartyUPTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sandcastleapps.PartyUPTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartyUP.app/PartyUP";
+			};
+			name = Deployment;
+		};
+		1F09187B1C6C110C0020B498 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = PartyUPUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sandcastleapps.PartyUPUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = PartyUP;
+				USES_XCTRUNNER = YES;
+			};
+			name = Deployment;
+		};
+		1F09187C1C6C110C0020B498 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
+		1F09187D1C6C110C0020B498 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
 		1F3BA5911C4C72DF00F3079F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -837,6 +943,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SANDCASTLE_DEPLOYMENT = Develop;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -875,6 +982,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				SANDCASTLE_DEPLOYMENT = Develop;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -983,6 +1091,7 @@
 			buildConfigurations = (
 				1F3BA5911C4C72DF00F3079F /* Debug */,
 				1F3BA5921C4C72DF00F3079F /* Release */,
+				1F09187D1C6C110C0020B498 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -992,6 +1101,7 @@
 			buildConfigurations = (
 				1F427A231BA59F4C00E622CF /* Debug */,
 				1F427A241BA59F4C00E622CF /* Release */,
+				1F0918781C6C110C0020B498 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1001,6 +1111,7 @@
 			buildConfigurations = (
 				1F427A261BA59F4C00E622CF /* Debug */,
 				1F427A271BA59F4C00E622CF /* Release */,
+				1F0918791C6C110C0020B498 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1010,6 +1121,7 @@
 			buildConfigurations = (
 				1F427A291BA59F4C00E622CF /* Debug */,
 				1F427A2A1BA59F4C00E622CF /* Release */,
+				1F09187A1C6C110C0020B498 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1019,6 +1131,7 @@
 			buildConfigurations = (
 				1F427A2C1BA59F4C00E622CF /* Debug */,
 				1F427A2D1BA59F4C00E622CF /* Release */,
+				1F09187B1C6C110C0020B498 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1028,6 +1141,7 @@
 			buildConfigurations = (
 				1F74639C1C04A41700182278 /* Debug */,
 				1F74639D1C04A41700182278 /* Release */,
+				1F09187C1C6C110C0020B498 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
