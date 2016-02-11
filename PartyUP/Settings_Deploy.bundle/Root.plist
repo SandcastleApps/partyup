@@ -9,6 +9,8 @@
 		<dict>
 			<key>Title</key>
 			<string>Jump To Camera</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
 			<key>Key</key>
 			<string>CameraJump</string>
 			<key>DefaultValue</key>
