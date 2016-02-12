@@ -48,6 +48,11 @@ class AcknowledgementsController: UITableViewController {
 			navigationController?.pushViewController(webVC, animated: true)
 		}
 	}
+    
+    @IBAction func ratePartyUp() {
+        let url = "itms-apps://itunes.apple.com/app/id\(PartyUpConstants.AppleStoreIdentifier)"
+        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+    }
 	
 	@IBAction func pushSupport(sender: UIButton) {
 		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {

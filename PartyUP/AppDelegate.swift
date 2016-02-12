@@ -27,6 +27,7 @@ struct PartyUpPreferences
 
 struct PartyUpConstants
 {
+    static let AppleStoreIdentifier = "***REMOVED***"
 	static let StorageKeyPrefix = "media"
 	static let ContentDistribution = NSURL(scheme: "http", host: "media.partyuptonight.com", path: "/" + StorageKeyPrefix)!
 	static let StorageBucket = "com.sandcastleapps.partyup"
