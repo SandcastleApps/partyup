@@ -32,6 +32,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
 		timerBar.trackTintColor = UIColor.lightGrayColor()
+		timerBar.innerTintColor = UIColor(white: 0.94, alpha: 1.0)
 		timerBar.roundedCorners = 1
 
 		let pvLayer = vision.previewLayer
@@ -146,7 +147,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
             if lastReportedTime < Int(minVideoDuration) {
                 counter = "\(Int(minVideoDuration) - lastReportedTime)"
                 alpha = 0.0
-                scale = 3
+                scale = 2.5
             }
             countdownLabel.text = counter
             countdownLabel.transform = CGAffineTransformIdentity
@@ -169,7 +170,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			},
 			completion: nil)
         
-        recordButton.alpha = 0.2
+        recordButton.alpha = 0.25
         countdownLabel.hidden = false
         countdownLabel.text = nil
 	}
