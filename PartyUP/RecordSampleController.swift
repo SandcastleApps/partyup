@@ -141,7 +141,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
         if lastReportedTime < captured {
             lastReportedTime = captured
             
-            var counter = "👌"
+            var counter = "👌🏼"
             var alpha: CGFloat = 1.0
             var scale: CGFloat = 2
             if lastReportedTime < Int(minVideoDuration) {
@@ -170,7 +170,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			},
 			completion: nil)
         
-        recordButton.alpha = 0.25
+        recordButton.alpha = 0.2
         countdownLabel.hidden = false
         countdownLabel.text = nil
 	}
