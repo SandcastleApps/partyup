@@ -10,7 +10,7 @@ import UIKit
 
 class TutorialController: UIViewController, UIPageViewControllerDataSource {
 
-	let pageCount = 4
+	let pageCount = 5
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
