@@ -141,13 +141,12 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			}
 		} else {
 			cell = tableView.dequeueReusableCellWithIdentifier("PartyAnimal", forIndexPath: indexPath) as! AnimalTableCell
-			let locality = parties?.place.locality ?? NSLocalizedString("Hick Town", comment: "Default locality name")
 			switch indexPath.row {
 			case 0:
-				cell.title = NSLocalizedString("All party videos in \(locality)", comment: "All venues cell title prefix")
+				cell.title = NSLocalizedString("All Party Videos", comment: "All venues cell title prefix")
 				cell.venues = venues
 			case 1:
-				cell.title = NSLocalizedString("Pregame party videos for \(locality)", comment: "Pregame cell title prefix")
+				cell.title = NSLocalizedString("Pregame Party Videos", comment: "Pregame cell title prefix")
 				if let pregame = parties?.pregame {
 					cell.venues = [pregame]
 				} else {
