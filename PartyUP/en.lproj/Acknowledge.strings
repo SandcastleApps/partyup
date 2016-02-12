@@ -11,7 +11,7 @@
 "CeJ-gq-gEn.text" = "Third Party Libraries";
 
 /* Class = "UITableViewSection"; headerTitle = "Sandcastle Application Development"; ObjectID = "E50-SU-y0s"; */
-"E50-SU-y0s.headerTitle" = "Sandcastle Application Development";
+"E50-SU-y0s.headerTitle" = "Sandcastle App Development";
 
 /* Class = "UILabel"; text = "Julie O'Kruk"; ObjectID = "ELp-ko-W37"; */
 "ELp-ko-W37.text" = "Julie O'Kruk";
@@ -35,7 +35,7 @@
 "Z6h-8E-Ifd.headerTitle" = "Acknowledgements";
 
 /* Class = "UINavigationItem"; title = "Acknowledgements"; ObjectID = "hPU-qk-jYw"; */
-"hPU-qk-jYw.title" = "Acknowledgements";
+"hPU-qk-jYw.title" = "About";
 
 /* Class = "UITableViewController"; title = "Ackowledgements"; ObjectID = "k3x-Sk-Gdv"; */
 "k3x-Sk-Gdv.title" = "Acknowledgements";
