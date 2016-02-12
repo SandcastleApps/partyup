@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -82,48 +82,22 @@
                                             <action selector="stopRecording" destination="8VR-ye-Fdg" eventType="touchUpOutside" id="s4n-aA-Xik"/>
                                         </connections>
                                     </button>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-eA-L1I" userLabel="Status">
-                                        <rect key="frame" x="279" y="290" width="42" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Bre-eA-L1I" secondAttribute="height" multiplier="1:1" id="Ycd-6Z-LLz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="70"/>
-                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Ycd-6Z-LLz"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="Ycd-6Z-LLz"/>
-                                            </mask>
-                                        </variation>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="centerX" secondItem="FcL-8R-2uI" secondAttribute="centerX" id="4eg-wZ-596"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="lhj-Vi-QG8" secondAttribute="centerX" id="8Qc-wa-tMS"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerX" secondItem="e7N-lt-t9J" secondAttribute="centerX" id="Ep1-5e-PQD"/>
                                     <constraint firstItem="lhj-Vi-QG8" firstAttribute="height" secondItem="FcL-8R-2uI" secondAttribute="height" multiplier="1.2:1" id="Fo8-IL-Ghg"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerY" secondItem="e7N-lt-t9J" secondAttribute="centerY" id="Uk3-xf-35i"/>
                                     <constraint firstItem="FcL-8R-2uI" firstAttribute="centerY" secondItem="lhj-Vi-QG8" secondAttribute="centerY" id="aiw-4A-EZ6"/>
-                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="centerY" secondItem="FcL-8R-2uI" secondAttribute="centerY" id="jAC-hG-PLf"/>
-                                    <constraint firstItem="Bre-eA-L1I" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="0.8:1" id="jSq-sR-JGc"/>
                                     <constraint firstItem="lhj-Vi-QG8" firstAttribute="width" secondItem="FcL-8R-2uI" secondAttribute="width" multiplier="1.2:1" id="vfM-6t-Kec"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="lhj-Vi-QG8"/>
                                         <exclude reference="FcL-8R-2uI"/>
-                                        <exclude reference="Bre-eA-L1I"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="4eg-wZ-596"/>
-                                        <exclude reference="jAC-hG-PLf"/>
-                                        <exclude reference="jSq-sR-JGc"/>
                                         <exclude reference="Fo8-IL-Ghg"/>
                                         <exclude reference="vfM-6t-Kec"/>
                                         <exclude reference="8Qc-wa-tMS"/>
@@ -136,12 +110,8 @@
                                     <mask key="subviews">
                                         <include reference="lhj-Vi-QG8"/>
                                         <include reference="FcL-8R-2uI"/>
-                                        <include reference="Bre-eA-L1I"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <include reference="4eg-wZ-596"/>
-                                        <include reference="jAC-hG-PLf"/>
-                                        <include reference="jSq-sR-JGc"/>
                                         <include reference="Fo8-IL-Ghg"/>
                                         <include reference="vfM-6t-Kec"/>
                                         <include reference="8Qc-wa-tMS"/>
@@ -199,7 +169,6 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="countdownLabel" destination="Bre-eA-L1I" id="Fvz-ZR-C4O"/>
                         <outlet property="naviBar" destination="Aq5-uh-elp" id="NjK-oq-bRS"/>
                         <outlet property="preview" destination="TZp-pU-snf" id="Svs-BO-dEA"/>
                         <outlet property="recordButton" destination="FcL-8R-2uI" id="EHQ-oM-yhW"/>

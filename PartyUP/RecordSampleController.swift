@@ -17,7 +17,6 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	@IBOutlet weak var timerBar: DACircularProgressView!
 	@IBOutlet weak var preview: UIView!
 	@IBOutlet weak var naviBar: UINavigationBar!
-    @IBOutlet weak var countdownLabel: UILabel!
     
 	var transitionStartY: CGFloat = 0.0
 
@@ -31,7 +30,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
-		timerBar.thicknessRatio = 0.10
+		timerBar.thicknessRatio = 0.2
 		timerBar.trackTintColor = UIColor.lightGrayColor()
 		timerBar.innerTintColor = UIColor(white: 0.94, alpha: 1.0)
 		timerBar.roundedCorners = 1
@@ -119,13 +118,9 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		timer?.invalidate()
 		timerBar.progress = 0.0
 		timerBar.progressTintColor = UIColor(red: 0.93, green: 0.02, blue: 0.54, alpha: 1.0)
-        countdownLabel.textColor = timerBar.progressTintColor
-        lastReportedTime = -1
 	}
 
 	// MARK: - Recording
-    
-    var lastReportedTime = -1
 
 	func observeTimerInterval() {
 		timerBar.progress = CGFloat(vision.capturedVideoSeconds / maxVideoDuration)
@@ -137,24 +132,6 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		if timerBar.progress >= 1.0 {
 			stopRecording()
 		}
-        
-        let captured = Int(min(vision.capturedVideoSeconds, minVideoDuration))
-        if lastReportedTime < captured {
-            lastReportedTime = captured
-            
-            var counter = "👌🏼"
-            var alpha: CGFloat = 1.0
-            var scale: CGFloat = 2
-            if lastReportedTime < Int(minVideoDuration) {
-                counter = "\(Int(minVideoDuration) - lastReportedTime)"
-                alpha = 0.0
-                scale = 2.5
-            }
-            countdownLabel.text = counter
-            countdownLabel.transform = CGAffineTransformIdentity
-            countdownLabel.alpha = 1.0
-            UIView.animateWithDuration(0.9, animations: { self.countdownLabel.transform = CGAffineTransformMakeScale(scale, scale); self.countdownLabel.alpha = alpha }, completion: nil)
-        }
 	}
 
 	@IBAction func startRecording() {
@@ -170,16 +147,9 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 				self.timerBar.transform = CGAffineTransformMakeScale(1.5, 1.5)
 			},
 			completion: nil)
-        
-        recordButton.alpha = 0.2
-        countdownLabel.hidden = false
-        countdownLabel.text = nil
 	}
 
     @IBAction func stopRecording() {
-        countdownLabel.hidden = true
-        recordButton.alpha = 1.0
-        
         if vision.capturedVideoSeconds < minVideoDuration {
             vision.cancelVideoCapture()
         } else {
