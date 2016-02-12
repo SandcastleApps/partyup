@@ -31,6 +31,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
+		timerBar.thicknessRatio = 0.10
 		timerBar.trackTintColor = UIColor.lightGrayColor()
 		timerBar.innerTintColor = UIColor(white: 0.94, alpha: 1.0)
 		timerBar.roundedCorners = 1
