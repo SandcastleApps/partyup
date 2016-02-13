@@ -11,6 +11,7 @@ import UIKit
 class TutorialPageController: UIViewController {
 
 	var page: Int!
+	var pageCount: Int!
 
 	@IBOutlet weak var doneButton: UIButton!
 	@IBOutlet weak var imageView: UIImageView!
@@ -24,7 +25,7 @@ class TutorialPageController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
-		doneButton.hidden = page < 3
+		doneButton.hidden = page < pageCount - 1
 
 		if !doneButton.hidden {
 			UIView.animateWithDuration(1, delay: 0, options: [.Repeat, .Autoreverse, .AllowUserInteraction], animations: { self.doneButton.alpha = 0.25 }, completion: nil)

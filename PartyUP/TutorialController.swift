@@ -49,6 +49,7 @@ class TutorialController: UIViewController, UIPageViewControllerDataSource {
 		if page >= 0 && page < pageCount {
 			pageVC = storyboard?.instantiateViewControllerWithIdentifier("Tutorial Page") as? TutorialPageController
 			pageVC?.page = page
+			pageVC?.pageCount = pageCount
 		}
 		return pageVC
 	}
