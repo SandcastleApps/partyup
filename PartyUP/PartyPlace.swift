@@ -43,6 +43,7 @@ class PartyPlace {
 			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
 			let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
 			venues?.forEach { $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress); $0.fetchPromotion() }
+			pregame.fetchSamples(withStaleInterval: stale, andSuppression: suppress)
 			completion(true, false)
 		}
 	}
