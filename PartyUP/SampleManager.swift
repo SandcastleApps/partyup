@@ -79,7 +79,7 @@ class SampleManager
 	private func upload(submission: SampleSubmission) throws {
 		guard let transfer = AWSS3TransferUtility.defaultS3TransferUtility() else { throw SampleManagerError.TransferUtilityUnavailable }
 
-		guard let videoFile = submission.sample.media.path else { throw SampleManagerError.InvalidFileName(url: submission.sample.media) }
+        guard let videoFile = submission.sample.media.path.flatMap({String($0.characters.dropFirst())}) else { throw SampleManagerError.InvalidFileName(url: submission.sample.media) }
 
 		let videoUrl = NSURL(fileURLWithPath: NSTemporaryDirectory() + videoFile)
 
@@ -88,7 +88,7 @@ class SampleManager
 
 		transfer.uploadFile(videoUrl,
 			bucket: PartyUpConstants.StorageBucket,
-			key: PartyUpConstants.StorageKeyPrefix + videoFile,
+			key: videoFile,
 			contentType: videoUrl.mime,
 			expression: uploadExpr,
 			completionHander: nil).continueWithSuccessBlock({ (task) in

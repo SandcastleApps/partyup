@@ -16,7 +16,11 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	private static let timeFormatter: NSDateFormatter = { let formatter = NSDateFormatter(); formatter.timeStyle = .MediumStyle; formatter.dateStyle = .NoStyle; return formatter }()
 
 	var page: Int!
-	var sample: Sample!
+    var sample: Sample! {
+        didSet {
+            media = NSURL(string: sample.media.path!, relativeToURL: PartyUpConstants.ContentDistribution)
+        }
+    }
 
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
@@ -32,6 +36,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	private let tickInc: Double = 0.10
 	private var visible = false
 	private var displayRelativeTime = true
+    private var media: NSURL?
 
 	private func formatTime(time: NSDate, relative: Bool) -> String {
 		if relative {
@@ -48,7 +53,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 	@IBAction func shareSample(sender: UIButton) {
 		let message = NSLocalizedString("#PartyUP at \(sample.event.name)", comment: "Share video message prefix")
-        presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share this party video", comment: "Share action prompt"), withMessage: message, url: PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!), image: nil)
+        presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share this party video", comment: "Share action prompt"), withMessage: message, url: media, image: nil)
 	}
 
     override func viewDidLoad() {
@@ -106,7 +111,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			multiplier: 1.0,
 			constant: 0))
 
-		player.setUrl(PartyUpConstants.ContentDistribution.URLByAppendingPathComponent(sample.media.path!))
+		player.setUrl(media!)
 
 		let notify = NSNotificationCenter.defaultCenter()
 		notify.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)

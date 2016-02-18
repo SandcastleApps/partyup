@@ -28,8 +28,8 @@ struct PartyUpPreferences
 struct PartyUpConstants
 {
     static let AppleStoreIdentifier = "***REMOVED***"
-	static let StorageKeyPrefix = "media"
-	static let ContentDistribution = NSURL(scheme: "http", host: "media.partyuptonight.com", path: "/" + StorageKeyPrefix)!
+	static let DefaultStoragePrefix = "media"
+	static let ContentDistribution = NSURL(scheme: "http", host: "media.partyuptonight.com", path: "/")!
 	static let StorageBucket = "com.sandcastleapps.partyup"
 	static let TitleLogo: ()->UIImageView = {
 		let logoView = UIImageView(image: UIImage(named: "Logo"))
@@ -89,6 +89,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
 
 		application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
+        
+        let manager = NSFileManager.defaultManager()
+        let mediaTemp = NSTemporaryDirectory() + PartyUpConstants.DefaultStoragePrefix
+        
+        if !manager.fileExistsAtPath(mediaTemp) {
+           try! NSFileManager.defaultManager().createDirectoryAtPath(mediaTemp, withIntermediateDirectories: true, attributes: nil)
+        }
 
 		return true
 	}

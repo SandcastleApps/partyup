@@ -36,6 +36,8 @@ final class Sample: CustomDebugStringConvertible, Equatable
     unowned let event: Venue
 	let time: NSDate
 	var comment: String?
+    var prefix: String
+    
 	var rating: [Int] {
 		didSet {
 			NSNotificationCenter.defaultCenter().postNotificationName(Sample.RatingUpdateNotification, object: self)
@@ -43,7 +45,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 	}
 
 	var media: NSURL {
-		get { return NSURL(fileURLWithPath: user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4") }
+        get { return NSURL(fileURLWithPath: prefix + "/" + user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4") }
 	}
 
 	var identifier: NSData {
@@ -60,13 +62,14 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		}
 	}
 
-    init(user: NSUUID, event: Venue, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int]) {
+    init(user: NSUUID, event: Venue, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int], prefix: String = PartyUpConstants.DefaultStoragePrefix) {
 		self.user = user
         self.event = event
 		self.time = time
 		self.comment = comment
 		self.stamp = stamp
 		self.rating = rating
+        self.prefix = prefix
         
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithSuccessBlock { task in
 			if let result = task.result as? VoteDB {
@@ -84,7 +87,8 @@ final class Sample: CustomDebugStringConvertible, Equatable
 			time: NSDate(),
 			comment: comment,
 			stamp: StampFactory.stamper,
-			rating: [0,0]
+			rating: [0,0],
+            prefix: PartyUpConstants.DefaultStoragePrefix
 		)
 
 		StampFactory.stamper = StampFactory.stamper &+ 1
@@ -142,7 +146,8 @@ final class Sample: CustomDebugStringConvertible, Equatable
 			time: NSDate(timeIntervalSince1970: data.time!.doubleValue),
 			comment: data.comment,
 			stamp: (UnsafePointer<UInt8>(data.id!.bytes) + 16).memory,
-			rating: [data.ups?.integerValue ?? 0, data.downs?.integerValue ?? 0]
+			rating: [data.ups?.integerValue ?? 0, data.downs?.integerValue ?? 0],
+            prefix: data.prefix ?? PartyUpConstants.DefaultStoragePrefix
 		)
 	}
 
@@ -155,6 +160,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
             db.event = event.unique
 			db.ups = rating[0]
 			db.downs = rating[1]
+            db.prefix = prefix == PartyUpConstants.DefaultStoragePrefix ? nil : prefix
 
 			return db
 		}
@@ -168,6 +174,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		var comment: String?
 		var ups: NSNumber?
 		var downs: NSNumber?
+        var prefix: String?
 
 		@objc static func dynamoDBTableName() -> String {
 			return "Samples"
