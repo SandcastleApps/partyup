@@ -22,7 +22,7 @@ class AcknowledgementsController: UITableViewController {
 
 	}
 
-	@IBAction func tutorial(sender: UIButton) {
+	@IBAction func tutorial() {
 		let story = UIStoryboard.init(name: "Tutorial", bundle: nil)
 		if let tutorial = story.instantiateInitialViewController() {
 			presentViewController(tutorial, animated: true, completion: nil)
@@ -33,7 +33,7 @@ class AcknowledgementsController: UITableViewController {
         presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share PartyUP", comment: "Share action prompt"))
 	}
 
-	@IBAction func pushThirdParty(sender: UITapGestureRecognizer) {
+	@IBAction func pushThirdParty() {
 		if let richVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
 			richVC.url = NSBundle.mainBundle().URLForResource("Acknowledgments", withExtension: "rtf")
 			richVC.purpose = NSLocalizedString("Third Party Libraries", comment: "Title of the Third Party Libraries webview")
@@ -41,7 +41,7 @@ class AcknowledgementsController: UITableViewController {
 		}
 	}
 
-	@IBAction func pushFeedback(sender: UIButton) {
+	@IBAction func pushFeedback() {
 		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
 			webVC.url = NSURL(string: "https://www.surveymonkey.com/r/***REMOVED***")
 			webVC.purpose = NSLocalizedString("Feedback", comment: "Title of the Feedback webview")
@@ -54,10 +54,18 @@ class AcknowledgementsController: UITableViewController {
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
 	
-	@IBAction func pushSupport(sender: UIButton) {
+	@IBAction func pushSupport() {
 		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
 			webVC.url = NSURL(string: "http://www.partyuptonight.com/support.html")
 			webVC.purpose = NSLocalizedString("Support", comment: "Title of the Support webview")
+			navigationController?.pushViewController(webVC, animated: true)
+		}
+	}
+
+	@IBAction func pushTerms() {
+		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
+			webVC.url = NSURL(string: "http://www.partyuptonight.com/terms.html")
+			webVC.purpose = NSLocalizedString("Terms", comment: "Title of the Terms webview")
 			navigationController?.pushViewController(webVC, animated: true)
 		}
 	}
