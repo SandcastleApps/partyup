@@ -22,6 +22,7 @@ class BakeRootController: UIViewController {
 
 	private var locals: [Venue]!
 	private let locationRetryMax = 2
+    private let locationTimeoutTolerance = [INTULocationAccuracy.Neighborhood,INTULocationAccuracy.Block,INTULocationAccuracy.Block]
 	private var locationRequestId: INTULocationRequestID = 0
 
     override func viewDidLoad() {
@@ -48,7 +49,7 @@ class BakeRootController: UIViewController {
 
 	func determineLocation(var remainingRetries retry: Int) {
 		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.House, timeout: 3 * NSTimeInterval(1 + locationRetryMax - retry)) { (location, accuracy, status) in
-			if status == .Success || (status == .TimedOut && accuracy.rawValue >= INTULocationAccuracy.Block.rawValue) {
+			if status == .Success || (status == .TimedOut && accuracy.rawValue >= self.locationTimeoutTolerance[retry].rawValue) {
 				let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
 				let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }.sort { $0.location.distanceFromLocation(location) < $1.location.distanceFromLocation(location) }
 				dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }

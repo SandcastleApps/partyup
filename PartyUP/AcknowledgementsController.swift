@@ -33,21 +33,13 @@ class AcknowledgementsController: UITableViewController {
         presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share PartyUP", comment: "Share action prompt"))
 	}
 
-	@IBAction func pushThirdParty() {
-		if let richVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
-			richVC.url = NSBundle.mainBundle().URLForResource("Acknowledgments", withExtension: "rtf")
-			richVC.purpose = NSLocalizedString("Third Party Libraries", comment: "Title of the Third Party Libraries webview")
-			navigationController?.pushViewController(richVC, animated: true)
-		}
-	}
+    @IBAction func pushThirdParty() {
+        pushWebViewWithContent(NSBundle.mainBundle().URLForResource("Acknowledgments", withExtension: "rtf"), andTitle: NSLocalizedString("Third Party Libraries", comment: "Title of the Third Party Libraries webview"))
+    }
 
 	@IBAction func pushFeedback() {
-		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
-			webVC.url = NSURL(string: "https://www.surveymonkey.com/r/***REMOVED***")
-			webVC.purpose = NSLocalizedString("Feedback", comment: "Title of the Feedback webview")
-			navigationController?.pushViewController(webVC, animated: true)
-		}
-	}
+		pushWebViewWithContent(NSURL(string: "https://www.surveymonkey.com/r/***REMOVED***"), andTitle: NSLocalizedString("Feedback", comment: "Title of the Feedback webview"))
+    }
     
     @IBAction func ratePartyUp() {
         let url = "itms-apps://itunes.apple.com/app/id\(PartyUpConstants.AppleStoreIdentifier)"
@@ -55,20 +47,24 @@ class AcknowledgementsController: UITableViewController {
     }
 	
 	@IBAction func pushSupport() {
-		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
-			webVC.url = NSURL(string: "http://www.partyuptonight.com/support.html")
-			webVC.purpose = NSLocalizedString("Support", comment: "Title of the Support webview")
-			navigationController?.pushViewController(webVC, animated: true)
-		}
+		pushWebViewWithContent(NSURL(string: "v1/support.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Support", comment: "Title of the Support webview"))
 	}
 
 	@IBAction func pushTerms() {
-		if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Feedback Controller") as? WebPageController {
-			webVC.url = NSURL(string: "http://www.partyuptonight.com/terms.html")
-			webVC.purpose = NSLocalizedString("Terms", comment: "Title of the Terms webview")
-			navigationController?.pushViewController(webVC, animated: true)
-		}
+		pushWebViewWithContent(NSURL(string: "v1/terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Terms of Service", comment: "Title of the Terms webview"))
 	}
+    
+    @IBAction func pushPrivacy() {
+        pushWebViewWithContent(NSURL(string: "v1/privacy.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Privacy Policy", comment: "Title of the Privacy Policy webview"))
+    }
+    
+    private func pushWebViewWithContent(content: NSURL?, andTitle title: String) {
+        if let webVC = storyboard?.instantiateViewControllerWithIdentifier("Web Controller") as? WebPageController {
+            webVC.url = content
+            webVC.purpose = title
+            navigationController?.pushViewController(webVC, animated: true)
+        }
+    }
 
 	@IBAction func segueFromThirdParty(segue: UIStoryboardSegue) {
 
