@@ -1,5 +1,5 @@
 """
-Scan through the Samples table for oldish entries and remove them.
+Scan through the Samples table for oldish items with no prefix attibute and remove them.
 """
 import logging
 import json
@@ -31,15 +31,13 @@ def purge_sample(sample, vote_table, samples_batch, votes_batch):
             for item in response['Items']:
                 purge_vote(item, votes_batch)
 
-
-
 def purge_handler(event, context):
     dynamodb = boto3.resource('dynamodb')
 
     sample_table = dynamodb.Table('Samples')
     vote_table = dynamodb.Table('Votes')
 
-    filter = Attr('time').lte(Decimal(time.time()-172800))
+    filter = Attr('time').lte(Decimal(time.time()-172800)) & Attr('prefix').not_exists()
 
     with sample_table.batch_writer() as samples_batch, vote_table.batch_writer() as votes_batch:
         response = sample_table.scan(
