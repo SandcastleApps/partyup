@@ -47,15 +47,15 @@ class AcknowledgementsController: UITableViewController {
     }
 	
 	@IBAction func pushSupport() {
-		pushWebViewWithContent(NSURL(string: "v1/support.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Support", comment: "Title of the Support webview"))
+		pushWebViewWithContent(NSURL(string: "support.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Support", comment: "Title of the Support webview"))
 	}
 
 	@IBAction func pushTerms() {
-		pushWebViewWithContent(NSURL(string: "v1/terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Terms of Service", comment: "Title of the Terms webview"))
+		pushWebViewWithContent(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Terms of Service", comment: "Title of the Terms webview"))
 	}
     
     @IBAction func pushPrivacy() {
-        pushWebViewWithContent(NSURL(string: "v1/privacy.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Privacy Policy", comment: "Title of the Privacy Policy webview"))
+        pushWebViewWithContent(NSURL(string: "privacy.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Privacy Policy", comment: "Title of the Privacy Policy webview"))
     }
     
     private func pushWebViewWithContent(content: NSURL?, andTitle title: String) {

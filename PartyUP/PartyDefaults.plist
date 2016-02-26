@@ -23,6 +23,8 @@
 	</array>
 	<key>Tutorial</key>
 	<true/>
+	<key>Terms</key>
+	<false/>
 	<key>SampleSuppressionThreshold</key>
 	<integer>-5</integer>
 </dict>

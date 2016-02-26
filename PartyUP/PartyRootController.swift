@@ -212,6 +212,32 @@ class PartyRootController: UIViewController {
 
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
 		if identifier == "Bake Sample Segue" {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if defaults.boolForKey(PartyUpPreferences.AgreedToTerms) == false {
+                let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
+                let conduct = file.flatMap { try? String.init(contentsOfFile: $0) }
+                let terms = UIAlertController(
+                    title: NSLocalizedString("Rules of Conduct", comment: "Terms alert title"),
+                    message: conduct,
+                    preferredStyle: .Alert)
+                let full = UIAlertAction(
+                    title: NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action"),
+                    style: .Default) { _ in UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!) }
+                let agree = UIAlertAction(
+                    title: NSLocalizedString("Agree To Terms of Service", comment: "Terms alert agree action"),
+                    style: .Default) { _ in defaults.setBool(true, forKey: PartyUpPreferences.AgreedToTerms); self.performSegueWithIdentifier(identifier, sender: nil)}
+                let cancel = UIAlertAction(
+                    title: NSLocalizedString("Let me think about it", comment: "Terms alert cancel action"),
+                    style: .Cancel,
+                    handler: nil)
+                terms.addAction(full)
+                terms.addAction(agree)
+                terms.addAction(cancel)
+                presentViewController(terms, animated: true, completion: nil)
+                
+                return false
+            }
+            
 			if presentedViewController != nil {
 				return false
 			}
@@ -269,11 +295,13 @@ class PartyRootController: UIViewController {
 	}
 
 	func observeApplicationBecameActive() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
 		if regions.first! == nil {
 			if INTULocationManager.locationServicesState() == .Available {
 				resolveLocalPlacemark()
 			}
-		} else if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.CameraJump) {
+		} else if defaults.boolForKey(PartyUpPreferences.CameraJump) && defaults.boolForKey(PartyUpPreferences.AgreedToTerms) {
 			if shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
 				performSegueWithIdentifier("Bake Sample Segue", sender: nil)
 			}

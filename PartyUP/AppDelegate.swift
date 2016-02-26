@@ -22,6 +22,7 @@ struct PartyUpPreferences
 	static let CameraJump = "CameraJump"
 	static let StickyTowns = "StickyTowns"
 	static let PlayTutorial = "Tutorial"
+    static let AgreedToTerms = "Terms"
     static let SampleSuppressionThreshold = "SampleSuppressionThreshold"
 }
 
@@ -29,7 +30,7 @@ struct PartyUpConstants
 {
     static let AppleStoreIdentifier = "***REMOVED***"
 	static let DefaultStoragePrefix = "media"
-    static let PartyUpWebsite = NSURL(scheme: "http", host: "www.partyuptonight.com", path: "/")
+    static let PartyUpWebsite = NSURL(scheme: "http", host: "www.partyuptonight.com/v1", path: "/")!
 	static let ContentDistribution = NSURL(scheme: "http", host: "media.partyuptonight.com", path: "/")!
 	static let StorageBucket = "com.sandcastleapps.partyup"
 	static let TitleLogo: ()->UIImageView = {
