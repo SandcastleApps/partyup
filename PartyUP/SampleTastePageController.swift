@@ -166,6 +166,30 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 		voteButtons.forEach { button in button.selected = false }
 	}
 
+    @IBAction func reportObjection(sender: UIButton) {
+        let objection = UIAlertController(
+            title: NSLocalizedString("Objectional Material", comment: "Objectional material alert title"),
+            message: nil/*NSLocalizedString(", comment: <#T##String#>)*/,
+            preferredStyle: .ActionSheet)
+        let video = UIAlertAction(
+            title: NSLocalizedString("Report Offensive Video", comment: "Objectional material video action"),
+            style: .Destructive) { _ in }
+        let comment = UIAlertAction(
+            title: NSLocalizedString("Report Offensive Comment", comment: "Objectional material comment action"),
+            style: .Destructive) { _ in }
+        let mute = UIAlertAction(
+            title: NSLocalizedString("Mute Contributor", comment: "Objectional material mute action"),
+            style: .Destructive) { _ in }
+        let cancel = UIAlertAction(
+            title: NSLocalizedString("Cancel", comment: "Objectional material cancel action"),
+            style: .Cancel) { _ in }
+        objection.addAction(video)
+        objection.addAction(comment)
+        objection.addAction(mute)
+        objection.addAction(cancel)
+        
+        presentViewController(objection, animated: true, completion: nil)
+    }
 	// MARK: Player
 
 	func playerPlaybackWillStartFromBeginning(player: Player) {
