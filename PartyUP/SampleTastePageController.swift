@@ -59,7 +59,8 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		timeLabel.text = formatTime(sample.time, relative: displayRelativeTime)
+		let stale = NSDate(timeIntervalSinceNow: -NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval))
+		timeLabel.text = stale.compare(sample.time) == .OrderedAscending ? formatTime(sample.time, relative: displayRelativeTime) : NSLocalizedString("Classic", comment: "Stale time display")
 		
 		if let comment = sample.comment {
 			commentLabel.text = comment

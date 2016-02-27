@@ -85,8 +85,8 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		let time = NSDate().timeIntervalSince1970 - stale
 		let query = AWSDynamoDBQueryExpression()
 		query.hashKeyValues = unique
-		query.filterExpression = "#t > :stale"
-		query.expressionAttributeNames = ["#t": "time"]
+		query.filterExpression = "#t > :stale OR attribute_exists(#p)"
+			query.expressionAttributeNames = ["#t": "time", "#p": "prefix"]
         query.expressionAttributeValues = [":stale" : NSNumber(double: time)]
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(Sample.SampleDB.self, expression: query).continueWithBlock { (task) in
 			if let result = task.result as? AWSDynamoDBPaginatedOutput {
