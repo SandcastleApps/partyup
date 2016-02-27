@@ -13,7 +13,7 @@ import Flurry_iOS_SDK
 
 class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate {
 
-	private static let timeFormatter: NSDateFormatter = { let formatter = NSDateFormatter(); formatter.timeStyle = .MediumStyle; formatter.dateStyle = .NoStyle; return formatter }()
+	private static let timeFormatter: NSDateFormatter = { let formatter = NSDateFormatter(); formatter.timeStyle = .MediumStyle; formatter.dateStyle = .ShortStyle; return formatter }()
 
 	var page: Int!
     var sample: Sample! {
@@ -40,7 +40,12 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 	private func formatTime(time: NSDate, relative: Bool) -> String {
 		if relative {
-            return formatRelativeDateFrom(time)
+			let stale = NSDate(timeIntervalSinceNow: -NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval))
+			if stale.compare(sample.time) == .OrderedAscending {
+				return formatRelativeDateFrom(time)
+			} else {
+				return NSLocalizedString("Classic", comment: "Stale time display")
+			}
 		} else {
 			return SampleTastePageController.timeFormatter.stringFromDate(time)
 		}
@@ -59,8 +64,8 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		let stale = NSDate(timeIntervalSinceNow: -NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval))
-		timeLabel.text = stale.compare(sample.time) == .OrderedAscending ? formatTime(sample.time, relative: displayRelativeTime) : NSLocalizedString("Classic", comment: "Stale time display")
+
+		timeLabel.text = formatTime(sample.time, relative: displayRelativeTime)
 		
 		if let comment = sample.comment {
 			commentLabel.text = comment
