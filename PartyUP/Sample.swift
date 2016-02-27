@@ -56,11 +56,8 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		}
 	}
     
-	var vote = Vote.Meh {
-		didSet {
-			NSNotificationCenter.defaultCenter().postNotificationName(Sample.VoteUpdateNotification, object: self)
-		}
-	}
+	var vote = Vote.Meh
+	var flag = false
 
     init(user: NSUUID, event: Venue, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int], prefix: String = PartyUpConstants.DefaultStoragePrefix) {
 		self.user = user
@@ -72,9 +69,13 @@ final class Sample: CustomDebugStringConvertible, Equatable
         self.prefix = prefix
         
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithSuccessBlock { task in
-			if let result = task.result as? VoteDB {
-				dispatch_async(dispatch_get_main_queue()) { self.vote = Vote(rawValue: result.vote?.integerValue ?? 0)! }
-			}
+				if let result = task.result as? VoteDB {
+					dispatch_async(dispatch_get_main_queue()) {
+						self.vote = Vote(rawValue: result.vote?.integerValue ?? 0)!
+						self.flag = result.flag?.boolValue ?? false
+						NSNotificationCenter.defaultCenter().postNotificationName(Sample.VoteUpdateNotification, object: self)
+					}
+				}
 
             return nil
         }
@@ -98,18 +99,25 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		get { return "User = \(user.UUIDString) stamp = \(stamp)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
 	}
 
-	func setVote(vote: Vote) {
-		if vote != self.vote {
+	func setVote(vote: Vote, andFlag flag: Bool = false) {
+		if vote != self.vote || flag != self.flag {
 			let db = VoteDB()
 			db.sample = VoteDB.hashKeyGenerator(event.unique, sample: identifier)
 			db.user = VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)
 			db.vote = NSNumber(integer: vote.rawValue)
+			db.flag = NSNumber(bool: flag)
 			AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db).continueWithBlock { task in
 				if task.error == nil && task.exception == nil {
-					let upDelta = self.vote == .Up ? -1 : vote == .Up ? 1 : 0
-					let downDelta = self.vote == .Down ? -1 : vote == .Down ? 1 : 0
-					self.updateRating(upDelta: upDelta, downDelta: downDelta)
-					dispatch_async(dispatch_get_main_queue()) { self.vote = vote }
+					if flag == false {
+						let upDelta = self.vote == .Up ? -1 : vote == .Up ? 1 : 0
+						let downDelta = self.vote == .Down ? -1 : vote == .Down ? 1 : 0
+						self.updateRating(upDelta: upDelta, downDelta: downDelta)
+					}
+					dispatch_async(dispatch_get_main_queue()) {
+						self.vote = vote
+						self.flag = flag
+						NSNotificationCenter.defaultCenter().postNotificationName(Sample.VoteUpdateNotification, object: self)
+					}
 				}
 				return nil
 			}
@@ -208,6 +216,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
         var sample: NSData?
         var user: NSData?
         var vote: NSNumber?
+		var flag: NSNumber?
         
         @objc static func dynamoDBTableName() -> String {
             return "Votes"
