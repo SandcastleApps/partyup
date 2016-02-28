@@ -161,6 +161,14 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 		presentShareSheetOn(self, viaService: service, withMessage: message, url: media, image: nil)
 	}
 
+	func reportOffensive() {
+		sample.setVote(Vote.Down, andFlag: true)
+	}
+
+	func muteOffender() {
+		
+	}
+
 	@IBAction func placeVote(sender: UIButton) {
 		let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
 		sample.setVote(vote)
@@ -180,10 +188,10 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			style: .Default) { _ in self.shareSampleVia(SLServiceTypeFacebook) }
 		let report = UIAlertAction(
 			title: NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action"),
-			style: .Destructive) { _ in }
+			style: .Destructive) { _ in self.reportOffensive() }
 		let mute = UIAlertAction(
 			title: NSLocalizedString("Mute Contributor", comment: "Mute contributor alert action"),
-			style: .Destructive) { _ in }
+			style: .Destructive) { _ in self.muteOffender() }
 		let cancel = UIAlertAction(
 			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
 			style: .Cancel) { _ in }
