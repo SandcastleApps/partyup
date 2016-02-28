@@ -38,7 +38,24 @@ class Defensive {
             }
         }
 	}
-    
+
+	func unmute(user: NSUUID) {
+		if muted.contains(user) {
+			muted.remove(user)
+
+			if let output = NSOutputStream(URL: Defensive.path, append: false) {
+				var raw = [UInt8](count: 16, repeatedValue: 0)
+				output.open()
+				defer { output.close() }
+
+				for uuid in muted {
+					uuid.getUUIDBytes(&raw)
+					output.write(&raw, maxLength: raw.count)
+				}
+			}
+		}
+	}
+
     func muted(user: NSUUID) -> Bool {
         return muted.contains(user)
     }
