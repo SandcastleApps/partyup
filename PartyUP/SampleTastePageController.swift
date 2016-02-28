@@ -166,7 +166,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	}
 
 	func muteOffender() {
-		
+		Defensive.shared.mute(sample.user)
 	}
 
 	@IBAction func placeVote(sender: UIButton) {

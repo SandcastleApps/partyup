@@ -91,14 +91,22 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(Sample.SampleDB.self, expression: query).continueWithBlock { (task) in
 			if let result = task.result as? AWSDynamoDBPaginatedOutput {
 				if let items = result.items as? [Sample.SampleDB] {
-                    let wraps = items.filter { ($0.ups?.integerValue ?? 0) - ($0.downs?.integerValue ?? 0) > suppress }.map { Sample(data: $0, event: self) }.sort { $0.time.compare($1.time) == .OrderedDescending }
+                    let wraps = items.map { Sample(data: $0, event: self) }.filter { ($0.rating[0] - $0.rating[1] > suppress) && !Defensive.shared.muted($0.user) }.sort { $0.time.compare($1.time) == .OrderedDescending }
 					dispatch_async(dispatch_get_main_queue()) { self.samples = wraps }
 				}
 			}
 
 			return nil
 		}
-	}
+    }
+    
+    func sieveOffendingSamples() {
+        if let filtered = samples?.filter({ !Defensive.shared.muted($0.user) && !$0.flag }) {
+            if filtered.count != samples!.count {
+                samples = filtered
+            }
+        }
+    }
 
 	var debugDescription: String {
 		get { return "Unique = \(unique)\nopen = \(open)\nclose = \(close)\nname = \(name)\ndetails = \(details)\nlocation = \(location)" }
