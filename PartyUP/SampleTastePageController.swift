@@ -8,6 +8,7 @@
 
 import UIKit
 import Player
+import Social
 import DACircularProgress
 import Flurry_iOS_SDK
 
@@ -54,11 +55,6 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	@IBAction func toggleTimeFormat(sender: UITapGestureRecognizer) {
 		displayRelativeTime = !displayRelativeTime
 		timeLabel.text = formatTime(sample.time, relative: displayRelativeTime)
-	}
-
-	@IBAction func shareSample(sender: UIButton) {
-		let message = NSLocalizedString("#PartyUP at \(sample.event.name)", comment: "Share video message prefix")
-        presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share this party video", comment: "Share action prompt"), withMessage: message, url: media, image: nil)
 	}
 
     override func viewDidLoad() {
@@ -160,36 +156,51 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 		voteLabel.text = "\(sample.rating[0] - sample.rating[1])"
 	}
 
+	func shareSampleVia(service: String) {
+		let message = NSLocalizedString("#PartyUP at \(sample.event.name)", comment: "Share video message prefix")
+		presentShareSheetOn(self, viaService: service, withMessage: message, url: media, image: nil)
+	}
+
 	@IBAction func placeVote(sender: UIButton) {
 		let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
 		sample.setVote(vote)
 		voteButtons.forEach { button in button.selected = false }
 	}
 
-    @IBAction func reportObjection(sender: UIButton) {
-        let objection = UIAlertController(
-            title: NSLocalizedString("Objectional Material", comment: "Objectional material alert title"),
-            message: nil/*NSLocalizedString(", comment: <#T##String#>)*/,
-            preferredStyle: .ActionSheet)
-        let video = UIAlertAction(
-            title: NSLocalizedString("Report Offensive Video", comment: "Objectional material video action"),
-            style: .Destructive) { _ in }
-        let comment = UIAlertAction(
-            title: NSLocalizedString("Report Offensive Comment", comment: "Objectional material comment action"),
-            style: .Destructive) { _ in }
-        let mute = UIAlertAction(
-            title: NSLocalizedString("Mute Contributor", comment: "Objectional material mute action"),
-            style: .Destructive) { _ in }
-        let cancel = UIAlertAction(
-            title: NSLocalizedString("Cancel", comment: "Objectional material cancel action"),
-            style: .Cancel) { _ in }
-        objection.addAction(video)
-        objection.addAction(comment)
-        objection.addAction(mute)
-        objection.addAction(cancel)
-        
-        presentViewController(objection, animated: true, completion: nil)
-    }
+	@IBAction func purveyOptions(sender: UIButton) {
+		let options = UIAlertController(
+			title: NSLocalizedString("Share and Report", comment: "Share and Report alert title"),
+			message: nil,
+			preferredStyle: .ActionSheet)
+		let twitter = UIAlertAction(
+			title: NSLocalizedString("Share Video via Twitter", comment: "Share via Twitter alert action"),
+			style: .Default) { _ in self.shareSampleVia(SLServiceTypeTwitter) }
+		let facebook = UIAlertAction(
+			title: NSLocalizedString("Share Video via Facebook", comment: "Share via Facebook alert action"),
+			style: .Default) { _ in self.shareSampleVia(SLServiceTypeFacebook) }
+		let report = UIAlertAction(
+			title: NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action"),
+			style: .Destructive) { _ in }
+		let mute = UIAlertAction(
+			title: NSLocalizedString("Mute Contributor", comment: "Mute contributor alert action"),
+			style: .Destructive) { _ in }
+		let cancel = UIAlertAction(
+			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
+			style: .Cancel) { _ in }
+		options.addAction(twitter)
+		options.addAction(facebook)
+		options.addAction(report)
+		options.addAction(mute)
+		options.addAction(cancel)
+
+		if let pop = options.popoverPresentationController {
+			pop.sourceView = sender
+			pop.sourceRect = sender.bounds
+		}
+
+		presentViewController(options, animated: true, completion: nil)
+	}
+
 	// MARK: Player
 
 	func playerPlaybackWillStartFromBeginning(player: Player) {
