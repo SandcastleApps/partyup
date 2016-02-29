@@ -17,6 +17,8 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
     }
 
 	deinit {
@@ -70,10 +72,24 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
         if let page = dequeTastePageController(0), pvc = childViewControllers.first as? UIPageViewController {
             pvc.dataSource = self
             pvc.delegate = self
-            pvc.setViewControllers([page], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+            pvc.setViewControllers([page], direction: .Forward, animated: false, completion: nil)
             updateNavigationArrows(pvc)
         }
     }
+
+	func sieveOffensiveSamples() {
+		let filtered = samples.filter { !Defensive.shared.muted($0.user) && !$0.flag }
+		if filtered.count != samples.count {
+			samples = filtered
+		}
+
+		if let pvc = childViewControllers.first as? UIPageViewController, visible = pvc.viewControllers?.first as? SampleTastePageController {
+			let index = samples.indexOf{ $0.time.compare(visible.sample.time) == .OrderedAscending }
+			if let toVC = dequeTastePageController(index ?? samples.count) {
+				pvc.setViewControllers([toVC], direction: .Forward, animated: true) { completed in if completed { self.updateNavigationArrows(pvc) } }
+			}
+		}
+	}
 
 	func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
 		var toVC: UIViewController?

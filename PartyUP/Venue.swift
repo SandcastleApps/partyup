@@ -52,6 +52,8 @@ final class Venue: Hashable, CustomDebugStringConvertible
 
 		fetchPromotion()
 		fetchSamples()
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffendingSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
 	}
 
 	convenience init(venue: JSON) {
@@ -64,6 +66,10 @@ final class Venue: Hashable, CustomDebugStringConvertible
 			vicinity: venue["vicinity"].stringValue.componentsSeparatedByString(",").first,
 			location: CLLocation(latitude: venue["geometry"]["location"]["lat"].doubleValue, longitude: venue["geometry"]["location"]["lng"].doubleValue)
 		)
+	}
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
 	func fetchPromotion() {
@@ -100,7 +106,7 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		}
     }
     
-    func sieveOffendingSamples() {
+	@objc func sieveOffendingSamples() {
         if let filtered = samples?.filter({ !Defensive.shared.muted($0.user) && !$0.flag }) {
             if filtered.count != samples!.count {
                 samples = filtered
