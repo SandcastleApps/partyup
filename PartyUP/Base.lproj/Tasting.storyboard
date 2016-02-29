@@ -136,7 +136,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA">
-                                <rect key="frame" x="20" y="634" width="438" height="24"/>
+                                <rect key="frame" x="20" y="634" width="448" height="24"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -146,7 +146,7 @@
                                 </connections>
                             </label>
                             <button opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpR-Vf-xMl" userLabel="Down">
-                                <rect key="frame" x="458" y="624" width="44" height="44"/>
+                                <rect key="frame" x="468" y="624" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="BMh-wc-Sha"/>
                                     <constraint firstAttribute="width" secondItem="qpR-Vf-xMl" secondAttribute="height" multiplier="1:1" id="YVe-fr-dle"/>
@@ -164,7 +164,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcm-Ri-sef" userLabel="Up">
-                                <rect key="frame" x="502" y="624" width="44" height="44"/>
+                                <rect key="frame" x="512" y="624" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Gf2-Qk-tM1"/>
                                     <constraint firstAttribute="width" secondItem="Gcm-Ri-sef" secondAttribute="height" multiplier="1:1" id="Hl4-MT-mkc"/>
@@ -182,7 +182,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n4K-5j-O8G">
-                                <rect key="frame" x="492" y="636.5" width="21" height="20.5"/>
+                                <rect key="frame" x="502" y="636.5" width="21" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="38O-DJ-ZgO"/>
                                     <constraint firstAttribute="width" constant="21" id="RTg-hn-VM4"/>
@@ -191,13 +191,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu">
-                                <rect key="frame" x="546" y="624" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu">
+                                <rect key="frame" x="556" y="624" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="1ag-XW-Bxo"/>
                                     <constraint firstAttribute="width" secondItem="Exw-3e-lvu" secondAttribute="height" multiplier="1:1" id="fcM-cW-R6H"/>
                                 </constraints>
-                                <state key="normal" title="•••"/>
+                                <state key="normal" title="•••" image="SmallDots"/>
                                 <connections>
                                     <action selector="purveyOptions:" destination="qqy-na-3Zk" eventType="touchUpInside" id="VoC-eA-I29"/>
                                 </connections>
@@ -225,7 +225,7 @@
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" relation="lessThanOrEqual" secondItem="e0F-a8-syX" secondAttribute="bottom" constant="8" symbolic="YES" id="tGy-Ys-kGe"/>
                             <constraint firstItem="Gcm-Ri-sef" firstAttribute="leading" secondItem="n4K-5j-O8G" secondAttribute="centerX" id="vP0-z8-JLm"/>
                             <constraint firstItem="n4K-5j-O8G" firstAttribute="centerY" secondItem="Sy6-pN-RsA" secondAttribute="centerY" id="wgw-YD-wH2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Exw-3e-lvu" secondAttribute="trailing" constant="-10" id="yIU-4q-zeI"/>
+                            <constraint firstAttribute="trailing" secondItem="Exw-3e-lvu" secondAttribute="trailing" id="yIU-4q-zeI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -329,6 +329,7 @@
         <image name="Left" width="15" height="12"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Right" width="15" height="12"/>
+        <image name="SmallDots" width="22" height="5"/>
         <image name="Up" width="12" height="15"/>
         <image name="UpSelect" width="21" height="24"/>
     </resources>

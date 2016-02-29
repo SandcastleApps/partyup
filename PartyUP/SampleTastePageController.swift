@@ -161,24 +161,37 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 		presentShareSheetOn(self, viaService: service, withMessage: message, url: media, image: nil)
 	}
 
-	func reportOffensive() {
-		sample.setVote(Vote.Down, andFlag: true)
-	}
-
-	func muteOffender() {
-		Defensive.shared.mute(sample.user)
-	}
-
 	@IBAction func placeVote(sender: UIButton) {
 		let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
 		sample.setVote(vote)
 		voteButtons.forEach { button in button.selected = false }
 	}
 
+	func purveyOffensive() {
+		let options = UIAlertController(
+			title: NSLocalizedString("Offensive Material", comment: "Offensive material alert title"),
+			message: NSLocalizedString("Give this offensive video the boot!", comment: "Offensive material alert message"),
+			preferredStyle: .Alert)
+		let report = UIAlertAction(
+			title: NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action"),
+			style: .Destructive) { _ in self.sample.setVote(Vote.Down, andFlag: true) }
+		let mute = UIAlertAction(
+			title: NSLocalizedString("Mute Contributor", comment: "Mute contributor alert action"),
+			style: .Destructive) { _ in Defensive.shared.mute(self.sample.user) }
+		let cancel = UIAlertAction(
+			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
+			style: .Cancel) { _ in }
+		options.addAction(report)
+		options.addAction(mute)
+		options.addAction(cancel)
+
+		presentViewController(options, animated: true, completion: nil)
+	}
+
 	@IBAction func purveyOptions(sender: UIButton) {
 		let options = UIAlertController(
-			title: NSLocalizedString("Share and Report", comment: "Share and Report alert title"),
-			message: nil,
+			title: NSLocalizedString("Share or Report", comment: "Share or Report alert title"),
+			message: NSLocalizedString("Share this video or report it as offensive.", comment: "Share and Report message"),
 			preferredStyle: .ActionSheet)
 		let twitter = UIAlertAction(
 			title: NSLocalizedString("Share Video via Twitter", comment: "Share via Twitter alert action"),
@@ -188,17 +201,13 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			style: .Default) { _ in self.shareSampleVia(SLServiceTypeFacebook) }
 		let report = UIAlertAction(
 			title: NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action"),
-			style: .Destructive) { _ in self.reportOffensive() }
-		let mute = UIAlertAction(
-			title: NSLocalizedString("Mute Contributor", comment: "Mute contributor alert action"),
-			style: .Destructive) { _ in self.muteOffender() }
+			style: .Destructive) { _ in self.purveyOffensive() }
 		let cancel = UIAlertAction(
 			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
 			style: .Cancel) { _ in }
 		options.addAction(twitter)
 		options.addAction(facebook)
 		options.addAction(report)
-		options.addAction(mute)
 		options.addAction(cancel)
 
 		if let pop = options.popoverPresentationController {
