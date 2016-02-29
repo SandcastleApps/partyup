@@ -29,6 +29,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 {
 	static let RatingUpdateNotification = "SampleRatingUpdateNotification"
 	static let VoteUpdateNotification = "SampleVoteUpdateNotification"
+	static let FlaggedUpdateNotification = "SampleFlaggedUpdateNotification"
 
 	typealias UsageStamp = UInt8
 
@@ -56,8 +57,22 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		}
 	}
     
-	var vote = Vote.Meh
-	var flag = false
+	var vote = Vote.Meh {
+		didSet {
+			if oldValue != vote {
+				NSNotificationCenter.defaultCenter().postNotificationName(Sample.VoteUpdateNotification, object: self)
+			}
+		}
+	}
+
+	var flag = false {
+		didSet {
+			if oldValue != flag {
+				event.sieveOffendingSamples()
+				NSNotificationCenter.defaultCenter().postNotificationName(Sample.FlaggedUpdateNotification, object: self)
+			}
+		}
+	}
 
     init(user: NSUUID, event: Venue, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int], prefix: String = PartyUpConstants.DefaultStoragePrefix) {
 		self.user = user
@@ -73,7 +88,6 @@ final class Sample: CustomDebugStringConvertible, Equatable
 					dispatch_async(dispatch_get_main_queue()) {
 						self.vote = Vote(rawValue: result.vote?.integerValue ?? 0)!
 						self.flag = result.flag?.boolValue ?? false
-						NSNotificationCenter.defaultCenter().postNotificationName(Sample.VoteUpdateNotification, object: self)
 					}
 				}
 
@@ -116,7 +130,6 @@ final class Sample: CustomDebugStringConvertible, Equatable
 					dispatch_async(dispatch_get_main_queue()) {
 						self.vote = vote
 						self.flag = flag
-						NSNotificationCenter.defaultCenter().postNotificationName(Sample.VoteUpdateNotification, object: self)
 					}
 				}
 				return nil

@@ -19,6 +19,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
         super.viewDidLoad()
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Sample.FlaggedUpdateNotification, object: nil)
     }
 
 	deinit {
@@ -72,8 +73,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
         if let page = dequeTastePageController(0), pvc = childViewControllers.first as? UIPageViewController {
             pvc.dataSource = self
             pvc.delegate = self
-            pvc.setViewControllers([page], direction: .Forward, animated: false, completion: nil)
-            updateNavigationArrows(pvc)
+            pvc.setViewControllers([page], direction: .Forward, animated: false) { completed in if completed { self.updateNavigationArrows(pvc) } }
         }
     }
 
