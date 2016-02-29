@@ -78,7 +78,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
     }
 
 	func sieveOffensiveSamples() {
-		let filtered = samples.filter { !Defensive.shared.muted($0.user) && !$0.flag }
+		let filtered = samples.filter { !Defensive.shared.muted($0.user) && !($0.flag ?? false) }
 		if filtered.count != samples.count {
 			samples = filtered
 		}

@@ -65,11 +65,13 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		}
 	}
 
-	var flag = false {
+	var flag: Bool? {
 		didSet {
 			if oldValue != flag {
-				event.sieveOffendingSamples()
-				NSNotificationCenter.defaultCenter().postNotificationName(Sample.FlaggedUpdateNotification, object: self)
+				event.sieveSample(self)
+				if oldValue != nil {
+					NSNotificationCenter.defaultCenter().postNotificationName(Sample.FlaggedUpdateNotification, object: self)
+				}
 			}
 		}
 	}
@@ -83,16 +85,22 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		self.rating = rating
         self.prefix = prefix
         
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithSuccessBlock { task in
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithBlock { task in
+				var vote = Vote.Meh
+				var flag = false
+
 				if let result = task.result as? VoteDB {
-					dispatch_async(dispatch_get_main_queue()) {
-						self.vote = Vote(rawValue: result.vote?.integerValue ?? 0)!
-						self.flag = result.flag?.boolValue ?? false
-					}
+					vote = Vote(rawValue: result.vote?.integerValue ?? 0)!
+					flag = result.flag?.boolValue ?? false
 				}
 
-            return nil
-        }
+				dispatch_async(dispatch_get_main_queue()) {
+					self.vote = vote
+					self.flag = flag
+				}
+
+				return nil
+			}
 	}
 
     convenience init(event: Venue, comment: String? = nil) {

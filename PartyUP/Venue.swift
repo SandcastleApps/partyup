@@ -29,6 +29,7 @@ final class Venue: Hashable, CustomDebugStringConvertible
 			}
 		}
 	}
+
 	var samples: [Sample]? {
 		didSet {
 			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : oldValue?.count ?? 0])
@@ -38,6 +39,19 @@ final class Venue: Hashable, CustomDebugStringConvertible
 	var vitality: Int {
 		get {
 			return samples?.count ?? 0
+		}
+	}
+
+	private var votings = Set<NSData>()
+	private var potentials: [Sample]? {
+		didSet {
+			if let locals = potentials {
+				if locals.isEmpty {
+					samples = potentials
+				} else {
+					votings = Set<NSData>(locals.filter { $0.flag == nil }.map{ $0.identifier })
+				}
+			}
 		}
 	}
 
@@ -98,16 +112,35 @@ final class Venue: Hashable, CustomDebugStringConvertible
 			if let result = task.result as? AWSDynamoDBPaginatedOutput {
 				if let items = result.items as? [Sample.SampleDB] {
                     let wraps = items.map { Sample(data: $0, event: self) }.filter { ($0.rating[0] - $0.rating[1] > suppress) && !Defensive.shared.muted($0.user) }.sort { $0.time.compare($1.time) == .OrderedDescending }
-					dispatch_async(dispatch_get_main_queue()) { self.samples = wraps }
+					dispatch_async(dispatch_get_main_queue()) { self.potentials = wraps }
 				}
 			}
 
 			return nil
 		}
     }
+
+	func sieveSample(sample: Sample) {
+		if potentials != nil {
+			votings.remove(sample.identifier)
+
+			if sample.flag == true, let index = potentials?.indexOf(sample) {
+				potentials?.removeAtIndex(index)
+			}
+
+			if votings.isEmpty {
+				samples = potentials
+				potentials = nil
+			}
+		} else {
+			if sample.flag == true {
+				samples = samples?.filter { $0 != sample }
+			}
+		}
+	}
     
 	@objc func sieveOffendingSamples() {
-        if let filtered = samples?.filter({ !Defensive.shared.muted($0.user) && !$0.flag }) {
+        if let filtered = samples?.filter({ !Defensive.shared.muted($0.user) }) {
             if filtered.count != samples!.count {
                 samples = filtered
             }
