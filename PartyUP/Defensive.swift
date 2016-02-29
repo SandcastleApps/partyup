@@ -9,6 +9,8 @@
 import Foundation
 
 class Defensive {
+
+	static let OffensiveMuteUpdateNotification = "OffensiveMuteUpdateNotification"
     
     static let shared = Defensive()
 
@@ -36,6 +38,8 @@ class Defensive {
                 user.getUUIDBytes(&raw)
                 output.write(&raw, maxLength: raw.count)
             }
+
+			NSNotificationCenter.defaultCenter().postNotificationName(Defensive.OffensiveMuteUpdateNotification, object: self, userInfo: ["muted" : user])
         }
 	}
 
@@ -53,6 +57,8 @@ class Defensive {
 					output.write(&raw, maxLength: raw.count)
 				}
 			}
+
+			NSNotificationCenter.defaultCenter().postNotificationName(Defensive.OffensiveMuteUpdateNotification, object: self, userInfo: ["unmuted": user])
 		}
 	}
 
