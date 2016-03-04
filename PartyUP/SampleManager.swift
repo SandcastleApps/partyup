@@ -19,7 +19,7 @@ class SampleSubmission
 
 	typealias CompletionHandler = (SubmissionError?)->Void
     
-    init(sample: Sample) throws {
+    init(sample: Sample) {
         self.sample = sample
     }
 
@@ -29,39 +29,32 @@ class SampleSubmission
 		}
 	}
     
-	func submitWithCompletionHander(handler: CompletionHandler) throws {
+	func submitWithCompletionHander(handler: CompletionHandler) {
 		complete = handler
-		try step()
+        step(false)
     }
 
-	private func step() throws {
-		switch state {
-		case .Idle:
-			try upload()
-		case .Upload(let task):
-			if task.faulted || task.cancelled {
-				try upload()
-			} else {
-				try record()
-			}
-		case .Record(let task):
-			if task.faulted {
-				try record()
-			}
-		}
-	}
-
-	private func back() {
-//		switch state {
-//		case .Idle:
-//			break
-//		case .Upload(let task):
-//			if task.faulted {
-//				step()
-//			}
-//		case .Record(let task):
-//
-//		}
+    private func step(report: Bool) {
+        do {
+            switch state {
+            case .Idle:
+                try upload()
+            case .Upload(let task):
+                if task.faulted {
+                    try upload()
+                } else {
+                    try record()
+                }
+            case .Record(let task):
+                if task.faulted {
+                    try record()
+                }
+            }
+        } catch let error as SubmissionError {
+            dispatch_async(dispatch_get_main_queue()) { self.complete?(error) }
+        } catch {
+            dispatch_async(dispatch_get_main_queue()) { self.complete?(SubmissionError.UnknownError) }
+        }
 	}
 
 	private func upload() throws {
@@ -77,21 +70,24 @@ class SampleSubmission
             key: name,
             contentType: url.mime,
             expression: uploadExpr,
-			completionHander: nil).continueWithBlock { _ in self.back(); return nil }
+			completionHander: nil).continueWithBlock { _ in self.step(true); return nil }
         state = .Upload(task: task)
     }
     
     private func record() throws {
         let task = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(sample.dynamo).continueWithBlock { _ in
-			self.back(); return nil }
+			self.step(true); return nil }
 		state = .Record(task: task)
     }
 
     enum SubmissionError: ErrorType {
+        case UnknownError
         case TransferUtilityUnavailable
         case InvalidFileName(url: NSURL)
-        case SubmissionError(error: NSError)
-        case SubmissionException(exception: NSException)
+        case UploadError(error: NSError)
+        case UploadException(exception: NSException)
+        case RecordError(error: NSError)
+        case RecordException(exception: NSException)
     }
     
     private enum SubmissionState {

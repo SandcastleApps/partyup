@@ -59,6 +59,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBOutlet weak var review: UIView!
 	@IBOutlet weak var sendButton: UIButton!
 
+    private var submission: SampleSubmission?
 	private let player = Player()
 	private let progressHud = JGProgressHUD(style: .Light)
 
@@ -271,7 +272,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
                 let sample = Sample(event: place, comment: statement)
 				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place.unique], timed: true)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-				SampleManager.defaultManager().submit(sample) {(error) in
+                submission = SampleSubmission(sample: sample)
+				submission?.submitWithCompletionHander {(error) in
 					if error == nil {
 						Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : true])
 						presentResultHud(self.progressHud,
