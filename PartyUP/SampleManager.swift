@@ -16,55 +16,78 @@ class SampleSubmission
     let sample: Sample
     lazy var name: String? = { return self.sample.media.path.flatMap({String($0.characters.dropFirst())}) }()
     lazy var file: NSURL? = { return self.name.flatMap({NSURL(fileURLWithPath: NSTemporaryDirectory() + $0)}) }()
+
+	typealias CompletionHandler = (SubmissionError?)->Void
     
     init(sample: Sample) throws {
         self.sample = sample
     }
+
+	deinit {
+		if let file = file {
+			try! NSFileManager.defaultManager().removeItemAtURL(file)
+		}
+	}
     
-    func process() throws {
-        switch state {
-        case .Idle:
-            try upload()
-        case .Upload(let task):
-            if task.faulted {
-                try upload()
-            } else {
-                try record()
-            }
-        case .Record(let task):
-            if task.faulted {
-                try record()
-            }
-        }
+	func submitWithCompletionHander(handler: CompletionHandler) throws {
+		complete = handler
+		try step()
     }
-    
-    private func upload() throws {
-        guard let transfer = AWSS3TransferUtility.defaultS3TransferUtility() else { throw SubmissionError.TransferUtilityUnavailable }
-        guard let videoUrl = file else { throw SubmissionError.InvalidFileName(url: sample.media) }
-        guard let videoName = name else { throw SubmissionError.InvalidFileName(url: sample.media) }
-        
+
+	private func step() throws {
+		switch state {
+		case .Idle:
+			try upload()
+		case .Upload(let task):
+			if task.faulted || task.cancelled {
+				try upload()
+			} else {
+				try record()
+			}
+		case .Record(let task):
+			if task.faulted {
+				try record()
+			}
+		}
+	}
+
+	private func back() {
+//		switch state {
+//		case .Idle:
+//			break
+//		case .Upload(let task):
+//			if task.faulted {
+//				step()
+//			}
+//		case .Record(let task):
+//
+//		}
+	}
+
+	private func upload() throws {
+		guard let transfer = AWSS3TransferUtility.defaultS3TransferUtility() else { throw SubmissionError.TransferUtilityUnavailable }
+		guard let url = file else { throw SubmissionError.InvalidFileName(url: sample.media) }
+		guard let name = name else { throw SubmissionError.InvalidFileName(url: sample.media) }
+
         let uploadExpr = AWSS3TransferUtilityUploadExpression()
         uploadExpr.setValue("REDUCED_REDUNDANCY", forRequestParameter: "x-amz-storage-class")
         
-        let task = transfer.uploadFile(videoUrl,
+        let task = transfer.uploadFile(url,
             bucket: PartyUpConstants.StorageBucket,
-            key: videoName,
-            contentType: videoUrl.mime,
+            key: name,
+            contentType: url.mime,
             expression: uploadExpr,
-            completionHander: nil).continueWithBlock { _ in self.process() }
+			completionHander: nil).continueWithBlock { _ in self.back(); return nil }
         state = .Upload(task: task)
     }
     
     private func record() throws {
-        state = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(sample.dynamo)})
-        state.continueWithBlock({ (task) in
-            dispatch_async(dispatch_get_main_queue()) { self.process(task) }
-            return nil
-        })
+        let task = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(sample.dynamo).continueWithBlock { _ in
+			self.back(); return nil }
+		state = .Record(task: task)
     }
 
-    enum SubmissionError: ErrorType
-    {
+    enum SubmissionError: ErrorType {
         case TransferUtilityUnavailable
         case InvalidFileName(url: NSURL)
         case SubmissionError(error: NSError)
@@ -76,6 +99,7 @@ class SampleSubmission
         case Upload(task: AWSTask)
         case Record(task: AWSTask)
     }
-    
+
+	private var complete: CompletionHandler?
     private var state: SubmissionState = .Idle
 }
