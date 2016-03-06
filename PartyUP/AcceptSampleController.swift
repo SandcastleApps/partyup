@@ -59,7 +59,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBOutlet weak var review: UIView!
 	@IBOutlet weak var sendButton: UIButton!
 
-    private var submission: SampleSubmission?
 	private let player = Player()
 	private let progressHud = JGProgressHUD(style: .Light)
 
@@ -272,26 +271,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
                 let sample = Sample(event: place, comment: statement)
 				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place.unique], timed: true)
 				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
-                submission = SampleSubmission(sample: sample)
-				submission?.submitWithCompletionHander {(error) in
-					if error == nil {
-						Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : true])
-						presentResultHud(self.progressHud,
-							inView: self.view,
-							withTitle: NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
-							andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample"),
-							indicatingSuccess: true)
-						self.venues[self.selectedLocal].fetchSamples()
-					} else {
-						Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false])
-						Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
-						presentResultHud(self.progressHud,
-							inView: self.view,
-							withTitle: NSLocalizedString("Submission Failed", comment: "Hud title after unsuccessfully uploaded sample"),
-							andDetail: NSLocalizedString("Rats!", comment: "Hud detail after unsuccessfully uploaded sample"),
-							indicatingSuccess: false)
-					}
-				}
+                let submission = SampleSubmission(sample: sample)
+				submission.submitWithCompletionHander(completionHandlerForSubmission)
 			} else {
 				presentResultHud(progressHud,
 					inView: view,
@@ -308,6 +289,33 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				withTitle: NSLocalizedString("Preparation Failed", comment: "Hud title when failed due to no video"),
 				andDetail: NSLocalizedString("Couldn't queue video for upload.", comment: "Hud title when failed due to no video"),
 				indicatingSuccess: false)
+		}
+	}
+
+	private func completionHandlerForSubmission(submission: SampleSubmission) {
+		if let error = submission.error {
+			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
+			let alert = UIAlertController(
+				title: NSLocalizedString("Submission Failed", comment: "Alert title after unsuccessfully uploaded sample"),
+				message: NSLocalizedString("You may discard the video or try submitting it again.", comment: "Alert detail after unsuccessfully uploaded sample"),
+				preferredStyle: .Alert)
+			let discard = UIAlertAction(
+				title: NSLocalizedString("Discard", comment: "Submission discard alert button"),
+				style: .Destructive) { _ in Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false]); self.host?.rejectedSample() }
+			let retry = UIAlertAction(
+				title: NSLocalizedString("Retry", comment: "Submission retry alert button"),
+				style: .Destructive) { _ in submission.submitWithCompletionHander(self.completionHandlerForSubmission) }
+			alert.addAction(discard)
+			alert.addAction(retry)
+			presentViewController(alert, animated: true, completion: nil)
+		} else {
+			Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : true])
+			presentResultHud(self.progressHud,
+				inView: self.view,
+				withTitle: NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
+				andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample"),
+				indicatingSuccess: true)
+			self.venues[self.selectedLocal].fetchSamples()
 		}
 	}
 

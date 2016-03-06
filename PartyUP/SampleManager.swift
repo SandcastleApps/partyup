@@ -17,7 +17,9 @@ class SampleSubmission
     lazy var name: String? = { return self.sample.media.path.flatMap({String($0.characters.dropFirst())}) }()
     lazy var file: NSURL? = { return self.name.flatMap({NSURL(fileURLWithPath: NSTemporaryDirectory() + $0)}) }()
 
-	typealias CompletionHandler = (SubmissionError?)->Void
+	var error: SubmissionError?
+
+	typealias CompletionHandler = (SampleSubmission)->Void
     
     init(sample: Sample) {
         self.sample = sample
@@ -25,39 +27,40 @@ class SampleSubmission
 
 	deinit {
 		if let file = file {
-			try! NSFileManager.defaultManager().removeItemAtURL(file)
+			try? NSFileManager.defaultManager().removeItemAtURL(file)
 		}
 	}
     
 	func submitWithCompletionHander(handler: CompletionHandler) {
 		complete = handler
-        step(false)
+
+		do {
+			switch state {
+			case .Idle:
+				try upload()
+			case .Upload(let task):
+				if task.faulted {
+					try upload()
+				} else {
+					record()
+				}
+			case .Record(let task):
+				if task.faulted {
+					record()
+				}
+			}
+		} catch let bad as SubmissionError {
+			error = bad
+			dispatch_async(dispatch_get_main_queue()) { self.complete?(self) }
+		} catch {
+//			error = SubmissionError.UnknownError
+			dispatch_async(dispatch_get_main_queue()) { self.complete?(self) }
+		}
     }
 
-    private func step(report: Bool) {
-        do {
-            switch state {
-            case .Idle:
-                try upload()
-            case .Upload(let task):
-                if task.faulted {
-                    try upload()
-                } else {
-                    try record()
-                }
-            case .Record(let task):
-                if task.faulted {
-                    try record()
-                }
-            }
-        } catch let error as SubmissionError {
-            dispatch_async(dispatch_get_main_queue()) { self.complete?(error) }
-        } catch {
-            dispatch_async(dispatch_get_main_queue()) { self.complete?(SubmissionError.UnknownError) }
-        }
-	}
-
 	private func upload() throws {
+		error = nil
+
 		guard let transfer = AWSS3TransferUtility.defaultS3TransferUtility() else { throw SubmissionError.TransferUtilityUnavailable }
 		guard let url = file else { throw SubmissionError.InvalidFileName(url: sample.media) }
 		guard let name = name else { throw SubmissionError.InvalidFileName(url: sample.media) }
@@ -70,13 +73,30 @@ class SampleSubmission
             key: name,
             contentType: url.mime,
             expression: uploadExpr,
-			completionHander: nil).continueWithBlock { _ in self.step(true); return nil }
+			completionHander: nil).continueWithBlock { task in
+			if task.faulted {
+				if let err = task.error { self.error = .UploadError(error: err) }
+				if let exc = task.exception { self.error = .UploadException(exception: exc) }
+				dispatch_async(dispatch_get_main_queue()) { self.complete?(self) }
+			} else {
+				self.record()
+			}
+
+			return nil
+		}
         state = .Upload(task: task)
     }
     
-    private func record() throws {
-        let task = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(sample.dynamo).continueWithBlock { _ in
-			self.step(true); return nil }
+    private func record() {
+		error = nil
+
+        let task = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(sample.dynamo).continueWithBlock { task in
+			if let err = task.error { self.error = .UploadError(error: err) }
+			if let exc = task.exception { self.error = .UploadException(exception: exc) }
+			dispatch_async(dispatch_get_main_queue()) { self.complete?(self) }
+
+			return nil
+		}
 		state = .Record(task: task)
     }
 
