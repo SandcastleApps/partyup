@@ -244,7 +244,8 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 
 	@IBAction func rejectSample(sender: UIBarButtonItem) {
 		view.endEditing(false)
-		
+
+	#if !((arch(i386) || arch(x86_64)) && os(iOS))
 		do {
 			if let url = videoUrl {
 				try NSFileManager.defaultManager().removeItemAtURL(url)
@@ -252,6 +253,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		} catch {
 			NSLog("Failed to delete rejected video: \(videoUrl) with error: \(error)")
 		}
+	#endif
 
 		Flurry.logEvent("Sample_Rejected")
 
@@ -270,7 +272,11 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				let place = venues[selectedLocal]
                 let sample = Sample(event: place, comment: statement)
 				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place.unique], timed: true)
-				try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
+				#if (arch(i386) || arch(x86_64)) && os(iOS)
+					try NSFileManager.defaultManager().copyItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
+				#else
+					try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
+				#endif
                 let submission = SampleSubmission(sample: sample)
 				submission.submitWithCompletionHander(completionHandlerForSubmission)
 			} else {

@@ -172,7 +172,10 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 
 	func vision(vision: PBJVision, capturedVideo videoDict: [NSObject : AnyObject]?, error: NSError?) {
         resetTimerBar()
-        
+
+	#if (arch(i386) || arch(x86_64)) && os(iOS)
+		host?.recordedSample(NSURL(fileURLWithPath: NSTemporaryDirectory() + "video_example.mp4"))
+	#else
 		if let err = error {
             if err.domain == PBJVisionErrorDomain && err.code == PBJVisionErrorType.Cancelled.rawValue {
                 Flurry.logEvent("Truncated_Sample")
@@ -184,6 +187,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
                 host?.recordedSample(NSURL(fileURLWithPath: out))
 			}
         }
+	#endif
 	}
 
 	func vision(vision: PBJVision, willStartVideoCaptureToFile fileName: String) -> String {
