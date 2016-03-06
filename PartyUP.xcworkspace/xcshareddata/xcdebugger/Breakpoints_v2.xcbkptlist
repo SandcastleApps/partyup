@@ -24,11 +24,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "PartyUP/AcceptSampleController.swift"
-            timestampString = "471846801.913661"
+            timestampString = "478958031.661064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "246"
@@ -48,23 +48,23 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             condition = "error != nil"
             continueAfterRunningActions = "Yes"
             filePath = "PartyUP/RecordSampleController.swift"
-            timestampString = "476312903.952936"
+            timestampString = "478956233.373349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "vision(_:capturedVideo:error:)"
             landmarkType = "5">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
                   <ActionContent
-                     consoleCommand = "p host?.recordedSample(NSURL(fileURLWithPath:&quot;/Users/fritz/Library/Developer/CoreSimulator/Devices/AFDD56C6-D523-47CD-AB9F-BB203106B01D/data/Containers/Data/Application/2988CC66-4CE3-4C45-9BDF-C4234DC1387E/tmp/video_7F9B245F-AE8B-4CC0-92EE-B31B456D7C94.mp4&quot;))">
+                     consoleCommand = "p host?.recordedSample(NSURL(fileURLWithPath:&quot;/Users/fritz/Library/Developer/CoreSimulator/Devices/B8E106D5-CF02-4790-AFBA-70ECDE41B7AE/data/Containers/Data/Application/C7AB96E2-1238-4CE2-9DA2-A3DFD37CE1D6/tmp/video_A8E82AD0-9BD1-45DC-B6F7-2E2364A3C2CC132.mp4&quot;))">
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>
