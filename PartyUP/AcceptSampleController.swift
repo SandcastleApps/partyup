@@ -277,7 +277,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				#else
 					try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
 				#endif
-                let submission = SampleSubmission(sample: sample)
+                let submission = Submission(sample: sample)
 				submission.submitWithCompletionHander(completionHandlerForSubmission)
 			} else {
 				presentResultHud(progressHud,
@@ -297,7 +297,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		}
 	}
 
-	private func completionHandlerForSubmission(submission: SampleSubmission) {
+	private func completionHandlerForSubmission(submission: Submission) {
 		if let error = submission.error {
 			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
 			let alert = UIAlertController(

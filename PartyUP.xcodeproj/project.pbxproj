@@ -36,11 +36,11 @@
 		1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3771BA8500F0037D7D8 /* Sample.swift */; };
 		1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */; };
 		1F03C37C1BA8E1950037D7D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */; };
-		1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F06C7821BBB10F0006444DF /* SampleManager.swift */; };
 		1F08469D1C32C0490064FBDD /* VenueTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F08469C1C32C0490064FBDD /* VenueTableCell.swift */; };
 		1F10FD961C624A050090743C /* AnimalTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F10FD951C624A050090743C /* AnimalTableCell.swift */; };
 		1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */; };
 		1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */; };
+		1F2C485C1C8DBDE500DE07B2 /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C485B1C8DBDE500DE07B2 /* Submission.swift */; };
 		1F2DDB251C5E658C00E28DE4 /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DDB241C5E658C00E28DE4 /* Promotion.swift */; };
 		1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
@@ -105,13 +105,13 @@
 		1F03C3771BA8500F0037D7D8 /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		1F03C3791BA898F20037D7D8 /* PartyPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyPickerController.swift; sourceTree = "<group>"; };
 		1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		1F06C7821BBB10F0006444DF /* SampleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleManager.swift; sourceTree = "<group>"; };
 		1F08469C1C32C0490064FBDD /* VenueTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueTableCell.swift; sourceTree = "<group>"; };
 		1F09183A1C6B80440020B498 /* Settings_Deploy.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Deploy.bundle; sourceTree = "<group>"; };
 		1F10FD951C624A050090743C /* AnimalTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalTableCell.swift; sourceTree = "<group>"; };
 		1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakeRootController.swift; sourceTree = "<group>"; };
 		1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyDefaults.plist; sourceTree = "<group>"; };
 		1F263C811BE39A53009A3565 /* Settings_Develop.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Develop.bundle; sourceTree = "<group>"; };
+		1F2C485B1C8DBDE500DE07B2 /* Submission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
 		1F2DDB241C5E658C00E28DE4 /* Promotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
 		1F3BA5931C4C752900F3079F /* vote.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = vote.py; path = AWSLambdas/vote.py; sourceTree = "<group>"; usesTabs = 0; };
 		1F3BA5941C4D168000F3079F /* VoteStream.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = VoteStream.json; sourceTree = "<group>"; usesTabs = 0; };
@@ -235,8 +235,8 @@
 		1F03C3721BA84DDC0037D7D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1F2C485B1C8DBDE500DE07B2 /* Submission.swift */,
 				1F2DDB241C5E658C00E28DE4 /* Promotion.swift */,
-				1F06C7821BBB10F0006444DF /* SampleManager.swift */,
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
 				1F03C3771BA8500F0037D7D8 /* Sample.swift */,
 				1F9509961BAF81FB005BDC18 /* Dynamo.swift */,
@@ -651,7 +651,6 @@
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
 				1F9B5D0E1C596D6A000E7574 /* DateUtilities.swift in Sources */,
 				1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */,
-				1F06C7831BBB10F0006444DF /* SampleManager.swift in Sources */,
 				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
@@ -663,6 +662,7 @@
 				1F2DDB251C5E658C00E28DE4 /* Promotion.swift in Sources */,
 				1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */,
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
+				1F2C485C1C8DBDE500DE07B2 /* Submission.swift in Sources */,
 				1FD1CDC61C8318B00003C744 /* Defensive.swift in Sources */,
 				1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */,
 				1FDA455B1C1CECD200F5E458 /* ShareUtilities.swift in Sources */,
@@ -845,7 +845,7 @@
 			baseConfigurationReference = 278EBC8A59A48011B5054E11 /* Pods-PartyUP.deployment.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				INFOPLIST_FILE = PartyUP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

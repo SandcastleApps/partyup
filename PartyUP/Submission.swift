@@ -1,5 +1,5 @@
 //
-//  SampleManager.swift
+//  Submission.swift
 //  PartyUP
 //
 //  Created by Fritz Vander Heide on 2015-09-28.
@@ -11,24 +11,22 @@ import AWSS3
 import AWSDynamoDB
 import AWSCore
 
-class SampleSubmission
+class Submission
 {
     let sample: Sample
     lazy var name: String? = { return self.sample.media.path.flatMap({String($0.characters.dropFirst())}) }()
     lazy var file: NSURL? = { return self.name.flatMap({NSURL(fileURLWithPath: NSTemporaryDirectory() + $0)}) }()
 
-	var error: SubmissionError?
+	var error: Error?
 
-	typealias CompletionHandler = (SampleSubmission)->Void
+	typealias CompletionHandler = (Submission)->Void
     
     init(sample: Sample) {
         self.sample = sample
     }
 
 	deinit {
-		if let file = file {
-			try? NSFileManager.defaultManager().removeItemAtURL(file)
-		}
+		let _ = file.flatMap{ try? NSFileManager.defaultManager().removeItemAtURL($0) }
 	}
     
 	func submitWithCompletionHander(handler: CompletionHandler) {
@@ -49,7 +47,7 @@ class SampleSubmission
 					record()
 				}
 			}
-		} catch let bad as SubmissionError {
+		} catch let bad as Error {
 			error = bad
 			dispatch_async(dispatch_get_main_queue()) { self.complete?(self) }
 		} catch {
@@ -61,9 +59,9 @@ class SampleSubmission
 	private func upload() throws {
 		error = nil
 
-		guard let transfer = AWSS3TransferUtility.defaultS3TransferUtility() else { throw SubmissionError.TransferUtilityUnavailable }
-		guard let url = file else { throw SubmissionError.InvalidFileName(url: sample.media) }
-		guard let name = name else { throw SubmissionError.InvalidFileName(url: sample.media) }
+		guard let transfer = AWSS3TransferUtility.defaultS3TransferUtility() else { throw Error.TransferUtilityUnavailable }
+		guard let url = file else { throw Error.InvalidFileName(url: sample.media) }
+		guard let name = name else { throw Error.InvalidFileName(url: sample.media) }
 
         let uploadExpr = AWSS3TransferUtilityUploadExpression()
         uploadExpr.setValue("REDUCED_REDUNDANCY", forRequestParameter: "x-amz-storage-class")
@@ -100,7 +98,7 @@ class SampleSubmission
 		state = .Record(task: task)
     }
 
-    enum SubmissionError: ErrorType {
+    enum Error: ErrorType {
         case UnknownError
         case TransferUtilityUnavailable
         case InvalidFileName(url: NSURL)
@@ -110,12 +108,12 @@ class SampleSubmission
         case RecordException(exception: NSException)
     }
     
-    private enum SubmissionState {
+    private enum State {
         case Idle
         case Upload(task: AWSTask)
         case Record(task: AWSTask)
     }
 
 	private var complete: CompletionHandler?
-    private var state: SubmissionState = .Idle
+    private var state: State = .Idle
 }
