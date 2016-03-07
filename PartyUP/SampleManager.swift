@@ -91,8 +91,8 @@ class SampleSubmission
 		error = nil
 
         let task = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(sample.dynamo).continueWithBlock { task in
-			if let err = task.error { self.error = .UploadError(error: err) }
-			if let exc = task.exception { self.error = .UploadException(exception: exc) }
+			if let err = task.error { self.error = .RecordError(error: err) }
+			if let exc = task.exception { self.error = .RecordException(exception: exc) }
 			dispatch_async(dispatch_get_main_queue()) { self.complete?(self) }
 
 			return nil
