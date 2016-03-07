@@ -289,7 +289,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 
 		} catch {
 			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
-			NSLog("Failed to move accepted video: \(videoUrl) with error: \(error)")
 			presentResultHud(progressHud,
 				inView: view,
 				withTitle: NSLocalizedString("Preparation Failed", comment: "Hud title when failed due to no video"),
@@ -307,10 +306,14 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 				preferredStyle: .Alert)
 			let discard = UIAlertAction(
 				title: NSLocalizedString("Discard", comment: "Submission discard alert button"),
-				style: .Destructive) { _ in Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false]); self.host?.rejectedSample() }
+				style: .Destructive) { _ in
+					Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false])
+					self.progressHud.dismiss()
+					self.host?.rejectedSample() }
 			let retry = UIAlertAction(
 				title: NSLocalizedString("Retry", comment: "Submission retry alert button"),
-				style: .Destructive) { _ in submission.submitWithCompletionHander(self.completionHandlerForSubmission) }
+				style: .Default) { _ in
+					submission.submitWithCompletionHander(self.completionHandlerForSubmission) }
 			alert.addAction(discard)
 			alert.addAction(retry)
 			presentViewController(alert, animated: true, completion: nil)
