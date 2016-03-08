@@ -51,7 +51,7 @@ class Submission
 			error = bad
 			dispatch_async(dispatch_get_main_queue()) { self.complete?(self) }
 		} catch {
-//			error = SubmissionError.UnknownError
+			self.error = Error.UnknownError
 			dispatch_async(dispatch_get_main_queue()) { self.complete?(self) }
 		}
     }
