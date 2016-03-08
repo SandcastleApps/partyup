@@ -84,23 +84,6 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		self.stamp = stamp
 		self.rating = rating
         self.prefix = prefix
-        
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithBlock { task in
-				var vote = Vote.Meh
-				var flag = false
-
-				if let result = task.result as? VoteDB {
-					vote = Vote(rawValue: result.vote?.integerValue ?? 0)!
-					flag = result.flag?.boolValue ?? false
-				}
-
-				dispatch_async(dispatch_get_main_queue()) {
-					self.vote = vote
-					self.flag = flag
-				}
-
-				return nil
-			}
 	}
 
     convenience init(event: Venue, comment: String? = nil) {
@@ -178,6 +161,23 @@ final class Sample: CustomDebugStringConvertible, Equatable
 			rating: [data.ups?.integerValue ?? 0, data.downs?.integerValue ?? 0],
             prefix: data.prefix ?? PartyUpConstants.DefaultStoragePrefix
 		)
+
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithBlock { task in
+			var vote = Vote.Meh
+			var flag = false
+
+			if let result = task.result as? VoteDB {
+				vote = Vote(rawValue: result.vote?.integerValue ?? 0)!
+				flag = result.flag?.boolValue ?? false
+			}
+
+			dispatch_async(dispatch_get_main_queue()) {
+				self.vote = vote
+				self.flag = flag
+			}
+
+			return nil
+		}
 	}
 
 	internal var dynamo: SampleDB {
