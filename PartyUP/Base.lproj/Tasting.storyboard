@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E49a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -129,7 +129,7 @@
                                     <constraint firstItem="6IQ-1N-b0C" firstAttribute="centerY" secondItem="WNy-Cg-5eP" secondAttribute="centerY" id="VZF-mN-Ncp"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="250" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="250" misplaced="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
                                 <rect key="frame" x="20" y="665" width="560" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="20" id="6gz-0m-ols"/>
@@ -191,14 +191,14 @@
                                     <action selector="placeVote:" destination="qqy-na-3Zk" eventType="touchUpInside" id="oeV-SA-Ozz"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n4K-5j-O8G">
-                                <rect key="frame" x="502" y="636.5" width="21" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n4K-5j-O8G">
+                                <rect key="frame" x="502" y="637" width="21" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="38O-DJ-ZgO"/>
                                     <constraint firstAttribute="width" constant="21" id="RTg-hn-VM4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu">
@@ -335,34 +335,10 @@
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="x9t-C5-WiG">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTU-gH-hzQ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </webView>
-                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="bQD-py-R1y" firstAttribute="top" secondItem="pTU-gH-hzQ" secondAttribute="bottom" id="2bi-p1-9gX"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pTU-gH-hzQ" secondAttribute="trailing" constant="-20" id="3E5-za-BBG"/>
-                            <constraint firstAttribute="trailing" secondItem="pTU-gH-hzQ" secondAttribute="trailing" id="6cm-oi-d9r"/>
-                            <constraint firstItem="pTU-gH-hzQ" firstAttribute="top" secondItem="VYe-vb-a8f" secondAttribute="bottom" constant="8" symbolic="YES" id="Af6-L0-rca"/>
-                            <constraint firstItem="bQD-py-R1y" firstAttribute="top" secondItem="pTU-gH-hzQ" secondAttribute="bottom" id="I5n-wc-Iba"/>
-                            <constraint firstItem="pTU-gH-hzQ" firstAttribute="leading" secondItem="x9t-C5-WiG" secondAttribute="leading" id="p1v-BW-dqo"/>
-                            <constraint firstItem="pTU-gH-hzQ" firstAttribute="leading" secondItem="x9t-C5-WiG" secondAttribute="leadingMargin" constant="-20" id="wXO-YE-odE"/>
-                            <constraint firstItem="pTU-gH-hzQ" firstAttribute="top" secondItem="VYe-vb-a8f" secondAttribute="bottom" id="yob-x4-W3Z"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="3E5-za-BBG"/>
-                                <exclude reference="Af6-L0-rca"/>
-                                <exclude reference="wXO-YE-odE"/>
-                                <exclude reference="2bi-p1-9gX"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="web" destination="pTU-gH-hzQ" id="GqG-d5-XCS"/>
+                        <outlet property="web" destination="x9t-C5-WiG" id="tLK-Uc-GHJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ztb-ND-ttv" userLabel="First Responder" sceneMemberID="firstResponder"/>

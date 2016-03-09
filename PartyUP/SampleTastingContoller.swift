@@ -22,7 +22,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Sample.FlaggedUpdateNotification, object: nil)
 
 		if let avc = childViewControllers.dropFirst().first as? AdvertisingOverlayController {
-			avc.url = NSURL(string: "color_box.html", relativeToURL: NSURL(string: "https://s3.amazonaws.com/com.sandcastleapps.partyup/ads/"))
+			avc.url = NSURL(fileURLWithPath: "/Users/fritz/Documents/color_box.html")//NSURL(string: "color_box.html", relativeToURL: NSURL(string: "https://s3.amazonaws.com/com.sandcastleapps.partyup/ads/"))
 		}
     }
 

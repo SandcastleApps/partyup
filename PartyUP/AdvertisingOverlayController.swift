@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import WebKit
 
-class AdvertisingOverlayController: UIViewController {
+class AdvertisingOverlayController: UIViewController, PageProtocol {
+    
+    var page: Int!
 
 	var url: NSURL? {
 		didSet {
@@ -18,13 +21,21 @@ class AdvertisingOverlayController: UIViewController {
 		}
 	}
 
-	@IBOutlet weak var web: UIWebView! {
+	var web: WKWebView! {
 		didSet {
 			if let url = url {
 				web?.loadRequest(NSURLRequest(URL: url))
 			}
 		}
 	}
+    
+    override func loadView() {
+        super.loadView()
+        web = WKWebView(frame: view.bounds)
+        web.opaque = false
+        web.scrollView.scrollEnabled = false
+        view = web
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
