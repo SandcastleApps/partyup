@@ -1,6 +1,7 @@
 #import "AWSFMResultSet.h"
 #import "AWSFMDatabase.h"
 #import "unistd.h"
+#import "AWSFMDatabase+Private.h"
 
 @interface AWSFMDatabase ()
 - (void)resultSetDidClose:(AWSFMResultSet *)resultSet;
@@ -181,7 +182,7 @@
                 // If 'next' or 'nextWithError' is called after the result set is closed,
                 // we need to return the appropriate error.
                 NSDictionary* errorMessage = [NSDictionary dictionaryWithObject:@"parentDB does not exist" forKey:NSLocalizedDescriptionKey];
-                *outErr = [NSError errorWithDomain:@"FMDatabase" code:SQLITE_MISUSE userInfo:errorMessage];
+                *outErr = [NSError errorWithDomain:@"AWSFMDatabase" code:SQLITE_MISUSE userInfo:errorMessage];
             }
             
         }

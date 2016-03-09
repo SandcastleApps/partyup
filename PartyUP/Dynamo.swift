@@ -14,11 +14,11 @@ func wrapValue<T>(value: T) -> AWSDynamoDBAttributeValue? {
 
 	switch value.self {
 	case is NSString:
-		wrappedValue!.S = value as! String
+		wrappedValue!.S = value as? String
 	case is NSNumber:
 		wrappedValue!.N = "\(value)"
 	case is NSData:
-		wrappedValue!.B = value as! NSData
+		wrappedValue!.B = value as? NSData
 	default:
 		wrappedValue = nil
 	}

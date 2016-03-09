@@ -1,22 +1,20 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import <Foundation/Foundation.h>
-
-#import <AWSCore/AWSService.h>
-#import <AWSCore/AWSModel.h>
+#import "AWSDynamoDBService.h"
 
 /**
  Enumeration of behaviors for the save operation.
@@ -63,9 +61,6 @@ typedef NS_ENUM(NSInteger, AWSDynamoDBObjectMapperSaveBehavior) {
     AWSDynamoDBObjectMapperSaveBehaviorClobber
 };
 
-@class AWSTask;
-@class AWSServiceConfiguration;
-@class AWSDynamoDB;
 @class AWSDynamoDBObjectMapperConfiguration;
 @class AWSDynamoDBQueryExpression;
 @class AWSDynamoDBScanExpression;
@@ -142,7 +137,7 @@ __attribute__ ((deprecated("Use 'AWSDynamoDBObjectModel' instead.")))
 
  @warning Once the client is instantiated, do not modify the configuration object. It may cause unspecified behaviors.
  */
-@property (nonatomic, strong, readonly) AWSDynamoDBObjectMapperConfiguration *configuration;
+@property (nonatomic, strong, readonly) AWSDynamoDBObjectMapperConfiguration *objectMapperConfiguration;
 
 /**
  Returns the singleton service client. If the singleton object does not exist, the SDK instantiates the default service client with `defaultServiceConfiguration` from `[AWSServiceManager defaultServiceManager]`. The reference to this object is maintained by the SDK, and you do not need to retain it manually.

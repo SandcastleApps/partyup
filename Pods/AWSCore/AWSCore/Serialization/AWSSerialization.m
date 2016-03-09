@@ -1,17 +1,17 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import "AWSSerialization.h"
 #import "AWSXMLWriter.h"
@@ -1538,8 +1538,14 @@ NSString *const AWSJSONParserErrorDomain = @"com.amazonaws.AWSJSONParserErrorDom
     NSMutableDictionary *parsedData = [NSMutableDictionary new];
 
     if (isPayloadData) {
-        //check if it is streaming type
-        if (rules[@"members"][isPayloadData][@"streaming"]) {
+        NSString *shapeName = [rules[@"members"][isPayloadData] objectForKey:@"shape"];
+        //
+        // Check if we should apply additional serialization; for streaming
+        // types or the 'JsonDocument' shape, no additional serialization will
+        // be applied and the data will be returned as-is in the response.
+	// The 'JsonDocument' shape is used by the AWSIoT service.
+        //
+        if ((rules[@"members"][isPayloadData][@"streaming"]) || ([shapeName isEqual:@"JsonDocument"])) {
             parsedData[isPayloadData] = data;
             if (error) *error = nil;
             return parsedData;

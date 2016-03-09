@@ -1,20 +1,19 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
-
-#import <AWSCore/AWSService.h>
-#import "AWSS3Model.h"
+#import "AWSS3Service.h"
 
 FOUNDATION_EXPORT NSString *const AWSS3TransferManagerErrorDomain;
 typedef NS_ENUM(NSInteger, AWSS3TransferManagerErrorType) {
@@ -38,7 +37,6 @@ typedef NS_ENUM(NSInteger, AWSS3TransferManagerRequestState) {
 typedef void (^AWSS3TransferManagerResumeAllBlock) (AWSRequest *request);
 
 @class AWSS3;
-@class AWSTask;
 @class AWSS3TransferManagerUploadRequest;
 @class AWSS3TransferManagerUploadOutput;
 @class AWSS3TransferManagerDownloadRequest;

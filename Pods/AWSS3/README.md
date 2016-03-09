@@ -6,7 +6,7 @@ To get started with the AWS SDK for iOS, you can set up the SDK and start buildi
 
 The AWS Mobile SDK for iOS supports the following versions of software:
 
-* Xcode 6 and later
+* Xcode 7 and later
 * iOS 7 and later
 
 You can check out the [SDK source code](https://github.com/aws/aws-sdk-ios).
@@ -32,6 +32,7 @@ The [sample apps](https://github.com/awslabs/aws-sdk-ios-samples) are standalone
         pod 'AWSDynamoDB'
         pod 'AWSEC2'
         pod 'AWSElasticLoadBalancing'
+        pod 'AWSIoT'
         pod 'AWSKinesis'
         pod 'AWSLambda'
         pod 'AWSMachineLearning'
@@ -90,6 +91,7 @@ The [sample apps](https://github.com/awslabs/aws-sdk-ios-samples) are standalone
     * `AWSDynamoDB.framework`
     * `AWSEC2.framework`
     * `AWSElasticLoadBalancing.framework`
+    * `AWSIoT.framework`
     * `AWSKinesis.framework`
     * `AWSLambda.framework`
     * `AWSMachineLearning.framework`
@@ -101,7 +103,7 @@ The [sample apps](https://github.com/awslabs/aws-sdk-ios-samples) are standalone
     * `AWSSQS.framework`
     * `extras/AWSCognito.framework` - for [Amazon Cognito Sync](http://aws.amazon.com/cognito/)
 
-1. Open a target for your project, select **Build Phases**, expand **Link Binary With Libraries**, click the **+** button, and add `libsqlite3.dylib`, `libz.dylib`, and `SystemConfiguration.framework`.
+1. Open a target for your project, select **Build Phases**, expand **Link Binary With Libraries**, click the **+** button, and add `libsqlite3.tbd`, `libz.tbd`, `CFNetwork.framework`, `Security.framework`, `SystemConfiguration.framework`, and `UIKit.framework`.
 
 ##Update the SDK to a Newer Version
 
@@ -127,6 +129,7 @@ When we release a new version of the SDK, you can pick up the changes as describ
     * `AWSDynamoDB.framework`
     * `AWSEC2.framework`
     * `AWSElasticLoadBalancing.framework`
+    * `AWSIoT.framework`
     * `AWSKinesis.framework`
     * `AWSLambda.framework`
     * `AWSMachineLearning.framework`
@@ -139,6 +142,36 @@ When we release a new version of the SDK, you can pick up the changes as describ
     * `AWSCognito.framework`
 
 1. Follow the installation process above to include the new version of the SDK.
+
+##Preparing your apps for iOS 9
+The release of iOS 9 includes changes that might impact how your apps interact with some AWS services. If you compile your apps with Apple’s iOS 9 SDK (or Xcode 7), Apple’s [App Transport Security (ATS)](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html) feature may affect the ability of apps to connect to certain AWS service endpoints. In order to ensure affected apps continue to successfully connect to AWS endpoints, you’ll need to configure them to interact properly with Apple’s ATS by adding these properties to your `info.plist` file:
+
+	    <key>NSAppTransportSecurity</key>
+	    <dict>
+    	        <key>NSExceptionDomains</key>
+    	        <dict>
+        	    <key>amazonaws.com</key>
+        	    <dict>
+                        <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+                        <string>TLSv1.0</string>
+                        <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                        <false/>
+                        <key>NSIncludesSubdomains</key>
+                        <true/>
+        	    </dict>
+        	    <key>amazonaws.com.cn</key>
+        	    <dict>
+                        <key>NSThirdPartyExceptionMinimumTLSVersion</key>
+                        <string>TLSv1.0</string>
+                        <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                        <false/>
+                        <key>NSIncludesSubdomains</key>
+                        <true/>
+        	    </dict>
+    	        </dict>
+	    </dict>
+
+For detailed steps on how to do identify and resolve this issue if your app is affected, follow the instructions on [AWS Developer Guide](http://docs.aws.amazon.com/mobile/sdkforios/developerguide/ats.html).
 
 ##Getting Started with Swift
 
@@ -173,11 +206,16 @@ When we release a new version of the SDK, you can pick up the changes as describ
 
         let dynamoDB = AWSDynamoDB.defaultDynamoDB()
         let listTableInput = AWSDynamoDBListTablesInput()
-        dynamoDB.listTables(listTableInput).continueWithBlock{ (task: AWSTask!) -> AnyObject! in
+        dynamoDB.listTables(listTableInput).continueWithBlock{ (task: AWSTask!) -> AnyObject? in
+            if let error = task.error {
+                print("Error occurred: \(error)")
+                return nil
+            }
+
             let listTablesOutput = task.result as AWSDynamoDBListTablesOutput
 
             for tableName : AnyObject in listTablesOutput.tableNames {
-                println("\(tableName)")
+                print("\(tableName)")
             }
 
             return nil
@@ -262,7 +300,7 @@ The following logging level options are available:
 
 The AWS SDK for iOS includes sample apps that demonstrate common use cases.
 
-###Cognito Sync Sample ([Objective-C](https://github.com/awslabs/aws-sdk-ios-samples/tree/master/CognitoSync-Sample/Objective-C/))
+###Cognito Sync Sample ([Swift](https://github.com/awslabs/aws-sdk-ios-samples/tree/master/CognitoSync-Sample/Swift/), [Objective-C](https://github.com/awslabs/aws-sdk-ios-samples/tree/master/CognitoSync-Sample/Objective-C/))
 
 This sample demonstrates how to securely manage and sync your mobile app data and create unique identities via login providers including Facebook, Google, and Login with Amazon.
 
@@ -307,6 +345,24 @@ This sample demonstrates how to set up Amazon SNS Mobile Push and record events 
 
 * [Amazon SNS Mobile Push](http://aws.amazon.com/sns/)
 * [Amazon Mobile Analytics](http://aws.amazon.com/mobileanalytics/)
+* [Amazon Cognito Identity](http://aws.amazon.com/cognito/)
+
+###IoT Sample ([Swift](https://github.com/awslabs/aws-sdk-ios-samples/tree/master/IoT-Sample/Swift/))
+
+This sample demonstrates how to publish and subscribe to data using AWS IoT.
+
+####AWS Services Demonstrated:
+
+* [Amazon AWS IoT](http://aws.amazon.com/iot/)
+* [Amazon Cognito Identity](http://aws.amazon.com/cognito/)
+
+###IoT Temperature Control Sample ([Swift](https://github.com/awslabs/aws-sdk-ios-samples/tree/master/IoTTemperatureControl-Sample/Swift/))
+
+This sample demonstrates accessing device shadows using Cognito authentication; it works in conjunction with the Temperature Control Example Program in the [AWS IoT JavaScript SDK for Embedded Devices](https://github.com/aws/aws-iot-device-sdk-js).
+
+####AWS Services Demonstrated:
+
+* [Amazon AWS IoT](http://aws.amazon.com/iot/)
 * [Amazon Cognito Identity](http://aws.amazon.com/cognito/)
 
 ##Install the Reference Documentation in Xcode

@@ -1,22 +1,24 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import <Foundation/Foundation.h>
 #import "AWSNetworking.h"
 #import "AWSCredentialsProvider.h"
 #import "AWSServiceEnum.h"
+
+FOUNDATION_EXPORT NSString *const AWSiOSSDKVersion;
 
 @class AWSEndpoint;
 
@@ -66,9 +68,16 @@
 @property (nonatomic, assign, readonly) AWSRegionType regionType;
 @property (nonatomic, strong, readonly) id<AWSCredentialsProvider> credentialsProvider;
 @property (nonatomic, strong, readonly) AWSEndpoint *endpoint;
+@property (nonatomic, readonly) NSString *userAgent;
+
++ (NSString *)baseUserAgent;
+
++ (void)addGlobalUserAgentProductToken:(NSString *)productToken;
 
 - (instancetype)initWithRegion:(AWSRegionType)regionType
            credentialsProvider:(id<AWSCredentialsProvider>)credentialsProvider;
+
+- (void)addUserAgentProductToken:(NSString *)productToken;
 
 + (instancetype)configurationWithRegion:(AWSRegionType)regionType
                     credentialsProvider:(id<AWSCredentialsProvider>)credentialsProvider __attribute__ ((deprecated("Use '- initWithRegion:credentialsProvider:' instead.")));

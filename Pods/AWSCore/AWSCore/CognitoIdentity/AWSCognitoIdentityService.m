@@ -1,17 +1,17 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import "AWSCognitoIdentity.h"
 
@@ -26,8 +26,6 @@
 #import "AWSURLRequestRetryHandler.h"
 #import "AWSSynchronizedMutableDictionary.h"
 #import "AWSCognitoIdentityResources.h"
-
-NSString *const AWSCIBDefinitionFileName = @"cognito-identity-2014-06-30";
 
 @interface AWSCognitoIdentityResponseSerializer : AWSJSONResponseSerializer
 
@@ -154,7 +152,9 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 
 + (instancetype)defaultCognitoIdentity {
     if (![AWSServiceManager defaultServiceManager].defaultServiceConfiguration) {
-        return nil;
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:@"`defaultServiceConfiguration` is `nil`. You need to set it before using this method."
+                                     userInfo:nil];
     }
 
     static AWSCognitoIdentity *_defaultCognitoIdentity = nil;
@@ -201,14 +201,15 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
         _configuration = [configuration copy];
 
         _configuration.endpoint = [[AWSEndpoint alloc] initWithRegion:_configuration.regionType
-                                                              service:AWSServiceCognitoIdentityBroker
+                                                              service:AWSServiceCognitoIdentity
                                                          useUnsafeURL:NO];
 
-        AWSSignatureV4Signer *signer = [AWSSignatureV4Signer signerWithCredentialsProvider:_configuration.credentialsProvider
-                                                                                  endpoint:_configuration.endpoint];
+        AWSSignatureV4Signer *signer = [[AWSSignatureV4Signer alloc] initWithCredentialsProvider:_configuration.credentialsProvider
+                                                                                        endpoint:_configuration.endpoint];
+        AWSNetworkingRequestInterceptor *baseInterceptor = [[AWSNetworkingRequestInterceptor alloc] initWithUserAgent:_configuration.userAgent];
+        _configuration.requestInterceptors = @[baseInterceptor, signer];
 
         _configuration.baseURL = _configuration.endpoint.URL;
-        _configuration.requestInterceptors = @[[AWSNetworkingRequestInterceptor new], signer];
         _configuration.retryHandler = [[AWSCognitoIdentityRequestRetryHandler alloc] initWithMaximumRetryCount:_configuration.maxRetryCount];
         _configuration.headers = @{@"Content-Type" : @"application/x-amz-json-1.1"};
 
@@ -266,13 +267,33 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 }
 
 #pragma mark - Service method
-- (AWSTask *)createIdentityPool:(AWSCognitoIdentityCreateIdentityPoolInput *)request {
+
+- (AWSTask<AWSCognitoIdentityIdentityPool *> *)createIdentityPool:(AWSCognitoIdentityCreateIdentityPoolInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
                   targetPrefix:@"AWSCognitoIdentityService"
                  operationName:@"CreateIdentityPool"
                    outputClass:[AWSCognitoIdentityIdentityPool class]];
+}
+
+- (void)createIdentityPool:(AWSCognitoIdentityCreateIdentityPoolInput *)request
+         completionHandler:(void (^)(AWSCognitoIdentityIdentityPool *response, NSError *error))completionHandler {
+    [[self createIdentityPool:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityIdentityPool *> * _Nonnull task) {
+        AWSCognitoIdentityIdentityPool *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
 }
 
 - (AWSTask *)deleteIdentityPool:(AWSCognitoIdentityDeleteIdentityPoolInput *)request {
@@ -284,7 +305,25 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:nil];
 }
 
-- (AWSTask *)describeIdentity:(AWSCognitoIdentityDescribeIdentityInput *)request {
+- (void)deleteIdentityPool:(AWSCognitoIdentityDeleteIdentityPoolInput *)request
+         completionHandler:(void (^)(NSError *error))completionHandler {
+    [[self deleteIdentityPool:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityIdentityDescription *> *)describeIdentity:(AWSCognitoIdentityDescribeIdentityInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -293,7 +332,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityIdentityDescription class]];
 }
 
-- (AWSTask *)describeIdentityPool:(AWSCognitoIdentityDescribeIdentityPoolInput *)request {
+- (void)describeIdentity:(AWSCognitoIdentityDescribeIdentityInput *)request
+       completionHandler:(void (^)(AWSCognitoIdentityIdentityDescription *response, NSError *error))completionHandler {
+    [[self describeIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityIdentityDescription *> * _Nonnull task) {
+        AWSCognitoIdentityIdentityDescription *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityIdentityPool *> *)describeIdentityPool:(AWSCognitoIdentityDescribeIdentityPoolInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -302,7 +360,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityIdentityPool class]];
 }
 
-- (AWSTask *)getCredentialsForIdentity:(AWSCognitoIdentityGetCredentialsForIdentityInput *)request {
+- (void)describeIdentityPool:(AWSCognitoIdentityDescribeIdentityPoolInput *)request
+           completionHandler:(void (^)(AWSCognitoIdentityIdentityPool *response, NSError *error))completionHandler {
+    [[self describeIdentityPool:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityIdentityPool *> * _Nonnull task) {
+        AWSCognitoIdentityIdentityPool *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityGetCredentialsForIdentityResponse *> *)getCredentialsForIdentity:(AWSCognitoIdentityGetCredentialsForIdentityInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -311,7 +388,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityGetCredentialsForIdentityResponse class]];
 }
 
-- (AWSTask *)getId:(AWSCognitoIdentityGetIdInput *)request {
+- (void)getCredentialsForIdentity:(AWSCognitoIdentityGetCredentialsForIdentityInput *)request
+                completionHandler:(void (^)(AWSCognitoIdentityGetCredentialsForIdentityResponse *response, NSError *error))completionHandler {
+    [[self getCredentialsForIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetCredentialsForIdentityResponse *> * _Nonnull task) {
+        AWSCognitoIdentityGetCredentialsForIdentityResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityGetIdResponse *> *)getId:(AWSCognitoIdentityGetIdInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -320,7 +416,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityGetIdResponse class]];
 }
 
-- (AWSTask *)getIdentityPoolRoles:(AWSCognitoIdentityGetIdentityPoolRolesInput *)request {
+- (void)getId:(AWSCognitoIdentityGetIdInput *)request
+completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *error))completionHandler {
+    [[self getId:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetIdResponse *> * _Nonnull task) {
+        AWSCognitoIdentityGetIdResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityGetIdentityPoolRolesResponse *> *)getIdentityPoolRoles:(AWSCognitoIdentityGetIdentityPoolRolesInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -329,7 +444,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityGetIdentityPoolRolesResponse class]];
 }
 
-- (AWSTask *)getOpenIdToken:(AWSCognitoIdentityGetOpenIdTokenInput *)request {
+- (void)getIdentityPoolRoles:(AWSCognitoIdentityGetIdentityPoolRolesInput *)request
+           completionHandler:(void (^)(AWSCognitoIdentityGetIdentityPoolRolesResponse *response, NSError *error))completionHandler {
+    [[self getIdentityPoolRoles:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetIdentityPoolRolesResponse *> * _Nonnull task) {
+        AWSCognitoIdentityGetIdentityPoolRolesResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityGetOpenIdTokenResponse *> *)getOpenIdToken:(AWSCognitoIdentityGetOpenIdTokenInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -338,7 +472,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityGetOpenIdTokenResponse class]];
 }
 
-- (AWSTask *)getOpenIdTokenForDeveloperIdentity:(AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityInput *)request {
+- (void)getOpenIdToken:(AWSCognitoIdentityGetOpenIdTokenInput *)request
+     completionHandler:(void (^)(AWSCognitoIdentityGetOpenIdTokenResponse *response, NSError *error))completionHandler {
+    [[self getOpenIdToken:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetOpenIdTokenResponse *> * _Nonnull task) {
+        AWSCognitoIdentityGetOpenIdTokenResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityResponse *> *)getOpenIdTokenForDeveloperIdentity:(AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -347,7 +500,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityResponse class]];
 }
 
-- (AWSTask *)listIdentities:(AWSCognitoIdentityListIdentitiesInput *)request {
+- (void)getOpenIdTokenForDeveloperIdentity:(AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityInput *)request
+                         completionHandler:(void (^)(AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityResponse *response, NSError *error))completionHandler {
+    [[self getOpenIdTokenForDeveloperIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityResponse *> * _Nonnull task) {
+        AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityListIdentitiesResponse *> *)listIdentities:(AWSCognitoIdentityListIdentitiesInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -356,7 +528,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityListIdentitiesResponse class]];
 }
 
-- (AWSTask *)listIdentityPools:(AWSCognitoIdentityListIdentityPoolsInput *)request {
+- (void)listIdentities:(AWSCognitoIdentityListIdentitiesInput *)request
+     completionHandler:(void (^)(AWSCognitoIdentityListIdentitiesResponse *response, NSError *error))completionHandler {
+    [[self listIdentities:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityListIdentitiesResponse *> * _Nonnull task) {
+        AWSCognitoIdentityListIdentitiesResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityListIdentityPoolsResponse *> *)listIdentityPools:(AWSCognitoIdentityListIdentityPoolsInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -365,7 +556,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityListIdentityPoolsResponse class]];
 }
 
-- (AWSTask *)lookupDeveloperIdentity:(AWSCognitoIdentityLookupDeveloperIdentityInput *)request {
+- (void)listIdentityPools:(AWSCognitoIdentityListIdentityPoolsInput *)request
+        completionHandler:(void (^)(AWSCognitoIdentityListIdentityPoolsResponse *response, NSError *error))completionHandler {
+    [[self listIdentityPools:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityListIdentityPoolsResponse *> * _Nonnull task) {
+        AWSCognitoIdentityListIdentityPoolsResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityLookupDeveloperIdentityResponse *> *)lookupDeveloperIdentity:(AWSCognitoIdentityLookupDeveloperIdentityInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -374,13 +584,51 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSCognitoIdentityLookupDeveloperIdentityResponse class]];
 }
 
-- (AWSTask *)mergeDeveloperIdentities:(AWSCognitoIdentityMergeDeveloperIdentitiesInput *)request {
+- (void)lookupDeveloperIdentity:(AWSCognitoIdentityLookupDeveloperIdentityInput *)request
+              completionHandler:(void (^)(AWSCognitoIdentityLookupDeveloperIdentityResponse *response, NSError *error))completionHandler {
+    [[self lookupDeveloperIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityLookupDeveloperIdentityResponse *> * _Nonnull task) {
+        AWSCognitoIdentityLookupDeveloperIdentityResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityMergeDeveloperIdentitiesResponse *> *)mergeDeveloperIdentities:(AWSCognitoIdentityMergeDeveloperIdentitiesInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
                   targetPrefix:@"AWSCognitoIdentityService"
                  operationName:@"MergeDeveloperIdentities"
                    outputClass:[AWSCognitoIdentityMergeDeveloperIdentitiesResponse class]];
+}
+
+- (void)mergeDeveloperIdentities:(AWSCognitoIdentityMergeDeveloperIdentitiesInput *)request
+               completionHandler:(void (^)(AWSCognitoIdentityMergeDeveloperIdentitiesResponse *response, NSError *error))completionHandler {
+    [[self mergeDeveloperIdentities:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityMergeDeveloperIdentitiesResponse *> * _Nonnull task) {
+        AWSCognitoIdentityMergeDeveloperIdentitiesResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
 }
 
 - (AWSTask *)setIdentityPoolRoles:(AWSCognitoIdentitySetIdentityPoolRolesInput *)request {
@@ -392,6 +640,24 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:nil];
 }
 
+- (void)setIdentityPoolRoles:(AWSCognitoIdentitySetIdentityPoolRolesInput *)request
+           completionHandler:(void (^)(NSError *error))completionHandler {
+    [[self setIdentityPoolRoles:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(error);
+        }
+
+        return nil;
+    }];
+}
+
 - (AWSTask *)unlinkDeveloperIdentity:(AWSCognitoIdentityUnlinkDeveloperIdentityInput *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
@@ -399,6 +665,24 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                   targetPrefix:@"AWSCognitoIdentityService"
                  operationName:@"UnlinkDeveloperIdentity"
                    outputClass:nil];
+}
+
+- (void)unlinkDeveloperIdentity:(AWSCognitoIdentityUnlinkDeveloperIdentityInput *)request
+              completionHandler:(void (^)(NSError *error))completionHandler {
+    [[self unlinkDeveloperIdentity:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(error);
+        }
+
+        return nil;
+    }];
 }
 
 - (AWSTask *)unlinkIdentity:(AWSCognitoIdentityUnlinkIdentityInput *)request {
@@ -410,13 +694,50 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:nil];
 }
 
-- (AWSTask *)updateIdentityPool:(AWSCognitoIdentityIdentityPool *)request {
+- (void)unlinkIdentity:(AWSCognitoIdentityUnlinkIdentityInput *)request
+     completionHandler:(void (^)(NSError *error))completionHandler {
+    [[self unlinkIdentity:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSCognitoIdentityIdentityPool *> *)updateIdentityPool:(AWSCognitoIdentityIdentityPool *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
                   targetPrefix:@"AWSCognitoIdentityService"
                  operationName:@"UpdateIdentityPool"
                    outputClass:[AWSCognitoIdentityIdentityPool class]];
+}
+
+- (void)updateIdentityPool:(AWSCognitoIdentityIdentityPool *)request
+         completionHandler:(void (^)(AWSCognitoIdentityIdentityPool *response, NSError *error))completionHandler {
+    [[self updateIdentityPool:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityIdentityPool *> * _Nonnull task) {
+        AWSCognitoIdentityIdentityPool *result = task.result;
+        NSError *error = task.error;
+        
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+        
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+        
+        return nil;
+    }];
 }
 
 @end

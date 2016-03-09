@@ -4,18 +4,11 @@ framework module AWSCore {
   export *
   module * { export * }
 
-  private header "AWSFMDatabase.h"
-  private header "AWSFMDatabaseAdditions.h"
-  private header "AWSFMDatabasePool.h"
-  private header "AWSFMDatabaseQueue.h"
-  private header "AWSFMDB.h"
-  private header "AWSFMResultSet.h"
-  private header "AWSGZIP.h"
-  private header "AWSReachability.h"
-  private header "AWSTMCache.h"
-  private header "AWSTMDiskCache.h"
-  private header "AWSTMMemoryCache.h"
-  private header "AWSUICKeyChainStore.h"
   private header "AWSXMLDictionary.h"
   private header "AWSXMLWriter.h"
+  private header "AWSFMDatabase+Private.h"
+  private header "AWSEXTKeyPathCoding.h"
+  private header "AWSEXTRuntimeExtensions.h"
+  private header "AWSEXTScope.h"
+  private header "AWSmetamacros.h"
 }

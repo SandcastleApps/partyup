@@ -59,7 +59,7 @@ class Submission
 	private func upload() throws {
 		error = nil
 
-		guard let transfer = AWSS3TransferUtility.defaultS3TransferUtility() else { throw Error.TransferUtilityUnavailable }
+		let transfer = AWSS3TransferUtility.defaultS3TransferUtility()
 		guard let url = file else { throw Error.InvalidFileName(url: sample.media) }
 		guard let name = name else { throw Error.InvalidFileName(url: sample.media) }
 

@@ -1,17 +1,17 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import "AWSSTS.h"
 
@@ -25,8 +25,6 @@
 #import "AWSURLRequestRetryHandler.h"
 #import "AWSSynchronizedMutableDictionary.h"
 #import "AWSSTSResources.h"
-
-NSString *const AWSSTSDefinitionFileName = @"sts-2011-06-15";
 
 @interface AWSSTSResponseSerializer : AWSXMLResponseSerializer
 
@@ -162,7 +160,9 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 
 + (instancetype)defaultSTS {
     if (![AWSServiceManager defaultServiceManager].defaultServiceConfiguration) {
-        return nil;
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:@"`defaultServiceConfiguration` is `nil`. You need to set it before using this method."
+                                     userInfo:nil];
     }
 
     static AWSSTS *_defaultSTS = nil;
@@ -212,11 +212,12 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                                                               service:AWSServiceSTS
                                                          useUnsafeURL:NO];
 
-        AWSSignatureV4Signer *signer = [AWSSignatureV4Signer signerWithCredentialsProvider:_configuration.credentialsProvider
-                                                                                  endpoint:_configuration.endpoint];
+        AWSSignatureV4Signer *signer = [[AWSSignatureV4Signer alloc] initWithCredentialsProvider:_configuration.credentialsProvider
+                                                                                        endpoint:_configuration.endpoint];
+        AWSNetworkingRequestInterceptor *baseInterceptor = [[AWSNetworkingRequestInterceptor alloc] initWithUserAgent:_configuration.userAgent];
+        _configuration.requestInterceptors = @[baseInterceptor, signer];
 
         _configuration.baseURL = _configuration.endpoint.URL;
-        _configuration.requestInterceptors = @[[AWSNetworkingRequestInterceptor new], signer];
         _configuration.retryHandler = [[AWSSTSRequestRetryHandler alloc] initWithMaximumRetryCount:_configuration.maxRetryCount];
 
         _networking = [[AWSNetworking alloc] initWithConfiguration:_configuration];
@@ -255,7 +256,7 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 
 #pragma mark - Service method
 
-- (AWSTask *)assumeRole:(AWSSTSAssumeRoleRequest *)request {
+- (AWSTask<AWSSTSAssumeRoleResponse *> *)assumeRole:(AWSSTSAssumeRoleRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -264,7 +265,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSSTSAssumeRoleResponse class]];
 }
 
-- (AWSTask *)assumeRoleWithSAML:(AWSSTSAssumeRoleWithSAMLRequest *)request {
+- (void)assumeRole:(AWSSTSAssumeRoleRequest *)request
+ completionHandler:(void (^)(AWSSTSAssumeRoleResponse *response, NSError *error))completionHandler {
+    [[self assumeRole:request] continueWithBlock:^id _Nullable(AWSTask<AWSSTSAssumeRoleResponse *> * _Nonnull task) {
+        AWSSTSAssumeRoleResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSSTSAssumeRoleWithSAMLResponse *> *)assumeRoleWithSAML:(AWSSTSAssumeRoleWithSAMLRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -273,7 +293,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSSTSAssumeRoleWithSAMLResponse class]];
 }
 
-- (AWSTask *)assumeRoleWithWebIdentity:(AWSSTSAssumeRoleWithWebIdentityRequest *)request {
+- (void)assumeRoleWithSAML:(AWSSTSAssumeRoleWithSAMLRequest *)request
+         completionHandler:(void (^)(AWSSTSAssumeRoleWithSAMLResponse *response, NSError *error))completionHandler {
+    [[self assumeRoleWithSAML:request] continueWithBlock:^id _Nullable(AWSTask<AWSSTSAssumeRoleWithSAMLResponse *> * _Nonnull task) {
+        AWSSTSAssumeRoleWithSAMLResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSSTSAssumeRoleWithWebIdentityResponse *> *)assumeRoleWithWebIdentity:(AWSSTSAssumeRoleWithWebIdentityRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -282,7 +321,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSSTSAssumeRoleWithWebIdentityResponse class]];
 }
 
-- (AWSTask *)decodeAuthorizationMessage:(AWSSTSDecodeAuthorizationMessageRequest *)request {
+- (void)assumeRoleWithWebIdentity:(AWSSTSAssumeRoleWithWebIdentityRequest *)request
+                completionHandler:(void (^)(AWSSTSAssumeRoleWithWebIdentityResponse *response, NSError *error))completionHandler {
+    [[self assumeRoleWithWebIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSSTSAssumeRoleWithWebIdentityResponse *> * _Nonnull task) {
+        AWSSTSAssumeRoleWithWebIdentityResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSSTSDecodeAuthorizationMessageResponse *> *)decodeAuthorizationMessage:(AWSSTSDecodeAuthorizationMessageRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -291,7 +349,26 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSSTSDecodeAuthorizationMessageResponse class]];
 }
 
-- (AWSTask *)getFederationToken:(AWSSTSGetFederationTokenRequest *)request {
+- (void)decodeAuthorizationMessage:(AWSSTSDecodeAuthorizationMessageRequest *)request
+                 completionHandler:(void (^)(AWSSTSDecodeAuthorizationMessageResponse *response, NSError *error))completionHandler {
+    [[self decodeAuthorizationMessage:request] continueWithBlock:^id _Nullable(AWSTask<AWSSTSDecodeAuthorizationMessageResponse *> * _Nonnull task) {
+        AWSSTSDecodeAuthorizationMessageResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSSTSGetFederationTokenResponse *> *)getFederationToken:(AWSSTSGetFederationTokenRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
@@ -300,13 +377,51 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                    outputClass:[AWSSTSGetFederationTokenResponse class]];
 }
 
-- (AWSTask *)getSessionToken:(AWSSTSGetSessionTokenRequest *)request {
+- (void)getFederationToken:(AWSSTSGetFederationTokenRequest *)request
+         completionHandler:(void (^)(AWSSTSGetFederationTokenResponse *response, NSError *error))completionHandler {
+    [[self getFederationToken:request] continueWithBlock:^id _Nullable(AWSTask<AWSSTSGetFederationTokenResponse *> * _Nonnull task) {
+        AWSSTSGetFederationTokenResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSSTSGetSessionTokenResponse *> *)getSessionToken:(AWSSTSGetSessionTokenRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPOST
                      URLString:@""
                   targetPrefix:@""
                  operationName:@"GetSessionToken"
                    outputClass:[AWSSTSGetSessionTokenResponse class]];
+}
+
+- (void)getSessionToken:(AWSSTSGetSessionTokenRequest *)request
+      completionHandler:(void (^)(AWSSTSGetSessionTokenResponse *response, NSError *error))completionHandler {
+    [[self getSessionToken:request] continueWithBlock:^id _Nullable(AWSTask<AWSSTSGetSessionTokenResponse *> * _Nonnull task) {
+        AWSSTSGetSessionTokenResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+        
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+        
+        return nil;
+    }];
 }
 
 @end

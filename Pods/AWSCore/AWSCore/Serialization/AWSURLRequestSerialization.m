@@ -1,17 +1,17 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import "AWSURLRequestSerialization.h"
 
@@ -23,6 +23,29 @@
 #import "AWSCategory.h"
 #import "AWSLogging.h"
 #import "AWSClientContext.h"
+
+@interface NSMutableURLRequest (AWSRequestSerializer)
+
+- (void)aws_validateHTTPMethodAndBody;
+
+@end
+
+@implementation NSMutableURLRequest (AWSRequestSerializer)
+
+- (void)aws_validateHTTPMethodAndBody {
+    // GET and DELETE requests should not have a body or body stream.
+    if ([self.HTTPMethod isEqualToString:@"GET"]
+        || [self.HTTPMethod isEqualToString:@"DELETE"]) {
+        if (self.HTTPBody) {
+            self.HTTPBody = nil;
+        }
+        if (self.HTTPBodyStream) {
+            self.HTTPBodyStream = nil;
+        }
+    }
+}
+
+@end
 
 @interface AWSJSONRequestSerializer()
 
@@ -86,10 +109,6 @@
     if (!request.HTTPBodyStream) {
         NSData *bodyData = [AWSJSONBuilder jsonDataForDictionary:parameters actionName:self.actionName serviceDefinitionRule:self.serviceDefinitionJSON error:&error];
         if (!error) {
-            if ([request.HTTPMethod isEqualToString:@"GET"]) {
-                //GET request should be have any body. aws lambda server will close connection if that is the case.
-                bodyData = nil;
-            }
             if (headers[@"Content-Encoding"] && [headers[@"Content-Encoding"] rangeOfString:@"gzip"].location != NSNotFound) {
                 //gzip the body
                 request.HTTPBody = [bodyData awsgzip_gzippedData];
@@ -98,7 +117,8 @@
             }
         }
     }
-    
+
+    [request aws_validateHTTPMethodAndBody];
 
     AWSLogVerbose(@"Request body: [%@]", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
 
@@ -191,6 +211,8 @@
             }
         }
     }
+
+    [request aws_validateHTTPMethodAndBody];
 
     if (error) {
         return [AWSTask taskWithError:error];
@@ -494,6 +516,8 @@
        forHTTPHeaderField:@"Content-Type"];
     }
 
+    [request aws_validateHTTPMethodAndBody];
+
     return [AWSTask taskWithResult:nil];
 }
 
@@ -545,6 +569,8 @@
         [request addValue:@"application/x-www-form-urlencoded; charset=utf-8"
        forHTTPHeaderField:@"Content-Type"];
     }
+
+    [request aws_validateHTTPMethodAndBody];
     
     return [AWSTask taskWithResult:nil];
 }

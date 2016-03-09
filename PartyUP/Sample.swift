@@ -138,7 +138,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 			updateInput.returnValues = .UpdatedNew
 			AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).continueWithSuccessBlock { (task) in
 				if let result = task.result as? AWSDynamoDBUpdateItemOutput {
-                    let rate = [Int(result.attributes["ups"]?.N ?? "0") ?? 0, Int(result.attributes["downs"]?.N ?? "0") ?? 0]
+                    let rate = [Int(result.attributes?["ups"]?.N ?? "0") ?? 0, Int(result.attributes?["downs"]?.N ?? "0") ?? 0]
                     dispatch_async(dispatch_get_main_queue()) {
                         self.rating = rate
                     }

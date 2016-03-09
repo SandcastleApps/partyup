@@ -1,17 +1,17 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import "AWSS3TransferUtility.h"
 #import "AWSS3PreSignedURL.h"
@@ -19,11 +19,13 @@
 
 NSString *const AWSS3TransferUtilityIdentifier = @"com.amazonaws.AWSS3TransferUtility.Identifier";
 NSTimeInterval const AWSS3TransferUtilityTimeoutIntervalForResource = 50 * 60; // 50 minutes
+NSString *const AWSS3TransferUtilityUserAgent = @"transfer-utility";
 
 #pragma mark - Private classes
 
 @interface AWSS3TransferUtility() <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
 
+@property (strong, nonatomic) AWSServiceConfiguration *configuration;
 @property (strong, nonatomic) AWSS3PreSignedURLBuilder *preSignedURLBuilder;
 @property (strong, nonatomic) NSURLSession *session;
 @property (strong, nonatomic) NSString *sessionIdentifier;
@@ -92,7 +94,9 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
 
 + (instancetype)defaultS3TransferUtility {
     if (![AWSServiceManager defaultServiceManager].defaultServiceConfiguration) {
-        return nil;
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:@"`defaultServiceConfiguration` is `nil`. You need to set it before using this method."
+                                     userInfo:nil];
     }
 
     static dispatch_once_t onceToken;
@@ -134,9 +138,11 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
 - (instancetype)initWithConfiguration:(AWSServiceConfiguration *)configuration
                            identifier:(NSString *)identifier {
     if (self = [super init]) {
+        _configuration = [configuration copy];
+        [_configuration addUserAgentProductToken:AWSS3TransferUtilityUserAgent];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        _preSignedURLBuilder = [[AWSS3PreSignedURLBuilder alloc] initWithConfiguration:configuration];
+        _preSignedURLBuilder = [[AWSS3PreSignedURLBuilder alloc] initWithConfiguration:_configuration];
 #pragma clang diagnostic pop
 
         if (identifier) {
@@ -149,7 +155,10 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
         if ([NSURLSessionConfiguration respondsToSelector:@selector(backgroundSessionConfigurationWithIdentifier:)]) {
             configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:_sessionIdentifier];
         } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             configuration = [NSURLSessionConfiguration backgroundSessionConfiguration:_sessionIdentifier];
+#pragma clang diagnostic pop
         }
 
         configuration.timeoutIntervalForResource = AWSS3TransferUtilityTimeoutIntervalForResource;
@@ -182,12 +191,12 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
 
 #pragma mark - Upload methods
 
-- (AWSTask *)uploadData:(NSData *)data
-                 bucket:(NSString *)bucket
-                    key:(NSString *)key
-            contentType:(NSString *)contentType
-             expression:(AWSS3TransferUtilityUploadExpression *)expression
-       completionHander:(AWSS3TransferUtilityUploadCompletionHandlerBlock)completionHandler {
+- (AWSTask<AWSS3TransferUtilityUploadTask *> *)uploadData:(NSData *)data
+                                                   bucket:(NSString *)bucket
+                                                      key:(NSString *)key
+                                              contentType:(NSString *)contentType
+                                               expression:(AWSS3TransferUtilityUploadExpression *)expression
+                                         completionHander:(AWSS3TransferUtilityUploadCompletionHandlerBlock)completionHandler {
     // Saves the data as a file in the temporary directory.
     NSString *fileName = [NSString stringWithFormat:@"%@.tmp", [[NSProcessInfo processInfo] globallyUniqueString]];
     NSString *filePath = [self.temporaryDirectoryPath stringByAppendingPathComponent:fileName];
@@ -215,12 +224,12 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
            completionHander:completionHandler];
 }
 
-- (AWSTask *)uploadFile:(NSURL *)fileURL
-                 bucket:(NSString *)bucket
-                    key:(NSString *)key
-            contentType:(NSString *)contentType
-             expression:(AWSS3TransferUtilityUploadExpression *)expression
-       completionHander:(AWSS3TransferUtilityUploadCompletionHandlerBlock)completionHandler {
+- (AWSTask<AWSS3TransferUtilityUploadTask *> *)uploadFile:(NSURL *)fileURL
+                                                   bucket:(NSString *)bucket
+                                                      key:(NSString *)key
+                                              contentType:(NSString *)contentType
+                                               expression:(AWSS3TransferUtilityUploadExpression *)expression
+                                         completionHander:(AWSS3TransferUtilityUploadCompletionHandlerBlock)completionHandler {
     if (!expression) {
         expression = [AWSS3TransferUtilityUploadExpression new];
     }
@@ -251,7 +260,8 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
         request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         request.HTTPMethod = @"PUT";
 
-        [request setValue:[NSString aws_baseUserAgent] forHTTPHeaderField:@"User-Agent"];
+        [request setValue:self.configuration.userAgent
+       forHTTPHeaderField:@"User-Agent"];
         [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
 
         if ([getPreSignedURLRequest.contentMD5 length] > 0) {
@@ -271,10 +281,10 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
 
 #pragma mark - Download methods
 
-- (AWSTask *)downloadDataFromBucket:(NSString *)bucket
-                                key:(NSString *)key
-                         expression:(AWSS3TransferUtilityDownloadExpression *)expression
-                   completionHander:(AWSS3TransferUtilityDownloadCompletionHandlerBlock)completionHandler {
+- (AWSTask<AWSS3TransferUtilityDownloadTask *> *)downloadDataFromBucket:(NSString *)bucket
+                                                                    key:(NSString *)key
+                                                             expression:(AWSS3TransferUtilityDownloadExpression *)expression
+                                                       completionHander:(AWSS3TransferUtilityDownloadCompletionHandlerBlock)completionHandler {
     return [self downloadToURL:nil
                         bucket:bucket
                            key:key
@@ -282,11 +292,11 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
               completionHander:completionHandler];
 }
 
-- (AWSTask *)downloadToURL:(NSURL *)fileURL
-                    bucket:(NSString *)bucket
-                       key:(NSString *)key
-                expression:(AWSS3TransferUtilityDownloadExpression *)expression
-          completionHander:(AWSS3TransferUtilityDownloadCompletionHandlerBlock)completionHandler {
+- (AWSTask<AWSS3TransferUtilityDownloadTask *> *)downloadToURL:(NSURL *)fileURL
+                                                        bucket:(NSString *)bucket
+                                                           key:(NSString *)key
+                                                    expression:(AWSS3TransferUtilityDownloadExpression *)expression
+                                              completionHander:(AWSS3TransferUtilityDownloadCompletionHandlerBlock)completionHandler {
     if (!expression) {
         expression = [AWSS3TransferUtilityDownloadExpression new];
     }
@@ -315,7 +325,7 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
         request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         request.HTTPMethod = @"GET";
 
-        [request setValue:[NSString aws_baseUserAgent] forHTTPHeaderField:@"User-Agent"];
+        [request setValue:[AWSServiceConfiguration baseUserAgent] forHTTPHeaderField:@"User-Agent"];
 
         NSURLSessionDownloadTask *downloadTask = [weakSelf.session downloadTaskWithRequest:request];
         [downloadTask resume];
@@ -387,7 +397,7 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
 - (AWSTask *)getAllTasks {
     AWSTaskCompletionSource *completionSource = [AWSTaskCompletionSource new];
 
-    NSMutableArray *allTasks = [NSMutableArray new];
+    NSMutableArray<__kindof AWSS3TransferUtilityTask *> *allTasks = [NSMutableArray new];
     __weak AWSS3TransferUtility *weakSelf = self;
     [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
         if ([dataTasks count] != 0) {

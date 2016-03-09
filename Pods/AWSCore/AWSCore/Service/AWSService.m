@@ -1,27 +1,100 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import "AWSService.h"
 
+#import <UIKit/UIKit.h>
 #import "AWSSynchronizedMutableDictionary.h"
 #import "AWSURLResponseSerialization.h"
 #import "AWSLogging.h"
+#import "AWSCategory.h"
+
+NSString *const AWSiOSSDKVersion = @"2.3.5";
+static NSString *const AWSServiceConfigurationUnknown = @"Unknown";
 
 #pragma mark - AWSService
 
 @implementation AWSService
+
++ (void)initializeIfNeededWithDefaultRegionType:(AWSRegionType)defaultRegionType
+                      cognitoIdentityRegionType:(AWSRegionType)cognitoIdentityRegionType
+                          cognitoIdentityPoolId:(NSString *)cognitoIdentityPoolId {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // Performs some basic configuration check.
+        if (cognitoIdentityPoolId
+            && defaultRegionType != AWSRegionUnknown
+            && cognitoIdentityRegionType != AWSRegionUnknown) {
+            // Sets up the AWS Mobile SDK.
+            AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:cognitoIdentityRegionType
+                                                                                                            identityPoolId:cognitoIdentityPoolId];
+            AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:defaultRegionType
+                                                                                 credentialsProvider:credentialsProvider];
+            [configuration addUserAgentProductToken:@"fabric"];
+            AWSServiceManager.defaultServiceManager.defaultServiceConfiguration = configuration;
+            AWSLogInfo(@"The default Cognito credentials provider and service configuration were successfully initialized.");
+        } else {
+            // The configuration values from info.plist seem invalid.
+            AWSLogWarn(@"Could not find valid 'AWSDefaultRegionType', 'AWSCognitoRegionType', and 'AWSCognitoIdentityPoolId' values in info.plist. Unable to set the default Cognito credentials provider and service configuration. Please follow the instructions on this website and manually set up the AWS Mobile SDK for iOS. http://docs.aws.amazon.com/mobile/sdkforios/developerguide/setup.html");
+        }
+    });
+}
+
+/**
+ Converts a region string to AWSRegionType.
+ */
++ (AWSRegionType)regionTypeFromString:(NSString *)regionTypeString {
+    if ([regionTypeString isEqualToString:@"AWSRegionUSEast1"]) {
+        return AWSRegionUSEast1;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionUSWest1"]) {
+        return AWSRegionUSWest1;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionUSWest2"]) {
+        return AWSRegionUSWest2;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionEUWest1"]) {
+        return AWSRegionEUWest1;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionEUCentral1"]) {
+        return AWSRegionEUCentral1;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionAPSoutheast1"]) {
+        return AWSRegionAPSoutheast1;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionAPNortheast1"]) {
+        return AWSRegionAPNortheast1;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionAPNortheast2"]) {
+        return AWSRegionAPNortheast2;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionAPSoutheast2"]) {
+        return AWSRegionAPSoutheast2;
+    }
+    if ([regionTypeString isEqualToString:@"AWSRegionSAEast1"]) {
+        return AWSRegionSAEast1;
+    }
+    /*
+     Amazon Cognito Identity is not support in the China region.
+     if ([regionTypeString isEqualToString:@"AWSRegionCNNorth1"]) {
+     return AWSRegionCNNorth1;
+     }
+     */
+
+    return AWSRegionUnknown;
+}
 
 @end
 
@@ -80,6 +153,7 @@
 @property (nonatomic, assign) AWSRegionType regionType;
 @property (nonatomic, strong) id<AWSCredentialsProvider> credentialsProvider;
 @property (nonatomic, strong) AWSEndpoint *endpoint;
+@property (nonatomic, strong) NSArray *userAgentProductTokens;
 
 @end
 
@@ -108,14 +182,77 @@
     return configuration;
 }
 
++ (NSString *)baseUserAgent {
+    static NSString *_userAgent = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *systemName = [[[UIDevice currentDevice] systemName] stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+        if (!systemName) {
+            systemName = AWSServiceConfigurationUnknown;
+        }
+        NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
+        if (!systemVersion) {
+            systemVersion = AWSServiceConfigurationUnknown;
+        }
+        NSString *localeIdentifier = [[NSLocale currentLocale] localeIdentifier];
+        if (!localeIdentifier) {
+            localeIdentifier = AWSServiceConfigurationUnknown;
+        }
+        _userAgent = [NSString stringWithFormat:@"aws-sdk-iOS/%@ %@/%@ %@", AWSiOSSDKVersion, systemName, systemVersion, localeIdentifier];
+    });
+
+    NSMutableString *userAgent = [NSMutableString stringWithString:_userAgent];
+    for (NSString *prefix in _globalUserAgentPrefixes) {
+        [userAgent appendFormat:@" %@", prefix];
+    }
+
+    return [NSString stringWithString:userAgent];
+}
+
+static NSMutableArray *_globalUserAgentPrefixes = nil;
+
++ (void)addGlobalUserAgentProductToken:(NSString *)productToken {
+    if (productToken) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            _globalUserAgentPrefixes = [NSMutableArray new];
+        });
+
+        if (![_globalUserAgentPrefixes containsObject:productToken]) {
+            [_globalUserAgentPrefixes addObject:productToken];
+        }
+    }
+}
+
+- (NSString *)userAgent {
+    NSMutableString *userAgent = [NSMutableString stringWithString:[AWSServiceConfiguration baseUserAgent]];
+    for (NSString *prefix in self.userAgentProductTokens) {
+        [userAgent appendFormat:@" %@", prefix];
+    }
+
+    return [NSString stringWithString:userAgent];
+}
+
+- (void)addUserAgentProductToken:(NSString *)productToken {
+    if (productToken) {
+        if (self.userAgentProductTokens) {
+            if (![self.userAgentProductTokens containsObject:productToken]) {
+                NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:self.userAgentProductTokens];
+                [mutableArray addObject:productToken];
+                self.userAgentProductTokens = [NSArray arrayWithArray:mutableArray];
+            }
+        } else {
+            self.userAgentProductTokens = @[productToken];
+        }
+    }
+}
+
 - (id)copyWithZone:(NSZone *)zone {
     AWSServiceConfiguration *configuration = [super copyWithZone:zone];
     configuration.regionType = self.regionType;
     configuration.credentialsProvider = self.credentialsProvider;
-    configuration.maxRetryCount = self.maxRetryCount;
-    configuration.timeoutIntervalForRequest = self.timeoutIntervalForRequest;
-    configuration.timeoutIntervalForResource = self.timeoutIntervalForResource;
-
+    configuration.userAgentProductTokens = self.userAgentProductTokens;
+    
     return configuration;
 }
 
@@ -123,36 +260,40 @@
 
 #pragma mark - AWSEndpoint
 
-NSString *const AWSRegionNameUSEast1 = @"us-east-1";
-NSString *const AWSRegionNameUSWest2 = @"us-west-2";
-NSString *const AWSRegionNameUSWest1 = @"us-west-1";
-NSString *const AWSRegionNameEUWest1 = @"eu-west-1";
-NSString *const AWSRegionNameEUCentral1 = @"eu-central-1";
-NSString *const AWSRegionNameAPSoutheast1 = @"ap-southeast-1";
-NSString *const AWSRegionNameAPNortheast1 = @"ap-northeast-1";
-NSString *const AWSRegionNameAPSoutheast2 = @"ap-southeast-2";
-NSString *const AWSRegionNameSAEast1 = @"sa-east-1";
-NSString *const AWSRegionNameCNNorth1 = @"cn-north-1";
-NSString *const AWSRegionNameUSGovWest1 = @"us-gov-west-1";
+static NSString *const AWSRegionNameUSEast1 = @"us-east-1";
+static NSString *const AWSRegionNameUSWest2 = @"us-west-2";
+static NSString *const AWSRegionNameUSWest1 = @"us-west-1";
+static NSString *const AWSRegionNameEUWest1 = @"eu-west-1";
+static NSString *const AWSRegionNameEUCentral1 = @"eu-central-1";
+static NSString *const AWSRegionNameAPSoutheast1 = @"ap-southeast-1";
+static NSString *const AWSRegionNameAPNortheast1 = @"ap-northeast-1";
+static NSString *const AWSRegionNameAPNortheast2 = @"ap-northeast-2";
+static NSString *const AWSRegionNameAPSoutheast2 = @"ap-southeast-2";
+static NSString *const AWSRegionNameSAEast1 = @"sa-east-1";
+static NSString *const AWSRegionNameCNNorth1 = @"cn-north-1";
+static NSString *const AWSRegionNameUSGovWest1 = @"us-gov-west-1";
 
-NSString *const AWSServiceNameAPIGateway = @"execute-api";
-NSString *const AWSServiceNameAutoScaling = @"autoscaling";
-NSString *const AWSServiceNameCloudWatch = @"monitoring";
-NSString *const AWSServiceNameCognitoIdentityBroker = @"cognito-identity";
-NSString *const AWSServiceNameCognitoService = @"cognito-sync";
-NSString *const AWSServiceNameDynamoDB = @"dynamodb";
-NSString *const AWSServiceNameEC2 = @"ec2";
-NSString *const AWSServiceNameElasticLoadBalancing = @"elasticloadbalancing";
-NSString *const AWSServiceNameKinesis = @"kinesis";
-NSString *const AWSServiceNameLambda = @"lambda";
-NSString *const AWSServiceNameMachineLearning = @"machinelearning";
-NSString *const AWSServiceNameMobileAnalytics = @"mobileanalytics";
-NSString *const AWSServiceNameS3 = @"s3";
-NSString *const AWSServiceNameSES = @"email";
-NSString *const AWSServiceNameSimpleDB = @"sdb";
-NSString *const AWSServiceNameSNS = @"sns";
-NSString *const AWSServiceNameSQS = @"sqs";
-NSString *const AWSServiceNameSTS = @"sts";
+static NSString *const AWSServiceNameAPIGateway = @"execute-api";
+static NSString *const AWSServiceNameAutoScaling = @"autoscaling";
+static NSString *const AWSServiceNameCloudWatch = @"monitoring";
+static NSString *const AWSServiceNameCognitoIdentity = @"cognito-identity";
+static NSString *const AWSServiceNameCognitoSync = @"cognito-sync";
+static NSString *const AWSServiceNameDynamoDB = @"dynamodb";
+static NSString *const AWSServiceNameEC2 = @"ec2";
+static NSString *const AWSServiceNameElasticLoadBalancing = @"elasticloadbalancing";
+static NSString *const AWSServiceNameIoT = @"execute-api";
+static NSString *const AWSServiceNameIoTData = @"iotdata";
+static NSString *const AWSServiceNameFirehose = @"firehose";
+static NSString *const AWSServiceNameKinesis = @"kinesis";
+static NSString *const AWSServiceNameLambda = @"lambda";
+static NSString *const AWSServiceNameMachineLearning = @"machinelearning";
+static NSString *const AWSServiceNameMobileAnalytics = @"mobileanalytics";
+static NSString *const AWSServiceNameS3 = @"s3";
+static NSString *const AWSServiceNameSES = @"email";
+static NSString *const AWSServiceNameSimpleDB = @"sdb";
+static NSString *const AWSServiceNameSNS = @"sns";
+static NSString *const AWSServiceNameSQS = @"sqs";
+static NSString *const AWSServiceNameSTS = @"sts";
 
 @implementation AWSEndpoint
 
@@ -171,11 +312,15 @@ NSString *const AWSServiceNameSTS = @"sts";
         _useUnsafeURL = useUnsafeURL;
         _regionName = [self regionNameFromType:regionType];
         if (!_regionName) {
-            AWSLogError(@"Invalid region type.");
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                           reason:@"Invalid region type."
+                                         userInfo:nil];
         }
         _serviceName = [self serviceNameFromType:serviceType];
         if (!_serviceName) {
-            AWSLogError(@"Invalid service type.");
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                           reason:@"Invalid service type."
+                                         userInfo:nil];
         }
         _URL = [self URLWithRegion:_regionType
                         regionName:_regionName
@@ -222,6 +367,8 @@ NSString *const AWSServiceNameSTS = @"sts";
             return AWSRegionNameAPSoutheast2;
         case AWSRegionAPNortheast1:
             return AWSRegionNameAPNortheast1;
+        case AWSRegionAPNortheast2:
+            return AWSRegionNameAPNortheast2;
         case AWSRegionSAEast1:
             return AWSRegionNameSAEast1;
         case AWSRegionCNNorth1:
@@ -241,16 +388,22 @@ NSString *const AWSServiceNameSTS = @"sts";
             return AWSServiceNameAutoScaling;
         case AWSServiceCloudWatch:
             return AWSServiceNameCloudWatch;
-        case AWSServiceCognitoIdentityBroker:
-            return AWSServiceNameCognitoIdentityBroker;
-        case AWSServiceCognitoService:
-            return AWSServiceNameCognitoService;
+        case AWSServiceCognitoIdentity:
+            return AWSServiceNameCognitoIdentity;
+        case AWSServiceCognitoSync:
+            return AWSServiceNameCognitoSync;
         case AWSServiceDynamoDB:
             return AWSServiceNameDynamoDB;
         case AWSServiceEC2:
             return AWSServiceNameEC2;
         case AWSServiceElasticLoadBalancing:
             return AWSServiceNameElasticLoadBalancing;
+        case AWSServiceIoT:
+            return AWSServiceNameIoT;
+        case AWSServiceIoTData:
+            return AWSServiceNameIoTData;
+        case AWSServiceFirehose:
+            return AWSServiceNameFirehose;
         case AWSServiceKinesis:
             return AWSServiceNameKinesis;
         case AWSServiceLambda:
@@ -291,6 +444,7 @@ NSString *const AWSServiceNameSTS = @"sts";
             || regionType == AWSRegionEUWest1
             || regionType == AWSRegionAPSoutheast1
             || regionType == AWSRegionAPNortheast1
+            || regionType == AWSRegionAPNortheast2
             || regionType == AWSRegionAPSoutheast2
             || regionType == AWSRegionSAEast1
             || regionType == AWSRegionUSGovWest1)) {
@@ -307,11 +461,17 @@ NSString *const AWSServiceNameSTS = @"sts";
     } else if (serviceType == AWSServiceSTS) {
         if (regionType == AWSRegionCNNorth1) {
             URL = [NSURL URLWithString:@"https://sts.cn-north-1.amazonaws.com"];
+        } else if (regionType == AWSRegionUSGovWest1) {
+            URL = [NSURL URLWithString:@"https://sts.us-gov-west-1.amazonaws.com"];
         } else {
             URL = [NSURL URLWithString:@"https://sts.amazonaws.com"];
         }
     } else if (serviceType == AWSServiceSimpleDB && regionType == AWSRegionUSEast1) {
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://sdb.amazonaws.com", HTTPType]];
+    } else if (serviceType == AWSServiceIoT) {
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://iot%@%@.amazonaws.com", HTTPType, separator, regionName]];
+    } else if (serviceType == AWSServiceIoTData) {
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://data%@iot%@%@.amazonaws.com", HTTPType, separator, separator, regionName]];
     } else {
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@%@.amazonaws.com", HTTPType, serviceName, separator, regionName]];
     }

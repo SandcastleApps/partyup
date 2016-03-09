@@ -1,17 +1,17 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import "AWSS3TransferManager.h"
 #import "AWSS3.h"
@@ -21,11 +21,13 @@
 #import "AWSLogging.h"
 #import "AWSSynchronizedMutableDictionary.h"
 
+// Private constants
 NSUInteger const AWSS3TransferManagerMinimumPartSize = 5 * 1024 * 1024; // 5MB
 NSString *const AWSS3TransferManagerCacheName = @"com.amazonaws.AWSS3TransferManager.CacheName";
 NSString *const AWSS3TransferManagerErrorDomain = @"com.amazonaws.AWSS3TransferManagerErrorDomain";
 NSUInteger const AWSS3TransferManagerByteLimitDefault = 5 * 1024 * 1024; // 5MB
 NSTimeInterval const AWSS3TransferManagerAgeLimitDefault = 0.0; // Keeps the data indefinitely unless it hits the size limit.
+NSString *const AWSS3TransferManagerUserAgentPrefix = @"transfer-manager";
 
 @interface AWSS3TransferManager()
 
@@ -61,7 +63,9 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 
 + (instancetype)defaultS3TransferManager {
     if (![AWSServiceManager defaultServiceManager].defaultServiceConfiguration) {
-        return nil;
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:@"`defaultServiceConfiguration` is `nil`. You need to set it before using this method."
+                                     userInfo:nil];
     }
 
     static AWSS3TransferManager *_defaultS3TransferManager = nil;
@@ -113,9 +117,11 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 - (instancetype)initWithConfiguration:(AWSServiceConfiguration *)configuration
                             cacheName:(NSString *)cacheName {
     if (self = [super init]) {
+        AWSServiceConfiguration *_configuration = [configuration copy];
+        [_configuration addUserAgentProductToken:AWSS3TransferManagerUserAgentPrefix];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        _s3 = [[AWSS3 alloc] initWithConfiguration:configuration];
+        _s3 = [[AWSS3 alloc] initWithConfiguration:_configuration];
 #pragma clang diagnostic pop
 
         _cache = [[AWSTMCache alloc] initWithName:cacheName

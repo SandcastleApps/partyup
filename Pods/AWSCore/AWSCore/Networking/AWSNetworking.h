@@ -1,17 +1,17 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import <Foundation/Foundation.h>
 #import "AWSModel.h"
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, AWSNetworkingRetryType) {
 
 @class AWSNetworkingConfiguration;
 @class AWSNetworkingRequest;
-@class AWSTask;
+@class AWSTask<__covariant ResultType>;
 
 typedef void (^AWSNetworkingUploadProgressBlock) (int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend);
 typedef void (^AWSNetworkingDownloadProgressBlock) (int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite);
@@ -197,5 +197,9 @@ typedef NS_ENUM(NSInteger, AWSHTTPMethod) {
 @end
 
 @interface AWSNetworkingRequestInterceptor : NSObject <AWSNetworkingRequestInterceptor>
+
+@property (nonatomic, readonly) NSString *userAgent;
+
+- (instancetype)initWithUserAgent:(NSString *)userAgent;
 
 @end

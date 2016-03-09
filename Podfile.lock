@@ -1,21 +1,21 @@
 PODS:
-  - ActionSheetPicker-3.0 (2.0.3)
-  - Alamofire (3.1.0)
-  - AWSCore (2.2.6)
-  - AWSDynamoDB (2.2.6):
-    - AWSCore (= 2.2.6)
-  - AWSS3 (2.2.6):
-    - AWSCore (= 2.2.6)
+  - ActionSheetPicker-3.0 (2.0.5)
+  - Alamofire (3.2.1)
+  - AWSCore (2.3.5)
+  - AWSDynamoDB (2.3.5):
+    - AWSCore (= 2.3.5)
+  - AWSS3 (2.3.5):
+    - AWSCore (= 2.3.5)
   - DACircularProgress (2.3.1)
-  - Flurry-iOS-SDK (7.3.0):
-    - Flurry-iOS-SDK/FlurrySDK (= 7.3.0)
-  - Flurry-iOS-SDK/FlurrySDK (7.3.0)
+  - Flurry-iOS-SDK (7.5.1):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.5.1)
+  - Flurry-iOS-SDK/FlurrySDK (7.5.1)
   - INTULocationManager (4.1.1)
   - JGProgressHUD (1.3.1)
   - LMGeocoder (1.0.4)
   - PBJVision (0.4.2)
   - Player (0.1.0)
-  - SwiftyJSON (2.3.0)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0)
@@ -32,18 +32,18 @@ DEPENDENCIES:
   - SwiftyJSON (~> 2.3)
 
 SPEC CHECKSUMS:
-  ActionSheetPicker-3.0: 11f2053085d3088dc1ef9d38a9f11c18b528dd9e
-  Alamofire: 415bd7f56197722978759078486689f7ef913dce
-  AWSCore: dd05203bf44d45b58b7667754ce4fa6f1bdb1c3e
-  AWSDynamoDB: d0eb38a6bcaaee5931e5168478c409a39b0a9066
-  AWSS3: a8aeb5f8224236c2b1b46fdab14add3eff971fc4
+  ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
+  Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
+  AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
+  AWSDynamoDB: 00123cb4cc540768dc4aef89f41b36a474de9363
+  AWSS3: 967f4ad3c91f1ed2c9dca09a9dcf905111232a87
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  Flurry-iOS-SDK: 054befae0fa0244fb000985bfe757d70f87a9f60
+  Flurry-iOS-SDK: c0c162b6be03b259ca51fd91a026e6b8fb5ae97e
   INTULocationManager: 83c7373048d583cda57e25eefb9bb8a3675acf16
   JGProgressHUD: 153053a21d81208cb5f659691996bcefce6a9885
   LMGeocoder: a0f635f948b0ca420d8d338e54886744cdcb215d
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   Player: e05be4073ea64fce1981869898ad9796c27cdd2b
-  SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.38.2

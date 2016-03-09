@@ -1,17 +1,17 @@
-/*
- Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License").
- You may not use this file except in compliance with the License.
- A copy of the License is located at
-
- http://aws.amazon.com/apache2.0
-
- or in the "license" file accompanying this file. This file is distributed
- on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- express or implied. See the License for the specific language governing
- permissions and limitations under the License.
- */
+//
+// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License.
+// A copy of the License is located at
+//
+// http://aws.amazon.com/apache2.0
+//
+// or in the "license" file accompanying this file. This file is distributed
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing
+// permissions and limitations under the License.
+//
 
 #import "AWSSignature.h"
 
@@ -22,7 +22,7 @@
 #import "AWSLogging.h"
 #import "AWSBolts.h"
 
-NSString *const AWSSigV4Marker = @"AWS4";
+static NSString *const AWSSigV4Marker = @"AWS4";
 NSString *const AWSSignatureV4Algorithm = @"AWS4-HMAC-SHA256";
 NSString *const AWSSignatureV4Terminator = @"aws4_request";
 
@@ -564,8 +564,8 @@ NSString *const AWSSignatureV4Terminator = @"aws4_request";
 
 #pragma mark - S3ChunkedEncodingInputStream
 
-NSUInteger defaultChunkSize = 32 * 1024 - 91;
-NSString *const emptyStringSha256 = @"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+static NSUInteger defaultChunkSize = 32 * 1024 - 91;
+static NSString *const emptyStringSha256 = @"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 
 @interface AWSS3ChunkedEncodingInputStream()
 
