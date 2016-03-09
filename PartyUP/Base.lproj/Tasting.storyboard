@@ -21,11 +21,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Vm-PKO">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Vm-PKO" userLabel="Taste Page">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="Tnu-BU-9Zn" kind="embed" id="gM5-Mr-Lda"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAQ-5K-GZu" userLabel="Advertise Overlay">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
+                                <connections>
+                                    <segue destination="lyF-m8-FoM" kind="embed" id="y8j-5l-FKh"/>
                                 </connections>
                             </containerView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-3i-FzN">
@@ -60,12 +66,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="HAQ-5K-GZu" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leading" id="1fV-fa-n85"/>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="top" secondItem="NsN-s1-SY6" secondAttribute="bottom" id="30V-KF-sJX"/>
                             <constraint firstItem="8ah-Tn-bnF" firstAttribute="trailing" secondItem="isp-Rs-W1K" secondAttribute="trailing" id="5Dg-d7-v6s"/>
                             <constraint firstItem="8ah-Tn-bnF" firstAttribute="centerY" secondItem="DFr-IG-sx6" secondAttribute="centerY" id="7SN-Dh-cic"/>
+                            <constraint firstAttribute="trailing" secondItem="HAQ-5K-GZu" secondAttribute="trailing" id="8xc-tO-4oi"/>
                             <constraint firstItem="xzm-k1-wwA" firstAttribute="top" secondItem="DFr-IG-sx6" secondAttribute="bottom" id="Ew3-CQ-lRM"/>
+                            <constraint firstItem="xzm-k1-wwA" firstAttribute="top" secondItem="HAQ-5K-GZu" secondAttribute="bottom" id="bOF-dL-lsR"/>
                             <constraint firstItem="DFr-IG-sx6" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leading" id="cp9-dS-fbz"/>
                             <constraint firstItem="Nzd-Vm-PKO" firstAttribute="leading" secondItem="isp-Rs-W1K" secondAttribute="leading" id="eJH-iS-MfQ"/>
+                            <constraint firstItem="HAQ-5K-GZu" firstAttribute="top" secondItem="isp-Rs-W1K" secondAttribute="topMargin" id="ex5-mz-vib"/>
                             <constraint firstItem="GzV-3i-FzN" firstAttribute="centerY" secondItem="isp-Rs-W1K" secondAttribute="centerY" id="kcJ-ZG-7at"/>
                             <constraint firstItem="8ah-Tn-bnF" firstAttribute="height" secondItem="DFr-IG-sx6" secondAttribute="height" id="pN9-b1-UE3"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Nzd-Vm-PKO" secondAttribute="bottom" id="rF3-sX-OAz"/>
@@ -313,6 +323,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hl0-fJ-EV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3240" y="70"/>
+        </scene>
+        <!--Advertising Overlay Controller-->
+        <scene sceneID="1R9-fJ-LfP">
+            <objects>
+                <viewController storyboardIdentifier="Advertising Overlay Controller" id="lyF-m8-FoM" customClass="AdvertisingOverlayController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VYe-vb-a8f"/>
+                        <viewControllerLayoutGuide type="bottom" id="bQD-py-R1y"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="x9t-C5-WiG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTU-gH-hzQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bQD-py-R1y" firstAttribute="top" secondItem="pTU-gH-hzQ" secondAttribute="bottom" id="2bi-p1-9gX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pTU-gH-hzQ" secondAttribute="trailing" constant="-20" id="3E5-za-BBG"/>
+                            <constraint firstAttribute="trailing" secondItem="pTU-gH-hzQ" secondAttribute="trailing" id="6cm-oi-d9r"/>
+                            <constraint firstItem="pTU-gH-hzQ" firstAttribute="top" secondItem="VYe-vb-a8f" secondAttribute="bottom" constant="8" symbolic="YES" id="Af6-L0-rca"/>
+                            <constraint firstItem="bQD-py-R1y" firstAttribute="top" secondItem="pTU-gH-hzQ" secondAttribute="bottom" id="I5n-wc-Iba"/>
+                            <constraint firstItem="pTU-gH-hzQ" firstAttribute="leading" secondItem="x9t-C5-WiG" secondAttribute="leading" id="p1v-BW-dqo"/>
+                            <constraint firstItem="pTU-gH-hzQ" firstAttribute="leading" secondItem="x9t-C5-WiG" secondAttribute="leadingMargin" constant="-20" id="wXO-YE-odE"/>
+                            <constraint firstItem="pTU-gH-hzQ" firstAttribute="top" secondItem="VYe-vb-a8f" secondAttribute="bottom" id="yob-x4-W3Z"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3E5-za-BBG"/>
+                                <exclude reference="Af6-L0-rca"/>
+                                <exclude reference="wXO-YE-odE"/>
+                                <exclude reference="2bi-p1-9gX"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="web" destination="pTU-gH-hzQ" id="GqG-d5-XCS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ztb-ND-ttv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1857" y="21"/>
         </scene>
         <!--Taste Pages Navigator-->
         <scene sceneID="azK-Hg-Bow">

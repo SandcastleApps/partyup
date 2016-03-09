@@ -61,6 +61,7 @@
 		1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997461BB48A99003457E2 /* SampleTastePageController.swift */; };
 		1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9997481BB61939003457E2 /* RecordSampleController.swift */; };
 		1F9B5D0E1C596D6A000E7574 /* DateUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B5D0D1C596D6A000E7574 /* DateUtilities.swift */; };
+		1F9C367F1C90594F006CD1FA /* AdvertisingOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9C367E1C90594F006CD1FA /* AdvertisingOverlayController.swift */; };
 		1FB916501C6A42D700ED62DE /* PartyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9164F1C6A42D700ED62DE /* PartyTableCell.swift */; };
 		1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */; };
 		1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD40041C11E1060093D852 /* PageProtocol.swift */; };
@@ -146,6 +147,7 @@
 		1F9997461BB48A99003457E2 /* SampleTastePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastePageController.swift; sourceTree = "<group>"; };
 		1F9997481BB61939003457E2 /* RecordSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSampleController.swift; sourceTree = "<group>"; };
 		1F9B5D0D1C596D6A000E7574 /* DateUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtilities.swift; sourceTree = "<group>"; };
+		1F9C367E1C90594F006CD1FA /* AdvertisingOverlayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvertisingOverlayController.swift; sourceTree = "<group>"; };
 		1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Halifax.gpx; path = Globetrotter/Halifax.gpx; sourceTree = SOURCE_ROOT; };
 		1FB9164F1C6A42D700ED62DE /* PartyTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyTableCell.swift; sourceTree = "<group>"; };
 		1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitPageController.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				1F9997461BB48A99003457E2 /* SampleTastePageController.swift */,
 				1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */,
 				1FBD40041C11E1060093D852 /* PageProtocol.swift */,
+				1F9C367E1C90594F006CD1FA /* AdvertisingOverlayController.swift */,
 			);
 			name = "Taste Sample";
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				1F08469D1C32C0490064FBDD /* VenueTableCell.swift in Sources */,
 				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,
 				1F03C3781BA8500F0037D7D8 /* Sample.swift in Sources */,
+				1F9C367F1C90594F006CD1FA /* AdvertisingOverlayController.swift in Sources */,
 				1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
 				1FDA45621C1E2D5400F5E458 /* TutorialPageController.swift in Sources */,
