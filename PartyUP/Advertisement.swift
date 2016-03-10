@@ -10,38 +10,52 @@ import AWSDynamoDB
 
 final class Advertisement: CustomDebugStringConvertible
 {
+    static var ads = [Advertisement]()
+    
 	enum Style: Int {
 		case Page, Overlay
 	}
+    
+    enum FeedCategory: String {
+        case All = "a", Pregame = "p", Venue = "v"
+    }
+    
+    typealias FeedMask = [FeedCategory:String]
 
 	let administration: String
-    let identifier: Int
-    let feed: String
+    let feeds: FeedMask
 	let pages: [Int]
 	let style: Style
 	let media: String
     
-	init(administration: String, identifier: Int, media: String, feed: String, pages: [Int], style: Style = .Page) {
+    init(administration: String, media: String, feeds: FeedMask, pages: [Int], style: Style = .Page) {
         self.administration = administration
-		self.identifier = identifier
-		self.feed = feed
+		self.feeds = feeds
 		self.pages = pages
 		self.style = style
 		self.media = media
     }
     
     var debugDescription: String {
-        get { return "Administration = \(administration)\nIdentifier = \(identifier)\nFeed = \(feed)\nPages = \(pages)\nStyle = \(style)\nMedia = \(media)\n" }
+        get { return "Administration = \(administration)\nFeeds = \(feeds)\nPages = \(pages)\nStyle = \(style)\nMedia = \(media)\n" }
     }
     
     //MARK - Internal Dynamo Representation
     
 	internal convenience init(data: AdvertisementDB) {
+        var feeder = FeedMask(minimumCapacity: 3)
+        if let feeds = data.feeds as? [String] {
+            for filter in feeds {
+                if let category = FeedCategory(rawValue: filter[filter.startIndex..<filter.startIndex.advancedBy(1)]) {
+                    feeder[category] = filter[filter.startIndex.advancedBy(2)..<filter.endIndex]
+                }
+            }
+        }
+        
         self.init(
             administration: data.administration! as String,
-            identifier: data.identifier!.integerValue,
-			media: (data.media as String?) ?? "unknown.html" ,
-			feed: (data.feed as String?) ?? "",
+			media: data.media as! String,
+            feeds: feeder,
 			pages: data.pages.flatMap { $0.map { $0.integerValue } } ?? [],
 			style: data.style.flatMap { Style(rawValue: $0.integerValue) } ?? .Page
         )
@@ -51,8 +65,7 @@ final class Advertisement: CustomDebugStringConvertible
         get {
             let db = AdvertisementDB()
             db.administration = administration
-            db.identifier = NSNumber(integer: identifier)
-            db.feed = feed
+            db.feeds = feeds.map { $0.0.rawValue + ":" + $0.1 }
             db.pages = pages.map { NSNumber(integer: $0) }
             db.style = NSNumber(integer: style.rawValue)
             db.media = media
@@ -65,7 +78,7 @@ final class Advertisement: CustomDebugStringConvertible
     {
         var administration: NSString?
         var identifier: NSNumber?
-        var feed: NSString?
+        var feeds: [NSString]?
 		var pages: [NSNumber]?
 		var style: NSNumber?
 		var media: NSString?
@@ -79,7 +92,7 @@ final class Advertisement: CustomDebugStringConvertible
         }
 
 		@objc static func rangeKeyAttribute() -> String! {
-			return "identifier"
+			return "media"
 		}
     }
 }
