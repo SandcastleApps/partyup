@@ -42,7 +42,7 @@ final class Advertisement: CustomDebugStringConvertible
             identifier: data.identifier!.integerValue,
 			media: (data.media as String?) ?? "unknown.html" ,
 			feed: (data.feed as String?) ?? "",
-			pages: /*data.pages.flatMap { $0.map { $0.integerValue } } ??*/ [],
+			pages: data.pages.flatMap { $0.map { $0.integerValue } } ?? [],
 			style: data.style.flatMap { Style(rawValue: $0.integerValue) } ?? .Page
         )
     }
@@ -50,11 +50,13 @@ final class Advertisement: CustomDebugStringConvertible
     internal var dynamo: AdvertisementDB {
         get {
             let db = AdvertisementDB()
-//            db.administration = administration
-//            db.identifier = NSNumber(integer: identifier)
-//            db.feed = feed
-//			db.page = NSNumber(integer: page)
-//            
+            db.administration = administration
+            db.identifier = NSNumber(integer: identifier)
+            db.feed = feed
+            db.pages = pages.map { NSNumber(integer: $0) }
+            db.style = NSNumber(integer: style.rawValue)
+            db.media = media
+            
             return db
         }
     }
@@ -64,7 +66,7 @@ final class Advertisement: CustomDebugStringConvertible
         var administration: NSString?
         var identifier: NSNumber?
         var feed: NSString?
-		var pages: [Int]?
+		var pages: [NSNumber]?
 		var style: NSNumber?
 		var media: NSString?
         
