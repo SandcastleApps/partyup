@@ -42,6 +42,7 @@
 		1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */; };
 		1F2C485C1C8DBDE500DE07B2 /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C485B1C8DBDE500DE07B2 /* Submission.swift */; };
 		1F2DDB251C5E658C00E28DE4 /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DDB241C5E658C00E28DE4 /* Promotion.swift */; };
+		1F3010991C9102B80047FA40 /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3010981C9102B80047FA40 /* Advertisement.swift */; };
 		1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */; };
 		1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A001BA59F4C00E622CF /* AppDelegate.swift */; };
 		1F427A061BA59F4C00E622CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A041BA59F4C00E622CF /* Main.storyboard */; };
@@ -114,6 +115,7 @@
 		1F263C811BE39A53009A3565 /* Settings_Develop.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Develop.bundle; sourceTree = "<group>"; };
 		1F2C485B1C8DBDE500DE07B2 /* Submission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
 		1F2DDB241C5E658C00E28DE4 /* Promotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
+		1F3010981C9102B80047FA40 /* Advertisement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
 		1F3BA5931C4C752900F3079F /* vote.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = vote.py; path = AWSLambdas/vote.py; sourceTree = "<group>"; usesTabs = 0; };
 		1F3BA5941C4D168000F3079F /* VoteStream.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = VoteStream.json; sourceTree = "<group>"; usesTabs = 0; };
 		1F3F54331C3EBED800DF9B2B /* PartyNotify.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyNotify.plist; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 		1F03C3721BA84DDC0037D7D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1F3010981C9102B80047FA40 /* Advertisement.swift */,
 				1F2C485B1C8DBDE500DE07B2 /* Submission.swift */,
 				1F2DDB241C5E658C00E28DE4 /* Promotion.swift */,
 				1F03C3751BA84F290037D7D8 /* Venue.swift */,
@@ -655,6 +658,7 @@
 				1F9B5D0E1C596D6A000E7574 /* DateUtilities.swift in Sources */,
 				1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */,
 				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
+				1F3010991C9102B80047FA40 /* Advertisement.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */,
