@@ -99,6 +99,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            try! NSFileManager.defaultManager().createDirectoryAtPath(mediaTemp, withIntermediateDirectories: true, attributes: nil)
         }
 
+		#if DEBUG
+			AWSLogger.defaultLogger().logLevel = .Warn
+		#endif
+
 		return true
 	}
 
