@@ -6,11 +6,16 @@
 //  Copyright © 2016 Sandcastle Application Development. All rights reserved.
 //
 
+import Foundation
 import AWSDynamoDB
 
 final class Advertisement: CustomDebugStringConvertible
 {
-    static var ads = [Advertisement]()
+	static var ads = [String:[Advertisement]]()
+
+	static func apropos(identifier: String, ofFeed feed: FeedCategory, inAdministration administration: String) -> [Advertisement]? {
+		return ads[administration]?.filter { $0.apropos(identifier, ofFeed: feed) }
+	}
     
 	enum Style: Int {
 		case Page, Overlay
@@ -20,7 +25,7 @@ final class Advertisement: CustomDebugStringConvertible
         case All = "a", Pregame = "p", Venue = "v"
     }
     
-    typealias FeedMask = [FeedCategory:String]
+    typealias FeedMask = [FeedCategory:NSRegularExpression]
 
 	let administration: String
     let feeds: FeedMask
@@ -39,6 +44,10 @@ final class Advertisement: CustomDebugStringConvertible
     var debugDescription: String {
         get { return "Administration = \(administration)\nFeeds = \(feeds)\nPages = \(pages)\nStyle = \(style)\nMedia = \(media)\n" }
     }
+
+	func apropos(identifier: String, ofFeed feed: FeedCategory) -> Bool {
+		return feeds[feed]?.firstMatchInString(identifier, options: [.Anchored], range: NSRange(location: 0, length: identifier.utf16.count)) != nil
+	}
     
     //MARK - Internal Dynamo Representation
     
@@ -46,8 +55,9 @@ final class Advertisement: CustomDebugStringConvertible
         var feeder = FeedMask(minimumCapacity: 3)
         if let feeds = data.feeds as? [String] {
             for filter in feeds {
-                if let category = FeedCategory(rawValue: filter[filter.startIndex..<filter.startIndex.advancedBy(1)]) {
-                    feeder[category] = filter[filter.startIndex.advancedBy(2)..<filter.endIndex]
+                if let category = FeedCategory(rawValue: filter[filter.startIndex..<filter.startIndex.advancedBy(1)]),
+					regex = try? NSRegularExpression(pattern: filter[filter.startIndex.advancedBy(2)..<filter.endIndex], options: []) {
+						feeder[category] = regex
                 }
             }
         }
@@ -65,7 +75,7 @@ final class Advertisement: CustomDebugStringConvertible
         get {
             let db = AdvertisementDB()
             db.administration = administration
-            db.feeds = feeds.map { $0.0.rawValue + ":" + $0.1 }
+            db.feeds = feeds.map { $0.0.rawValue + ":" + $0.1.pattern }
             db.pages = pages.map { NSNumber(integer: $0) }
             db.style = NSNumber(integer: style.rawValue)
             db.media = media
