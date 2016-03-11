@@ -9,6 +9,14 @@
 import UIKit
 
 class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    
+    private enum PageContent {
+        case Video(Sample)
+        case Ad(Advertisement)
+        case Recruit
+    }
+    
+    private var pages = [PageContent]()
 
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var loadingProgress: UIActivityIndicatorView!
@@ -21,9 +29,9 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Sample.FlaggedUpdateNotification, object: nil)
 
-		if let avc = childViewControllers.dropFirst().first as? AdvertisingOverlayController {
-			avc.url = NSURL(fileURLWithPath: "/Users/fritz/Documents/color_box.html")//NSURL(string: "color_box.html", relativeToURL: NSURL(string: "https://s3.amazonaws.com/com.sandcastleapps.partyup/ads/"))
-		}
+//		if let avc = childViewControllers.dropFirst().first as? AdvertisingOverlayController {
+//			avc.url = NSURL(fileURLWithPath: "/Users/fritz/Documents/color_box.html")//NSURL(string: "color_box.html", relativeToURL: NSURL(string: "https://s3.amazonaws.com/com.sandcastleapps.partyup/ads/"))
+//		}
     }
 
 	deinit {
@@ -55,7 +63,24 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 			}
 		}
 	}
-
+    
+    var ads: [Advertisement] = [] {
+        didSet {
+            for ad in ads {
+                for page in ad.pages {
+                    switch ad.style {
+                    case .Page:
+                        adPages[page] = ad
+                    case .Overlay:
+                        adOvers[page] = ad
+                    }
+                }
+            }
+        }
+    }
+    private var adPages = [Int:Advertisement]()
+    private var adOvers = [Int:Advertisement]()
+    
     private var samples = [Sample]()
 	private var observations = Set<Venue>()
 
@@ -73,6 +98,9 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
     
     private func updateSampleDisplay() {
         loadingProgress?.stopAnimating()
+        
+        pages = samples.map { .Video($0) }
+        adPages.forEach { page, ad in self.pages.insert(.Ad(ad), atIndex: page) }
         
         if let page = dequeTastePageController(0), pvc = childViewControllers.first as? UIPageViewController {
             pvc.dataSource = self

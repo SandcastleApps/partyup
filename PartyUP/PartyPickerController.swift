@@ -198,12 +198,15 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				switch (selection.section, selection.row) {
 				case (PartySections.venue, let row):
 					viewerVC.venues = (venues?[row]).map { [$0] }
+                    viewerVC.ads = (venues?[row]).flatMap { $0.ads } ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : venues?[row].name ?? "Mystery Venue"])
 				case (PartySections.animal, 0):
 					viewerVC.venues = venues
+                    viewerVC.ads = parties?.ads ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
 				case (PartySections.animal, 1):
 					viewerVC.venues = (parties?.pregame).map { [$0] }
+                    viewerVC.ads = (parties?.pregame).flatMap { $0.ads } ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.pregame.name ?? "Pregame"])
 				default:
 					viewerVC.venues = nil
