@@ -18,6 +18,10 @@ class PartyPlace {
 	let pregame: Venue
 	var venues: [Venue]?
 
+	var ads: [Advertisement] {
+		return Advertisement.apropos(place.locality, ofFeed: .All) ?? []
+	}
+
 	private static let placesKey = "***REMOVED***"
 
 	init(place: LMAddress) {
@@ -25,6 +29,8 @@ class PartyPlace {
 		let unique = String(format: "*%@$%@$%@*", place.locality, place.administrativeArea, place.country)
 		let name = place.locality + " " + NSLocalizedString("Pregame Feed", comment: "Place name suffix for pregame venue")
 		self.pregame = Venue(unique: unique, open: 0, close: 0, name: name, details: nil, vicinity: place.administrativeArea, location: CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude))
+
+		Advertisement.fetch(place)
 	}
 
 	func fetch(radius: Int, categories: String, completion: (Bool, Bool) -> Void) {

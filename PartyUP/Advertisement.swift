@@ -8,21 +8,16 @@
 
 import Foundation
 import AWSDynamoDB
+import LMGeocoder
 
 final class Advertisement: CustomDebugStringConvertible, Hashable
 {
-	static var ads = [String:Set<Advertisement>]()
-
-	static func apropos(identifier: String, ofFeed feed: FeedCategory, inAdministration administration: String) -> [Advertisement]? {
-		return ads[administration]?.filter { $0.apropos(identifier, ofFeed: feed) }
-	}
-    
 	enum Style: Int {
 		case Page, Overlay
 	}
     
     enum FeedCategory: String {
-        case All = "a", Pregame = "p", Venue = "v"
+        case All = "a", Venue = "v"
     }
     
     typealias FeedMask = [FeedCategory:NSRegularExpression]
@@ -40,11 +35,11 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
 		self.style = style
 		self.media = media
 
-		Advertisement.ads[administration]?.insert(self)
+		Advertisement.ads.insert(self)
     }
 
 	deinit {
-		Advertisement.ads[administration]?.remove(self)
+		Advertisement.ads.remove(self)
 	}
     
     var debugDescription: String {
@@ -93,7 +88,6 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
     internal class AdvertisementDB: AWSDynamoDBObjectModel, AWSDynamoDBModeling
     {
         var administration: NSString?
-        var identifier: NSNumber?
         var feeds: [NSString]?
 		var pages: [NSNumber]?
 		var style: NSNumber?
@@ -114,6 +108,27 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
 
 	var hashValue: Int {
 		return administration.hashValue ^ media.hashValue
+	}
+
+	private static var ads = Set<Advertisement>()
+
+	static func apropos(identifier: String, ofFeed feed: FeedCategory) -> [Advertisement]? {
+		return ads.filter { $0.apropos(identifier, ofFeed: feed) }
+	}
+
+	static func fetch(place: LMAddress) {
+		let query = AWSDynamoDBQueryExpression()
+		query.hashKeyValues = String(format: "%@$%@", place.administrativeArea, place.country)
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(AdvertisementDB.self, expression: query).continueWithBlock { (task) in
+			if let result = task.result as? AWSDynamoDBPaginatedOutput {
+				if let items = result.items as? [AdvertisementDB] {
+					let wraps = items.map { Advertisement(data: $0) }
+					dispatch_async(dispatch_get_main_queue()) { Advertisement.ads.unionInPlace(wraps) }
+				}
+			}
+
+			return nil
+		}
 	}
 }
 

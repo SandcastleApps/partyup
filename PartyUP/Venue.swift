@@ -42,6 +42,10 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		}
 	}
 
+	var ads: [Advertisement] {
+		return Advertisement.apropos(unique, ofFeed: Advertisement.FeedCategory.Venue) ?? []
+	}
+
 	private var votings = Set<NSData>()
 	private var potentials: [Sample]? {
 		didSet {
