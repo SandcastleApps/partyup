@@ -9,9 +9,9 @@
 import Foundation
 import AWSDynamoDB
 
-final class Advertisement: CustomDebugStringConvertible
+final class Advertisement: CustomDebugStringConvertible, Hashable
 {
-	static var ads = [String:[Advertisement]]()
+	static var ads = [String:Set<Advertisement>]()
 
 	static func apropos(identifier: String, ofFeed feed: FeedCategory, inAdministration administration: String) -> [Advertisement]? {
 		return ads[administration]?.filter { $0.apropos(identifier, ofFeed: feed) }
@@ -39,7 +39,13 @@ final class Advertisement: CustomDebugStringConvertible
 		self.pages = pages
 		self.style = style
 		self.media = media
+
+		Advertisement.ads[administration]?.insert(self)
     }
+
+	deinit {
+		Advertisement.ads[administration]?.remove(self)
+	}
     
     var debugDescription: String {
         get { return "Administration = \(administration)\nFeeds = \(feeds)\nPages = \(pages)\nStyle = \(style)\nMedia = \(media)\n" }
@@ -105,5 +111,13 @@ final class Advertisement: CustomDebugStringConvertible
 			return "media"
 		}
     }
+
+	var hashValue: Int {
+		return administration.hashValue ^ media.hashValue
+	}
+}
+
+func ==(lhs: Advertisement, rhs: Advertisement) -> Bool {
+	return lhs.administration == rhs.administration && lhs.media == rhs.media
 }
 
