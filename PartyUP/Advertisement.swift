@@ -54,21 +54,19 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
     
 	internal convenience init(data: AdvertisementDB) {
         var feeder = FeedMask(minimumCapacity: 3)
-        if let feeds = data.feeds as? [String] {
-            for filter in feeds {
-                if let category = FeedCategory(rawValue: filter[filter.startIndex..<filter.startIndex.advancedBy(1)]),
-					regex = try? NSRegularExpression(pattern: filter[filter.startIndex.advancedBy(2)..<filter.endIndex], options: []) {
-						feeder[category] = regex
-                }
-            }
+		for filter in data.feeds {
+			if let category = FeedCategory(rawValue: filter[filter.startIndex..<filter.startIndex.advancedBy(1)]),
+				regex = try? NSRegularExpression(pattern: filter[filter.startIndex.advancedBy(2)..<filter.endIndex], options: []) {
+				feeder[category] = regex
+			}
         }
         
         self.init(
-            administration: data.administration! as String,
-			media: data.media as! String,
+            administration: data.administration,
+			media: data.media,
             feeds: feeder,
-			pages: data.pages.flatMap { $0.map { $0.integerValue } } ?? [],
-			style: data.style.flatMap { Style(rawValue: $0.integerValue) } ?? .Page
+			pages: Array<Int>(data.pages),
+			style: Style(rawValue: data.style) ?? .Page
         )
     }
 
@@ -76,22 +74,22 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
         get {
             let db = AdvertisementDB()
             db.administration = administration
-            db.feeds = feeds.map { $0.0.rawValue + ":" + $0.1.pattern }
-            db.pages = pages.map { NSNumber(integer: $0) }
-            db.style = NSNumber(integer: style.rawValue)
+            db.feeds = Set<String>(feeds.map { $0.0.rawValue + ":" + $0.1.pattern })
+            db.pages = Set<Int>(pages)
+            db.style = style.rawValue
             db.media = media
-            
+
             return db
         }
     }
     
     internal class AdvertisementDB: AWSDynamoDBObjectModel, AWSDynamoDBModeling
     {
-        var administration: NSString?
-        var feeds: [NSString]?
-		var pages: [NSNumber]?
-		var style: NSNumber?
-		var media: NSString?
+        var administration: String!
+        var feeds: Set<String> = []
+		var pages: Set<Int> = []
+		var style: Int = 0
+		var media: String!
         
         @objc static func dynamoDBTableName() -> String {
             return "Advertisements"
