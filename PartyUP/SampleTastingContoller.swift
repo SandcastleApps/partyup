@@ -28,10 +28,6 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Sample.FlaggedUpdateNotification, object: nil)
-
-//		if let avc = childViewControllers.dropFirst().first as? AdvertisingOverlayController {
-//			avc.url = NSURL(fileURLWithPath: "/Users/fritz/Documents/color_box.html")//NSURL(string: "color_box.html", relativeToURL: NSURL(string: "https://s3.amazonaws.com/com.sandcastleapps.partyup/ads/"))
-//		}
     }
 
 	deinit {
@@ -100,7 +96,8 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
         loadingProgress?.stopAnimating()
         
         pages = samples.map { .Video($0) }
-        adPages.forEach { page, ad in self.pages.insert(.Ad(ad), atIndex: page) }
+        adPages.forEach { page, ad in self.pages.insert(.Ad(ad), atIndex: min(page, self.pages.count)) }
+		pages.append(.Recruit)
         
         if let page = dequeTastePageController(0), pvc = childViewControllers.first as? UIPageViewController {
             pvc.dataSource = self
@@ -117,7 +114,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 
 		if let pvc = childViewControllers.first as? UIPageViewController, visible = pvc.viewControllers?.first as? SampleTastePageController {
 			let index = samples.indexOf{ $0.time.compare(visible.sample.time) == .OrderedAscending }
-			if let toVC = dequeTastePageController(index ?? samples.count) {
+			if let toVC = dequeTastePageController(index ?? pages.count) {
 				pvc.setViewControllers([toVC], direction: .Forward, animated: true) { completed in if completed { self.updateNavigationArrows(pvc) } }
 			}
 		}
@@ -141,15 +138,25 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 	}
 
 	func dequeTastePageController(page: Int) -> UIViewController? {
-		if page >= 0 {
-			if page < samples.count {
+		if page >= 0 && page < pages.count {
+			let over = adOvers[page].flatMap { NSURL(string: $0.media, relativeToURL: NSURL(fileURLWithPath: "/Users/fritz/Documents/")) }
+
+			switch pages[page] {
+			case .Video(let sample):
 				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Sample Taste Page Controller") as? SampleTastePageController
 				pageVC?.page = page
-				pageVC?.sample = samples[page]
+				pageVC?.sample = sample
+				pageVC?.ad = over
 				return pageVC
-			} else if samples.count == page {
+			case .Ad(let ad):
+				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Advertising Page Controller") as? AdvertisingOverlayController
+				pageVC?.page = page
+				pageVC?.url = NSURL(string: ad.media, relativeToURL: NSURL(fileURLWithPath: "/Users/fritz/Documents/"))
+				return pageVC
+			case .Recruit:
 				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Recruit Page Controller") as? RecruitPageController
 				pageVC?.page = page
+				pageVC?.ad = over
 				return pageVC
 			}
 		}
@@ -167,7 +174,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 	{
 		if let index = (pageViewController.viewControllers?.first as? PageProtocol)?.page {
 			let prev = !(index > 0)
-			let next = !(index < samples.count)
+			let next = !(index < pages.count)
 
 			if prev != previousPage.hidden {
 				UIView.animateWithDuration(0.5, animations: { self.previousPage.transform = prev ? CGAffineTransformMakeScale(0.1, 0.1) : CGAffineTransformIdentity }, completion: { (done) in self.previousPage.hidden = prev })

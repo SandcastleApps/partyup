@@ -16,31 +16,27 @@ class AdvertisingOverlayController: UIViewController, PageProtocol {
 	var url: NSURL? {
 		didSet {
 			if let url = url {
-				web?.loadRequest(NSURLRequest(URL: url))
+				webView?.loadRequest(NSURLRequest(URL: url))
 			}
 		}
 	}
 
-	var web: WKWebView! {
-		didSet {
-			if let url = url {
-				web?.loadRequest(NSURLRequest(URL: url))
-			}
-		}
-	}
+	private var webView: WKWebView!
     
     override func loadView() {
         super.loadView()
-        web = WKWebView(frame: view.bounds)
-        web.opaque = false
-        web.scrollView.scrollEnabled = false
-        view = web
+        webView = WKWebView()
+        webView.opaque = false
+        webView.scrollView.scrollEnabled = false
+        view = webView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+		if let url = url {
+			webView.loadRequest(NSURLRequest(URL: url))
+		}
     }
 
 }

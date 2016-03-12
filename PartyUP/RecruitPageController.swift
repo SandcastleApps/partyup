@@ -12,6 +12,8 @@ class RecruitPageController: UIViewController, PageProtocol {
 
 	var page: Int!
 
+	var ad: NSURL?
+
 	@IBOutlet weak var shareButton: UIButton!
 	
 	override func viewDidLoad() {
@@ -28,4 +30,9 @@ class RecruitPageController: UIViewController, PageProtocol {
 		presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share PartyUP", comment: "Share action prompt"))
 	}
 
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if let avc = segue.destinationViewController as? AdvertisingOverlayController {
+			avc.url = ad
+		}
+	}
 }

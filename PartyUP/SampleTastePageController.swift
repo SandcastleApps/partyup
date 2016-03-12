@@ -22,6 +22,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
             media = NSURL(string: sample.media.path!, relativeToURL: PartyUpConstants.ContentDistribution)
         }
     }
+	var ad: NSURL?
 
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
@@ -275,6 +276,12 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 		if player.playbackState == .Paused && visible {
 			player.playFromCurrentTime()
 			timer = NSTimer.scheduledTimerWithTimeInterval(tickInc, target: self, selector: Selector("playerTimer"), userInfo: nil, repeats: true)
+		}
+	}
+
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if let avc = segue.destinationViewController as? AdvertisingOverlayController {
+			avc.url = ad
 		}
 	}
 }
