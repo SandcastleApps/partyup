@@ -107,13 +107,26 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
     }
 
 	func sieveOffensiveSamples() {
-		let filtered = samples.filter { !Defensive.shared.muted($0.user) && !($0.flag ?? false) }
-		if filtered.count != samples.count {
-			samples = filtered
+        let filtered = pages.filter {
+            if case .Video(let sample) = $0 {
+                return !Defensive.shared.muted(sample.user) && !(sample.flag ?? false)
+            } else {
+                return false
+            }
+        }
+        
+		if filtered.count != pages.count {
+			pages = filtered
 		}
 
 		if let pvc = childViewControllers.first as? UIPageViewController, visible = pvc.viewControllers?.first as? SampleTastePageController {
-			let index = samples.indexOf{ $0.time.compare(visible.sample.time) == .OrderedAscending }
+            let index = pages.indexOf {
+                if case .Video(let sample) = $0 {
+                    return sample.time.compare(visible.sample.time) == .OrderedAscending
+                } else {
+                    return false
+                }
+            }
 			if let toVC = dequeTastePageController(index ?? pages.count) {
 				pvc.setViewControllers([toVC], direction: .Forward, animated: true) { completed in if completed { self.updateNavigationArrows(pvc) } }
 			}
