@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class AdvertisingOverlayController: UIViewController, PageProtocol {
+class AdvertisingOverlayController: UIViewController, WKNavigationDelegate, PageProtocol {
     
     var page: Int!
 
@@ -28,6 +28,8 @@ class AdvertisingOverlayController: UIViewController, PageProtocol {
         webView = WKWebView()
         webView.opaque = false
         webView.scrollView.scrollEnabled = false
+        webView.allowsBackForwardNavigationGestures = false
+        webView.navigationDelegate = self
         view = webView
     }
 
@@ -38,5 +40,13 @@ class AdvertisingOverlayController: UIViewController, PageProtocol {
 			webView.loadRequest(NSURLRequest(URL: url))
 		}
     }
-
+    
+    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.URL where navigationAction.navigationType == .LinkActivated {
+            UIApplication.sharedApplication().openURL(url)
+            decisionHandler(.Cancel)
+        } else {
+            decisionHandler(.Allow)
+        }
+    }
 }
