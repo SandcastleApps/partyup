@@ -32,6 +32,7 @@ struct PartyUpConstants
 	static let DefaultStoragePrefix = "media"
     static let PartyUpWebsite = NSURL(scheme: "http", host: "www.partyuptonight.com/v1", path: "/")!
 	static let ContentDistribution = NSURL(scheme: "http", host: "media.partyuptonight.com", path: "/")!
+    static let AdvertisementDistribution = ContentDistribution.URLByAppendingPathComponent("ads", isDirectory: true)
 	static let StorageBucket = "com.sandcastleapps.partyup"
 	static let TitleLogo: ()->UIImageView = {
 		let logoView = UIImageView(image: UIImage(named: "Logo"))

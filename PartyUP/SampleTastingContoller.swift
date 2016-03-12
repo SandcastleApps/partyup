@@ -139,7 +139,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 
 	func dequeTastePageController(page: Int) -> UIViewController? {
 		if page >= 0 && page < pages.count {
-			let over = adOvers[page].flatMap { NSURL(string: $0.media, relativeToURL: NSURL(fileURLWithPath: "/Users/fritz/Documents/")) }
+			let over = adOvers[page].flatMap { NSURL(string: $0.media, relativeToURL: PartyUpConstants.AdvertisementDistribution) }
 
 			switch pages[page] {
 			case .Video(let sample):
@@ -151,7 +151,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 			case .Ad(let ad):
 				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Advertising Page Controller") as? AdvertisingOverlayController
 				pageVC?.page = page
-				pageVC?.url = NSURL(string: ad.media, relativeToURL: NSURL(fileURLWithPath: "/Users/fritz/Documents/"))
+				pageVC?.url = NSURL(string: ad.media, relativeToURL: PartyUpConstants.AdvertisementDistribution)
 				return pageVC
 			case .Recruit:
 				let pageVC = storyboard?.instantiateViewControllerWithIdentifier("Recruit Page Controller") as? RecruitPageController
