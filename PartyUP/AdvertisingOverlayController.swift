@@ -40,6 +40,14 @@ class AdvertisingOverlayController: UIViewController, WKNavigationDelegate, Page
 			webView.loadRequest(NSURLRequest(URL: url))
 		}
     }
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+
+		if page != nil {
+			navigationController?.navigationBar.topItem?.title = NSLocalizedString("Advertisement", comment: "Avdertisement page navigation title")
+		}
+	}
     
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.URL where navigationAction.navigationType == .LinkActivated {
