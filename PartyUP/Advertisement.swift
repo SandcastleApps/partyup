@@ -27,13 +27,16 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
 	let pages: [Int]
 	let style: Style
 	let media: String
+
+	private let id: Character
     
-    init(administration: String, media: String, feeds: FeedMask, pages: [Int], style: Style = .Page) {
+	init(administration: String, media: String, id: Character, feeds: FeedMask, pages: [Int], style: Style = .Page) {
         self.administration = administration
 		self.feeds = feeds
 		self.pages = pages
 		self.style = style
 		self.media = media
+		self.id = id
 
 		Advertisement.ads.insert(self)
     }
@@ -63,7 +66,8 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
         
         self.init(
             administration: data.administration,
-			media: data.media,
+			media: data.media[data.media.startIndex.advancedBy(1)..<data.media.endIndex],
+			id: data.media.characters.first ?? "a",
             feeds: feeder,
 			pages: Array<Int>(data.pages),
 			style: Style(rawValue: data.style) ?? .Page
@@ -77,7 +81,7 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
             db.feeds = Set<String>(feeds.map { $0.0.rawValue + ":" + $0.1.pattern })
             db.pages = Set<Int>(pages)
             db.style = style.rawValue
-            db.media = media
+			db.media = "\(id):\(media)"
 
             return db
         }
@@ -105,7 +109,7 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
     }
 
 	var hashValue: Int {
-		return administration.hashValue ^ media.hashValue
+		return administration.hashValue ^ media.hashValue ^ id.hashValue
 	}
 
 	private static var ads = Set<Advertisement>()
@@ -136,6 +140,6 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
 }
 
 func ==(lhs: Advertisement, rhs: Advertisement) -> Bool {
-	return lhs.administration == rhs.administration && lhs.media == rhs.media
+	return lhs.administration == rhs.administration && lhs.id == rhs.id && lhs.media == rhs.media
 }
 
