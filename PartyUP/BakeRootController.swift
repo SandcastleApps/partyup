@@ -100,7 +100,7 @@ class BakeRootController: UIViewController {
 							self.presentViewController(alert, animated: true, completion: nil)
 						}
 
-						Flurry.logError("Neighborhood_Determination_Failed", message: "Reason \(status)", error: nil)
+						Flurry.logError("Neighborhood_Determination_Failed", message: "Reason \(status.rawValue)", error: nil)
 					}
 				}
 			}

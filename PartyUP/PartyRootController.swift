@@ -120,7 +120,7 @@ class PartyRootController: UIViewController {
 
 					self.handleLocationErrors(hud, message: message)
 
-					Flurry.logError("City_Determination_Failed", message: "Reason \(status)", error: nil)
+					Flurry.logError("City_Determination_Failed", message: "Reason \(status.rawValue)", error: nil)
 			}
 		}
 	}
