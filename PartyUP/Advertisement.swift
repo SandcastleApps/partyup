@@ -114,6 +114,11 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
 		return ads.filter { $0.apropos(identifier, ofFeed: feed) }
 	}
 
+	static func refresh(places: [LMAddress]) {
+		ads.removeAll()
+		places.forEach { fetch($0) }
+	}
+
 	static func fetch(place: LMAddress) {
 		let query = AWSDynamoDBQueryExpression()
 		query.hashKeyValues = String(format: "%@$%@", place.administrativeArea, place.country)

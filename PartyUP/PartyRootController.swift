@@ -27,6 +27,8 @@ class PartyRootController: UIViewController {
 	private var regions: [PartyPlace!] = [nil]
 	private var selectedRegion = 0
 
+	private var adRefreshTimer: NSTimer?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,10 +40,17 @@ class PartyRootController: UIViewController {
 		let nc = NSNotificationCenter.defaultCenter()
 		nc.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
 		nc.addObserver(self, selector: Selector("refreshSelectedRegion"), name: PartyPickerController.VenueRefreshRequest, object: nil)
+
+		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: Selector("refreshAdvertising"), userInfo: nil, repeats: true)
     }
 
 	func refreshSelectedRegion() {
 		fetchPlaceVenues(regions[selectedRegion])
+	}
+
+	func refreshAdvertising() {
+		let cities = regions.map { $0.place }
+		Advertisement.refresh(cities)
 	}
 
 	func resolvePopularPlacemarks() {
@@ -205,6 +214,7 @@ class PartyRootController: UIViewController {
 	}
 
 	deinit {
+		adRefreshTimer?.invalidate()
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
