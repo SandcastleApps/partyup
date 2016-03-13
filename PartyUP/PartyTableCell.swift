@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MarqueeLabel_Swift
 
 class PartyTableCell: UITableViewCell {
 	@IBOutlet weak var vitalityDot: UILabel!
 	@IBOutlet weak var venueLabel: UILabel!
-	@IBOutlet weak var taglineLabel: UILabel!
+	@IBOutlet weak var taglineLabel: MarqueeLabel!
 	@IBOutlet weak var vitalityLabel: UILabel!
 
 	var title = "" {
