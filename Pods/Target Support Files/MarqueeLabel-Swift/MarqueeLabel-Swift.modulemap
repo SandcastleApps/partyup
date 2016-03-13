@@ -1,0 +1,6 @@
+framework module MarqueeLabel_Swift {
+  umbrella header "MarqueeLabel-Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}
