@@ -114,7 +114,9 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			multiplier: 1.0,
 			constant: 0))
 
-		player.setUrl(media!)
+		if let media = media {
+			player.setUrl(media)
+		}
 
 		let notify = NSNotificationCenter.defaultCenter()
 		notify.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
