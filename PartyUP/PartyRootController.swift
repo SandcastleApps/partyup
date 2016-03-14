@@ -55,16 +55,17 @@ class PartyRootController: UIViewController {
 
 	func resolvePopularPlacemarks() {
 		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
-			for city in cities {
-				LMGeocoder().geocodeAddressString(city, service: .GoogleService) { (places, error) in
-					if let place = places?.first as? LMAddress where error == nil {
-						dispatch_async(dispatch_get_main_queue(), {
-							self.regions.append(PartyPlace(place: place))
-						})
-					} else {
-						NSLog("Place Error: \(error)")
-					}
+			var gen = cities.generate()
+			func geoHandler(places: [AnyObject]?, error: NSError?) {
+				if let place = places?.first as? LMAddress where error == nil {
+					self.regions.append(PartyPlace(place: place))
 				}
+				if let city = gen.next() {
+					LMGeocoder().geocodeAddressString(city, service: .GoogleService, completionHandler: geoHandler)
+				}
+			}
+			if let city = gen.next() {
+				LMGeocoder().geocodeAddressString(city, service: .GoogleService, completionHandler: geoHandler)
 			}
 		}
 	}
@@ -77,16 +78,14 @@ class PartyRootController: UIViewController {
 				if status == .Success {
 					LMGeocoder().reverseGeocodeCoordinate(location.coordinate, service: .AppleService) { (places, error) in
 							if let place = places?.first as? LMAddress where error == nil {
-								dispatch_async(dispatch_get_main_queue(), {
-									if let index = self.regions.indexOf({ $0?.place.locality == place.locality }) {
+								if let index = self.regions.indexOf({ $0?.place.locality == place.locality }) {
 										self.regions[0] = self.regions[index]
-									} else {
+								} else {
 										self.regions[0] = PartyPlace(place: place)
-									}
-									self.fetchPlaceVenues(self.regions.first!)
+								}
+								self.fetchPlaceVenues(self.regions.first!)
 
-									Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
-								})
+								Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
 							} else {
 								self.handleLocationErrors(true, message: NSLocalizedString("Locality Lookup Failed", comment: "Hud message for failed locality lookup"))
 								Flurry.logError("City_Locality_Failed", message: error?.localizedDescription, error: error)
