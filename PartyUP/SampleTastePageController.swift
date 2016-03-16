@@ -40,12 +40,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 	private func formatTime(time: NSDate, relative: Bool) -> String {
 		if relative {
-			let stale = NSDate(timeIntervalSinceNow: -NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval))
-			if stale.compare(sample.time) == .OrderedAscending {
-				return formatRelativeDateFrom(time)
-			} else {
-				return NSLocalizedString("Classic", comment: "Stale time display")
-			}
+			return formatRelativeDateFrom(time, withClassicInterval: NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval))
 		} else {
 			return SampleTastePageController.timeFormatter.stringFromDate(time)
 		}
