@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E49a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -106,6 +106,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-Cg-5eP" userLabel="Review">
                                 <rect key="frame" x="5" y="28" width="590" height="600"/>
                                 <subviews>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BnE-ho-ATh" userLabel="Video Failed">
+                                        <rect key="frame" x="214.5" y="276.5" width="161.5" height="48"/>
+                                        <string key="text">💢
+Video Unavailable</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6IQ-1N-b0C">
                                         <rect key="frame" x="280" y="285" width="30" height="30"/>
                                         <constraints>
@@ -117,6 +125,8 @@
                                 <constraints>
                                     <constraint firstItem="6IQ-1N-b0C" firstAttribute="centerX" secondItem="WNy-Cg-5eP" secondAttribute="centerX" id="GK8-Gd-Oq4"/>
                                     <constraint firstItem="6IQ-1N-b0C" firstAttribute="centerY" secondItem="WNy-Cg-5eP" secondAttribute="centerY" id="VZF-mN-Ncp"/>
+                                    <constraint firstItem="BnE-ho-ATh" firstAttribute="centerX" secondItem="WNy-Cg-5eP" secondAttribute="centerX" id="Z0Y-rn-2Kl"/>
+                                    <constraint firstItem="BnE-ho-ATh" firstAttribute="centerY" secondItem="WNy-Cg-5eP" secondAttribute="centerY" id="czE-w0-Cx3"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="250" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
@@ -241,6 +251,7 @@
                     <connections>
                         <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
+                        <outlet property="videoFailed" destination="BnE-ho-ATh" id="dVS-Vs-RLI"/>
                         <outlet property="videoProgress" destination="DNJ-K7-UNE" id="rTi-ge-ElP"/>
                         <outlet property="videoReview" destination="WNy-Cg-5eP" id="mXZ-Sg-DrE"/>
                         <outlet property="videoWaiting" destination="6IQ-1N-b0C" id="ryK-Os-g6S"/>
@@ -372,6 +383,6 @@
         <image name="UpSelect" width="21" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NLr-k9-B1X"/>
+        <segue reference="YW2-4Y-iha"/>
     </inferredMetricsTieBreakers>
 </document>

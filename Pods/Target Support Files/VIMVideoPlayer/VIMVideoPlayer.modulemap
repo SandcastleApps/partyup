@@ -1,0 +1,6 @@
+framework module VIMVideoPlayer {
+  umbrella header "VIMVideoPlayer-umbrella.h"
+
+  export *
+  module * { export * }
+}

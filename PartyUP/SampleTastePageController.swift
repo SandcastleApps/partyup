@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import Player
+import VIMVideoPlayer
 import Social
 import DACircularProgress
 import Flurry_iOS_SDK
 
-class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate {
+class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerViewDelegate {
 
 	private static let timeFormatter: NSDateFormatter = { let formatter = NSDateFormatter(); formatter.timeStyle = .MediumStyle; formatter.dateStyle = .ShortStyle; return formatter }()
 
@@ -24,6 +24,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
     }
 	var ad: NSURL?
 
+	@IBOutlet weak var videoFailed: UILabel!
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
 	@IBOutlet weak var timeLabel: UILabel!
@@ -32,10 +33,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 	@IBOutlet weak var voteLabel: UILabel!
 	@IBOutlet var voteButtons: [UIButton]!
 
-	private let player = Player()
-	private var timer: NSTimer?
-	private var tick: Double = 0.0
-	private let tickInc: Double = 0.10
+	private let playView = VIMVideoPlayerView()
 	private var visible = false
 	private var displayRelativeTime = true
     private var media: NSURL?
@@ -61,7 +59,6 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
 		timeLabel.text = formatTime(sample.time, relative: displayRelativeTime)
 		
 		if let comment = sample.comment {
@@ -70,16 +67,17 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 		updateVoteIndicators()
 
-		player.view.translatesAutoresizingMaskIntoConstraints = false
-		player.view.layer.cornerRadius = 10
-		player.view.layer.masksToBounds = true
+		playView.translatesAutoresizingMaskIntoConstraints = false
+		playView.layer.cornerRadius = 10
+		playView.layer.masksToBounds = true
+		playView.delegate = self
+		playView.player.enableTimeUpdates()
+		playView.player.looping = true
 
-		addChildViewController(player)
-		videoReview.addSubview(player.view)
-		player.didMoveToParentViewController(self)
+		videoReview.addSubview(playView)
 
 		videoReview.addConstraint(NSLayoutConstraint(
-			item: player.view,
+			item: playView,
 			attribute: .CenterX,
 			relatedBy: .Equal,
 			toItem: videoReview,
@@ -88,7 +86,7 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			constant: 0))
 
 		videoReview.addConstraint(NSLayoutConstraint(
-			item: player.view,
+			item: playView,
 			attribute: .Width,
 			relatedBy: .Equal,
 			toItem: videoReview,
@@ -97,16 +95,16 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			constant: 0))
 
 		videoReview.addConstraint(NSLayoutConstraint(
-			item: player.view,
+			item: playView,
 			attribute: .Height,
 			relatedBy: .Equal,
-			toItem: player.view,
+			toItem: playView,
 			attribute: .Width,
 			multiplier: 1.0,
 			constant: 0))
 
 		videoReview.addConstraint(NSLayoutConstraint(
-			item: player.view,
+			item: playView,
 			attribute: .Top,
 			relatedBy: .Equal,
 			toItem: videoReview,
@@ -115,19 +113,19 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 			constant: 0))
 
 		if let media = media {
-			player.setUrl(media)
+			playView.player.setURL(media)
 		}
 
 		let notify = NSNotificationCenter.defaultCenter()
 		notify.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		notify.addObserver(self, selector: Selector("observeApplicationEnterBackground"), name: UIApplicationDidEnterBackgroundNotification, object: nil)
 		notify.addObserver(self, selector: Selector("updateVoteIndicators"), name: Sample.RatingUpdateNotification, object: sample)
 		notify.addObserver(self, selector: Selector("updateVoteIndicators"), name: Sample.VoteUpdateNotification, object: sample)
 	}
 
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
-		player.stop()
-		timer?.invalidate()
+		playView.player.pause()
 	}
 
 	override func viewDidAppear(animated: Bool) {
@@ -135,20 +133,19 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 		visible = true
 
 		navigationController?.navigationBar.topItem?.title = sample.event.name
-		player.delegate = self
-		if player.bufferingState == .Ready {
-			player.playFromBeginning()
-		}
+		playView.player.play()
 
 		Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description], timed: true)
 	}
 
 	override func viewDidDisappear(animated: Bool) {
 		super.viewDidDisappear(animated)
-		player.stop()
-		timer?.invalidate()
-		player.delegate = nil
-		Flurry.endTimedEvent("Sample_Tasted", withParameters: ["duration" : player.maximumDuration.description])
+		playView.player.pause()
+		var duration = 0.0
+		if let time = playView.player.player.currentItem?.duration {
+			duration = CMTimeGetSeconds(time)
+		}
+		Flurry.endTimedEvent("Sample_Tasted", withParameters: ["duration" : duration])
 		visible = false
 	}
 
@@ -223,62 +220,25 @@ class SampleTastePageController: UIViewController, PageProtocol, PlayerDelegate 
 
 	// MARK: Player
 
-	func playerPlaybackWillStartFromBeginning(player: Player) {
-		tick = 0.0
-		videoProgress.setProgress(CGFloat(tick), animated: false)
-		timer?.invalidate()
-		timer = NSTimer.scheduledTimerWithTimeInterval(tickInc, target: self, selector: Selector("playerTimer"), userInfo: nil, repeats: true)
+	func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, timeDidChange cmTime: CMTime) {
+		let cmTotal = videoPlayerView.player.player.currentItem!.duration
+		videoProgress.setProgress(CGFloat(CMTimeGetSeconds(cmTime)/CMTimeGetSeconds(cmTotal)), animated: true)
 	}
 
-	func playerPlaybackDidEnd(player: Player) {
-		videoProgress.setProgress(1.0, animated: false)
-		player.playFromBeginning()
-	}
-
-	func playerReady(player: Player) {
+	func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, didFailWithError error: NSError!) {
 		videoWaiting.stopAnimating()
-		if player.playbackState != .Playing {
-			player.playFromBeginning()
-		}
-	}
-
-	func playerPlaybackStateDidChange(player: Player) {
-		switch player.playbackState! {
-		case .Failed:
-			NSLog("Sample playback failed on page \(page) \(sample)")
-			fallthrough
-		case .Paused:
-			fallthrough
-		case .Stopped:
-			timer?.invalidate()
-		case .Playing:
-			break
-		}
-	}
-
-	func playerBufferingStateDidChange(player: Player) {
-		switch player.bufferingState {
-		case .Some(.Delayed):
-			NSLog("Sample buffering delayed on page \(page) \(sample)")
-		default:
-			break
-		}
-	}
-
-	// MARK: Timer
-
-	func playerTimer() {
-		tick += tickInc
-		videoProgress.setProgress(CGFloat(tick)/CGFloat(player.maximumDuration), animated: false)
+		videoFailed.hidden = false
+		Flurry.logError("Sample_Play_Error", message: "Video playback failed.", error: error)
 	}
 
 	// MARK: - Application Lifecycle
 
 	func observeApplicationBecameActive() {
-		if player.playbackState == .Paused && visible {
-			player.playFromCurrentTime()
-			timer = NSTimer.scheduledTimerWithTimeInterval(tickInc, target: self, selector: Selector("playerTimer"), userInfo: nil, repeats: true)
-		}
+		playView.player.play()
+	}
+
+	func observeApplicationEnterBackground() {
+		playView.player.pause()
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

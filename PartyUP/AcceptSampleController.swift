@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import Player
+import VIMVideoPlayer
 import ActionSheetPicker_3_0
 import JGProgressHUD
 import Flurry_iOS_SDK
 
-class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelegate {
+class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITextViewDelegate {
 
 	var videoUrl: NSURL?
 	var transitionStartY: CGFloat = 0.0
@@ -59,7 +59,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	@IBOutlet weak var review: UIView!
 	@IBOutlet weak var sendButton: UIButton!
 
-	private let player = Player()
+	private let playView = VIMVideoPlayerView()
 	private let progressHud = JGProgressHUD(style: .Light)
 
 	override func viewDidLoad() {
@@ -82,17 +82,15 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		sendButton.addSubview(sendAnimation)
 		sendButton.frame = sendAnimation.bounds
 
-		player.view.translatesAutoresizingMaskIntoConstraints = false
-		player.view.layer.cornerRadius = 10
-		player.view.layer.masksToBounds = true
-		player.playbackLoops = true
+		playView.translatesAutoresizingMaskIntoConstraints = false
+		playView.layer.cornerRadius = 10
+		playView.layer.masksToBounds = true
+		playView.player.looping = true
 
-		addChildViewController(player)
-		review.insertSubview(player.view, atIndex: 0)
-		player.didMoveToParentViewController(self)
+		review.insertSubview(playView, atIndex: 0)
 
 		review.addConstraint(NSLayoutConstraint(
-			item: player.view,
+			item: playView,
 			attribute: .CenterX,
 			relatedBy: .Equal,
 			toItem: review,
@@ -101,7 +99,7 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			constant: 0))
 
 		review.addConstraint(NSLayoutConstraint(
-			item: player.view,
+			item: playView,
 			attribute: .Width,
 			relatedBy: .Equal,
 			toItem: review,
@@ -110,16 +108,16 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			constant: 0))
 
 		review.addConstraint(NSLayoutConstraint(
-			item: player.view,
+			item: playView,
 			attribute: .Height,
 			relatedBy: .Equal,
-			toItem: player.view,
+			toItem: playView,
 			attribute: .Width,
 			multiplier: 1.0,
 			constant: 0))
 
 		review.addConstraint(NSLayoutConstraint(
-			item: player.view,
+			item: playView,
 			attribute: .Bottom,
 			relatedBy: .Equal,
 			toItem: review,
@@ -127,7 +125,9 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 			multiplier: 1.0,
 			constant: 0))
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		let notify = NSNotificationCenter.defaultCenter()
+		notify.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		notify.addObserver(self, selector: Selector("observeApplicationEnterBackground"), name: UIApplicationDidEnterBackgroundNotification, object: nil)
 	}
 
 	deinit {
@@ -328,23 +328,6 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		}
 	}
 
-	// MARK: - Player
-
-	func playerPlaybackWillStartFromBeginning(player: Player) {
-	}
-
-	func playerPlaybackDidEnd(player: Player) {
-	}
-
-	func playerReady(player: Player) {
-	}
-
-	func playerPlaybackStateDidChange(player: Player) {
-	}
-
-	func playerBufferingStateDidChange(player: Player) {
-	}
-
 	// MARK: - Hosted
 
 	private weak var host: BakeRootController?
@@ -356,10 +339,11 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 		if host == nil {
 			selectedLocal = 0
 			setCommentPlaceholder()
+			playView.player.pause()
 		} else {
 			if let url = videoUrl {
-				player.setUrl(url)
-				player.playFromBeginning()
+				playView.player.setURL(url)
+				playView.player.play()
 			}
 		}
 	}
@@ -367,9 +351,11 @@ class AcceptSampleController: UIViewController, PlayerDelegate, UITextViewDelega
 	// MARK: - Application Lifecycle
 
 	func observeApplicationBecameActive() {
-		if player.playbackState == .Paused && isViewLoaded() && view.window != nil {
-			player.playFromCurrentTime()
-		}
+		playView.player.play()
+	}
+
+	func observeApplicationEnterBackground() {
+		playView.player.pause()
 	}
 }
 

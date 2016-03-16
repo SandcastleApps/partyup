@@ -10,7 +10,7 @@ target 'PartyUP' do
 	pod 'INTULocationManager', '~> 4.1'
 	pod 'LMGeocoder', '~> 1.0'
 	pod 'PBJVision', '~> 0.4'
-	pod 'Player', '~> 0.1'
+	pod 'VIMVideoPlayer', '~> 6.0'
 	pod 'ActionSheetPicker-3.0', '~> 2.0'
 	pod 'JGProgressHUD', '~> 1.3'
 	pod 'Flurry-iOS-SDK', '~> 7.3'
