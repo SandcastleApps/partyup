@@ -54,7 +54,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 				for venue in venues {
 					observations.insert(venue)
 					notify.addObserver(self, selector: Selector("sampleFetchObserver:"), name: Venue.VitalityUpdateNotification, object: venue)
-					venue.fetchSamples(withStaleInterval: stale, andSuppression: suppress)
+					venue.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: 60)
 				}
 			}
 		}

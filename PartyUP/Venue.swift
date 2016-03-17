@@ -32,6 +32,7 @@ final class Venue: Hashable, CustomDebugStringConvertible
 
 	var samples: [Sample]? {
 		didSet {
+			fetching = (NSDate(), false)
 			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : oldValue?.count ?? 0])
 		}
 	}
@@ -41,6 +42,9 @@ final class Venue: Hashable, CustomDebugStringConvertible
 			return samples?.count ?? 0
 		}
 	}
+
+	private typealias FetchStatus = (latest: NSDate, processing: Bool)
+	private var fetching = FetchStatus(NSDate(timeIntervalSince1970: 0), false)
 
 	var ads: [Advertisement] {
 		return Advertisement.apropos(unique, ofFeed: Advertisement.FeedCategory.Venue) ?? []
@@ -104,24 +108,34 @@ final class Venue: Hashable, CustomDebugStringConvertible
 
 	func fetchSamples(
 		withStaleInterval stale: NSTimeInterval = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval),
-		andSuppression suppress: Int = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)) {
+		andSuppression suppress: Int = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold),
+		andTimeliness timely: NSTimeInterval = 0) {
 
-		let time = NSDate().timeIntervalSince1970 - stale
-		let query = AWSDynamoDBQueryExpression()
-		query.hashKeyValues = unique
-		query.filterExpression = "#t > :stale OR attribute_exists(#p)"
-			query.expressionAttributeNames = ["#t": "time", "#p": "prefix"]
-        query.expressionAttributeValues = [":stale" : NSNumber(double: time)]
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(Sample.SampleDB.self, expression: query).continueWithBlock { (task) in
-			if let result = task.result as? AWSDynamoDBPaginatedOutput {
-				if let items = result.items as? [Sample.SampleDB] {
-                    let wraps = items.map { Sample(data: $0, event: self) }.filter { ($0.rating[0] - $0.rating[1] > suppress) && !Defensive.shared.muted($0.user) }.sort { $0.time.compare($1.time) == .OrderedDescending }
-					dispatch_async(dispatch_get_main_queue()) { self.potentials = wraps }
+			if abs(fetching.latest.timeIntervalSinceNow) > timely {
+				if !fetching.processing {
+					fetching.processing = true
+					let time = NSDate().timeIntervalSince1970 - stale
+					let query = AWSDynamoDBQueryExpression()
+					query.hashKeyValues = unique
+					query.filterExpression = "#t > :stale OR attribute_exists(#p)"
+					query.expressionAttributeNames = ["#t": "time", "#p": "prefix"]
+					query.expressionAttributeValues = [":stale" : NSNumber(double: time)]
+					AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(Sample.SampleDB.self, expression: query).continueWithBlock { (task) in
+						if let result = task.result as? AWSDynamoDBPaginatedOutput {
+							if let items = result.items as? [Sample.SampleDB] {
+								let wraps = items.map { Sample(data: $0, event: self) }.filter { ($0.rating[0] - $0.rating[1] > suppress) && !Defensive.shared.muted($0.user) }.sort { $0.time.compare($1.time) == .OrderedDescending }
+								dispatch_async(dispatch_get_main_queue()) { self.potentials = wraps }
+							}
+						}
+
+						return nil
+					}
+				}
+			} else {
+				dispatch_async(dispatch_get_main_queue()) {
+					NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : self.vitality])
 				}
 			}
-
-			return nil
-		}
     }
 
 	func sieveSample(sample: Sample) {
