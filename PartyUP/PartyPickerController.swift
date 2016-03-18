@@ -21,6 +21,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	private var venues: [Venue]? {
 		didSet {
+            venues?.sortInPlace{ $0.promotion?.placement > $1.promotion?.placement }
 			partyTable?.reloadData()
 		}
 	}
@@ -29,9 +30,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	var parties: PartyPlace? {
 		didSet {
-			if parties !== oldValue || parties?.venues?.count > venueTotal {
+			if parties !== oldValue || parties?.venues.count > venueTotal {
 				updateSearchResultsForSearchController(searchController)
-				venueTotal = parties?.venues?.count ?? 0
+				venueTotal = parties?.venues.count ?? 0
 
 				if parties !== oldValue {
 					partyTable?.setContentOffset(CGPointZero, animated: false)
@@ -174,19 +175,19 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-		if let searchString = searchController.searchBar.text {
+		if let searchString = searchBar.text {
 			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
 		searchBar.searchBarStyle = .Minimal
-		venues = parties?.venues
+		updateSearchResultsForSearchController(searchController)
 	}
 
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		if let searchString = searchController.searchBar.text where searchController.active {
 			searchController.searchBar.searchBarStyle = .Prominent
-			venues = parties?.venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }.sort { $0.promotion?.placement > $1.promotion?.placement }
+			venues = parties?.venues.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
 		} else {
-			venues = parties?.venues?.sort { $0.promotion?.placement > $1.promotion?.placement }
+            venues = parties.flatMap{Array($0.venues)}
 		}
 	}
 

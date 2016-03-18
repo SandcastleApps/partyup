@@ -15,10 +15,11 @@ import Flurry_iOS_SDK
 
 class PartyPlace : FetchQueryable {
 	static let CityUpdateNotification = "CityUpdateNotification"
+    static let CityUpdateThrottlingInterval = 86400.0
 
 	let place: LMAddress
 	let pregame: Venue
-	var venues: [Venue]? {
+	var venues = Set<Venue>() {
 		didSet {
 			NSNotificationCenter.defaultCenter().postNotificationName(PartyPlace.CityUpdateNotification, object: self)
 		}
@@ -43,10 +44,9 @@ class PartyPlace : FetchQueryable {
 	}
 
 	func fetch(radius: Int, categories: String) {
-		if venues == nil {
+		if abs(lastFetchStatus.completed.timeIntervalSinceNow) > PartyPlace.CityUpdateThrottlingInterval || lastFetchStatus.error != nil  {
 			if !isFetching {
 				isFetching = true
-				venues = [Venue]()
 				let params = ["location" : "\(place.coordinate.latitude),\(place.coordinate.longitude)",
 					"types" : categories,
 					"rankby" : "distance",
@@ -60,15 +60,18 @@ class PartyPlace : FetchQueryable {
 		} else {
 			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
 			let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
-			venues?.forEach { $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress); $0.fetchPromotion() }
+			venues.forEach { $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress); $0.fetchPromotion() }
 			pregame.fetchSamples(withStaleInterval: stale, andSuppression: suppress)
+            NSNotificationCenter.defaultCenter().postNotificationName(PartyPlace.CityUpdateNotification, object: self)
 		}
 	}
 
 	func grokResponse(response: Response<AnyObject, NSError>) -> Void {
 		if response.result.isSuccess {
 			let json = JSON(data: response.data!)
-			venues! += json["results"].arrayValue.map { Venue(venue: $0) }
+            let local = json["results"].arrayValue.map{Venue(venue: $0)}
+            
+            dispatch_async(dispatch_get_main_queue()) { self.venues.unionInPlace(local) }
 
 			if let next = json["next_page_token"].string {
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
@@ -85,10 +88,6 @@ class PartyPlace : FetchQueryable {
 		} else {
 			isFetching = false
 			lastFetchStatus = FetchStatus(completed: NSDate(), response.result.error)
-
-			if let vens = venues where vens.isEmpty {
-				venues = nil
-			}
 			Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: response.result.error)
 		}
 	}

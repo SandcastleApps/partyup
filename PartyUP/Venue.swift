@@ -112,7 +112,7 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		andSuppression suppress: Int = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold),
 		andTimeliness timely: NSTimeInterval = 0) {
 
-			if abs(lastFetchStatus.completed.timeIntervalSinceNow) > timely {
+			if abs(lastFetchStatus.completed.timeIntervalSinceNow) > timely || lastFetchStatus.error != nil {
 				if !isFetching {
 					isFetching = true
 					let time = NSDate().timeIntervalSince1970 - stale
