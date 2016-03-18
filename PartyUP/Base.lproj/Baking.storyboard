@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -192,7 +193,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="200" ambiguous="YES" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RmL-zJ-VBo" userLabel="Comment">
-                                <rect key="frame" x="20" y="-58" width="560" height="24"/>
+                                <rect key="frame" x="20" y="-50" width="560" height="24"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="jzO-Ym-Yii"/>
@@ -218,8 +219,8 @@
                                 </variation>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgR-vF-K22">
-                                <rect key="frame" x="20" y="-26" width="560" height="34"/>
-                                <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                                <rect key="frame" x="20" y="-18" width="560" height="26"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
                                 <state key="normal" title="Venue">
                                     <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
