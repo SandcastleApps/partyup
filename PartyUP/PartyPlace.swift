@@ -13,14 +13,23 @@ import Alamofire
 import SwiftyJSON
 import Flurry_iOS_SDK
 
-class PartyPlace {
+class PartyPlace : FetchQueryable {
+	static let CityUpdateNotification = "CityUpdateNotification"
+
 	let place: LMAddress
 	let pregame: Venue
-	var venues: [Venue]?
+	var venues: [Venue]? {
+		didSet {
+			NSNotificationCenter.defaultCenter().postNotificationName(PartyPlace.CityUpdateNotification, object: self)
+		}
+	}
 
 	var ads: [Advertisement] {
 		return Advertisement.apropos(place.locality, ofFeed: .All) ?? []
 	}
+
+	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
+	private(set) var isFetching = false
 
 	private static let placesKey = "***REMOVED***"
 
@@ -33,52 +42,54 @@ class PartyPlace {
 		Advertisement.fetch(place)
 	}
 
-	func fetch(radius: Int, categories: String, completion: (Bool, Bool) -> Void) {
+	func fetch(radius: Int, categories: String) {
 		if venues == nil {
-			venues = [Venue]()
-			let params = ["location" : "\(place.coordinate.latitude),\(place.coordinate.longitude)",
-				"types" : categories,
-				"rankby" : "distance",
-				"key" : PartyPlace.placesKey]
-			Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
-				.validate()
-				.responseJSON { response in
-					self.grokResponse(completion, response: response)
+			if !isFetching {
+				isFetching = true
+				venues = [Venue]()
+				let params = ["location" : "\(place.coordinate.latitude),\(place.coordinate.longitude)",
+					"types" : categories,
+					"rankby" : "distance",
+					"key" : PartyPlace.placesKey]
+				Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
+					.validate()
+					.responseJSON { response in
+						self.grokResponse(response)
+				}
 			}
 		} else {
 			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
 			let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
 			venues?.forEach { $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress); $0.fetchPromotion() }
 			pregame.fetchSamples(withStaleInterval: stale, andSuppression: suppress)
-			completion(true, false)
 		}
 	}
 
-	func grokResponse(completion: (Bool, Bool) -> Void, response: Response<AnyObject, NSError>) -> Void {
+	func grokResponse(response: Response<AnyObject, NSError>) -> Void {
 		if response.result.isSuccess {
 			let json = JSON(data: response.data!)
-			for venue in json["results"].arrayValue {
-				venues!.append(Venue(venue: venue))
-			}
+			venues! += json["results"].arrayValue.map { Venue(venue: $0) }
 
 			if let next = json["next_page_token"].string {
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
 					Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : PartyPlace.placesKey])
 						.validate()
 						.responseJSON { response in
-							self.grokResponse(completion, response: response)
+							self.grokResponse(response)
 					}
 				}
-				completion(true, true)
 			} else {
-				completion(true, false)
+				isFetching = false
+				lastFetchStatus = FetchStatus(completed: NSDate(), error: nil)
 			}
 		} else {
+			isFetching = false
+			lastFetchStatus = FetchStatus(completed: NSDate(), response.result.error)
+
 			if let vens = venues where vens.isEmpty {
 				venues = nil
 			}
-			completion(false, false)
-			Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: nil)
+			Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: response.result.error)
 		}
 	}
 }

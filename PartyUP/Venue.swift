@@ -10,7 +10,7 @@ import SwiftyJSON
 import CoreLocation
 import AWSDynamoDB
 
-final class Venue: Hashable, CustomDebugStringConvertible
+final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 {
 	static let VitalityUpdateNotification = "VitalityUpdateNotification"
 	static let PromotionUpdateNotification = "PromotionUpdateNotification"
@@ -32,7 +32,8 @@ final class Venue: Hashable, CustomDebugStringConvertible
 
 	var samples: [Sample]? {
 		didSet {
-			fetching = (NSDate(), false)
+			lastFetchStatus = FetchStatus(completed: NSDate(), error: nil)
+			isFetching = false
 			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : oldValue?.count ?? 0])
 		}
 	}
@@ -43,8 +44,8 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		}
 	}
 
-	private typealias FetchStatus = (latest: NSDate, processing: Bool)
-	private var fetching = FetchStatus(NSDate(timeIntervalSince1970: 0), false)
+	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
+	private(set) var isFetching = false
 
 	var ads: [Advertisement] {
 		return Advertisement.apropos(unique, ofFeed: Advertisement.FeedCategory.Venue) ?? []
@@ -111,9 +112,9 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		andSuppression suppress: Int = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold),
 		andTimeliness timely: NSTimeInterval = 0) {
 
-			if abs(fetching.latest.timeIntervalSinceNow) > timely {
-				if !fetching.processing {
-					fetching.processing = true
+			if abs(lastFetchStatus.completed.timeIntervalSinceNow) > timely {
+				if !isFetching {
+					isFetching = true
 					let time = NSDate().timeIntervalSince1970 - stale
 					let query = AWSDynamoDBQueryExpression()
 					query.hashKeyValues = unique

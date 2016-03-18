@@ -201,7 +201,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
                     viewerVC.ads = (venues?[row]).flatMap { $0.ads } ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : venues?[row].name ?? "Mystery Venue"])
 				case (PartySections.animal, 0):
-					viewerVC.venues = venues
+					viewerVC.venues = parties?.isFetching ?? false ? venues : nil
                     viewerVC.ads = parties?.ads ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
 				case (PartySections.animal, 1):
@@ -214,5 +214,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				}
 			}
 		}
+	}
+
+	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
+		Flurry.logEvent("Returned_From_Tasting")
 	}
 }
