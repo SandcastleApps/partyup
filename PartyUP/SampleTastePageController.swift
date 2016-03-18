@@ -229,7 +229,9 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	// MARK: - Application Lifecycle
 
 	func observeApplicationBecameActive() {
-		playView.player.play()
+		if let pvc = parentViewController as? UIPageViewController where pvc.viewControllers?.first == self {
+			playView.player.play()
+		}
 	}
 
 	func observeApplicationEnterBackground() {
