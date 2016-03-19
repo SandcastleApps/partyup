@@ -47,6 +47,9 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
 	private(set) var isFetching = false
 
+	private(set) var lastPromotionFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
+	private(set) var isPromotionFetching = false
+
 	var ads: [Advertisement] {
 		return Advertisement.apropos(unique, ofFeed: Advertisement.FeedCategory.Venue) ?? []
 	}
@@ -73,9 +76,6 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		self.vicinity = vicinity
 		self.location = location
 
-		fetchPromotion()
-		fetchSamples()
-
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffendingSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
 	}
 
@@ -95,15 +95,25 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
-	func fetchPromotion() {
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(Promotion.PromotionDB.self, hashKey: unique, rangeKey: nil).continueWithSuccessBlock{ task in
-			if let result = task.result as? Promotion.PromotionDB where result.venue != nil {
-				dispatch_async(dispatch_get_main_queue()) { self.promotion = Promotion(data: result, venue: self) }
-			} else {
-				self.promotion = nil
+	func fetchPromotion(withTimeliness timely: NSTimeInterval = 0) {
+		if abs(lastPromotionFetchStatus.completed.timeIntervalSinceNow) > timely || lastPromotionFetchStatus.error != nil {
+			if !isPromotionFetching {
+				isPromotionFetching = true
+				AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(Promotion.PromotionDB.self, hashKey: unique, rangeKey: nil).continueWithBlock{ task in
+					if !task.faulted {
+						if let result = task.result as? Promotion.PromotionDB where result.venue != nil {
+							dispatch_async(dispatch_get_main_queue()) { self.promotion = Promotion(data: result, venue: self) }
+						} else {
+							self.promotion = nil
+						}
+					}
+
+					self.isPromotionFetching = false
+					self.lastPromotionFetchStatus = FetchStatus(completed: NSDate(), error: task.error)
+
+					return nil
+				}
 			}
-			
-			return nil
 		}
 	}
 
