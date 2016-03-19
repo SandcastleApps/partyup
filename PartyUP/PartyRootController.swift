@@ -265,7 +265,7 @@ class PartyRootController: UIViewController {
 		}
 		if segue.identifier == "Bake Sample Segue" {
 			let bakerVC = segue.destinationViewController as! BakeRootController
-			bakerVC.venues = regions.first??.venues ?? [Venue]()
+			bakerVC.venues = regions.first??.venues.flatMap{ $0 } ?? [Venue]()
 			bakerVC.pregame = regions.first??.pregame
 		}
 	}
