@@ -26,6 +26,10 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		if observations.isEmpty {
+			updateSampleDisplay()
+		}
+
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Sample.FlaggedUpdateNotification, object: nil)
     }
