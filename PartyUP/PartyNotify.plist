@@ -16,15 +16,19 @@
 		</array>
 		<key>action</key>
 		<string>find a party</string>
-		<key>when</key>
-		<dict>
-			<key>weekday</key>
-			<integer>6</integer>
-			<key>hour</key>
-			<integer>22</integer>
-			<key>minute</key>
-			<integer>30</integer>
-		</dict>
+		<key>whens</key>
+		<array>
+			<dict>
+				<key>weekday</key>
+				<integer>6</integer>
+				<key>hour</key>
+				<integer>22</integer>
+				<key>minute</key>
+				<integer>30</integer>
+				<key>range</key>
+				<integer>10</integer>
+			</dict>
+		</array>
 		<key>prebook</key>
 		<integer>10</integer>
 		<key>randomize</key>
@@ -46,15 +50,19 @@
 		</array>
 		<key>action</key>
 		<string>find a party</string>
-		<key>when</key>
-		<dict>
-			<key>weekday</key>
-			<integer>7</integer>
-			<key>hour</key>
-			<integer>22</integer>
-			<key>minute</key>
-			<integer>30</integer>
-		</dict>
+        <key>whens</key>
+        <array>
+            <dict>
+                <key>weekday</key>
+                <integer>7</integer>
+                <key>hour</key>
+                <integer>22</integer>
+                <key>minute</key>
+                <integer>30</integer>
+                <key>range</key>
+                <integer>10</integer>
+            </dict>
+        </array>
 		<key>prebook</key>
 		<integer>10</integer>
 		<key>randomize</key>

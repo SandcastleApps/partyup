@@ -128,32 +128,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
     
     func scheduleNotificationFromDictionary(notify: [String : AnyObject], inApplication application: UIApplication, withNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        if let when = notify["when"] as? [String:Int],
+        if let whens = notify["whens"] as? [[String:Int]],
             what = notify["messages"] as? [String],
             action = notify["action"] as? String,
             tag = notify["tag"] as? Int where what.count > 0 {
-            let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-            let relative = NSDateComponents()
-            relative.calendar = calendar
-            relative.hour = when["hour"] ?? NSDateComponentUndefined
-            relative.minute = when["minute"] ?? NSDateComponentUndefined
-            relative.weekday = when["weekday"] ?? NSDateComponentUndefined
-            let iterations = notify["prebook"] as? Int ?? 0
-            let randomize = notify["randomize"] as? Bool ?? false
-            var date = NSDate()
-            for i in 0..<iterations {
-                if let futureDate = calendar?.nextDateAfterDate(date, matchingComponents: relative, options: .MatchNextTime) {
-                    let localNote = UILocalNotification()
-                    localNote.alertAction = action
-                    localNote.alertBody = what[randomize ? Int(arc4random_uniform(UInt32(what.count))) : i % what.count]
-                    localNote.userInfo = ["tag" : tag]
-                    localNote.soundName = "drink.caf"
-                    localNote.fireDate = futureDate
-                    localNote.timeZone = NSTimeZone.defaultTimeZone()
-                    application.scheduleLocalNotification(localNote)
-                    date = futureDate
+                let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+                for when in whens {
+                    let relative = NSDateComponents()
+                    relative.calendar = calendar
+                    relative.hour = when["hour"] ?? NSDateComponentUndefined
+                    relative.minute = when["minute"] ?? NSDateComponentUndefined
+                    relative.weekday = when["weekday"] ?? NSDateComponentUndefined
+                    let range = when["range"] ?? 0
+                    let iterations = notify["prebook"] as? Int ?? 0
+                    let randomize = notify["randomize"] as? Bool ?? false
+                    var date = NSDate()
+                    for i in 0..<iterations {
+                        if let futureDate = calendar?.nextDateAfterDate(date, matchingComponents: relative, options: .MatchNextTime) {
+                            let localNote = UILocalNotification()
+                            localNote.alertAction = action
+                            localNote.alertBody = what[randomize ? Int(arc4random_uniform(UInt32(what.count))) : i % what.count]
+                            localNote.userInfo = ["tag" : tag]
+                            localNote.soundName = "drink.caf"
+                            let offset = (NSTimeInterval(arc4random_uniform(UInt32(range))) - (NSTimeInterval(range)/2)) * 60
+                            localNote.fireDate = futureDate.dateByAddingTimeInterval(offset)
+                            localNote.timeZone = NSTimeZone.defaultTimeZone()
+                            application.scheduleLocalNotification(localNote)
+                            date = futureDate
+                        }
+                    }
                 }
-            }
         }
     }
 }
