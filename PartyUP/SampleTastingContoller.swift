@@ -26,7 +26,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		if observations.isEmpty {
+		if venues != nil && observations.isEmpty {
 			updateSampleDisplay()
 		}
 
