@@ -40,6 +40,7 @@ class PartyRootController: UIViewController {
 		let nc = NSNotificationCenter.defaultCenter()
 		nc.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
 		nc.addObserver(self, selector: Selector("refreshSelectedRegion"), name: PartyPickerController.VenueRefreshRequest, object: nil)
+		nc.addObserver(self, selector: Selector("observeCityUpdateNotification:"), name: PartyPlace.CityUpdateNotification, object: nil)
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: Selector("refreshAdvertising"), userInfo: nil, repeats: true)
     }
@@ -154,28 +155,30 @@ class PartyRootController: UIViewController {
             
             if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
                 let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
-                place.fetch(radius, categories: categories) { (success, more) in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if success {
-                            self.partyPicker.parties = self.regions[self.selectedRegion]
-                        } else {
-                            presentResultHud(self.progressHud,
-                                inView: self.view,
-                                withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
-                                andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
-                                indicatingSuccess: false)
-                        }
-                        
-                        if !more {
-                            self.busyIndicator.stopAnimating()
-                            self.busyLabel.text = ""
-                        }
-                    }
-                }
-            }
+                place.fetch(radius, categories: categories)
+			}
         } else {
             self.partyPicker.parties = self.regions[self.selectedRegion]
         }
+	}
+
+	func observeCityUpdateNotification(note: NSNotification) {
+		if let city = note.object as? PartyPlace {
+			if city.lastFetchStatus.error == nil {
+				self.partyPicker.parties = self.regions[self.selectedRegion]
+			} else {
+				presentResultHud(self.progressHud,
+					inView: self.view,
+					withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
+					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
+					indicatingSuccess: false)
+			}
+
+			if !city.isFetching {
+				self.busyIndicator.stopAnimating()
+				self.busyLabel.text = ""
+			}
+		}
 	}
 
 	override func viewDidAppear(animated: Bool) {
@@ -262,7 +265,7 @@ class PartyRootController: UIViewController {
 		}
 		if segue.identifier == "Bake Sample Segue" {
 			let bakerVC = segue.destinationViewController as! BakeRootController
-			bakerVC.venues = regions.first??.venues ?? [Venue]()
+			bakerVC.venues = regions.first??.venues.flatMap{ $0 } ?? [Venue]()
 			bakerVC.pregame = regions.first??.pregame
 		}
 	}
@@ -291,16 +294,10 @@ class PartyRootController: UIViewController {
 	@IBAction func sequeFromBaking(segue: UIStoryboardSegue) {
 	}
 
-	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
-		Flurry.logEvent("Returned_From_Tasting")
-	}
-
 	@IBAction func segueFromAcknowledgements(segue: UIStoryboardSegue) {
-
 	}
 
 	@IBAction func segueFromTutorial(segue: UIStoryboardSegue) {
-
 	}
 
 	func observeApplicationBecameActive() {

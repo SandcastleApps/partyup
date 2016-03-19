@@ -21,6 +21,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	private var venues: [Venue]? {
 		didSet {
+            venues?.sortInPlace{ $0.promotion?.placement > $1.promotion?.placement }
 			partyTable?.reloadData()
 		}
 	}
@@ -29,12 +30,17 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	var parties: PartyPlace? {
 		didSet {
-			if parties !== oldValue || parties?.venues?.count > venueTotal {
+			if parties !== oldValue || parties?.venues.count > venueTotal {
 				updateSearchResultsForSearchController(searchController)
-				venueTotal = parties?.venues?.count ?? 0
+				venueTotal = parties?.venues.count ?? 0
 
 				if parties !== oldValue {
 					partyTable?.setContentOffset(CGPointZero, animated: false)
+				}
+
+				if let parti = parties, avc = navigationController?.topViewController as? SampleTastingContoller
+					where !parti.isFetching && avc.venues == nil {
+					avc.venues = venues
 				}
 			}
 
@@ -174,19 +180,19 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-		if let searchString = searchController.searchBar.text {
+		if let searchString = searchBar.text {
 			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
 		searchBar.searchBarStyle = .Minimal
-		venues = parties?.venues
+		updateSearchResultsForSearchController(searchController)
 	}
 
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		if let searchString = searchController.searchBar.text where searchController.active {
 			searchController.searchBar.searchBarStyle = .Prominent
-			venues = parties?.venues?.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }.sort { $0.promotion?.placement > $1.promotion?.placement }
+			venues = parties?.venues.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
 		} else {
-			venues = parties?.venues?.sort { $0.promotion?.placement > $1.promotion?.placement }
+            venues = parties.flatMap{Array($0.venues)}
 		}
 	}
 
@@ -197,15 +203,17 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
 				switch (selection.section, selection.row) {
 				case (PartySections.venue, let row):
-					viewerVC.venues = (venues?[row]).map { [$0] }
+					viewerVC.venues = (venues?[row]).map { [$0] } ?? []
                     viewerVC.ads = (venues?[row]).flatMap { $0.ads } ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : venues?[row].name ?? "Mystery Venue"])
 				case (PartySections.animal, 0):
-					viewerVC.venues = venues
+					if let parti = parties where !parti.isFetching {
+						viewerVC.venues = venues
+					}
                     viewerVC.ads = parties?.ads ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
 				case (PartySections.animal, 1):
-					viewerVC.venues = (parties?.pregame).map { [$0] }
+					viewerVC.venues = (parties?.pregame).map { [$0] } ?? []
                     viewerVC.ads = (parties?.pregame).flatMap { $0.ads } ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.pregame.name ?? "Pregame"])
 				default:
@@ -214,5 +222,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				}
 			}
 		}
+	}
+
+	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
+		Flurry.logEvent("Returned_From_Tasting")
 	}
 }

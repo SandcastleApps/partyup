@@ -10,7 +10,7 @@ import SwiftyJSON
 import CoreLocation
 import AWSDynamoDB
 
-final class Venue: Hashable, CustomDebugStringConvertible
+final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 {
 	static let VitalityUpdateNotification = "VitalityUpdateNotification"
 	static let PromotionUpdateNotification = "PromotionUpdateNotification"
@@ -32,7 +32,8 @@ final class Venue: Hashable, CustomDebugStringConvertible
 
 	var samples: [Sample]? {
 		didSet {
-			fetching = (NSDate(), false)
+			lastFetchStatus = FetchStatus(completed: NSDate(), error: nil)
+			isFetching = false
 			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : oldValue?.count ?? 0])
 		}
 	}
@@ -43,8 +44,11 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		}
 	}
 
-	private typealias FetchStatus = (latest: NSDate, processing: Bool)
-	private var fetching = FetchStatus(NSDate(timeIntervalSince1970: 0), false)
+	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
+	private(set) var isFetching = false
+
+	private(set) var lastPromotionFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
+	private(set) var isPromotionFetching = false
 
 	var ads: [Advertisement] {
 		return Advertisement.apropos(unique, ofFeed: Advertisement.FeedCategory.Venue) ?? []
@@ -72,9 +76,6 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		self.vicinity = vicinity
 		self.location = location
 
-		fetchPromotion()
-		fetchSamples()
-
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffendingSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
 	}
 
@@ -94,15 +95,25 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
-	func fetchPromotion() {
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(Promotion.PromotionDB.self, hashKey: unique, rangeKey: nil).continueWithSuccessBlock{ task in
-			if let result = task.result as? Promotion.PromotionDB where result.venue != nil {
-				dispatch_async(dispatch_get_main_queue()) { self.promotion = Promotion(data: result, venue: self) }
-			} else {
-				self.promotion = nil
+	func fetchPromotion(withTimeliness timely: NSTimeInterval = 0) {
+		if abs(lastPromotionFetchStatus.completed.timeIntervalSinceNow) > timely || lastPromotionFetchStatus.error != nil {
+			if !isPromotionFetching {
+				isPromotionFetching = true
+				AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(Promotion.PromotionDB.self, hashKey: unique, rangeKey: nil).continueWithBlock{ task in
+					if !task.faulted {
+						if let result = task.result as? Promotion.PromotionDB where result.venue != nil {
+							dispatch_async(dispatch_get_main_queue()) { self.promotion = Promotion(data: result, venue: self) }
+						} else {
+							self.promotion = nil
+						}
+					}
+
+					self.isPromotionFetching = false
+					self.lastPromotionFetchStatus = FetchStatus(completed: NSDate(), error: task.error)
+
+					return nil
+				}
 			}
-			
-			return nil
 		}
 	}
 
@@ -111,9 +122,9 @@ final class Venue: Hashable, CustomDebugStringConvertible
 		andSuppression suppress: Int = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold),
 		andTimeliness timely: NSTimeInterval = 0) {
 
-			if abs(fetching.latest.timeIntervalSinceNow) > timely {
-				if !fetching.processing {
-					fetching.processing = true
+			if abs(lastFetchStatus.completed.timeIntervalSinceNow) > timely || lastFetchStatus.error != nil {
+				if !isFetching {
+					isFetching = true
 					let time = NSDate().timeIntervalSince1970 - stale
 					let query = AWSDynamoDBQueryExpression()
 					query.hashKeyValues = unique
