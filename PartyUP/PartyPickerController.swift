@@ -37,6 +37,11 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				if parties !== oldValue {
 					partyTable?.setContentOffset(CGPointZero, animated: false)
 				}
+
+				if let parti = parties, avc = navigationController?.topViewController as? SampleTastingContoller
+					where !parti.isFetching && avc.venues == nil {
+					avc.venues = venues
+				}
 			}
 
 			refreshControl?.endRefreshing()
@@ -198,15 +203,17 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
 				switch (selection.section, selection.row) {
 				case (PartySections.venue, let row):
-					viewerVC.venues = (venues?[row]).map { [$0] }
+					viewerVC.venues = (venues?[row]).map { [$0] } ?? []
                     viewerVC.ads = (venues?[row]).flatMap { $0.ads } ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : venues?[row].name ?? "Mystery Venue"])
 				case (PartySections.animal, 0):
-					viewerVC.venues = parties?.isFetching ?? true ? nil : venues
+					if let parti = parties where !parti.isFetching {
+						viewerVC.venues = venues
+					}
                     viewerVC.ads = parties?.ads ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
 				case (PartySections.animal, 1):
-					viewerVC.venues = (parties?.pregame).map { [$0] }
+					viewerVC.venues = (parties?.pregame).map { [$0] } ?? []
                     viewerVC.ads = (parties?.pregame).flatMap { $0.ads } ?? []
 					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.pregame.name ?? "Pregame"])
 				default:
