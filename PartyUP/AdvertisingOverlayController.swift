@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import Flurry_iOS_SDK
 
 class AdvertisingOverlayController: UIViewController, WKNavigationDelegate, PageProtocol {
     
@@ -43,6 +44,9 @@ class AdvertisingOverlayController: UIViewController, WKNavigationDelegate, Page
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
+        if let url = url {
+            Flurry.logEvent("Advertisement_Viewed", withParameters: ["url" : url.description, "overlay" : page == nil])
+        }
 
 		if page != nil {
 			navigationController?.navigationBar.topItem?.title = NSLocalizedString("Advertisement", comment: "Avdertisement page navigation title")
@@ -52,6 +56,7 @@ class AdvertisingOverlayController: UIViewController, WKNavigationDelegate, Page
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.URL where navigationAction.navigationType == .LinkActivated {
             UIApplication.sharedApplication().openURL(url)
+            Flurry.logEvent("Advertisement_Navigated", withParameters: ["target" : url.description])
             decisionHandler(.Cancel)
         } else {
             decisionHandler(.Allow)
