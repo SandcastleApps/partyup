@@ -160,19 +160,21 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
 		sample.setVote(vote)
 		voteButtons.forEach { button in button.selected = false }
+        Flurry.logEvent("Vote_Cast", withParameters: ["vote" : vote.rawValue])
 	}
 
 	func purveyOffensive() {
+        let user = UIDevice.currentDevice().identifierForVendor!
 		let options = UIAlertController(
 			title: NSLocalizedString("Offensive Material", comment: "Offensive material alert title"),
 			message: NSLocalizedString("Give this offensive video the boot!", comment: "Offensive material alert message"),
 			preferredStyle: .Alert)
 		let report = UIAlertAction(
 			title: NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action"),
-			style: .Destructive) { _ in self.sample.setVote(Vote.Down, andFlag: true) }
+            style: .Destructive) { _ in self.sample.setVote(Vote.Down, andFlag: true); Flurry.logEvent("Offensive_Sample_Reported", withParameters: [ "reporter" : user, "sample" : self.sample.media.description]) }
 		let mute = UIAlertAction(
 			title: NSLocalizedString("Mute Contributor", comment: "Mute contributor alert action"),
-			style: .Destructive) { _ in Defensive.shared.mute(self.sample.user) }
+            style: .Destructive) { _ in Defensive.shared.mute(self.sample.user); Flurry.logEvent("Offensive_User_Muted", withParameters: ["reporter" : user, "offender" : self.sample.user.UUIDString]) }
 		let cancel = UIAlertAction(
 			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
 			style: .Cancel) { _ in }
