@@ -191,7 +191,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 	{
 		if let index = (pageViewController.viewControllers?.first as? PageProtocol)?.page {
 			let prev = !(index > 0)
-			let next = !(index < pages.count)
+			let next = !(index < pages.count - 1)
 
 			if prev != previousPage.hidden {
 				UIView.animateWithDuration(0.5, animations: { self.previousPage.transform = prev ? CGAffineTransformMakeScale(0.1, 0.1) : CGAffineTransformIdentity }, completion: { (done) in self.previousPage.hidden = prev })
