@@ -42,7 +42,7 @@ func formatRelativeDateFrom(from: NSDate, toDate to: NSDate = NSDate(), compact:
 			case 1:
 				stringy += compact ? "1m " : NSLocalizedString("1 minute ", comment: "Relative minute, be sure to leave space at end")
 			case let x where x > 1:
-				stringy += compact ? "1m " : NSLocalizedString("\(x) minutes ", comment: "Relative minutes, be sure to leave space at end")
+				stringy += compact ? "\(x)m " : NSLocalizedString("\(x) minutes ", comment: "Relative minutes, be sure to leave space at end")
 			default:
 				stringy += ""
 			}
