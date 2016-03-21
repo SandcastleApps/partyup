@@ -34,7 +34,6 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	@IBOutlet var voteButtons: [UIButton]!
 
 	private let playView = VIMVideoPlayerView()
-	private var visible = false
 	private var displayRelativeTime = true
     private var media: NSURL?
 
@@ -125,7 +124,6 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-		visible = true
 
 		navigationController?.navigationBar.topItem?.title = sample.event.name
 		playView.player.play()
@@ -141,7 +139,6 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 			duration = CMTimeGetSeconds(time)
 		}
 		Flurry.endTimedEvent("Sample_Tasted", withParameters: ["duration" : duration])
-		visible = false
 	}
 
 	func updateVoteIndicators() {
@@ -218,7 +215,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	// MARK: Player
 
 	func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, timeDidChange cmTime: CMTime) {
-		let cmTotal = videoPlayerView.player.player.currentItem!.duration
+		let cmTotal = videoPlayerView.player.player.currentItem?.duration ?? CMTimeMakeWithSeconds(0, 1)
 		videoProgress.setProgress(CGFloat(CMTimeGetSeconds(cmTime)/CMTimeGetSeconds(cmTotal)), animated: true)
 	}
 
