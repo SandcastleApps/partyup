@@ -26,7 +26,7 @@ func formatRelativeDateFrom(from: NSDate, toDate to: NSDate = NSDate(), compact:
 			case let x where x > 1:
 				stringy = compact ? "\(x)d " : NSLocalizedString("\(x) days ", comment: "Relative days, be sure to leave the space at the end")
 			default:
-				stringy = ""
+				break
 			}
 
 			switch components.hour {
@@ -35,7 +35,7 @@ func formatRelativeDateFrom(from: NSDate, toDate to: NSDate = NSDate(), compact:
 			case let x where x > 1:
 				stringy += compact ? "\(x)h " : NSLocalizedString("\(x) hours ", comment: "Relative hours, be sure to leave the space at the end")
 			default:
-				stringy = ""
+				break
 			}
 
 			switch components.minute {
@@ -44,7 +44,7 @@ func formatRelativeDateFrom(from: NSDate, toDate to: NSDate = NSDate(), compact:
 			case let x where x > 1:
 				stringy += compact ? "\(x)m " : NSLocalizedString("\(x) minutes ", comment: "Relative minutes, be sure to leave space at end")
 			default:
-				stringy += ""
+				break
 			}
 
 			stringy += stringy.isEmpty ? NSLocalizedString("very fresh", comment: "Relative less than a minute old") : NSLocalizedString("ago", comment:"Samples more than a minute old")
