@@ -224,6 +224,10 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		videoFailed.hidden = false
 		Flurry.logError("Sample_Play_Error", message: "Video playback failed.", error: error)
 	}
+    
+    func videoPlayerViewIsReadyToPlayVideo(videoPlayerView: VIMVideoPlayerView!) {
+        videoWaiting.stopAnimating()
+    }
 
 	// MARK: - Application Lifecycle
 
