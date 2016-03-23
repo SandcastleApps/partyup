@@ -66,12 +66,12 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
 
-		freshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("updateFreshnessIndicators"), userInfo: nil, repeats: true)
+		freshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(PartyPickerController.updateFreshnessIndicators), userInfo: nil, repeats: true)
 
 		let nc = NSNotificationCenter.defaultCenter()
-		nc.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
-		nc.addObserver(self, selector: Selector("observeApplicationBecameInactive"), name: UIApplicationDidEnterBackgroundNotification, object: nil)
-		nc.addObserver(self, selector: Selector("updatePromotions:"), name: Venue.PromotionUpdateNotification, object: nil)
+		nc.addObserver(self, selector: #selector(PartyPickerController.observeApplicationBecameActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		nc.addObserver(self, selector: #selector(PartyPickerController.observeApplicationBecameInactive), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+		nc.addObserver(self, selector: #selector(PartyPickerController.updatePromotions(_:)), name: Venue.PromotionUpdateNotification, object: nil)
     }
 
 	deinit {
@@ -79,7 +79,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func observeApplicationBecameActive() {
-		freshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: Selector("updateFreshnessIndicators"), userInfo: nil, repeats: true)
+		freshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(PartyPickerController.updateFreshnessIndicators), userInfo: nil, repeats: true)
 		updateFreshnessIndicators()
 	}
 

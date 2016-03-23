@@ -76,7 +76,7 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		self.vicinity = vicinity
 		self.location = location
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffendingSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(Venue.sieveOffendingSamples), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
 	}
 
 	convenience init(venue: JSON) {

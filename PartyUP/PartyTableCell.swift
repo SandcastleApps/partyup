@@ -33,8 +33,8 @@ class PartyTableCell: UITableViewCell {
 				venues.forEach { venue in
 					self.videoTotal += venue.vitality
 					self.videoDate = greaterDate(one: venue.samples?.first?.time, two: videoDate)
-					nc.addObserver(self, selector: Selector("updateVitality:"), name: Venue.VitalityUpdateNotification, object: venue)
-					nc.addObserver(self, selector: Selector("updateTagline"), name: Venue.PromotionUpdateNotification, object: venue)
+					nc.addObserver(self, selector: #selector(PartyTableCell.updateVitality(_:)), name: Venue.VitalityUpdateNotification, object: venue)
+					nc.addObserver(self, selector: #selector(PartyTableCell.updateTagline), name: Venue.PromotionUpdateNotification, object: venue)
 				}
 			}
 			updateVitalityInfo()

@@ -126,8 +126,8 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			constant: 0))
 
 		let notify = NSNotificationCenter.defaultCenter()
-		notify.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
-		notify.addObserver(self, selector: Selector("observeApplicationEnterBackground"), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+		notify.addObserver(self, selector: #selector(AcceptSampleController.observeApplicationBecameActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		notify.addObserver(self, selector: #selector(AcceptSampleController.observeApplicationEnterBackground), name: UIApplicationDidEnterBackgroundNotification, object: nil)
 	}
 
 	deinit {

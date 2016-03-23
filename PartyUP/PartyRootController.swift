@@ -38,11 +38,11 @@ class PartyRootController: UIViewController {
 		resolveLocalPlacemark()
 
 		let nc = NSNotificationCenter.defaultCenter()
-		nc.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
-		nc.addObserver(self, selector: Selector("refreshSelectedRegion"), name: PartyPickerController.VenueRefreshRequest, object: nil)
-		nc.addObserver(self, selector: Selector("observeCityUpdateNotification:"), name: PartyPlace.CityUpdateNotification, object: nil)
+		nc.addObserver(self, selector: #selector(PartyRootController.observeApplicationBecameActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		nc.addObserver(self, selector: #selector(PartyRootController.refreshSelectedRegion), name: PartyPickerController.VenueRefreshRequest, object: nil)
+		nc.addObserver(self, selector: #selector(PartyRootController.observeCityUpdateNotification(_:)), name: PartyPlace.CityUpdateNotification, object: nil)
 
-		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: Selector("refreshAdvertising"), userInfo: nil, repeats: true)
+		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
     }
 
 	func refreshSelectedRegion() {

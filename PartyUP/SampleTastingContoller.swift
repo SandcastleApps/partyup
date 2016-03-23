@@ -30,8 +30,8 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 			updateSampleDisplay()
 		}
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("sieveOffensiveSamples"), name: Sample.FlaggedUpdateNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SampleTastingContoller.sieveOffensiveSamples), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SampleTastingContoller.sieveOffensiveSamples), name: Sample.FlaggedUpdateNotification, object: nil)
     }
 
 	deinit {
@@ -57,7 +57,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 			if let venues = venues {
 				for venue in venues {
 					observations.insert(venue)
-					notify.addObserver(self, selector: Selector("sampleFetchObserver:"), name: Venue.VitalityUpdateNotification, object: venue)
+					notify.addObserver(self, selector: #selector(SampleTastingContoller.sampleFetchObserver(_:)), name: Venue.VitalityUpdateNotification, object: venue)
 					venue.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: 60)
 				}
 			}

@@ -111,10 +111,10 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		}
 
 		let notify = NSNotificationCenter.defaultCenter()
-		notify.addObserver(self, selector: Selector("observeApplicationBecameActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
-		notify.addObserver(self, selector: Selector("observeApplicationEnterBackground"), name: UIApplicationDidEnterBackgroundNotification, object: nil)
-		notify.addObserver(self, selector: Selector("updateVoteIndicators"), name: Sample.RatingUpdateNotification, object: sample)
-		notify.addObserver(self, selector: Selector("updateVoteIndicators"), name: Sample.VoteUpdateNotification, object: sample)
+		notify.addObserver(self, selector: #selector(SampleTastePageController.observeApplicationBecameActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		notify.addObserver(self, selector: #selector(SampleTastePageController.observeApplicationEnterBackground), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+		notify.addObserver(self, selector: #selector(SampleTastePageController.updateVoteIndicators), name: Sample.RatingUpdateNotification, object: sample)
+		notify.addObserver(self, selector: #selector(SampleTastePageController.updateVoteIndicators), name: Sample.VoteUpdateNotification, object: sample)
 	}
 
 	deinit {

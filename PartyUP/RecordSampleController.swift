@@ -193,7 +193,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	func vision(vision: PBJVision, willStartVideoCaptureToFile fileName: String) -> String {
 		dispatch_async(dispatch_get_main_queue()) {
 			self.resetTimerBar()
-			self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("observeTimerInterval"), userInfo: nil, repeats: true)
+			self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(RecordSampleController.observeTimerInterval), userInfo: nil, repeats: true)
 		}
 
 		return fileName
