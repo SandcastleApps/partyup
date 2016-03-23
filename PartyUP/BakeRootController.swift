@@ -47,7 +47,7 @@ class BakeRootController: UIViewController {
 		INTULocationManager.sharedInstance().cancelLocationRequest(locationRequestId)
 	}
 
-	func determineLocation(var remainingRetries retry: Int) {
+	func determineLocation(remainingRetries retry: Int) {
 		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.House, timeout: 3 * NSTimeInterval(1 + locationRetryMax - retry)) { (location, accuracy, status) in
 			if status == .Success || (status == .TimedOut && accuracy.rawValue >= self.locationTimeoutTolerance[retry].rawValue) {
 				let radius = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.SampleRadius)
@@ -56,6 +56,7 @@ class BakeRootController: UIViewController {
 			} else {
 				var message = "Unknown Error"
 				var hud = true
+				var tries = retry
 
 				switch status {
 				case .ServicesRestricted:
@@ -65,11 +66,11 @@ class BakeRootController: UIViewController {
 				case .ServicesDenied:
 					message = NSLocalizedString("Please enable \"While Using the App\" location access for PartyUP to submit videos.", comment: "Location services denied alert message while recording")
 					hud = false
-					retry = 0
+					tries = 0
 				case .ServicesDisabled:
 					message = NSLocalizedString("Please enable location services to submit videos.", comment: "Location services disabled alert message while recording")
 					hud = false
-					retry = 0
+					tries = 0
 				case .TimedOut:
 					message = NSLocalizedString("Timed out determining your location, try again later.", comment: "Location services timeout hud message while recording")
 					hud = true
@@ -81,8 +82,8 @@ class BakeRootController: UIViewController {
 					hud = true
 				}
 				dispatch_async(dispatch_get_main_queue()) {
-					if retry > 0 {
-						self.determineLocation(remainingRetries: retry - 1)
+					if tries > 0 {
+						self.determineLocation(remainingRetries: tries - 1)
 					} else {
 						self.locals = [Venue]()
 
