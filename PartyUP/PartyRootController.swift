@@ -20,7 +20,8 @@ class PartyRootController: UIViewController {
 	@IBOutlet weak var busyIndicator: UIActivityIndicatorView!
 	@IBOutlet weak var busyLabel: UILabel!
 	@IBOutlet weak var ackButton: UIButton!
-
+	@IBOutlet weak var reminderButton: UIButton!
+	
 	private let progressHud = JGProgressHUD(style: .Light)
 
 	private var partyPicker: PartyPickerController!
@@ -33,6 +34,9 @@ class PartyRootController: UIViewController {
         super.viewDidLoad()
 
 		UIView.animateWithDuration(0.5, delay: 0, options: [.Autoreverse, .Repeat, .AllowUserInteraction], animations: { self.ackButton.alpha = 0.85 }, completion: nil)
+
+		reminderButton.hidden = !NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.RemindersInterface)
+		scheduleReminders()
 
 		resolvePopularPlacemarks()
 		resolveLocalPlacemark()
@@ -289,6 +293,19 @@ class PartyRootController: UIViewController {
 				// cancelled
 			},
 			origin: sender)
+	}
+
+	private var reminder = UILocalNotification()
+	
+	@IBAction func setReminders(sender: UIButton) {
+//		let defaults = NSUserDefaults.standardUserDefaults()
+//		var interval = defaults.integerForKey(PartyUpPreferences.RemindersInterval)
+	}
+
+	private func scheduleReminders() {
+
+
+
 	}
 
 	@IBAction func sequeFromBaking(segue: UIStoryboardSegue) {

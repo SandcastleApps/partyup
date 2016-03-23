@@ -23,6 +23,8 @@ struct PartyUpPreferences
 	static let StickyTowns = "StickyTowns"
 	static let PlayTutorial = "Tutorial"
     static let AgreedToTerms = "Terms"
+	static let RemindersInterface = "RemindersInterface"
+	static let RemindersInterval = "RemindersInterval"
     static let SampleSuppressionThreshold = "SampleSuppressionThreshold"
 }
 
