@@ -35,8 +35,10 @@ class PartyRootController: UIViewController {
 
 		UIView.animateWithDuration(0.5, delay: 0, options: [.Autoreverse, .Repeat, .AllowUserInteraction], animations: { self.ackButton.alpha = 0.85 }, completion: nil)
 
-		reminderButton.hidden = !NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.RemindersInterface)
-		scheduleReminders()
+        if let settings = UIApplication.sharedApplication().currentUserNotificationSettings() where settings.types != .None {
+            reminderButton.hidden = !NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.RemindersInterface)
+            scheduleReminders()
+        }
 
 		resolvePopularPlacemarks()
 		resolveLocalPlacemark()
@@ -294,8 +296,6 @@ class PartyRootController: UIViewController {
 			},
 			origin: sender)
 	}
-
-	private var reminder = UILocalNotification()
 	
 	@IBAction func setReminders(sender: UIButton) {
 		let defaults = NSUserDefaults.standardUserDefaults()
@@ -306,29 +306,48 @@ class PartyRootController: UIViewController {
 	}
 
 	private func scheduleReminders() {
-		let interval = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.RemindersInterval)
-		let calendar = NSCalendar.currentCalendar()
-		let relative = NSDateComponents()
-		relative.calendar = calendar
-		relative.minute = 0
-		let future = calendar.nextDateAfterDate(NSDate(), matchingComponents: relative, options: .MatchNextTime)
-		let localNote = UILocalNotification()
-		localNote.alertAction = NSLocalizedString("submit a video", comment: "Reminders alert action")
-		localNote.alertBody = NSLocalizedString("Time to record a party video!", comment: "Reminders alert body")
-		localNote.userInfo = ["reminder" : 0]
-		localNote.soundName = "drink.caf"
-		localNote.fireDate = future
-		localNote.repeatInterval = .Hour
-		localNote.timeZone = NSTimeZone.defaultTimeZone()
-		UIApplication.sharedApplication().scheduleLocalNotification(localNote)
-
+        let application = UIApplication.sharedApplication()
+        let interval = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.RemindersInterval)
+        
+        if let notes = application.scheduledLocalNotifications {
+            for note in notes {
+                if note.userInfo?["reminder"] != nil {
+                    application.cancelLocalNotification(note)
+                }
+            }
+        }
+        
+        var minutes = [Int]()
+        if interval > 0 { minutes.append(0) }
+        if interval == 30 { minutes.append(30) }
+        
+        let now = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let relative = NSDateComponents()
+        relative.calendar = calendar
+        
+        for minute in minutes {
+            relative.minute = minute
+            let future = calendar.nextDateAfterDate(now, matchingComponents: relative, options: .MatchNextTime)
+            let localNote = UILocalNotification()
+            localNote.alertAction = NSLocalizedString("submit a video", comment: "Reminders alert action")
+            localNote.alertBody = NSLocalizedString("Time to record a party video!", comment: "Reminders alert body")
+            localNote.userInfo = ["reminder" : interval]
+            localNote.soundName = "drink.caf"
+            localNote.fireDate = future
+            localNote.repeatInterval = .Hour
+            localNote.repeatCalendar = calendar
+            localNote.timeZone = NSTimeZone.defaultTimeZone()
+            application.scheduleLocalNotification(localNote)
+        }
+        
 		switch interval {
 		case 60:
-			reminderButton.titleLabel?.text = "60m 🔔"
+			reminderButton.setTitle("60m 🔔", forState: .Normal)
 		case 30:
-			reminderButton.titleLabel?.text = "30m 🔔"
+			reminderButton.setTitle("30m 🔔", forState: .Normal)
 		default:
-			reminderButton.titleLabel?.text = "Off 🔕"
+			reminderButton.setTitle("Off 🔕", forState: .Normal)
 		}
 	}
 
