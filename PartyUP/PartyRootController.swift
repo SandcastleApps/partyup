@@ -298,14 +298,38 @@ class PartyRootController: UIViewController {
 	private var reminder = UILocalNotification()
 	
 	@IBAction func setReminders(sender: UIButton) {
-//		let defaults = NSUserDefaults.standardUserDefaults()
-//		var interval = defaults.integerForKey(PartyUpPreferences.RemindersInterval)
+		let defaults = NSUserDefaults.standardUserDefaults()
+		var interval = defaults.integerForKey(PartyUpPreferences.RemindersInterval)
+		interval = (interval + 30) % 90
+		defaults.setInteger(interval, forKey: PartyUpPreferences.RemindersInterval)
+		scheduleReminders()
 	}
 
 	private func scheduleReminders() {
+		let interval = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.RemindersInterval)
+		let calendar = NSCalendar.currentCalendar()
+		let relative = NSDateComponents()
+		relative.calendar = calendar
+		relative.minute = 0
+		let future = calendar.nextDateAfterDate(NSDate(), matchingComponents: relative, options: .MatchNextTime)
+		let localNote = UILocalNotification()
+		localNote.alertAction = NSLocalizedString("submit a video", comment: "Reminders alert action")
+		localNote.alertBody = NSLocalizedString("Time to record a party video!", comment: "Reminders alert body")
+		localNote.userInfo = ["reminder" : 0]
+		localNote.soundName = "drink.caf"
+		localNote.fireDate = future
+		localNote.repeatInterval = .Hour
+		localNote.timeZone = NSTimeZone.defaultTimeZone()
+		UIApplication.sharedApplication().scheduleLocalNotification(localNote)
 
-
-
+		switch interval {
+		case 60:
+			reminderButton.titleLabel?.text = "60m 🔔"
+		case 30:
+			reminderButton.titleLabel?.text = "30m 🔔"
+		default:
+			reminderButton.titleLabel?.text = "Off 🔕"
+		}
 	}
 
 	@IBAction func sequeFromBaking(segue: UIStoryboardSegue) {
