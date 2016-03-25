@@ -45,6 +45,16 @@ class PartyTableCell: UITableViewCell {
 	var videoTotal: Int = 0
 	var videoDate: NSDate?
 
+	private static let relativeFormatter: NSDateComponentsFormatter = {
+		let formatter = NSDateComponentsFormatter()
+		formatter.allowedUnits = [.Day, .Hour, .Minute]
+		formatter.maximumUnitCount = 1
+		formatter.unitsStyle = .Abbreviated
+		formatter.zeroFormattingBehavior = .DropAll
+
+		return formatter
+	}()
+
 	func updateTagline() {
 
 	}
@@ -78,7 +88,12 @@ class PartyTableCell: UITableViewCell {
 	}
 
 	func updateVitalityTime() {
-
+		if let time = videoDate {
+			let formatted = PartyTableCell.relativeFormatter.stringFromDate(time, toDate: NSDate()) ?? "?"
+			vitalityLabel.text = formatted.hasPrefix("0") ? "<1m" : formatted
+		} else {
+			vitalityLabel.text = ""
+		}
 	}
 }
 

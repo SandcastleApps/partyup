@@ -14,7 +14,18 @@ import Flurry_iOS_SDK
 
 class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerViewDelegate {
 
-	private static let timeFormatter: NSDateFormatter = { let formatter = NSDateFormatter(); formatter.timeStyle = .MediumStyle; formatter.dateStyle = .ShortStyle; return formatter }()
+	private static let timeFormatter: NSDateFormatter = {
+		let formatter = NSDateFormatter()
+		formatter.timeStyle = .MediumStyle
+		formatter.dateStyle = .ShortStyle
+		return formatter }()
+
+	private static let relativeFormatter: NSDateComponentsFormatter = {
+		let formatter = NSDateComponentsFormatter()
+		formatter.allowedUnits = [.Day, .Hour, .Minute]
+		formatter.zeroFormattingBehavior = .DropAll
+		formatter.unitsStyle = .Full
+		return formatter }()
 
 	var page: Int!
     var sample: Sample! {
@@ -39,7 +50,15 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 	private func formatTime(time: NSDate, relative: Bool) -> String {
 		if relative {
-			return formatRelativeDateFrom(time, withClassicInterval: NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval))
+			let staleInterval = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
+			let staleDate = NSDate(timeInterval: -staleInterval, sinceDate: NSDate())
+			if staleDate.compare(time) == .OrderedDescending {
+				return NSLocalizedString("Classic", comment: "Stale time display")
+			} else {
+				var formatted = SampleTastePageController.relativeFormatter.stringFromDate(time, toDate: NSDate()) ?? "WTF?"
+				formatted = formatted.hasPrefix("0") ? NSLocalizedString("very fresh", comment: "Relative less than a minute old") : formatted + NSLocalizedString(" ago", comment:"Samples more than a minute old")
+				return formatted
+			}
 		} else {
 			return SampleTastePageController.timeFormatter.stringFromDate(time)
 		}
