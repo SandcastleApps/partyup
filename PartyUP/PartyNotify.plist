@@ -26,7 +26,7 @@
 				<key>minute</key>
 				<integer>30</integer>
 				<key>range</key>
-				<integer>10</integer>
+				<integer>20</integer>
 			</dict>
 		</array>
 		<key>prebook</key>
@@ -50,25 +50,99 @@
 		</array>
 		<key>action</key>
 		<string>find a party</string>
-        <key>whens</key>
-        <array>
-            <dict>
-                <key>weekday</key>
-                <integer>7</integer>
-                <key>hour</key>
-                <integer>22</integer>
-                <key>minute</key>
-                <integer>30</integer>
-                <key>range</key>
-                <integer>10</integer>
-            </dict>
-        </array>
+		<key>whens</key>
+		<array>
+			<dict>
+				<key>weekday</key>
+				<integer>7</integer>
+				<key>hour</key>
+				<integer>22</integer>
+				<key>minute</key>
+				<integer>30</integer>
+				<key>range</key>
+				<integer>20</integer>
+			</dict>
+		</array>
 		<key>prebook</key>
 		<integer>10</integer>
 		<key>randomize</key>
 		<true/>
 		<key>tag</key>
 		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>messages</key>
+		<array>
+			<string>How&apos;s the party? Have a crazy night! 😎</string>
+		</array>
+		<key>action</key>
+		<string>find a party</string>
+		<key>whens</key>
+		<array>
+			<dict>
+				<key>weekday</key>
+				<integer>7</integer>
+				<key>hour</key>
+				<integer>0</integer>
+				<key>minute</key>
+				<integer>30</integer>
+				<key>range</key>
+				<integer>20</integer>
+			</dict>
+			<dict>
+				<key>weekday</key>
+				<integer>1</integer>
+				<key>hour</key>
+				<integer>0</integer>
+				<key>minute</key>
+				<integer>30</integer>
+				<key>range</key>
+				<integer>20</integer>
+			</dict>
+		</array>
+		<key>prebook</key>
+		<integer>-1</integer>
+		<key>randomize</key>
+		<false/>
+		<key>tag</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>messages</key>
+		<array>
+			<string>The night is young, let&apos;s keep the party going 💃🏻</string>
+		</array>
+		<key>action</key>
+		<string>find a party</string>
+		<key>whens</key>
+		<array>
+			<dict>
+				<key>weekday</key>
+				<integer>7</integer>
+				<key>hour</key>
+				<integer>1</integer>
+				<key>minute</key>
+				<integer>45</integer>
+				<key>range</key>
+				<integer>20</integer>
+			</dict>
+			<dict>
+				<key>weekday</key>
+				<integer>1</integer>
+				<key>hour</key>
+				<integer>1</integer>
+				<key>minute</key>
+				<integer>45</integer>
+				<key>range</key>
+				<integer>20</integer>
+			</dict>
+		</array>
+		<key>prebook</key>
+		<integer>-1</integer>
+		<key>randomize</key>
+		<false/>
+		<key>tag</key>
+		<integer>4</integer>
 	</dict>
 </array>
 </plist>

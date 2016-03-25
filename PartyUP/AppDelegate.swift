@@ -145,7 +145,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     relative.minute = when["minute"] ?? NSDateComponentUndefined
                     relative.weekday = when["weekday"] ?? NSDateComponentUndefined
                     let range = when["range"] ?? 0
-                    let iterations = notify["prebook"] as? Int ?? 0
+                    let prebook = notify["prebook"] as? Int ?? 0
+                    let iterations = prebook < 0 ? 1 : prebook
                     let randomize = notify["randomize"] as? Bool ?? false
                     var date = NSDate()
                     for i in 0..<iterations {
@@ -158,6 +159,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             let offset = (NSTimeInterval(arc4random_uniform(UInt32(range))) - (NSTimeInterval(range)/2)) * 60
                             localNote.fireDate = futureDate.dateByAddingTimeInterval(offset)
                             localNote.timeZone = NSTimeZone.defaultTimeZone()
+                            if prebook < 0 {
+                                localNote.repeatInterval = .Weekday
+                                localNote.repeatCalendar = calendar
+                            }
                             application.scheduleLocalNotification(localNote)
                             date = futureDate
                         }
