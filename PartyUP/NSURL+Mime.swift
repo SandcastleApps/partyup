@@ -1,5 +1,5 @@
 //
-//  UrlUtilities.swift
+//  NSURL+Mime.swift
 //  MediaMonkey
 //
 //  Created by Fritz Vander Heide on 2015-09-07.
