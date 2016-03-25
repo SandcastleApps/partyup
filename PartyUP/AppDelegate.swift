@@ -111,8 +111,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
         application.cancelAllLocalNotifications()
-		if let notifyUrl = NSBundle.mainBundle().URLForResource("PartyNotify", withExtension: "plist") {
-			scheduleNotificationsFromUrl(notifyUrl, inApplication: application, withNotificationSettings: notificationSettings)
+		if notificationSettings.types != .None {
+			scheduleReminders()
+			if let notifyUrl = NSBundle.mainBundle().URLForResource("PartyNotify", withExtension: "plist") {
+				scheduleNotificationsFromUrl(notifyUrl, inApplication: application, withNotificationSettings: notificationSettings)
+			}
 		}
 	}
 
@@ -162,5 +165,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
         }
     }
+
+	func scheduleReminders() {
+		let application = UIApplication.sharedApplication()
+		let interval = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.RemindersInterval)
+
+		if let notes = application.scheduledLocalNotifications {
+			for note in notes {
+				if note.userInfo?["reminder"] != nil {
+					application.cancelLocalNotification(note)
+				}
+			}
+		}
+
+		if NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.RemindersInterface) {
+			var minutes = [Int]()
+			if interval > 0 { minutes.append(0) }
+			if interval == 30 { minutes.append(30) }
+
+			let now = NSDate()
+			let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+			let relative = NSDateComponents()
+			relative.calendar = calendar
+			relative.timeZone = NSTimeZone.defaultTimeZone()
+
+			for minute in minutes {
+				relative.minute = minute
+				let future = calendar.nextDateAfterDate(now, matchingComponents: relative, options: .MatchNextTime)
+				let localNote = UILocalNotification()
+				localNote.alertAction = NSLocalizedString("submit a video", comment: "Reminders alert action")
+				localNote.alertBody = NSLocalizedString("Time to record a party video!", comment: "Reminders alert body")
+				localNote.userInfo = ["reminder" : interval]
+				localNote.soundName = "drink.caf"
+				localNote.fireDate = future
+				localNote.repeatInterval = .Hour
+				localNote.repeatCalendar = calendar
+				localNote.timeZone = NSTimeZone.defaultTimeZone()
+				application.scheduleLocalNotification(localNote)
+			}
+		}
+	}
 }
 
