@@ -35,7 +35,7 @@ def favorite_sample(sample, samples_batch, s3):
 
     video = s3.Object('com.sandcastleapps.partyup', 'favorites/' + id_unique + str(id_count) + '.mp4')
     video.copy_from(CopySource='com.sandcastleapps.partyup/media/' + id_unique + str(id_count) + '.mp4', StorageClass='REDUCED_REDUNDANCY')
-    samples_batch.update_item(Key={'event' : sample['event'], 'id': sample['id']}, UpdateExpression='set prefix=favorites')
+    samples_batch.update_item(Key={'event' : sample['event'], 'id': sample['id']}, UpdateExpression="set prefix=:f", ExpressionAttributeValues={':f': "favorites"})
 
 def process_sample(sample, vote_table, samples_batch, votes_batch, s3):
 
