@@ -70,7 +70,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Reminders Interface</string>
+			<string>Reminders Mode</string>
 			<key>Key</key>
 			<string>RemindersInterface</string>
 			<key>DefaultValue</key>
