@@ -12,6 +12,13 @@ from boto3.dynamodb.conditions import Key, Attr
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+basic_bucket = 'com.sandcastleapps.partyup'
+standard_lifetime = 172800
+standard_prefix = 'media'
+favorite_lifetime = 604800
+favorite_prefix = 'favorite'
+favorite_count_max = 3
+
 def purge_sample(sample, vote_table, samples_batch, votes_batch):
     samples_batch.delete_item(Key={'event' : sample['event'], 'id': sample['id']})
     sample_identity =  Binary(sample['id'].value + bytearray(sample['event'], "utf_8"))
@@ -33,11 +40,23 @@ def favorite_sample(sample, samples_batch, s3):
     id_unique = str(uuid.UUID(bytes=id_bytes[0:16])).upper()
     id_count = ord(id_bytes[16])
 
-    video = s3.Object('com.sandcastleapps.partyup', 'favorites/' + id_unique + str(id_count) + '.mp4')
-    video.copy_from(CopySource='com.sandcastleapps.partyup/media/' + id_unique + str(id_count) + '.mp4', StorageClass='REDUCED_REDUNDANCY')
-    samples_batch.update_item(Key={'event' : sample['event'], 'id': sample['id']}, UpdateExpression="set prefix=:f", ExpressionAttributeValues={':f': "favorites"})
+    video = s3.Object(basic_bucket, '/' + favorite_prefix + '/' + id_unique + str(id_count) + '.mp4')
+    video.copy_from(CopySource=basic_bucket + '/' + standard_prefix + '/' + id_unique + str(id_count) + '.mp4', StorageClass='REDUCED_REDUNDANCY')
+    samples_batch.update_item(Key={'event' : sample['event'], 'id': sample['id']}, UpdateExpression="set prefix=:f", ExpressionAttributeValues={':f': favorite_prefix})
 
-def process_sample(sample, vote_table, samples_batch, votes_batch, s3):
+def process_sample(sample, vote_table, samples_batch, votes_batch, s3, candidates):
+    kept = False
+
+    if sample['time'] <= time.time()-favorite_lifetime:
+        rating = sample['ups'] - sample['downs']
+        if rating >= 0:
+            candidate_list = candidates.get(sample['event'])
+            
+            for i, v in enumerate(candidate_list.):
+
+
+    if !kept:
+        purge_sample(sample, vote_table, samples_batch, votes_batch)
 
 
 def purge_handler(event, context):
@@ -47,7 +66,9 @@ def purge_handler(event, context):
     sample_table = dynamodb.Table('Samples')
     vote_table = dynamodb.Table('Votes')
 
-    filter = (Attr('time').lte(Decimal(time.time()-172800)) & Attr('prefix').not_exists()) | (Attr('time').lte(Decimal(time.time()-))
+    candidates = dict()
+
+    filter = (Attr('time').lte(Decimal(time.time()-standard_lifetime)) & Attr('prefix').not_exists()) | Attr('prefix').eq(favorite_prefix)
 
     with sample_table.batch_writer() as samples_batch, vote_table.batch_writer() as votes_batch:
         response = sample_table.scan(
@@ -55,7 +76,7 @@ def purge_handler(event, context):
         )
 
         for item in response['Items']:
-            process_sample(item, vote_table, samples_batch, votes_batch, s3)
+            process_sample(item, vote_table, samples_batch, votes_batch, s3, candidates)
 
         while 'LastEvaluatedKey' in response:
             response = scan(
@@ -64,4 +85,8 @@ def purge_handler(event, context):
             )
 
             for item in response['Items']:
-                process_sample(item, vote_table, samples_batch, votes_batch, s3)
+                process_sample(item, vote_table, samples_batch, votes_batch, s3, candidates)
+
+        for venue_candidates in candidates.itervalues():
+            for candidate in venue_candidates.itervalues():
+                favorite_sample(candidate, samples_batch, s3)
