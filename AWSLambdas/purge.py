@@ -5,6 +5,7 @@ import logging
 import json
 import boto3
 import time
+import uuid
 from decimal import Decimal
 from boto3.dynamodb.types import Binary
 from boto3.dynamodb.conditions import Key, Attr
@@ -44,8 +45,8 @@ def favorite_sample(sample, samples_batch, s3):
         id_unique = str(uuid.UUID(bytes=id_bytes[0:16])).upper()
         id_count = ord(id_bytes[16])
 
-        video = s3.Object(basic_bucket, '/' + favorite_prefix + '/' + id_unique + str(id_count) + '.mp4')
-        video.copy_from(CopySource=basic_bucket + '/' + standard_prefix + '/' + id_unique + str(id_count) + '.mp4', StorageClass='REDUCED_REDUNDANCY')
+        video = s3.Object(basic_bucket, favorite_prefix + '/' + id_unique + str(id_count) + '.mp4')
+        video.copy_from(CopySource={'Bucket': basic_bucket, 'Key': standard_prefix + '/' + id_unique + str(id_count) + '.mp4'}, StorageClass='REDUCED_REDUNDANCY')
         #samples_batch.update_item(Key={'event' : sample['event'], 'id': sample['id']}, UpdateExpression="set prefix=:f", ExpressionAttributeValues={':f': favorite_prefix})
         logger.info('favorite sample: ' + sample['event'])
 
@@ -54,7 +55,6 @@ def process_sample(sample, vote_table, samples_batch, votes_batch, s3, candidate
 
     if sample['time'] >= time.time()-favorite_lifetime:
         rating = sample['ups'] - sample['downs']
-        logger.info('sample rating: ' + str(rating))
         if rating >= 0:
             candidate_list = candidates.get(sample['event'], [])
             sample['rating'] = rating
@@ -65,7 +65,7 @@ def process_sample(sample, vote_table, samples_batch, votes_batch, s3, candidate
                     candidate_list[index] = sample
             else:
                 purge = None
-                candidates[sample['event']] = candidate_list.append(sample)
+                candidates[sample['event']] = candidate_list + [sample]
 
 if purge:
     purge_sample(purge, vote_table, samples_batch, votes_batch)
@@ -98,7 +98,8 @@ def proto_handler(event, context):
                                              
                                              for item in response['Items']:
                                                  process_sample(item, vote_table, samples_batch, votes_batch, s3, candidates)
-                                                     
-                                                     for venue_candidates in candidates.itervalues():
-                                                         for candidate in venue_candidates.itervalues():
-                                                             favorite_sample(candidate, samples_batch, s3)
+                                                     print candidates
+                                                         
+                                                         for venue_candidates in candidates.itervalues():
+                                                             for candidate in venue_candidates:
+                                                                 favorite_sample(candidate, samples_batch, s3)
