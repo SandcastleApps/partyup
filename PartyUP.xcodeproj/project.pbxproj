@@ -53,6 +53,7 @@
 		1F427A211BA59F4C00E622CF /* PartyUPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */; };
 		1F69A6271CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F69A6261CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift */; };
 		1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7687931BFE278200D96768 /* HudUtilities.swift */; };
+		1F783F4A1CAD99D100B5E753 /* CBU.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F783F491CAD99D100B5E753 /* CBU.gpx */; };
 		1F8BF1C11C1C55C500221D82 /* AcknowledgementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C01C1C55C500221D82 /* AcknowledgementsController.swift */; };
 		1F8BF1C41C1C55DD00221D82 /* Acknowledge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C21C1C55DD00221D82 /* Acknowledge.storyboard */; };
 		1F9509951BACACE8005BDC18 /* NSURL+Mime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* NSURL+Mime.swift */; };
@@ -138,6 +139,7 @@
 		1F71B5DF1C0897E800F5740E /* Home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Home.gpx; path = Globetrotter/Home.gpx; sourceTree = SOURCE_ROOT; };
 		1F7463981C04A0AE00182278 /* purge.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = purge.py; path = AWSLambdas/purge.py; sourceTree = "<group>"; usesTabs = 0; };
 		1F7687931BFE278200D96768 /* HudUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudUtilities.swift; sourceTree = "<group>"; };
+		1F783F491CAD99D100B5E753 /* CBU.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CBU.gpx; path = Globetrotter/CBU.gpx; sourceTree = SOURCE_ROOT; };
 		1F8BF1C01C1C55C500221D82 /* AcknowledgementsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcknowledgementsController.swift; sourceTree = "<group>"; };
 		1F8BF1C31C1C55DD00221D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Acknowledge.storyboard; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* NSURL+Mime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Mime.swift"; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 			children = (
 				1FAB0ECA1C0B856600E3B392 /* Halifax.gpx */,
 				1F71B5DE1C0897E800F5740E /* Governors.gpx */,
+				1F783F491CAD99D100B5E753 /* CBU.gpx */,
 				1F71B5DF1C0897E800F5740E /* Home.gpx */,
 			);
 			name = Globetrotter;
@@ -540,6 +543,7 @@
 				1FF051E51C20560100A7A67C /* Tutorial.storyboard in Resources */,
 				1FBD40141C120F6C0093D852 /* Localizable.strings in Resources */,
 				1F427A081BA59F4C00E622CF /* Assets.xcassets in Resources */,
+				1F783F4A1CAD99D100B5E753 /* CBU.gpx in Resources */,
 				1F9879861C401D060079467E /* drink.caf in Resources */,
 				1F98968C1C2239DE00B0DB29 /* Baking.storyboard in Resources */,
 				1F3F54341C3EBED800DF9B2B /* PartyNotify.plist in Resources */,
