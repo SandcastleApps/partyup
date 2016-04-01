@@ -58,6 +58,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	@IBOutlet weak var naviBar: UINavigationBar!
 	@IBOutlet weak var review: UIView!
 	@IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var sendView: UIView!
 
 	private let playView = VIMVideoPlayerView()
 	private let progressHud = JGProgressHUD(style: .Light)
@@ -68,19 +69,6 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 		progressHud.delegate = self
 
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
-
-		var aniFrames = [UIImage]()
-
-		for x in 1...17 {
-			aniFrames.append(UIImage(named: "Send_\(x)")!)
-		}
-
-		let sendAnimation = UIImageView(frame: CGRect(x: 0, y: 0, width: 44, height: 36))
-		sendAnimation.animationImages = aniFrames
-		sendAnimation.animationDuration = 1
-		sendAnimation.startAnimating()
-		sendButton.addSubview(sendAnimation)
-		sendButton.frame = sendAnimation.bounds
 
 		playView.translatesAutoresizingMaskIntoConstraints = false
 		playView.layer.cornerRadius = 10
