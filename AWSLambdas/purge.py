@@ -16,7 +16,7 @@ logger.setLevel(logging.ERROR)
 basic_bucket = 'com.sandcastleapps.partyup'
 standard_lifetime = 172800
 standard_prefix = 'media'
-favorite_lifetime = 604800
+favorite_lifetime = 2505600
 favorite_prefix = 'favorite'
 favorite_count_max = 4
 
