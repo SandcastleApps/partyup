@@ -165,6 +165,12 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		}
 		return cell
 	}
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = cell as? PartyTableCell {
+           cell.taglineLabel.restartLabel()
+        }
+    }
 
 	// MARK: - Search
 
