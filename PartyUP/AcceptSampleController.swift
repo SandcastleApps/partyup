@@ -129,6 +129,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 		review.hidden = true
 		comment.hidden = true
 		venue.hidden = true
+		sendView.hidden = true
 	}
 
 	override func viewDidAppear(animated: Bool) {
@@ -139,10 +140,13 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 		review.transform = CGAffineTransformMakeTranslation(0, offset)
 		comment.transform = CGAffineTransformMakeTranslation(0, offset)
 		venue.transform = CGAffineTransformMakeTranslation(0, offset)
+		sendView.transform = CGAffineTransformMakeTranslation(0, sendView.bounds.height)
+		sendButton.transform = CGAffineTransformMakeTranslation(-sendButton.bounds.width, 0)
 
 		review.hidden = false
 		comment.hidden = false
 		venue.hidden = false
+		sendView.hidden = false
 
 		UIView.animateWithDuration(0.5,
 			delay: 0,
@@ -151,6 +155,17 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			options: [],
 			animations: {
 				self.review.transform = CGAffineTransformIdentity
+				self.sendView.transform = CGAffineTransformIdentity
+			},
+			completion: nil)
+
+		UIView.animateWithDuration(0.5,
+			delay: 0.2,
+			usingSpringWithDamping: 0.75,
+			initialSpringVelocity: 10,
+			options: [],
+			animations: {
+				self.sendButton.transform = CGAffineTransformIdentity
 			},
 			completion: nil)
 
