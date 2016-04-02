@@ -1,22 +1,22 @@
 PODS:
   - ActionSheetPicker-3.0 (2.0.5)
-  - Alamofire (3.2.1)
-  - AWSCore (2.3.5)
-  - AWSDynamoDB (2.3.5):
-    - AWSCore (= 2.3.5)
-  - AWSS3 (2.3.5):
-    - AWSCore (= 2.3.5)
+  - Alamofire (3.3.0)
+  - AWSCore (2.3.6)
+  - AWSDynamoDB (2.3.6):
+    - AWSCore (= 2.3.6)
+  - AWSS3 (2.3.6):
+    - AWSCore (= 2.3.6)
   - DACircularProgress (2.3.1)
-  - Flurry-iOS-SDK (7.5.1):
-    - Flurry-iOS-SDK/FlurrySDK (= 7.5.1)
-  - Flurry-iOS-SDK/FlurrySDK (7.5.1)
-  - INTULocationManager (4.1.1)
+  - Flurry-iOS-SDK (7.5.2):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.5.2)
+  - Flurry-iOS-SDK/FlurrySDK (7.5.2)
+  - INTULocationManager (4.2.0)
   - JGProgressHUD (1.3.1)
   - LMGeocoder (1.0.4)
-  - MarqueeLabel-Swift (2.6.4)
+  - MarqueeLabel-Swift (2.6.5)
   - PBJVision (0.4.2)
   - SwiftyJSON (2.3.2)
-  - VIMVideoPlayer (6.0.0)
+  - VIMVideoPlayer (6.0.1)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0)
@@ -35,18 +35,18 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
-  Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
-  AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
-  AWSDynamoDB: 00123cb4cc540768dc4aef89f41b36a474de9363
-  AWSS3: 967f4ad3c91f1ed2c9dca09a9dcf905111232a87
+  Alamofire: 9054db4a1b1ca9e363223183e01cea380159a27c
+  AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
+  AWSDynamoDB: 0bfd95eb10363090d8570a48d5feb4e3d7ec5264
+  AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  Flurry-iOS-SDK: c0c162b6be03b259ca51fd91a026e6b8fb5ae97e
-  INTULocationManager: 83c7373048d583cda57e25eefb9bb8a3675acf16
+  Flurry-iOS-SDK: 8c87c4eab6008184ad9f63afabd79ec0d109c82e
+  INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   JGProgressHUD: 153053a21d81208cb5f659691996bcefce6a9885
   LMGeocoder: a0f635f948b0ca420d8d338e54886744cdcb215d
-  MarqueeLabel-Swift: 9e85cc250f6204dad5a8b285dd4910019b961491
+  MarqueeLabel-Swift: 6fbc43d0bdd41fbd7107a4ca84e167933df42671
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
-  VIMVideoPlayer: e132b14b91e79267803b734f933f6138702afa0b
+  VIMVideoPlayer: f4ed0a9986294ec3684a2e6bdc738e30051ef4ef
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

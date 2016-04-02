@@ -135,10 +135,10 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
     return nil;
 }
 
-- (instancetype)initWithConfiguration:(AWSServiceConfiguration *)configuration
+- (instancetype)initWithConfiguration:(AWSServiceConfiguration *)serviceConfiguration
                            identifier:(NSString *)identifier {
     if (self = [super init]) {
-        _configuration = [configuration copy];
+        _configuration = [serviceConfiguration copy];
         [_configuration addUserAgentProductToken:AWSS3TransferUtilityUserAgent];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -160,6 +160,8 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
             configuration = [NSURLSessionConfiguration backgroundSessionConfiguration:_sessionIdentifier];
 #pragma clang diagnostic pop
         }
+
+        configuration.allowsCellularAccess = serviceConfiguration.allowsCellularAccess;
 
         configuration.timeoutIntervalForResource = AWSS3TransferUtilityTimeoutIntervalForResource;
         _session = [NSURLSession sessionWithConfiguration:configuration
@@ -285,11 +287,11 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
                                                                     key:(NSString *)key
                                                              expression:(AWSS3TransferUtilityDownloadExpression *)expression
                                                        completionHander:(AWSS3TransferUtilityDownloadCompletionHandlerBlock)completionHandler {
-    return [self downloadToURL:nil
-                        bucket:bucket
-                           key:key
-                    expression:expression
-              completionHander:completionHandler];
+    return [self internalDownloadToURL:nil
+                                bucket:bucket
+                                   key:key
+                            expression:expression
+                      completionHander:completionHandler];
 }
 
 - (AWSTask<AWSS3TransferUtilityDownloadTask *> *)downloadToURL:(NSURL *)fileURL
@@ -297,6 +299,18 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
                                                            key:(NSString *)key
                                                     expression:(AWSS3TransferUtilityDownloadExpression *)expression
                                               completionHander:(AWSS3TransferUtilityDownloadCompletionHandlerBlock)completionHandler {
+    return [self internalDownloadToURL:fileURL
+                                bucket:bucket
+                                   key:key
+                            expression:expression
+                      completionHander:completionHandler];
+}
+
+- (AWSTask<AWSS3TransferUtilityDownloadTask *> *)internalDownloadToURL:(NSURL *)fileURL
+                                                                bucket:(NSString *)bucket
+                                                                   key:(NSString *)key
+                                                            expression:(AWSS3TransferUtilityDownloadExpression *)expression
+                                                      completionHander:(AWSS3TransferUtilityDownloadCompletionHandlerBlock)completionHandler {
     if (!expression) {
         expression = [AWSS3TransferUtilityDownloadExpression new];
     }

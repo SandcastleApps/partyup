@@ -133,7 +133,7 @@ public class MarqueeLabel: UILabel {
         didSet {
             if tapToScroll != oldValue {
                 if tapToScroll {
-                    let tapRecognizer = UITapGestureRecognizer(target: self, action: "labelWasTapped:")
+                    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(MarqueeLabel.labelWasTapped(_:)))
                     self.addGestureRecognizer(tapRecognizer)
                     userInteractionEnabled = true
                 } else {
@@ -456,12 +456,12 @@ public class MarqueeLabel: UILabel {
         
         // Add notification observers
         // Custom class notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "restartForViewController:", name: MarqueeKeys.Restart.rawValue, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "labelizeForController:", name: MarqueeKeys.Labelize.rawValue, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "animateForController:", name: MarqueeKeys.Animate.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MarqueeLabel.restartForViewController(_:)), name: MarqueeKeys.Restart.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MarqueeLabel.labelizeForController(_:)), name: MarqueeKeys.Labelize.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MarqueeLabel.animateForController(_:)), name: MarqueeKeys.Animate.rawValue, object: nil)
         // UIApplication state notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "restartLabel", name: UIApplicationDidBecomeActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "shutdownLabel", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MarqueeLabel.restartLabel), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MarqueeLabel.shutdownLabel), name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
     
     override public func awakeFromNib() {
@@ -726,7 +726,8 @@ public class MarqueeLabel: UILabel {
     // Define animation completion closure type
     private typealias MLAnimationCompletion = (finished: Bool) -> ()
     
-    private func scroll(interval: CGFloat, delay: CGFloat = 0.0, var scroller: Scroller, fader: CAKeyframeAnimation?) {
+    private func scroll(interval: CGFloat, delay: CGFloat = 0.0, scroller: Scroller, fader: CAKeyframeAnimation?) {
+        var scroller = scroller
         // Check for conditions which would prevent scrolling
         if !labelReadyForScroll() {
             return
@@ -764,7 +765,7 @@ public class MarqueeLabel: UILabel {
         }
         
         let completion = CompletionBlock<MLAnimationCompletion>({ (finished: Bool) -> () in
-            if !finished {
+            guard finished else {
                 // Do not continue into the next loop
                 return
             }
@@ -777,12 +778,18 @@ public class MarqueeLabel: UILabel {
             // 2) The instance is still attached to a window - this completion block is called for
             //    many reasons, including if the animation is removed due to the view being removed
             //    from the UIWindow (typically when the view controller is no longer the "top" view)
-            if (self.window != nil && self.sublabel.layer.animationForKey("position") == nil) {
-                // Begin again, if conditions met
-                if (self.labelShouldScroll() && !self.tapToScroll && !self.holdScrolling) {
-                    // Perform completion callback
-                    self.scroll(interval, delay: delay, scroller: scroller, fader: gradientAnimation)
-                }
+            guard self.window != nil else {
+                return
+            }
+            
+            guard self.sublabel.layer.animationForKey("position") == nil else {
+                return
+            }
+            
+            // Begin again, if conditions met
+            if (self.labelShouldScroll() && !self.tapToScroll && !self.holdScrolling) {
+                // Perform completion callback
+                self.scroll(interval, delay: delay, scroller: scroller, fader: gradientAnimation)
             }
         })
         
@@ -1652,7 +1659,7 @@ private extension CAMediaTimingFunction {
         var t1 = y_0
         var f0, df0: CGFloat
         
-        for (var i = 0; i < 15; i++) {
+        for _ in 0..<15 {
             // Base this iteration of t1 calculated from last iteration
             t0 = t1
             // Calculate f(t0)
@@ -1725,7 +1732,7 @@ private extension CAMediaTimingFunction {
         // Create point array to point to
         var point: [Float] = [0.0, 0.0]
         var pointArray = [CGPoint]()
-        for (var i: Int = 0; i <= 3; i++) {
+        for i in 0...3 {
             self.getControlPointAtIndex(i, values: &point)
             pointArray.append(CGPoint(x: CGFloat(point[0]), y: CGFloat(point[1])))
         }

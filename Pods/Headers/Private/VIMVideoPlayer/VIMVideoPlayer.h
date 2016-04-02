@@ -1,1 +1,1 @@
-../../../VIMVideoPlayer/VIMVideoPlayer/VIMVideoPlayer.h
+../../../VIMVideoPlayer/VIMVideoPlayer-Source/VIMVideoPlayer.h
