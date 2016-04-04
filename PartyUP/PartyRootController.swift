@@ -300,7 +300,7 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	@IBAction func chooseLocation(sender: UIButton) {
+	@IBAction func chooseLocation(sender: UIGestureRecognizer) {
 		partyPicker.defocusSearch()
 		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
@@ -318,7 +318,7 @@ class PartyRootController: UIViewController {
 			cancelBlock: { (picker) in
 				// cancelled
 			},
-			origin: sender)
+			origin: sender.view)
 	}
 	
 	@IBAction func setReminders(sender: UIButton) {
