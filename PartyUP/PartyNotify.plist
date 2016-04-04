@@ -30,7 +30,7 @@
 			</dict>
 		</array>
 		<key>prebook</key>
-		<integer>10</integer>
+		<integer>-1</integer>
 		<key>randomize</key>
 		<true/>
 		<key>tag</key>
@@ -64,7 +64,7 @@
 			</dict>
 		</array>
 		<key>prebook</key>
-		<integer>10</integer>
+		<integer>-1</integer>
 		<key>randomize</key>
 		<true/>
 		<key>tag</key>
