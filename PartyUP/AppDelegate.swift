@@ -148,7 +148,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let prebook = notify["prebook"] as? Int ?? 0
                     let iterations = prebook < 0 ? 1 : prebook
                     let randomize = notify["randomize"] as? Bool ?? false
-                    var date = NSDate()
+                    var date = NSDate().dateByAddingTimeInterval(NSTimeInterval(range/2)*60)
                     for i in 0..<iterations {
                         if let futureDate = calendar?.nextDateAfterDate(date, matchingComponents: relative, options: .MatchNextTime) {
                             let localNote = UILocalNotification()
@@ -156,7 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             localNote.alertBody = what[randomize ? Int(arc4random_uniform(UInt32(what.count))) : i % what.count]
                             localNote.userInfo = ["tag" : tag]
                             localNote.soundName = "drink.caf"
-                            let offset = (NSTimeInterval(arc4random_uniform(UInt32(range))) - (NSTimeInterval(range)/2)) * 60
+                            let offset = (NSTimeInterval(arc4random_uniform(UInt32(range))) - (NSTimeInterval(range/2))) * 60
                             localNote.fireDate = futureDate.dateByAddingTimeInterval(offset)
                             localNote.timeZone = NSTimeZone.defaultTimeZone()
                             if prebook < 0 {
