@@ -15,6 +15,7 @@ target 'PartyUP' do
 	pod 'JGProgressHUD', '~> 1.3'
 	pod 'Flurry-iOS-SDK', '~> 7.3'
 	pod 'MarqueeLabel-Swift', '~> 2.6'
+	pod 'Instructions', '~> 0.4'
 end
 
 target 'PartyUPTests' do

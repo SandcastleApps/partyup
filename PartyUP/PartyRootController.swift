@@ -13,6 +13,7 @@ import LMGeocoder
 import CoreLocation
 import JGProgressHUD
 import Flurry_iOS_SDK
+import Instructions
 
 class PartyRootController: UIViewController {
 
@@ -29,6 +30,8 @@ class PartyRootController: UIViewController {
 	private var selectedRegion = 0
 
 	private var adRefreshTimer: NSTimer?
+
+	private var coach: CoachMarksController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +50,17 @@ class PartyRootController: UIViewController {
 		nc.addObserver(self, selector: #selector(PartyRootController.refreshReminderButton), name: NSUserDefaultsDidChangeNotification, object: nil)
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
+
+		let defaults = NSUserDefaults.standardUserDefaults()
+		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
+			coach = CoachMarksController()
+			coach?.dataSource = self
+			coach?.allowOverlayTap = true
+			coach?.overlayBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.4)
+			let skip = CoachMarkSkipDefaultView()
+			skip.setTitle("Skip", forState: .Normal)
+			coach?.skipView = skip
+		}
     }
 
 	func refreshSelectedRegion() {
@@ -204,13 +218,9 @@ class PartyRootController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
-		let defaults = NSUserDefaults.standardUserDefaults()
-		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
-			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
-			let story = UIStoryboard.init(name: "Tutorial", bundle: nil)
-			if let tutorial = story.instantiateInitialViewController() {
-				presentViewController(tutorial, animated: true, completion: nil)
-			}
+		if let coach = coach {
+			//NSUserDefaults.standardUserDefaults().setBool(false, forKey: PartyUpPreferences.PlayTutorial)
+			coach.startOn(self)
 		}
 
 		UIView.animateWithDuration(0.5,
@@ -290,7 +300,7 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	@IBAction func chooseLocation(sender: UIBarButtonItem) {
+	@IBAction func chooseLocation(sender: UIButton) {
 		partyPicker.defocusSearch()
 		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
@@ -345,5 +355,41 @@ class PartyRootController: UIViewController {
 				performSegueWithIdentifier("Bake Sample Segue", sender: nil)
 			}
 		}
+	}
+}
+
+extension PartyRootController: CoachMarksControllerDataSource {
+	func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
+		return 5
+	}
+
+	func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
+		var mark: CoachMark
+		switch index {
+		case 0...2:
+			mark = coachMarksController.coachMarkForView(navigationController?.view.viewWithTag(1000 + index))
+		default:
+			mark = coachMarksController.coachMarkForView(view.viewWithTag(1000 + index))
+		}
+		return mark
+	}
+
+	func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+		let coachViews = coachMarksController.defaultCoachViewsWithArrow(true, withNextText: false, arrowOrientation: coachMark.arrowOrientation)
+		switch index {
+		case 0:
+			coachViews.bodyView.hintLabel.text = "Choose a city whose venues you would like to see in the city hub."
+		case 1:
+			coachViews.bodyView.hintLabel.text = "Read some documentation and see who contributed to PartyUP."
+		case 2:
+			coachViews.bodyView.hintLabel.text = "Record and submit a video from the venue you are at."
+		case 3:
+			coachViews.bodyView.hintLabel.text = "While venues are being loaded, seaching is displayed here."
+		case 4:
+			coachViews.bodyView.hintLabel.text = "Reminders"
+		default:
+			coachViews.bodyView.hintLabel.text = "Hmm, not sure what this is."
+		}
+		return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
 	}
 }

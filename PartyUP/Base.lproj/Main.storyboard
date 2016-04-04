@@ -28,7 +28,7 @@
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Google" translatesAutoresizingMaskIntoConstraints="NO" id="Wcf-3W-xUV">
                                 <rect key="frame" x="228" y="574" width="144" height="18"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdY-rZ-2Mh" userLabel="Busy View">
+                            <view tag="1003" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdY-rZ-2Mh" userLabel="Busy View">
                                 <rect key="frame" x="20" y="574" width="200" height="18"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bt6-ov-25O">
@@ -49,7 +49,7 @@
                                     <constraint firstItem="bt6-ov-25O" firstAttribute="leading" secondItem="tdY-rZ-2Mh" secondAttribute="leading" id="zTp-8q-HKF"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcS-0x-nDp">
+                            <button hidden="YES" opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcS-0x-nDp">
                                 <rect key="frame" x="380" y="568" width="200" height="30"/>
                                 <state key="normal" title="Off 🔕"/>
                                 <connections>
@@ -83,12 +83,17 @@
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
-                        <barButtonItem key="leftBarButtonItem" image="Mark" id="mrE-gU-G8u">
-                            <connections>
-                                <action selector="chooseLocation:" destination="SEJ-wv-10Q" id="wmM-Gv-umP"/>
-                            </connections>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="VXp-9G-e9s">
+                            <button key="customView" opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kL0-yx-4RK">
+                                <rect key="frame" x="20" y="4" width="84" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Mark"/>
+                                <connections>
+                                    <action selector="chooseLocation:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="jy2-q0-Gsb"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
-                        <button key="titleView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
+                        <button key="titleView" opaque="NO" tag="1001" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
                             <rect key="frame" x="260" y="2" width="80" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="24" maxY="0.0"/>
@@ -98,7 +103,7 @@
                             </connections>
                         </button>
                         <barButtonItem key="rightBarButtonItem" id="JLt-Ac-9ZV">
-                            <view key="customView" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" id="MXP-lb-w7x">
+                            <view key="customView" tag="1002" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" id="MXP-lb-w7x">
                                 <rect key="frame" x="483" y="5" width="97" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -149,7 +154,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
@@ -216,7 +221,7 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TU-OM-H3C" id="AWb-fz-eaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">
