@@ -241,9 +241,12 @@
                                 <rect key="frame" x="0.0" y="556" width="600" height="46"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZ4-cg-Erw" userLabel="Send">
-                                        <rect key="frame" x="0.0" y="-2" width="600" height="46"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Share →"/>
+                                        <rect key="frame" x="0.5" y="-2" width="600" height="46"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="titleEdgeInsets" minX="-50" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Share" image="Send"/>
                                         <connections>
                                             <action selector="acceptSample:" destination="RAd-iG-AkU" eventType="touchUpInside" id="C8h-Y3-Q8K"/>
                                         </connections>
@@ -346,5 +349,6 @@
         <image name="Hamburger" width="34" height="24"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Selfie" width="35" height="30"/>
+        <image name="Send" width="15" height="12"/>
     </resources>
 </document>

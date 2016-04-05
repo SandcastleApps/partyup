@@ -327,6 +327,15 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 				withTitle: NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
 				andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample"),
 				indicatingSuccess: true)
+			UIView.animateWithDuration(2.0,
+				delay: 0.2,
+				usingSpringWithDamping: 1.0,
+				initialSpringVelocity: 10,
+				options: [],
+				animations: {
+					self.sendButton.transform = CGAffineTransformMakeTranslation(self.sendView.bounds.width, 0)
+				},
+				completion: nil)
 			self.venues[self.selectedLocal].fetchSamples()
 		}
 	}
