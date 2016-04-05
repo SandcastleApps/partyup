@@ -358,7 +358,7 @@ class PartyRootController: UIViewController {
 	}
 }
 
-extension PartyRootController: CoachMarksControllerDataSource {
+extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
 	func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
 		return 5
 	}
@@ -391,5 +391,19 @@ extension PartyRootController: CoachMarksControllerDataSource {
 			coachViews.bodyView.hintLabel.text = "Hmm, not sure what this is."
 		}
 		return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+	}
+
+	func coachMarksController(coachMarksController: CoachMarksController, coachMarkWillLoadForIndex index: Int) -> Bool {
+		return true
+	}
+
+	func coachMarksController(coachMarksController: CoachMarksController, constraintsForSkipView skipView: UIView, inParentView parentView: UIView) -> [NSLayoutConstraint]? {
+
+		var constraints: [NSLayoutConstraint] = []
+
+		constraints.append(NSLayoutConstraint(item: skipView, attribute: .CenterXWithinMargins, relatedBy: .Equal, toItem: parentView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+		constraints.append(NSLayoutConstraint(item: skipView, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .BottomMargin, multiplier: 1.0, constant: 0.0))
+
+		return constraints
 	}
 }
