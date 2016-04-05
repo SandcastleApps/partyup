@@ -83,25 +83,15 @@
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="3AT-Fw-DPK">
-                            <view key="customView" contentMode="scaleToFill" id="jdi-o4-TV5">
-                                <rect key="frame" x="20" y="5" width="133" height="33"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="VXp-9G-e9s">
+                            <button key="customView" opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kL0-yx-4RK">
+                                <rect key="frame" x="20" y="4" width="84" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" tag="1000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mark" translatesAutoresizingMaskIntoConstraints="NO" id="fSD-jc-Z62">
-                                        <rect key="frame" x="0.0" y="-1" width="30" height="35"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="fSD-jc-Z62" firstAttribute="centerY" secondItem="jdi-o4-TV5" secondAttribute="centerY" id="TQ3-je-gxo"/>
-                                    <constraint firstItem="fSD-jc-Z62" firstAttribute="leading" secondItem="jdi-o4-TV5" secondAttribute="leading" id="qvU-5j-MYl"/>
-                                </constraints>
+                                <state key="normal" image="Mark"/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="sI5-52-iad" appends="YES" id="3F6-Kc-mrh"/>
+                                    <action selector="chooseLocation:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="jy2-q0-Gsb"/>
                                 </connections>
-                            </view>
+                            </button>
                         </barButtonItem>
                         <button key="titleView" opaque="NO" tag="1001" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
                             <rect key="frame" x="260" y="2" width="80" height="40"/>
@@ -113,12 +103,12 @@
                             </connections>
                         </button>
                         <barButtonItem key="rightBarButtonItem" id="JLt-Ac-9ZV">
-                            <view key="customView" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" id="MXP-lb-w7x">
+                            <view key="customView" tag="1002" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" id="MXP-lb-w7x">
                                 <rect key="frame" x="483" y="5" width="97" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1002" contentMode="center" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="h0V-rg-StC">
-                                        <rect key="frame" x="62" y="2" width="35" height="30"/>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="h0V-rg-StC">
+                                        <rect key="frame" x="62" y="1.5" width="35" height="30"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -143,14 +133,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cyB-Pq-hBW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Cne-Uh-QCS" userLabel="Camera Recognizer">
+                <tapGestureRecognizer id="Cne-Uh-QCS">
                     <connections>
                         <segue destination="PEJ-yj-58W" kind="presentation" identifier="Bake Sample Segue" id="4gq-DT-fWe"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="sI5-52-iad" userLabel="Mark Recognizer">
-                    <connections>
-                        <action selector="chooseLocation:" destination="SEJ-wv-10Q" id="LA3-Ef-nnM"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -169,7 +154,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
@@ -236,7 +221,7 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TU-OM-H3C" id="AWb-fz-eaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">
