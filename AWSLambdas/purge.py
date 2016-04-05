@@ -11,7 +11,7 @@ from boto3.dynamodb.types import Binary
 from boto3.dynamodb.conditions import Key, Attr
 
 logger = logging.getLogger()
-logger.setLevel(logging.ERROR)
+logger.setLevel(logging.DEBUG)
 
 basic_bucket = 'com.sandcastleapps.partyup'
 standard_lifetime = 172800
@@ -45,7 +45,6 @@ def favorite_sample(sample, sample_table, s3):
         video = s3.Object(basic_bucket, favorite_prefix + '/' + id_unique + str(id_count) + '.mp4')
         video.copy_from(CopySource={'Bucket': basic_bucket, 'Key': standard_prefix + '/' + id_unique + str(id_count) + '.mp4'}, StorageClass='REDUCED_REDUNDANCY')
         sample_table.update_item(Key={'event' : sample['event'], 'id': sample['id']}, UpdateExpression="set prefix=:f", ExpressionAttributeValues={':f': favorite_prefix})
-        logger.info('favorite sample: ' + sample['event'])
 
 def process_sample(sample, vote_table, samples_batch, votes_batch, s3, candidates):
     purge = sample
@@ -68,7 +67,7 @@ def process_sample(sample, vote_table, samples_batch, votes_batch, s3, candidate
         purge_sample(purge, vote_table, samples_batch, votes_batch)
 
 
-def proto_handler(event, context):
+def purge_handler(event, context):
     dynamodb = boto3.resource('dynamodb')
     s3 = boto3.resource('s3')
 
