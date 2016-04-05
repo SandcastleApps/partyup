@@ -17,7 +17,6 @@ import Instructions
 
 class PartyRootController: UIViewController {
 
-	@IBOutlet weak var cameraImage: UIImageView!
 	@IBOutlet weak var busyIndicator: UIActivityIndicatorView!
 	@IBOutlet weak var busyLabel: UILabel!
 	@IBOutlet weak var ackButton: UIButton!
@@ -222,27 +221,6 @@ class PartyRootController: UIViewController {
 			//NSUserDefaults.standardUserDefaults().setBool(false, forKey: PartyUpPreferences.PlayTutorial)
 			coach.startOn(self)
 		}
-
-		UIView.animateWithDuration(0.5,
-			delay: 3,
-			options: [.AllowUserInteraction, .CurveEaseInOut],
-			animations: {
-				self.cameraImage.transform = CGAffineTransformMakeScale(0.5,0.5) } ,
-			completion: { (done) in
-				UIView.animateWithDuration(0.5,
-					delay: 0,
-					options: [.AllowUserInteraction, .CurveEaseInOut],
-					animations: { self.cameraImage.transform = CGAffineTransformMakeScale(1.5,1.5) },
-					completion: { (done) in
-						UIView.animateWithDuration(0.5,
-							delay: 0,
-							usingSpringWithDamping: 0.10,
-							initialSpringVelocity: 1,
-							options: .AllowUserInteraction,
-							animations: { self.cameraImage.transform = CGAffineTransformIdentity },
-							completion: nil)
-				})
-		})
 	}
 
 	deinit {
@@ -300,7 +278,7 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	@IBAction func chooseLocation(sender: UIButton) {
+	@IBAction func chooseLocation(sender: UIBarButtonItem) {
 		partyPicker.defocusSearch()
 		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
