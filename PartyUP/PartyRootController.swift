@@ -30,8 +30,11 @@ class PartyRootController: UIViewController {
 
 	private var adRefreshTimer: NSTimer?
 
+    private enum CoachIdentifier: Int {
+        case Greeting = 1000, City, About, Camera, Reminder
+    }
 	private var coach: CoachMarksController?
-	private var activeCoachMarks = [1000,1001,1002,1003,1004,1005]
+    private var activeCoachMarks: [CoachIdentifier] = [.Greeting,.City,.About,.Camera,.Reminder]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +56,7 @@ class PartyRootController: UIViewController {
 
 		let defaults = NSUserDefaults.standardUserDefaults()
 		if let seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
-            activeCoachMarks = activeCoachMarks.filter { !seen.contains($0) }
+            activeCoachMarks = activeCoachMarks.filter { !seen.contains($0.rawValue) }
 		}
 
 		if !activeCoachMarks.isEmpty {
@@ -349,12 +352,12 @@ extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControl
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
 		var mark: CoachMark
 		switch activeCoachMarks[index] {
-		case 1000:
+		case .Greeting:
 			mark = coachMarksController.coachMarkForView()
-		case 1001...1003:
-			mark = coachMarksController.coachMarkForView(navigationController?.view.viewWithTag(activeCoachMarks[index]))
+		case .City,.About,.Camera:
+			mark = coachMarksController.coachMarkForView(navigationController?.view.viewWithTag(activeCoachMarks[index].rawValue))
 		default:
-			mark = coachMarksController.coachMarkForView(view.viewWithTag(activeCoachMarks[index]))
+			mark = coachMarksController.coachMarkForView(view.viewWithTag(activeCoachMarks[index].rawValue))
 		}
 		return mark
 	}
@@ -362,14 +365,14 @@ extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControl
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
 		var coachViews = coachMarksController.defaultCoachViewsWithArrow(true, withNextText: false, arrowOrientation: coachMark.arrowOrientation)
 		switch activeCoachMarks[index] {
-		case 1000:
+		case .Greeting:
 			coachViews.arrowView = nil
 			coachViews.bodyView.hintLabel.text = NSLocalizedString("Welcome to PartyUP\n\nThis is the city hub where you will see the venues related to your selected city.  The default city is the one you are currently in.  You can use pull to refresh to update the city hub contents.\n\nTab the screen to progress through the tutorial.", comment: "City hub opening comments.")
-		case 1001:
+		case .City:
 			coachViews.bodyView.hintLabel.text = NSLocalizedString("You can select which city gets displayed in the city hub.  Current Location uses the GPS to determine which city you are in.", comment: "City hub city selector.")
-		case 1002:
+		case .About:
 			coachViews.bodyView.hintLabel.text = NSLocalizedString("Need help?  You will find documentation in the about screen.", comment: "City hub about opener")
-		case 1003:
+		case .Camera:
 			coachViews.bodyView.hintLabel.text = NSLocalizedString("Help out your fellow party animals by recording and submitting a video from the venue you are attending.", comment: "City hub camera opener.")
 		default:
 			coachViews.bodyView.hintLabel.text = "Hmm, not sure what this is."
@@ -380,7 +383,7 @@ extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControl
     func didFinishShowingFromCoachMarksController(coachMarksController: CoachMarksController) {
         let defaults = NSUserDefaults.standardUserDefaults()
         if var seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
-            seen.appendContentsOf(activeCoachMarks)
+            seen.appendContentsOf(activeCoachMarks.map { $0.rawValue })
             defaults.setObject(seen, forKey: PartyUpPreferences.TutorialViewed)
             coach = nil
         }
