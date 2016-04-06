@@ -31,6 +31,8 @@ class PartyRootController: UIViewController {
 	private var adRefreshTimer: NSTimer?
 
 	private var coach: CoachMarksController?
+	private var activeCoachMarks = [1001,1004]//PartyRootController.AvailableCoachMarks
+	private static let AvailableCoachMarks = [1000,1001,1002,1003,1004,1005]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +52,15 @@ class PartyRootController: UIViewController {
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
 
-		let defaults = NSUserDefaults.standardUserDefaults()
-		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
+//		let defaults = NSUserDefaults.standardUserDefaults()
+//		if let seen = defaults.stringForKey(PartyUpPreferences.TutorialViewed), let seen{
+//
+//		}
+
+		if !activeCoachMarks.isEmpty {
 			coach = CoachMarksController()
 			coach?.dataSource = self
+			coach?.delegate = self
 			coach?.allowOverlayTap = true
 			coach?.overlayBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.4)
 			let skip = CoachMarkSkipDefaultView()
@@ -218,7 +225,6 @@ class PartyRootController: UIViewController {
 		super.viewDidAppear(animated)
 
 		if let coach = coach {
-			//NSUserDefaults.standardUserDefaults().setBool(false, forKey: PartyUpPreferences.PlayTutorial)
 			coach.startOn(self)
 		}
 	}
@@ -338,41 +344,38 @@ class PartyRootController: UIViewController {
 
 extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
 	func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
-		return 5
+		return activeCoachMarks.count
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
 		var mark: CoachMark
-		switch index {
-		case 0...2:
-			mark = coachMarksController.coachMarkForView(navigationController?.view.viewWithTag(1000 + index))
+		switch activeCoachMarks[index] {
+		case 1000:
+			mark = coachMarksController.coachMarkForView()
+		case 1001...1003:
+			mark = coachMarksController.coachMarkForView(navigationController?.view.viewWithTag(activeCoachMarks[index]))
 		default:
-			mark = coachMarksController.coachMarkForView(view.viewWithTag(1000 + index))
+			mark = coachMarksController.coachMarkForView(view.viewWithTag(activeCoachMarks[index]))
 		}
 		return mark
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
-		let coachViews = coachMarksController.defaultCoachViewsWithArrow(true, withNextText: false, arrowOrientation: coachMark.arrowOrientation)
-		switch index {
-		case 0:
-			coachViews.bodyView.hintLabel.text = "Choose a city whose venues you would like to see in the city hub."
-		case 1:
-			coachViews.bodyView.hintLabel.text = "Read some documentation and see who contributed to PartyUP."
-		case 2:
-			coachViews.bodyView.hintLabel.text = "Record and submit a video from the venue you are at."
-		case 3:
-			coachViews.bodyView.hintLabel.text = "While venues are being loaded, seaching is displayed here."
-		case 4:
-			coachViews.bodyView.hintLabel.text = "Reminders"
+		var coachViews = coachMarksController.defaultCoachViewsWithArrow(true, withNextText: false, arrowOrientation: coachMark.arrowOrientation)
+		switch activeCoachMarks[index] {
+		case 1000:
+			coachViews.arrowView = nil
+			coachViews.bodyView.hintLabel.text = NSLocalizedString("Welcome to PartyUP\n\nThis is the city hub where you will see the venues related to your selected city.  The default city is the one you are currently in.  You can use pull to refresh to update the city hub contents.\n\nTab the screen to progress through the tutorial.", comment: "City hub opening comments.")
+		case 1001:
+			coachViews.bodyView.hintLabel.text = NSLocalizedString("You can select which city gets displayed in the city hub.  Current Location uses the GPS to determine which city you are in.", comment: "City hub city selector.")
+		case 1002:
+			coachViews.bodyView.hintLabel.text = NSLocalizedString("Need help?  You will find documentation in the about screen.", comment: "City hub about opener")
+		case 1003:
+			coachViews.bodyView.hintLabel.text = NSLocalizedString("Help out your fellow party animals by recording and submitting a video from the venue you are attending.", comment: "City hub camera opener")
 		default:
 			coachViews.bodyView.hintLabel.text = "Hmm, not sure what this is."
 		}
 		return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
-	}
-
-	func coachMarksController(coachMarksController: CoachMarksController, coachMarkWillLoadForIndex index: Int) -> Bool {
-		return true
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, constraintsForSkipView skipView: UIView, inParentView parentView: UIView) -> [NSLayoutConstraint]? {
@@ -380,7 +383,7 @@ extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControl
 		var constraints: [NSLayoutConstraint] = []
 
 		constraints.append(NSLayoutConstraint(item: skipView, attribute: .CenterXWithinMargins, relatedBy: .Equal, toItem: parentView, attribute: .CenterX, multiplier: 1.0, constant: 0))
-		constraints.append(NSLayoutConstraint(item: skipView, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .BottomMargin, multiplier: 1.0, constant: 0.0))
+		constraints.append(NSLayoutConstraint(item: skipView, attribute: .CenterYWithinMargins, relatedBy: .Equal, toItem: parentView, attribute: .CenterY, multiplier: 1.75, constant: 0))
 
 		return constraints
 	}

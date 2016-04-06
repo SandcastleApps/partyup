@@ -21,6 +21,8 @@
 	</array>
 	<key>Tutorial</key>
 	<true/>
+	<key>TutorialViewed</key>
+	<string></string>
 	<key>Terms</key>
 	<false/>
 	<key>SampleSuppressionThreshold</key>
