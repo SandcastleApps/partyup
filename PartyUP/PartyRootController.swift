@@ -31,8 +31,7 @@ class PartyRootController: UIViewController {
 	private var adRefreshTimer: NSTimer?
 
 	private var coach: CoachMarksController?
-	private var activeCoachMarks = PartyRootController.AvailableCoachMarks
-	private static let AvailableCoachMarks = [1000,1001,1002,1003,1004,1005]
+	private var activeCoachMarks = [1000,1001,1002,1003,1004,1005]
 
     override func viewDidLoad() {
         super.viewDidLoad()
