@@ -28,7 +28,7 @@
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Google" translatesAutoresizingMaskIntoConstraints="NO" id="Wcf-3W-xUV">
                                 <rect key="frame" x="228" y="574" width="144" height="18"/>
                             </imageView>
-                            <view tag="1003" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdY-rZ-2Mh" userLabel="Busy View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdY-rZ-2Mh" userLabel="Busy View">
                                 <rect key="frame" x="20" y="574" width="200" height="18"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bt6-ov-25O">
@@ -83,12 +83,17 @@
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
-                        <barButtonItem key="leftBarButtonItem" image="Mark" id="vDw-KO-ba3">
-                            <connections>
-                                <action selector="chooseLocation:" destination="SEJ-wv-10Q" id="ReP-9Y-T4m"/>
-                            </connections>
+                        <barButtonItem key="leftBarButtonItem" id="Zg7-Eg-O5g">
+                            <button key="customView" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3qV-ww-rkQ" userLabel="City Picker">
+                                <rect key="frame" x="20" y="4" width="84" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Mark"/>
+                                <connections>
+                                    <action selector="chooseLocation:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="N48-qm-1MM"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
-                        <button key="titleView" opaque="NO" tag="1001" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
+                        <button key="titleView" opaque="NO" tag="1002" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
                             <rect key="frame" x="260" y="2" width="80" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="24" maxY="0.0"/>
@@ -97,10 +102,15 @@
                                 <segue destination="eKO-5N-ikP" kind="presentation" id="6jn-Bq-laD"/>
                             </connections>
                         </button>
-                        <barButtonItem key="rightBarButtonItem" image="Camera" id="TO8-WH-j62">
-                            <connections>
-                                <segue destination="PEJ-yj-58W" kind="presentation" identifier="Bake Sample Segue" id="SpO-hd-1nE"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" id="JUv-uA-M57">
+                            <button key="customView" opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uTc-hR-fp7" userLabel="Camera">
+                                <rect key="frame" x="496" y="7" width="84" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Camera"/>
+                                <connections>
+                                    <segue destination="PEJ-yj-58W" kind="presentation" identifier="Bake Sample Segue" id="DWk-pS-XD1"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>

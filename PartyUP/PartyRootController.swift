@@ -283,7 +283,7 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	@IBAction func chooseLocation(sender: UIBarButtonItem) {
+	@IBAction func chooseLocation(sender: UIButton) {
 		partyPicker.defocusSearch()
 		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
@@ -370,7 +370,7 @@ extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControl
 		case 1002:
 			coachViews.bodyView.hintLabel.text = NSLocalizedString("Need help?  You will find documentation in the about screen.", comment: "City hub about opener")
 		case 1003:
-			coachViews.bodyView.hintLabel.text = NSLocalizedString("Help out your fellow party animals by recording and submitting a video from the venue you are attending.", comment: "City hub camera opener")
+			coachViews.bodyView.hintLabel.text = NSLocalizedString("Help out your fellow party animals by recording and submitting a video from the venue you are attending.", comment: "City hub camera opener.")
 		default:
 			coachViews.bodyView.hintLabel.text = "Hmm, not sure what this is."
 		}
