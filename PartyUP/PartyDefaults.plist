@@ -22,7 +22,7 @@
 	<key>Tutorial</key>
 	<true/>
 	<key>TutorialViewed</key>
-	<string></string>
+	<array/>
 	<key>Terms</key>
 	<false/>
 	<key>SampleSuppressionThreshold</key>

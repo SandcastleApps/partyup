@@ -87,9 +87,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 
 		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
-			defaults.setObject("", forKey: PartyUpPreferences.TutorialViewed)
-//			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
-			defaults.synchronize()
+			defaults.setObject([], forKey: PartyUpPreferences.TutorialViewed)
+			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
 		}
 
 		let credentialProvider = AWSCognitoCredentialsProvider(

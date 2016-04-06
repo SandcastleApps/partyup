@@ -31,7 +31,7 @@ class PartyRootController: UIViewController {
 	private var adRefreshTimer: NSTimer?
 
 	private var coach: CoachMarksController?
-	private var activeCoachMarks = [1001,1004]//PartyRootController.AvailableCoachMarks
+	private var activeCoachMarks = PartyRootController.AvailableCoachMarks
 	private static let AvailableCoachMarks = [1000,1001,1002,1003,1004,1005]
 
     override func viewDidLoad() {
@@ -52,10 +52,10 @@ class PartyRootController: UIViewController {
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
 
-//		let defaults = NSUserDefaults.standardUserDefaults()
-//		if let seen = defaults.stringForKey(PartyUpPreferences.TutorialViewed), let seen{
-//
-//		}
+		let defaults = NSUserDefaults.standardUserDefaults()
+		if let seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
+            activeCoachMarks = activeCoachMarks.filter { !seen.contains($0) }
+		}
 
 		if !activeCoachMarks.isEmpty {
 			coach = CoachMarksController()
@@ -64,7 +64,7 @@ class PartyRootController: UIViewController {
 			coach?.allowOverlayTap = true
 			coach?.overlayBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.4)
 			let skip = CoachMarkSkipDefaultView()
-			skip.setTitle("Skip", forState: .Normal)
+			skip.setTitle(NSLocalizedString("Skip coaching for this screen", comment: "Tutorial skip button label"), forState: .Normal)
 			coach?.skipView = skip
 		}
     }
@@ -377,6 +377,15 @@ extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControl
 		}
 		return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
 	}
+    
+    func didFinishShowingFromCoachMarksController(coachMarksController: CoachMarksController) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if var seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
+            seen.appendContentsOf(activeCoachMarks)
+            defaults.setObject(seen, forKey: PartyUpPreferences.TutorialViewed)
+            coach = nil
+        }
+    }
 
 	func coachMarksController(coachMarksController: CoachMarksController, constraintsForSkipView skipView: UIView, inParentView parentView: UIView) -> [NSLayoutConstraint]? {
 
