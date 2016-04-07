@@ -28,7 +28,7 @@
 	<key>SampleSuppressionThreshold</key>
 	<integer>-5</integer>
 	<key>RemindersInterface</key>
-	<false/>
+	<true/>
 	<key>RemindersInterval</key>
 	<integer>0</integer>
 </dict>

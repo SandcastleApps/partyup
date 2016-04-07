@@ -74,7 +74,7 @@
 			<key>Key</key>
 			<string>RemindersInterface</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>

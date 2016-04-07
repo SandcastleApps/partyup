@@ -34,7 +34,7 @@
 			<key>Key</key>
 			<string>ReminderInterface</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 	</array>
 </dict>
