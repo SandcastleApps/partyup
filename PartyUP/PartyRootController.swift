@@ -354,10 +354,8 @@ extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControl
 		switch activeCoachMarks[index] {
 		case .Greeting:
 			mark = coachMarksController.coachMarkForView()
-		case .City,.About,.Camera:
-			mark = coachMarksController.coachMarkForView(navigationController?.view.viewWithTag(activeCoachMarks[index].rawValue))
 		default:
-			mark = coachMarksController.coachMarkForView(view.viewWithTag(activeCoachMarks[index].rawValue))
+			mark = coachMarksController.coachMarkForView(UIApplication.sharedApplication().keyWindow?.viewWithTag(activeCoachMarks[index].rawValue))
 		}
 		return mark
 	}
