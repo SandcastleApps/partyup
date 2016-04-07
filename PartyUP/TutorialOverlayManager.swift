@@ -35,7 +35,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		coach.allowOverlayTap = true
 		coach.overlayBackgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.4)
 		let skip = CoachMarkSkipDefaultView()
-		skip.setTitle(NSLocalizedString("Skip coaching for this screen", comment: "Tutorial skip button label"), forState: .Normal)
+		skip.setTitle(NSLocalizedString("Skip", comment: "Tutorial skip button label"), forState: .Normal)
 		coach.skipView = skip
 		return coach
 	}()

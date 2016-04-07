@@ -323,11 +323,11 @@ class PartyRootController: UIViewController {
     }
     
     private static let availableCoachMarks = [
-        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "Welcome to PartyUp!\n\nTap anywhere to proceed."),
-        TutorialMark(identifier: CoachIdentifier.City.rawValue, hint: "City"),
-        TutorialMark(identifier: CoachIdentifier.About.rawValue, hint: "About"),
-        TutorialMark(identifier: CoachIdentifier.Camera.rawValue, hint: "Camera"),
-        TutorialMark(identifier: CoachIdentifier.Reminder.rawValue, hint: "Reminder")]
+        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "Welcome to the PartyUP City Hub!\nThis is where you find the parties.\nTap a place to see what is going on!"),
+        TutorialMark(identifier: CoachIdentifier.Camera.rawValue, hint: "Take video of your\nnightlife adventures!"),
+        TutorialMark(identifier: CoachIdentifier.City.rawValue, hint: "See what is going on in\nother party cities."),
+        TutorialMark(identifier: CoachIdentifier.Reminder.rawValue, hint: "You want to remember to PartyUP?\nSet reminders here."),
+        TutorialMark(identifier: CoachIdentifier.About.rawValue, hint: "Learn more about PartyUP!")]
     
     private let tutorial = TutorialOverlayManager(marks: PartyRootController.availableCoachMarks)
 }

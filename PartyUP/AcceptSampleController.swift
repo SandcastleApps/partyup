@@ -377,9 +377,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	}
 
 	private static let availableCoachMarks = [
-		TutorialMark(identifier: CoachIdentifier.Comment.rawValue, hint: "Describe the environment"),
-		TutorialMark(identifier: CoachIdentifier.Venue.rawValue, hint: "Where are you at?"),
-		TutorialMark(identifier: CoachIdentifier.Submit.rawValue, hint: "Let's send this thing.")]
+		TutorialMark(identifier: CoachIdentifier.Venue.rawValue, hint: "Tap to select where\nyou are partying.")]
 
 	private let tutorial = TutorialOverlayManager(marks: AcceptSampleController.availableCoachMarks)
 }

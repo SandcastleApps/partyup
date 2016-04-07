@@ -268,11 +268,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
     }
     
     private static let availableCoachMarks = [
-        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "Submitted videos will repeat forever."),
-        TutorialMark(identifier: CoachIdentifier.Time.rawValue, hint: "Time"),
-        TutorialMark(identifier: CoachIdentifier.Vote.rawValue, hint: "Vote"),
-        TutorialMark(identifier: CoachIdentifier.Share.rawValue, hint: "Share and Report"),
-        TutorialMark(identifier: CoachIdentifier.Comment.rawValue, hint: "Comment")]
+        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "See what's going on,\nswipe through videos!")]
     
     private let tutorial = TutorialOverlayManager(marks: SampleTastePageController.availableCoachMarks)
 }

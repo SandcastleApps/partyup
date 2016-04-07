@@ -230,8 +230,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	}
 
 	private static let availableCoachMarks = [
-		TutorialMark(identifier: CoachIdentifier.Selfie.rawValue, hint: "Selfie"),
-		TutorialMark(identifier: CoachIdentifier.Record.rawValue, hint: "Record")]
+		TutorialMark(identifier: CoachIdentifier.Record.rawValue, hint: "Turning UP?\nPress and hold for 5 to 10\nseconds to make a Party Video.")]
 
 	private let tutorial = TutorialOverlayManager(marks: RecordSampleController.availableCoachMarks)
 }
