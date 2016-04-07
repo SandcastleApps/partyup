@@ -22,13 +22,6 @@ class AcknowledgementsController: UITableViewController {
 
 	}
 
-	@IBAction func tutorial() {
-		let story = UIStoryboard.init(name: "Tutorial", bundle: nil)
-		if let tutorial = story.instantiateInitialViewController() {
-			presentViewController(tutorial, animated: true, completion: nil)
-		}
-	}
-
 	@IBAction func recruit(sender: UIButton) {
         presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share PartyUP", comment: "Share action prompt"))
 	}
@@ -67,10 +60,6 @@ class AcknowledgementsController: UITableViewController {
     }
 
 	@IBAction func segueFromThirdParty(segue: UIStoryboardSegue) {
-
-	}
-
-	@IBAction func segueFromTutorial(segue: UIStoryboardSegue) {
 
 	}
 }
