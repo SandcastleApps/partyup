@@ -33,12 +33,12 @@ class PartyRootController: UIViewController {
         case Greeting = -1000, City = 1001, About, Camera, Reminder
     }
 
-    private static let availableCoachMarks: [TutorialOverlayManager.TutorialMark] = [
-		(CoachIdentifier.Greeting.rawValue,"Welcome to PartyUp!\n\nTap anywhere to proceed."),
-		(CoachIdentifier.City.rawValue,"City"),
-		(CoachIdentifier.About.rawValue,"About"),
-		(CoachIdentifier.Camera.rawValue,"Camera"),
-		(CoachIdentifier.Reminder.rawValue,"Reminder")]
+    private static let availableCoachMarks = [
+		TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "Welcome to PartyUp!\n\nTap anywhere to proceed."),
+		TutorialMark(identifier: CoachIdentifier.City.rawValue, hint: "City"),
+		TutorialMark(identifier: CoachIdentifier.About.rawValue, hint: "About"),
+		TutorialMark(identifier: CoachIdentifier.Camera.rawValue, hint: "Camera"),
+		TutorialMark(identifier: CoachIdentifier.Reminder.rawValue, hint: "Reminder")]
 	
 	private let tutorial = TutorialOverlayManager()
 
@@ -217,7 +217,6 @@ class PartyRootController: UIViewController {
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-
 		tutorial.start(self)
 	}
 

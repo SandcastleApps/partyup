@@ -19,6 +19,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="-1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O1V-oS-o4a" userLabel="Greeting Pilot">
+                                <rect key="frame" x="299.5" y="74.5" width="1" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Moj-2A-edu"/>
+                                    <constraint firstAttribute="width" constant="1" id="WcR-kd-nu1"/>
+                                </constraints>
+                            </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FC-d8-V6C">
                                 <rect key="frame" x="0.0" y="64" width="600" height="502"/>
                                 <connections>
@@ -64,8 +72,10 @@
                             <constraint firstItem="tdY-rZ-2Mh" firstAttribute="leading" secondItem="VBb-Vv-VoX" secondAttribute="leadingMargin" id="JBO-6j-XiD"/>
                             <constraint firstAttribute="bottom" secondItem="2FC-d8-V6C" secondAttribute="bottom" constant="44" id="NDS-dO-Dpe"/>
                             <constraint firstItem="d5F-bg-ppA" firstAttribute="top" secondItem="Wcf-3W-xUV" secondAttribute="bottom" constant="8" symbolic="YES" id="PmX-rS-Tsd"/>
+                            <constraint firstItem="O1V-oS-o4a" firstAttribute="centerY" secondItem="VBb-Vv-VoX" secondAttribute="centerY" multiplier="1:4" id="cHO-NQ-Nrt"/>
                             <constraint firstItem="FcS-0x-nDp" firstAttribute="leading" secondItem="Wcf-3W-xUV" secondAttribute="trailing" constant="8" symbolic="YES" id="cJv-zn-I8R"/>
                             <constraint firstItem="Wcf-3W-xUV" firstAttribute="centerX" secondItem="VBb-Vv-VoX" secondAttribute="centerX" id="fug-mP-Gyh"/>
+                            <constraint firstItem="O1V-oS-o4a" firstAttribute="centerX" secondItem="VBb-Vv-VoX" secondAttribute="centerX" id="gVv-17-c8Q"/>
                             <constraint firstItem="2FC-d8-V6C" firstAttribute="leading" secondItem="VBb-Vv-VoX" secondAttribute="leading" id="hrx-4F-ocj"/>
                             <constraint firstAttribute="trailing" secondItem="2FC-d8-V6C" secondAttribute="trailing" id="jHf-n5-5om"/>
                             <constraint firstItem="2FC-d8-V6C" firstAttribute="top" secondItem="eTC-9P-OL1" secondAttribute="bottom" id="k97-TP-rYf"/>
@@ -137,7 +147,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
@@ -204,7 +214,7 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TU-OM-H3C" id="AWb-fz-eaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">

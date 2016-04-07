@@ -8,8 +8,19 @@
 import Instructions
 import Foundation
 
+struct TutorialMark {
+	let identifier: Int
+	let hint: String
+	var view: UIView?
+
+	init(identifier: Int, hint: String, view: UIView? = nil){
+		self.identifier = identifier
+		self.hint = hint
+		self.view = view
+	}
+}
+
 class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
-	typealias TutorialMark = (identifier: Int, hint: String)
 
 	var marks: [TutorialMark]? {
 		didSet {
@@ -28,7 +39,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		coach.dataSource = self
 		coach.delegate = self
 		coach.allowOverlayTap = true
-		coach.overlayBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.4)
+		coach.overlayBackgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.4)
 		let skip = CoachMarkSkipDefaultView()
 		skip.setTitle(NSLocalizedString("Skip coaching for this screen", comment: "Tutorial skip button label"), forState: .Normal)
 		coach.skipView = skip
@@ -37,13 +48,28 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 	private let defaults = NSUserDefaults.standardUserDefaults()
 	private var unseen = [TutorialMark]()
-	private weak var parent: UIView?
+	private weak var target: UIViewController?
 
 	func start(target: UIViewController) {
 		if !unseen.isEmpty {
 			coach.startOn(target)
-			parent = target.view
+			self.target = target
+
+			target.navigationController?.view.userInteractionEnabled = false
+			target.view?.userInteractionEnabled = false
 		}
+	}
+
+	func stop() {
+		coach.stop()
+	}
+
+	func pause() {
+		coach.pause()
+	}
+
+	func resume() {
+		coach.resume()
 	}
 
 	func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
@@ -51,7 +77,10 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
-		return coachMarksController.coachMarkForView(UIApplication.sharedApplication().keyWindow?.viewWithTag(unseen[index].identifier))
+		if unseen[index].view == nil {
+			unseen[index].view = UIApplication.sharedApplication().keyWindow?.viewWithTag(unseen[index].identifier)
+		}
+		return coachMarksController.coachMarkForView(unseen[index].view)
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
@@ -59,11 +88,6 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		var coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation, hintText: hint, nextText: nil)
 		if unseen[index].identifier < 0 {
 			coachViews.arrowView = nil
-			coachViews.bodyView.center = parent.flatMap { CGPointMake($0.bounds.width/2,$0.bounds.height/2) } ?? CGPointZero
-//			var constraints = [NSLayoutConstraint]()
-//			constraints.append(NSLayoutConstraint(item: coachViews.bodyView, attribute: .CenterXWithinMargins, relatedBy: .Equal, toItem: parent, attribute: .CenterX, multiplier: 1.0, constant: 0))
-//			constraints.append(NSLayoutConstraint(item: coachViews.bodyView, attribute: .CenterYWithinMargins, relatedBy: .Equal, toItem: parent, attribute: .CenterY, multiplier: 1.0, constant: 0))
-//			coachViews.bodyView.addConstraints(constraints)
 		}
 		return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
 	}
@@ -74,7 +98,8 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 			defaults.setObject(seen, forKey: PartyUpPreferences.TutorialViewed)
 		}
 
-		parent = nil
+		target?.navigationController?.view.userInteractionEnabled = true
+		target?.view?.userInteractionEnabled = true
 		unseen.removeAll()
 	}
 
