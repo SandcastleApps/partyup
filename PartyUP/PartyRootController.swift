@@ -13,7 +13,6 @@ import LMGeocoder
 import CoreLocation
 import JGProgressHUD
 import Flurry_iOS_SDK
-import Instructions
 
 class PartyRootController: UIViewController {
 
@@ -31,10 +30,17 @@ class PartyRootController: UIViewController {
 	private var adRefreshTimer: NSTimer?
 
     private enum CoachIdentifier: Int {
-        case Greeting = 1000, City, About, Camera, Reminder
+        case Greeting = -1000, City = 1001, About, Camera, Reminder
     }
-	private var coach: CoachMarksController?
-    private var activeCoachMarks: [CoachIdentifier] = [.Greeting,.City,.About,.Camera,.Reminder]
+
+    private static let availableCoachMarks: [TutorialOverlayManager.TutorialMark] = [
+		(CoachIdentifier.Greeting.rawValue,"Welcome to PartyUp!\n\nTap anywhere to proceed."),
+		(CoachIdentifier.City.rawValue,"City"),
+		(CoachIdentifier.About.rawValue,"About"),
+		(CoachIdentifier.Camera.rawValue,"Camera"),
+		(CoachIdentifier.Reminder.rawValue,"Reminder")]
+	
+	private let tutorial = TutorialOverlayManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,21 +60,7 @@ class PartyRootController: UIViewController {
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
 
-		let defaults = NSUserDefaults.standardUserDefaults()
-		if let seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
-            activeCoachMarks = activeCoachMarks.filter { !seen.contains($0.rawValue) }
-		}
-
-		if !activeCoachMarks.isEmpty {
-			coach = CoachMarksController()
-			coach?.dataSource = self
-			coach?.delegate = self
-			coach?.allowOverlayTap = true
-			coach?.overlayBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.4)
-			let skip = CoachMarkSkipDefaultView()
-			skip.setTitle(NSLocalizedString("Skip coaching for this screen", comment: "Tutorial skip button label"), forState: .Normal)
-			coach?.skipView = skip
-		}
+		tutorial.marks = PartyRootController.availableCoachMarks
     }
 
 	func refreshSelectedRegion() {
@@ -211,8 +203,8 @@ class PartyRootController: UIViewController {
 			} else {
 				presentResultHud(self.progressHud,
 					inView: self.view,
-					withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
-					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
+					withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from google"),
+					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from google"),
 					indicatingSuccess: false)
 			}
 
@@ -226,9 +218,7 @@ class PartyRootController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
-		if let coach = coach {
-			coach.startOn(self)
-		}
+		tutorial.start(self)
 	}
 
 	deinit {
@@ -341,59 +331,5 @@ class PartyRootController: UIViewController {
 				performSegueWithIdentifier("Bake Sample Segue", sender: nil)
 			}
 		}
-	}
-}
-
-extension PartyRootController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
-	func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
-		return activeCoachMarks.count
-	}
-
-	func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
-		var mark: CoachMark
-		switch activeCoachMarks[index] {
-		case .Greeting:
-			mark = coachMarksController.coachMarkForView()
-		default:
-			mark = coachMarksController.coachMarkForView(UIApplication.sharedApplication().keyWindow?.viewWithTag(activeCoachMarks[index].rawValue))
-		}
-		return mark
-	}
-
-	func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
-		var coachViews = coachMarksController.defaultCoachViewsWithArrow(true, withNextText: false, arrowOrientation: coachMark.arrowOrientation)
-		switch activeCoachMarks[index] {
-		case .Greeting:
-			coachViews.arrowView = nil
-			coachViews.bodyView.hintLabel.text = NSLocalizedString("Welcome to PartyUP\n\nThis is the city hub where you will see the venues related to your selected city.  The default city is the one you are currently in.  You can use pull to refresh to update the city hub contents.\n\nTab the screen to progress through the tutorial.", comment: "City hub opening comments.")
-		case .City:
-			coachViews.bodyView.hintLabel.text = NSLocalizedString("You can select which city gets displayed in the city hub.  Current Location uses the GPS to determine which city you are in.", comment: "City hub city selector.")
-		case .About:
-			coachViews.bodyView.hintLabel.text = NSLocalizedString("Need help?  You will find documentation in the about screen.", comment: "City hub about opener")
-		case .Camera:
-			coachViews.bodyView.hintLabel.text = NSLocalizedString("Help out your fellow party animals by recording and submitting a video from the venue you are attending.", comment: "City hub camera opener.")
-		default:
-			coachViews.bodyView.hintLabel.text = "Hmm, not sure what this is."
-		}
-		return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
-	}
-    
-    func didFinishShowingFromCoachMarksController(coachMarksController: CoachMarksController) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if var seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
-            seen.appendContentsOf(activeCoachMarks.map { $0.rawValue })
-            defaults.setObject(seen, forKey: PartyUpPreferences.TutorialViewed)
-            coach = nil
-        }
-    }
-
-	func coachMarksController(coachMarksController: CoachMarksController, constraintsForSkipView skipView: UIView, inParentView parentView: UIView) -> [NSLayoutConstraint]? {
-
-		var constraints: [NSLayoutConstraint] = []
-
-		constraints.append(NSLayoutConstraint(item: skipView, attribute: .CenterXWithinMargins, relatedBy: .Equal, toItem: parentView, attribute: .CenterX, multiplier: 1.0, constant: 0))
-		constraints.append(NSLayoutConstraint(item: skipView, attribute: .CenterYWithinMargins, relatedBy: .Equal, toItem: parentView, attribute: .CenterY, multiplier: 1.75, constant: 0))
-
-		return constraints
 	}
 }
