@@ -139,6 +139,8 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 		navigationController?.navigationBar.topItem?.title = sample.event.name
 		playView.player.play()
+        
+        tutorial.start(self)
 
 		Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description], timed: true)
 	}
@@ -224,7 +226,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		presentViewController(options, animated: true, completion: nil)
 	}
 
-	// MARK: Player
+	// MARK: - Player
 
 	func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, timeDidChange cmTime: CMTime) {
 		let cmTotal = videoPlayerView.player.player.currentItem?.duration ?? CMTimeMakeWithSeconds(0, 1)
@@ -258,4 +260,19 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 			avc.url = ad
 		}
 	}
+    
+    // MARK: - Tutorial
+    
+    private enum CoachIdentifier: Int {
+        case Greeting = -3000, Time = 3001, Vote, Share, Comment
+    }
+    
+    private static let availableCoachMarks = [
+        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "Submitted videos will repeat forever."),
+        TutorialMark(identifier: CoachIdentifier.Time.rawValue, hint: "Time"),
+        TutorialMark(identifier: CoachIdentifier.Vote.rawValue, hint: "Vote"),
+        TutorialMark(identifier: CoachIdentifier.Share.rawValue, hint: "Share and Report"),
+        TutorialMark(identifier: CoachIdentifier.Comment.rawValue, hint: "Comment")]
+    
+    private let tutorial = TutorialOverlayManager(marks: SampleTastePageController.availableCoachMarks)
 }
