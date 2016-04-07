@@ -75,6 +75,7 @@
 		1FBD401D1C14609C0093D852 /* PartyPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBD401C1C14609C0093D852 /* PartyPlace.swift */; };
 		1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */; };
 		1FD1CDC61C8318B00003C744 /* Defensive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1CDC51C8318B00003C744 /* Defensive.swift */; };
+		1FD940AE1CB5DC8B006D01E4 /* TutorialOverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD940AD1CB5DC8B006D01E4 /* TutorialOverlayManager.swift */; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
 		1FDA455B1C1CECD200F5E458 /* ShareUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */; };
 		1FDA45601C1DB02300F5E458 /* TutorialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA455F1C1DB02300F5E458 /* TutorialController.swift */; };
@@ -167,6 +168,7 @@
 		1FBD401C1C14609C0093D852 /* PartyPlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyPlace.swift; sourceTree = "<group>"; };
 		1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+RuntimeAttributes.swift"; sourceTree = "<group>"; };
 		1FD1CDC51C8318B00003C744 /* Defensive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defensive.swift; sourceTree = "<group>"; };
+		1FD940AD1CB5DC8B006D01E4 /* TutorialOverlayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialOverlayManager.swift; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
 		1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareUtilities.swift; sourceTree = "<group>"; };
 		1FDA455F1C1DB02300F5E458 /* TutorialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialController.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				1FF051E71C20560100A7A67C /* Tutorial.storyboard */,
 				1FDA455F1C1DB02300F5E458 /* TutorialController.swift */,
 				1FDA45611C1E2D5400F5E458 /* TutorialPageController.swift */,
+				1FD940AD1CB5DC8B006D01E4 /* TutorialOverlayManager.swift */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 			files = (
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
 				1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */,
+				1FD940AE1CB5DC8B006D01E4 /* TutorialOverlayManager.swift in Sources */,
 				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
 				1F3010991C9102B80047FA40 /* Advertisement.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,

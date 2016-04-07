@@ -49,7 +49,7 @@
                                     <constraint firstItem="bt6-ov-25O" firstAttribute="leading" secondItem="tdY-rZ-2Mh" secondAttribute="leading" id="zTp-8q-HKF"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcS-0x-nDp">
+                            <button hidden="YES" opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcS-0x-nDp">
                                 <rect key="frame" x="380" y="568" width="200" height="30"/>
                                 <state key="normal" title="Off 🔕"/>
                                 <connections>
@@ -83,12 +83,17 @@
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
-                        <barButtonItem key="leftBarButtonItem" image="Mark" id="mrE-gU-G8u">
-                            <connections>
-                                <action selector="chooseLocation:" destination="SEJ-wv-10Q" id="wmM-Gv-umP"/>
-                            </connections>
+                        <barButtonItem key="leftBarButtonItem" id="Zg7-Eg-O5g">
+                            <button key="customView" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3qV-ww-rkQ" userLabel="City Picker">
+                                <rect key="frame" x="20" y="4" width="84" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Mark"/>
+                                <connections>
+                                    <action selector="chooseLocation:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="N48-qm-1MM"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
-                        <button key="titleView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
+                        <button key="titleView" opaque="NO" tag="1002" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
                             <rect key="frame" x="260" y="2" width="80" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="24" maxY="0.0"/>
@@ -97,42 +102,25 @@
                                 <segue destination="eKO-5N-ikP" kind="presentation" id="6jn-Bq-laD"/>
                             </connections>
                         </button>
-                        <barButtonItem key="rightBarButtonItem" id="JLt-Ac-9ZV">
-                            <view key="customView" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" id="MXP-lb-w7x">
-                                <rect key="frame" x="483" y="5" width="97" height="33"/>
+                        <barButtonItem key="rightBarButtonItem" id="JUv-uA-M57">
+                            <button key="customView" opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uTc-hR-fp7" userLabel="Camera">
+                                <rect key="frame" x="496" y="7" width="84" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="h0V-rg-StC">
-                                        <rect key="frame" x="62" y="1.5" width="35" height="30"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <rect key="contentStretch" x="1" y="0.0" width="0.0" height="1"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="h0V-rg-StC" firstAttribute="centerY" secondItem="MXP-lb-w7x" secondAttribute="centerY" id="eRd-eK-bRK"/>
-                                    <constraint firstAttribute="trailing" secondItem="h0V-rg-StC" secondAttribute="trailing" id="rVq-Uh-6XU"/>
-                                </constraints>
+                                <state key="normal" image="Camera"/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Cne-Uh-QCS" appends="YES" id="96B-kO-GJB"/>
+                                    <segue destination="PEJ-yj-58W" kind="presentation" identifier="Bake Sample Segue" id="DWk-pS-XD1"/>
                                 </connections>
-                            </view>
+                            </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="ackButton" destination="2su-dS-pTj" id="ro4-ik-IO7"/>
                         <outlet property="busyIndicator" destination="bt6-ov-25O" id="VLh-Jo-UXD"/>
                         <outlet property="busyLabel" destination="RyV-iu-gQ1" id="Oe1-hl-7Uh"/>
-                        <outlet property="cameraImage" destination="h0V-rg-StC" id="USP-r9-Kqf"/>
                         <outlet property="reminderButton" destination="FcS-0x-nDp" id="BT3-Ux-RMV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cyB-Pq-hBW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Cne-Uh-QCS">
-                    <connections>
-                        <segue destination="PEJ-yj-58W" kind="presentation" identifier="Bake Sample Segue" id="4gq-DT-fWe"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1110" y="-1303"/>
         </scene>

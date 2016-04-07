@@ -16,7 +16,6 @@ import Flurry_iOS_SDK
 
 class PartyRootController: UIViewController {
 
-	@IBOutlet weak var cameraImage: UIImageView!
 	@IBOutlet weak var busyIndicator: UIActivityIndicatorView!
 	@IBOutlet weak var busyLabel: UILabel!
 	@IBOutlet weak var ackButton: UIButton!
@@ -29,6 +28,19 @@ class PartyRootController: UIViewController {
 	private var selectedRegion = 0
 
 	private var adRefreshTimer: NSTimer?
+
+    private enum CoachIdentifier: Int {
+        case Greeting = -1000, City = 1001, About, Camera, Reminder
+    }
+
+    private static let availableCoachMarks: [TutorialOverlayManager.TutorialMark] = [
+		(CoachIdentifier.Greeting.rawValue,"Welcome to PartyUp!\n\nTap anywhere to proceed."),
+		(CoachIdentifier.City.rawValue,"City"),
+		(CoachIdentifier.About.rawValue,"About"),
+		(CoachIdentifier.Camera.rawValue,"Camera"),
+		(CoachIdentifier.Reminder.rawValue,"Reminder")]
+	
+	private let tutorial = TutorialOverlayManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +59,8 @@ class PartyRootController: UIViewController {
 		nc.addObserver(self, selector: #selector(PartyRootController.refreshReminderButton), name: NSUserDefaultsDidChangeNotification, object: nil)
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
+
+		tutorial.marks = PartyRootController.availableCoachMarks
     }
 
 	func refreshSelectedRegion() {
@@ -189,8 +203,8 @@ class PartyRootController: UIViewController {
 			} else {
 				presentResultHud(self.progressHud,
 					inView: self.view,
-					withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from foursquare"),
-					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from foursquare"),
+					withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from google"),
+					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from google"),
 					indicatingSuccess: false)
 			}
 
@@ -204,35 +218,7 @@ class PartyRootController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
-		let defaults = NSUserDefaults.standardUserDefaults()
-		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
-			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
-			let story = UIStoryboard.init(name: "Tutorial", bundle: nil)
-			if let tutorial = story.instantiateInitialViewController() {
-				presentViewController(tutorial, animated: true, completion: nil)
-			}
-		}
-
-		UIView.animateWithDuration(0.5,
-			delay: 3,
-			options: [.AllowUserInteraction, .CurveEaseInOut],
-			animations: {
-				self.cameraImage.transform = CGAffineTransformMakeScale(0.5,0.5) } ,
-			completion: { (done) in
-				UIView.animateWithDuration(0.5,
-					delay: 0,
-					options: [.AllowUserInteraction, .CurveEaseInOut],
-					animations: { self.cameraImage.transform = CGAffineTransformMakeScale(1.5,1.5) },
-					completion: { (done) in
-						UIView.animateWithDuration(0.5,
-							delay: 0,
-							usingSpringWithDamping: 0.10,
-							initialSpringVelocity: 1,
-							options: .AllowUserInteraction,
-							animations: { self.cameraImage.transform = CGAffineTransformIdentity },
-							completion: nil)
-				})
-		})
+		tutorial.start(self)
 	}
 
 	deinit {
@@ -290,7 +276,7 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	@IBAction func chooseLocation(sender: UIBarButtonItem) {
+	@IBAction func chooseLocation(sender: UIButton) {
 		partyPicker.defocusSearch()
 		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),

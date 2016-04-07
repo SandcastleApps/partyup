@@ -22,6 +22,7 @@ struct PartyUpPreferences
 	static let CameraJump = "CameraJump"
 	static let StickyTowns = "StickyTowns"
 	static let PlayTutorial = "Tutorial"
+	static let TutorialViewed = "TutorialViewed"
     static let AgreedToTerms = "Terms"
 	static let RemindersInterface = "RemindersInterface"
 	static let RemindersInterval = "RemindersInterval"
@@ -78,10 +79,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITextView.appearance().tintColor = UIColor(red: 0.98, green: 0.71, blue: 0.29, alpha: 1.0)
 		UIButton.appearance().tintColor = UIColor(red: 0.98, green: 0.71, blue: 0.29, alpha: 1.0)
 
+		let defaults = NSUserDefaults.standardUserDefaults()
 		if let defaultsUrl = NSBundle.mainBundle().URLForResource("PartyDefaults", withExtension: "plist") {
 			if let defaultsDictionary = NSDictionary(contentsOfURL: defaultsUrl) as? [String:AnyObject] {
-				NSUserDefaults.standardUserDefaults().registerDefaults(defaultsDictionary)
+				defaults.registerDefaults(defaultsDictionary)
 			}
+		}
+
+		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
+			defaults.setObject([], forKey: PartyUpPreferences.TutorialViewed)
+			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
 		}
 
 		let credentialProvider = AWSCognitoCredentialsProvider(
