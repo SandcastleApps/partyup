@@ -76,8 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UINavigationBar.appearance().backIndicatorImage = UIImage(named: "Back")
 		UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "Back")
 		UINavigationBar.appearance().translucent = false
-		UITextView.appearance().tintColor = UIColor(red: 0.98, green: 0.71, blue: 0.29, alpha: 1.0)
-		UIButton.appearance().tintColor = UIColor(red: 0.98, green: 0.71, blue: 0.29, alpha: 1.0)
+		UITextView.appearance().tintColor = UIColor(red: 247.0/255.0, green: 126.0/255.0, blue: 86.0/255.00, alpha: 1.0)
+		UIButton.appearance().tintColor = UIColor(red: 247.0/255.0, green: 126.0/255.0, blue: 86.0/255.00, alpha: 1.0)
 
 		let defaults = NSUserDefaults.standardUserDefaults()
 		if let defaultsUrl = NSBundle.mainBundle().URLForResource("PartyDefaults", withExtension: "plist") {
