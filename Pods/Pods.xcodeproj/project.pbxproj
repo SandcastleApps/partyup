@@ -303,6 +303,21 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>059BE9D68BC300427CE5A892FB7259A0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libFlurry_7.6.0.a</string>
+			<key>path</key>
+			<string>Flurry/libFlurry_7.6.0.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>059F44E03F50D215E98652AE56E0AA64</key>
 		<dict>
 			<key>baseConfigurationReference</key>
@@ -2314,21 +2329,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>221AE3A9505C3DDAC999AEDE644CDE87</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>archive.ar</string>
-			<key>name</key>
-			<string>libFlurry_7.5.2.a</string>
-			<key>path</key>
-			<string>Flurry/libFlurry_7.5.2.a</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>2299A6EC414A30CEEAB624D2071AD9F7</key>
 		<dict>
@@ -7144,6 +7144,19 @@
 				<string>-DOS_OBJECT_USE_OBJC=0</string>
 			</dict>
 		</dict>
+		<key>77B24450004059CDC2A54E8A3DA8BEAB</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>059BE9D68BC300427CE5A892FB7259A0</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>78403737A608155193A4A661D1CD558A</key>
 		<dict>
 			<key>fileRef</key>
@@ -10422,19 +10435,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>ACA99C095D9C7DBC480865A2AE8F0E3F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>221AE3A9505C3DDAC999AEDE644CDE87</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>ACE6AAFF43836C0C1A7FE1AA53735351</key>
 		<dict>
@@ -14881,7 +14881,7 @@
 			<array>
 				<string>8A1905C6A09E50EAFD64022E706B0247</string>
 				<string>4EA39CE79B00EB45201C5EE034F993F1</string>
-				<string>ACA99C095D9C7DBC480865A2AE8F0E3F</string>
+				<string>77B24450004059CDC2A54E8A3DA8BEAB</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
