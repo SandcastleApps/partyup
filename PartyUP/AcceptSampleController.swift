@@ -187,7 +187,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			animations: {
 				self.comment.transform = CGAffineTransformIdentity
 			},
-			completion: nil)
+			completion: { done in if done { self.tutorial.start(self) } })
 	}
 
 	// MARK: - Venue Picker
@@ -369,6 +369,19 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	func observeApplicationEnterBackground() {
 		playView.player.pause()
 	}
+
+	// MARK: - Tutorial
+
+	private enum CoachIdentifier: Int {
+		case Greeting = -2100, Comment = 2101, Venue, Submit
+	}
+
+	private static let availableCoachMarks = [
+		TutorialMark(identifier: CoachIdentifier.Comment.rawValue, hint: "Describe the environment"),
+		TutorialMark(identifier: CoachIdentifier.Venue.rawValue, hint: "Where are you at?"),
+		TutorialMark(identifier: CoachIdentifier.Submit.rawValue, hint: "Let's send this thing.")]
+
+	private let tutorial = TutorialOverlayManager(marks: AcceptSampleController.availableCoachMarks)
 }
 
 extension AcceptSampleController: UIBarPositioningDelegate {

@@ -197,7 +197,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="200" verticalCompressionResistancePriority="250" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RmL-zJ-VBo" userLabel="Comment">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2101" contentMode="scaleToFill" verticalHuggingPriority="200" verticalCompressionResistancePriority="250" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RmL-zJ-VBo" userLabel="Comment">
                                 <rect key="frame" x="20" y="72" width="560" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -214,7 +214,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgR-vF-K22">
+                            <button opaque="NO" tag="2102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgR-vF-K22">
                                 <rect key="frame" x="20" y="80" width="560" height="26"/>
                                 <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
                                 <state key="normal" title="Venue">
@@ -242,7 +242,7 @@
                                     <constraint firstAttribute="height" secondItem="pcg-n1-3Re" secondAttribute="width" multiplier="1:1" id="vxR-RL-NHu"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tt7-oa-KC9" userLabel="Share View">
+                            <view tag="2103" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tt7-oa-KC9" userLabel="Share View">
                                 <rect key="frame" x="0.0" y="556" width="600" height="46"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZ4-cg-Erw" userLabel="Send">
