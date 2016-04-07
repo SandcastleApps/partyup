@@ -72,8 +72,10 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		if var seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
 			seen.appendContentsOf(unseen.map { $0.identifier})
 			defaults.setObject(seen, forKey: PartyUpPreferences.TutorialViewed)
-			parent = nil
 		}
+
+		parent = nil
+		unseen.removeAll()
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, constraintsForSkipView skipView: UIView, inParentView parentView: UIView) -> [NSLayoutConstraint]? {
