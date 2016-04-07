@@ -24,13 +24,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 	var marks: [TutorialMark]? {
 		didSet {
-			if let marks = marks where !marks.isEmpty{
-				if let seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
-					unseen = marks.filter { !seen.contains($0.identifier) }
-				}
-			} else {
-				unseen.removeAll()
-			}
+			filterMarks()
 		}
 	}
 
@@ -49,6 +43,21 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 	private let defaults = NSUserDefaults.standardUserDefaults()
 	private var unseen = [TutorialMark]()
 	private weak var target: UIViewController?
+
+	init(marks: [TutorialMark]) {
+		self.marks = marks
+		filterMarks()
+	}
+
+	private func filterMarks() {
+		if let marks = marks where !marks.isEmpty{
+			if let seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
+				unseen = marks.filter { !seen.contains($0.identifier) }
+			}
+		} else {
+			unseen.removeAll()
+		}
+	}
 
 	func start(target: UIViewController) {
 		if !unseen.isEmpty {

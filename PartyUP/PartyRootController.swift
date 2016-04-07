@@ -40,7 +40,7 @@ class PartyRootController: UIViewController {
 		TutorialMark(identifier: CoachIdentifier.Camera.rawValue, hint: "Camera"),
 		TutorialMark(identifier: CoachIdentifier.Reminder.rawValue, hint: "Reminder")]
 	
-	private let tutorial = TutorialOverlayManager()
+	private let tutorial = TutorialOverlayManager(marks: PartyRootController.availableCoachMarks)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +59,6 @@ class PartyRootController: UIViewController {
 		nc.addObserver(self, selector: #selector(PartyRootController.refreshReminderButton), name: NSUserDefaultsDidChangeNotification, object: nil)
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
-
-		tutorial.marks = PartyRootController.availableCoachMarks
     }
 
 	func refreshSelectedRegion() {
