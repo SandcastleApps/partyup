@@ -33,10 +33,15 @@
                                                 <action selector="cancelRecording:" destination="8VR-ye-Fdg" id="vlC-g5-Vni"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" image="Selfie" id="Cr2-dr-Qy7">
-                                            <connections>
-                                                <action selector="toggleCamera:" destination="8VR-ye-Fdg" id="Mas-NS-kMg"/>
-                                            </connections>
+                                        <barButtonItem key="rightBarButtonItem" title="Item" id="6kT-CU-tij">
+                                            <button key="customView" opaque="NO" tag="2001" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="reo-gK-qQu" userLabel="Selfie Button">
+                                                <rect key="frame" x="491" y="7" width="89" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="Selfie"/>
+                                                <connections>
+                                                    <action selector="toggleCamera:" destination="8VR-ye-Fdg" eventType="touchUpInside" id="CRn-ks-ByP"/>
+                                                </connections>
+                                            </button>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -59,7 +64,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e7N-lt-t9J" userLabel="Record Container">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhj-Vi-QG8" customClass="DACircularProgressView">
+                                    <view tag="2002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhj-Vi-QG8" customClass="DACircularProgressView">
                                         <rect key="frame" x="250" y="492" width="99" height="99"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>

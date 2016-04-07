@@ -75,7 +75,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 				self.recordButton.transform = CGAffineTransformIdentity
 				self.preview.transform = CGAffineTransformIdentity
 			},
-			completion: nil)
+			completion: { done in if done { self.tutorial.start(self) } })
 	}
 
 	override func viewWillDisappear(animated: Bool) {
@@ -100,7 +100,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 		}
 	}
 
-	@IBAction func toggleCamera(sender: UIBarButtonItem?) {
+	@IBAction func toggleCamera(sender: UIButton?) {
 		switch vision.cameraDevice {
 		case .Back:
 			if vision.isCameraDeviceAvailable(.Front) {
@@ -222,6 +222,18 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 			}
 		}
 	}
+
+	// MARK: - Tutorial
+
+	private enum CoachIdentifier: Int {
+		case Greeting = -2000, Selfie = 2001, Record
+	}
+
+	private static let availableCoachMarks = [
+		TutorialMark(identifier: CoachIdentifier.Selfie.rawValue, hint: "Selfie"),
+		TutorialMark(identifier: CoachIdentifier.Record.rawValue, hint: "Record")]
+
+	private let tutorial = TutorialOverlayManager(marks: RecordSampleController.availableCoachMarks)
 }
 
 extension RecordSampleController: UIBarPositioningDelegate {
