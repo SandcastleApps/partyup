@@ -213,6 +213,10 @@ class PartyRootController: UIViewController {
     // MARK: - Navigation
 
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+		if tutorial.tutoring {
+			return false
+		}
+		
 		if identifier == "Bake Sample Segue" {
             let defaults = NSUserDefaults.standardUserDefaults()
             if defaults.boolForKey(PartyUpPreferences.AgreedToTerms) == false {

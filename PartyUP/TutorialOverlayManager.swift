@@ -28,6 +28,12 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		}
 	}
 
+	var tutoring: Bool {
+		get {
+			return coach.flatMap { $0.started } ?? false
+		}
+	}
+
 	private var coach: CoachMarksController?
 
 	private let skip: CoachMarkSkipDefaultView = {
