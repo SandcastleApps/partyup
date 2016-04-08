@@ -108,6 +108,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
 		let hint = NSLocalizedString(unseen[index].hint, comment: "Tutorial Mark \(unseen[index].identifier)")
 		var coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation, hintText: hint, nextText: nil)
+		coachViews.bodyView.hintLabel.textAlignment = .Center
 		if unseen[index].identifier < 0 {
 			coachViews.arrowView = nil
 		}
