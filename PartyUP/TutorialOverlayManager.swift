@@ -72,7 +72,6 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		let coach = CoachMarksController()
 		coach.dataSource = self
 		coach.delegate = self
-		coach.allowOverlayTap = true
 		coach.overlayBackgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.4)
 		return coach
 	}
@@ -114,7 +113,8 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
 		let hint = NSLocalizedString(unseen[index].hint, comment: "Tutorial Mark \(unseen[index].identifier)")
-		var coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation, hintText: hint, nextText: nil)
+		let next = NSLocalizedString("ok", comment: "Tutorial next label")
+		var coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation, hintText: hint, nextText: next)
 		coachViews.bodyView.hintLabel.textAlignment = .Center
 		if unseen[index].identifier < 0 {
 			coachViews.arrowView = nil
@@ -138,8 +138,8 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 		var constraints: [NSLayoutConstraint] = []
 
-		constraints.append(NSLayoutConstraint(item: skipView, attribute: .CenterXWithinMargins, relatedBy: .Equal, toItem: parentView, attribute: .CenterX, multiplier: 1.0, constant: 0))
-		constraints.append(NSLayoutConstraint(item: skipView, attribute: .CenterYWithinMargins, relatedBy: .Equal, toItem: parentView, attribute: .CenterY, multiplier: 1.75, constant: 0))
+		constraints.append(NSLayoutConstraint(item: skipView, attribute: .Leading , relatedBy: .Equal, toItem: parentView, attribute: .LeadingMargin, multiplier: 1.0, constant: 0))
+		constraints.append(NSLayoutConstraint(item: skipView, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .BottomMargin, multiplier: 1.0, constant: 0))
 
 		return constraints
 	}
