@@ -75,13 +75,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Flurry.setUserID(UIDevice.currentDevice().identifierForVendor?.UUIDString)
 		Flurry.startSession(FlurryConstants.ApplicationIdentifier)
 
-		window?.tintColor = UIColor.orangeColor()
+		let tint = UIColor(red: 247.0/255.0, green: 126.0/255.0, blue: 86.0/255.00, alpha: 1.0)
+
+		window?.tintColor = tint
 		UINavigationBar.appearance().backgroundColor = UIColor.whiteColor()
 		UINavigationBar.appearance().backIndicatorImage = UIImage(named: "Back")
 		UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "Back")
 		UINavigationBar.appearance().translucent = false
-		UITextView.appearance().tintColor = UIColor(red: 247.0/255.0, green: 126.0/255.0, blue: 86.0/255.00, alpha: 1.0)
-		UIButton.appearance().tintColor = UIColor(red: 247.0/255.0, green: 126.0/255.0, blue: 86.0/255.00, alpha: 1.0)
+		UINavigationBar.appearance().tintColor = tint
+		UITextView.appearance().tintColor = tint
+		UIButton.appearance().tintColor = tint
 
 		let defaults = NSUserDefaults.standardUserDefaults()
 		if let defaultsUrl = NSBundle.mainBundle().URLForResource("PartyDefaults", withExtension: "plist") {
