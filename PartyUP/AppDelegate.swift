@@ -83,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "Back")
 		UINavigationBar.appearance().translucent = false
 		UINavigationBar.appearance().tintColor = tint
+		UIToolbar.appearance().tintColor = tint
 		UITextView.appearance().tintColor = tint
 		UIButton.appearance().tintColor = tint
 
