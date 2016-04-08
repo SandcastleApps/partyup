@@ -28,16 +28,12 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		}
 	}
 
-	private(set) lazy var coach: CoachMarksController = {
-		let coach = CoachMarksController()
-		coach.dataSource = self
-		coach.delegate = self
-		coach.allowOverlayTap = true
-		coach.overlayBackgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.4)
+	private var coach: CoachMarksController?
+
+	private let skip: CoachMarkSkipDefaultView = {
 		let skip = CoachMarkSkipDefaultView()
 		skip.setTitle(NSLocalizedString("Skip", comment: "Tutorial skip button label"), forState: .Normal)
-		coach.skipView = skip
-		return coach
+		return skip
 	}()
 
 	private let defaults = NSUserDefaults.standardUserDefaults()
@@ -59,9 +55,20 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		}
 	}
 
+	private func create() -> CoachMarksController {
+		let coach = CoachMarksController()
+		coach.dataSource = self
+		coach.delegate = self
+		coach.allowOverlayTap = true
+		coach.overlayBackgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.4)
+		return coach
+	}
+
 	func start(target: UIViewController) {
 		if !unseen.isEmpty {
-			coach.startOn(target)
+			coach = create()
+			coach?.skipView = unseen.count > 1 ? skip : nil
+			coach?.startOn(target)
 			self.target = target
 
 			target.navigationController?.view.userInteractionEnabled = false
@@ -70,15 +77,15 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 	}
 
 	func stop() {
-		coach.stop()
+		coach?.stop()
 	}
 
 	func pause() {
-		coach.pause()
+		coach?.pause()
 	}
 
 	func resume() {
-		coach.resume()
+		coach?.resume()
 	}
 
 	func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
@@ -110,6 +117,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		target?.navigationController?.view.userInteractionEnabled = true
 		target?.view?.userInteractionEnabled = true
 		unseen.removeAll()
+		coach = nil
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, constraintsForSkipView skipView: UIView, inParentView parentView: UIView) -> [NSLayoutConstraint]? {
