@@ -49,8 +49,15 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 	init(marks: [TutorialMark]) {
 		self.marks = marks
 		filterMarks()
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TutorialOverlayManager.filterMarks), name: NSUserDefaultsDidChangeNotification, object: nil)
 	}
 
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
+
+	@objc
 	private func filterMarks() {
 		if let marks = marks where !marks.isEmpty{
 			if let seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {

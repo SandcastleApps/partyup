@@ -62,6 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		static let BackgroundSession = "com.sandcastleapps.partyup.session"
 	}
 
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
+
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
 		NSSetUncaughtExceptionHandler({
@@ -86,10 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			}
 		}
 
-		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
-			defaults.setObject([], forKey: PartyUpPreferences.TutorialViewed)
-			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
-		}
+		observeSettingsChange()
 
 		let credentialProvider = AWSCognitoCredentialsProvider(
 			regionType: AwsConstants.RegionType,
@@ -113,7 +114,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			AWSLogger.defaultLogger().logLevel = .Warn
 		#endif
 
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.observeSettingsChange), name: NSUserDefaultsDidChangeNotification, object: nil)
+
 		return true
+	}
+
+	func observeSettingsChange() {
+		let defaults = NSUserDefaults.standardUserDefaults()
+		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
+			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
+			defaults.setObject([], forKey: PartyUpPreferences.TutorialViewed)
+			//defaults.synchronize()
+		}
 	}
 
 	func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
