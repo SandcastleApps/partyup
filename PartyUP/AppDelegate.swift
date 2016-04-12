@@ -128,7 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if defaults.boolForKey(PartyUpPreferences.PlayTutorial) {
 			defaults.setBool(false, forKey: PartyUpPreferences.PlayTutorial)
 			defaults.setObject([], forKey: PartyUpPreferences.TutorialViewed)
-			//defaults.synchronize()
 		}
 	}
 
@@ -183,7 +182,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             localNote.fireDate = futureDate.dateByAddingTimeInterval(offset)
                             localNote.timeZone = NSTimeZone.defaultTimeZone()
                             if prebook < 0 {
-                                localNote.repeatInterval = .Weekday
+                                localNote.repeatInterval = .WeekOfYear
                                 localNote.repeatCalendar = calendar
                             }
                             application.scheduleLocalNotification(localNote)
