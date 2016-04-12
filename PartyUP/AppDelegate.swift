@@ -9,7 +9,7 @@
 import UIKit
 import AWSCore
 import AWSS3
-import CoreData
+import AWSCognito
 import Flurry_iOS_SDK
 
 struct PartyUpPreferences
@@ -104,6 +104,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			credentialsProvider: credentialProvider)
 
 		AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+        
+        //let cognito = AWSCognito.defaultCognito()
+        //let token = AWSServiceManager.defaultServiceManager().defaultServiceConfiguration.credentialsProvider.
 
 		application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
         

@@ -1,6 +1,8 @@
 PODS:
   - ActionSheetPicker-3.0 (2.0.5)
   - Alamofire (3.3.1)
+  - AWSCognito (2.3.6):
+    - AWSCore (= 2.3.6)
   - AWSCore (2.3.6)
   - AWSDynamoDB (2.3.6):
     - AWSCore (= 2.3.6)
@@ -22,6 +24,7 @@ PODS:
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0)
   - Alamofire (~> 3.1)
+  - AWSCognito (~> 2.2)
   - AWSDynamoDB (~> 2.2)
   - AWSS3 (~> 2.2)
   - DACircularProgress
@@ -38,6 +41,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  AWSCognito: af54fe65171c7c994c134e5d29b1ee60ee234825
   AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
   AWSDynamoDB: 0bfd95eb10363090d8570a48d5feb4e3d7ec5264
   AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74

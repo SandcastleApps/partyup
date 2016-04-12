@@ -4,6 +4,7 @@ use_frameworks!
 target 'PartyUP' do
 	pod 'AWSS3', '~> 2.2'
 	pod 'AWSDynamoDB', '~> 2.2'
+	pod 'AWSCognito', '~> 2.2'
 	pod 'DACircularProgress'
 	pod 'Alamofire', '~> 3.1'
 	pod 'SwiftyJSON', '~> 2.3'
