@@ -351,8 +351,8 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 		if host == nil {
 			selectedLocal = 0
 			setCommentPlaceholder()
-			playView.player.pause()
-		} else {
+			playView.player.reset()
+        } else {
 			if let url = videoUrl {
 				playView.player.setURL(url)
 				playView.player.play()
