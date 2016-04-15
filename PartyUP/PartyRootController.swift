@@ -304,8 +304,9 @@ class PartyRootController: UIViewController {
 	@IBAction func segueFromAcknowledgements(segue: UIStoryboardSegue) {
 	}
 
-	@IBAction func segueFromTutorial(segue: UIStoryboardSegue) {
+	@IBAction func segueFromLogin(segue: UIStoryboardSegue) {
 	}
+    
 
 	func observeApplicationBecameActive() {
         let defaults = NSUserDefaults.standardUserDefaults()

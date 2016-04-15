@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Pick Party-->
@@ -20,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="-1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O1V-oS-o4a" userLabel="Greeting Pilot">
-                                <rect key="frame" x="299.5" y="74.5" width="1" height="1"/>
+                                <rect key="frame" x="300" y="75" width="1" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Moj-2A-edu"/>
@@ -93,16 +94,23 @@
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
-                        <barButtonItem key="leftBarButtonItem" id="Zg7-Eg-O5g">
-                            <button key="customView" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3qV-ww-rkQ" userLabel="City Picker">
-                                <rect key="frame" x="20" y="4" width="84" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Mark"/>
+                        <leftBarButtonItems>
+                            <barButtonItem id="Zg7-Eg-O5g">
+                                <button key="customView" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3qV-ww-rkQ" userLabel="City Picker">
+                                    <rect key="frame" x="20" y="4" width="84" height="35"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="Mark"/>
+                                    <connections>
+                                        <action selector="chooseLocation:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="N48-qm-1MM"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem title="Account" id="E9R-FR-g3L">
                                 <connections>
-                                    <action selector="chooseLocation:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="N48-qm-1MM"/>
+                                    <segue destination="zTG-2l-hFa" kind="presentation" id="kg3-Tx-DBp"/>
                                 </connections>
-                            </button>
-                        </barButtonItem>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <button key="titleView" opaque="NO" tag="1002" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
                             <rect key="frame" x="260" y="2" width="80" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -147,7 +155,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
@@ -214,7 +222,7 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TU-OM-H3C" id="AWb-fz-eaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">
@@ -359,6 +367,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fqj-xf-Mnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1857" y="-1303"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="AMq-mb-4ux">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Login" id="zTG-2l-hFa" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D4W-8B-7GS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1795" y="-1002"/>
         </scene>
     </scenes>
     <resources>
