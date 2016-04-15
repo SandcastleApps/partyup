@@ -62,6 +62,21 @@
 				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+			<key>facebook.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key> <true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key> <false/>
+			</dict>
+			<key>fbcdn.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key> <true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>  <false/>
+			</dict>
+			<key>akamaihd.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key> <true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key> <false/>
+			</dict>
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -85,5 +100,18 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb***REMOVED***</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>***REMOVED***</string>
+	<key>FacebookDisplayName</key>
+	<string>PartyUP</string>
 </dict>
 </plist>

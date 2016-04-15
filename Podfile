@@ -17,6 +17,7 @@ target 'PartyUP' do
 	pod 'Flurry-iOS-SDK', '~> 7.3'
 	pod 'MarqueeLabel-Swift', '~> 2.6'
 	pod 'Instructions', '~> 0.4'
+	pod 'FBSDKLoginKit', '~> 4.11'
 end
 
 target 'PartyUPTests' do

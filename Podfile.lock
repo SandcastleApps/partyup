@@ -8,7 +8,17 @@ PODS:
     - AWSCore (= 2.3.6)
   - AWSS3 (2.3.6):
     - AWSCore (= 2.3.6)
+  - Bolts (1.7.0):
+    - Bolts/AppLinks (= 1.7.0)
+    - Bolts/Tasks (= 1.7.0)
+  - Bolts/AppLinks (1.7.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.7.0)
   - DACircularProgress (2.3.1)
+  - FBSDKCoreKit (4.11.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.11.0):
+    - FBSDKCoreKit
   - Flurry-iOS-SDK (7.6.0):
     - Flurry-iOS-SDK/FlurrySDK (= 7.6.0)
   - Flurry-iOS-SDK/FlurrySDK (7.6.0)
@@ -28,6 +38,7 @@ DEPENDENCIES:
   - AWSDynamoDB (~> 2.2)
   - AWSS3 (~> 2.2)
   - DACircularProgress
+  - FBSDKLoginKit (~> 4.11)
   - Flurry-iOS-SDK (~> 7.3)
   - Instructions (~> 0.4)
   - INTULocationManager (~> 4.1)
@@ -45,7 +56,10 @@ SPEC CHECKSUMS:
   AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
   AWSDynamoDB: 0bfd95eb10363090d8570a48d5feb4e3d7ec5264
   AWSS3: 1caaf6b45100503fecf3d418c394519a89409a74
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  FBSDKCoreKit: 686ac982723a14ec9ddb85e2f81235d7706c891b
+  FBSDKLoginKit: bade9fc78277764149ccc5bfaadbf13c83175c6a
   Flurry-iOS-SDK: 9822fe709195f0e3ae3e52c785eee9ff651ff648
   Instructions: 7283d009379714e8ff667153014cd62b6e4f4eb9
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998

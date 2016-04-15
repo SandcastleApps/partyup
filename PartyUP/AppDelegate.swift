@@ -11,6 +11,7 @@ import AWSCore
 import AWSS3
 import AWSCognito
 import Flurry_iOS_SDK
+import FBSDKCoreKit
 
 struct PartyUpPreferences
 {
@@ -104,6 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			credentialsProvider: credentialProvider)
 
 		AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+
+		FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         //let cognito = AWSCognito.defaultCognito()
         //let token = AWSServiceManager.defaultServiceManager().defaultServiceConfiguration.credentialsProvider.
@@ -147,6 +150,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
 
 		AWSS3TransferUtility.interceptApplication(application, handleEventsForBackgroundURLSession: AwsConstants.BackgroundSession, completionHandler: completionHandler)
+	}
+
+	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+		return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
 	}
 
 	func scheduleNotificationsFromUrl(url: NSURL, inApplication application: UIApplication, withNotificationSettings notificationSettings: UIUserNotificationSettings) {
