@@ -51,6 +51,9 @@
 		1F427A0B1BA59F4C00E622CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */; };
 		1F427A161BA59F4C00E622CF /* PartyUPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A151BA59F4C00E622CF /* PartyUPTests.swift */; };
 		1F427A211BA59F4C00E622CF /* PartyUPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */; };
+		1F43C5C61CC3A40D00FA4156 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43C5C51CC3A40D00FA4156 /* AuthenticationManager.swift */; };
+		1F43C5C81CC3AF8500FA4156 /* AuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43C5C71CC3AF8500FA4156 /* AuthenticationProvider.swift */; };
+		1F43C5CA1CC3B3AA00FA4156 /* FacebookAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43C5C91CC3B3AA00FA4156 /* FacebookAuthenticationProvider.swift */; };
 		1F6110AC1CC17E34005DF677 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F6110AB1CC17E34005DF677 /* Login.storyboard */; };
 		1F6110AF1CC17F01005DF677 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6110AE1CC17F01005DF677 /* LoginController.swift */; };
 		1F69A6271CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F69A6261CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift */; };
@@ -134,6 +137,9 @@
 		1F427A1C1BA59F4C00E622CF /* PartyUPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartyUPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F427A201BA59F4C00E622CF /* PartyUPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyUPUITests.swift; sourceTree = "<group>"; };
 		1F427A221BA59F4C00E622CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F43C5C51CC3A40D00FA4156 /* AuthenticationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		1F43C5C71CC3AF8500FA4156 /* AuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationProvider.swift; sourceTree = "<group>"; };
+		1F43C5C91CC3B3AA00FA4156 /* FacebookAuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticationProvider.swift; sourceTree = "<group>"; };
 		1F6110AB1CC17E34005DF677 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		1F6110AE1CC17F01005DF677 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		1F69A6261CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateComponentsFormatter+Postfix.swift"; sourceTree = "<group>"; };
@@ -329,6 +335,9 @@
 			children = (
 				1F6110AB1CC17E34005DF677 /* Login.storyboard */,
 				1F6110AE1CC17F01005DF677 /* LoginController.swift */,
+				1F43C5C51CC3A40D00FA4156 /* AuthenticationManager.swift */,
+				1F43C5C71CC3AF8500FA4156 /* AuthenticationProvider.swift */,
+				1F43C5C91CC3B3AA00FA4156 /* FacebookAuthenticationProvider.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -677,12 +686,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F03C3761BA84F290037D7D8 /* Venue.swift in Sources */,
+				1F43C5CA1CC3B3AA00FA4156 /* FacebookAuthenticationProvider.swift in Sources */,
 				1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */,
 				1FD940AE1CB5DC8B006D01E4 /* TutorialOverlayManager.swift in Sources */,
 				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
 				1F3010991C9102B80047FA40 /* Advertisement.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
+				1F43C5C81CC3AF8500FA4156 /* AuthenticationProvider.swift in Sources */,
 				1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */,
 				1F2AA0C41C9B918000363DA8 /* FetchQueryable.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
@@ -700,6 +711,7 @@
 				1F9509951BACACE8005BDC18 /* NSURL+Mime.swift in Sources */,
 				1F8BF1C11C1C55C500221D82 /* AcknowledgementsController.swift in Sources */,
 				1FBD401D1C14609C0093D852 /* PartyPlace.swift in Sources */,
+				1F43C5C61CC3A40D00FA4156 /* AuthenticationManager.swift in Sources */,
 				1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */,
 				1F08469D1C32C0490064FBDD /* VenueTableCell.swift in Sources */,
 				1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */,

@@ -106,11 +106,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
 
-		FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        //let cognito = AWSCognito.defaultCognito()
-        //let token = AWSServiceManager.defaultServiceManager().defaultServiceConfiguration.credentialsProvider.
-
 		application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
         
         let manager = NSFileManager.defaultManager()
@@ -126,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.observeSettingsChange), name: NSUserDefaultsDidChangeNotification, object: nil)
 
-		return true
+		return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 	}
 
 	func observeSettingsChange() {
