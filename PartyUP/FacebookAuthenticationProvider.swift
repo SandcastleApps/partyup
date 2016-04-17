@@ -16,27 +16,26 @@ class FacebookAuthenticationProvider: AuthenticationProvider {
 	var provider: String { return "Facebook" }
 	var uri: String { return "graph.facebook.com" }
 
-	required init(manager: AuthenticationManager) {
-		self.authenticationManager = manager
-		self.keychain = manager.keychain
+    required init(keychain: Keychain) {
+		self.keychain = keychain
 		self.loginManager = FBSDKLoginManager()
 	}
 
 	var isLoggedIn: Bool { return FBSDKAccessToken.currentAccessToken() != nil && keychain[provider] != nil }
 
-	func login() {
+    func loginForManager(manager: AuthenticationManager) {
 		if FBSDKAccessToken.currentAccessToken() != nil {
-			completeLogin()
+			completeLoginForManager(manager)
 		} else {
 			loginManager.logInWithReadPermissions(nil) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) -> Void in
 				if (error != nil) {
 					dispatch_async(dispatch_get_main_queue()) {
-						self.authenticationManager.alert("Error logging in with FB: " + error.localizedDescription)
+						manager.alert("Error logging in with FB: " + error.localizedDescription)
 					}
 				} else if result.isCancelled {
 						//Do nothing
 				} else {
-					self.completeLogin()
+					self.completeLoginForManager(manager)
 				}
 			}
 		}
@@ -47,9 +46,9 @@ class FacebookAuthenticationProvider: AuthenticationProvider {
 		keychain[provider] = nil
 	}
 
-	func reloadSession() {
-		if FBSDKAccessToken.currentAccessToken() != nil {
-			completeLogin()
+    func resumeSessionForManager(manager: AuthenticationManager) {
+		if isLoggedIn {
+			completeLoginForManager(manager)
 		}
 	}
 
@@ -65,12 +64,11 @@ class FacebookAuthenticationProvider: AuthenticationProvider {
 
 	// MARK: - Private
 
-	private func completeLogin() {
+    private func completeLoginForManager(manager: AuthenticationManager) {
 		keychain[provider] = "YES"
-		authenticationManager.completeLogin([uri : FBSDKAccessToken.currentAccessToken().tokenString])
+		manager.completeLogin([uri : FBSDKAccessToken.currentAccessToken().tokenString])
 	}
 
 	private let keychain: Keychain
 	private let loginManager: FBSDKLoginManager
-	private let authenticationManager: AuthenticationManager
 }
