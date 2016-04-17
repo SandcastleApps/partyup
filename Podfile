@@ -18,6 +18,7 @@ target 'PartyUP' do
 	pod 'MarqueeLabel-Swift', '~> 2.6'
 	pod 'Instructions', '~> 0.4'
 	pod 'FBSDKLoginKit', '~> 4.11'
+	pod 'KeychainAccess', '~> 2.3'
 end
 
 target 'PartyUPTests' do

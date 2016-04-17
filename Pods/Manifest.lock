@@ -25,6 +25,7 @@ PODS:
   - Instructions (0.4.0)
   - INTULocationManager (4.2.0)
   - JGProgressHUD (1.3.1)
+  - KeychainAccess (2.3.5)
   - LMGeocoder (1.0.4)
   - MarqueeLabel-Swift (2.6.6)
   - PBJVision (0.4.2)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - Instructions (~> 0.4)
   - INTULocationManager (~> 4.1)
   - JGProgressHUD (~> 1.3)
+  - KeychainAccess (~> 2.3)
   - LMGeocoder (~> 1.0)
   - MarqueeLabel-Swift (~> 2.6)
   - PBJVision (~> 0.4)
@@ -64,6 +66,7 @@ SPEC CHECKSUMS:
   Instructions: 7283d009379714e8ff667153014cd62b6e4f4eb9
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   JGProgressHUD: 153053a21d81208cb5f659691996bcefce6a9885
+  KeychainAccess: e283c1981a6c5655e1984cd411c6faf16fa165ae
   LMGeocoder: a0f635f948b0ca420d8d338e54886744cdcb215d
   MarqueeLabel-Swift: debdfb306f9398b3921a43d7c1a7fed3b8a29694
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
