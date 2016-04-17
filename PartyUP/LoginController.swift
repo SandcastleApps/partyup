@@ -37,9 +37,9 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
 			//handle cancelled
 		} else {
 			if let creds = AWSServiceManager.defaultServiceManager().defaultServiceConfiguration.credentialsProvider as? AWSCognitoCredentialsProvider {
-				if result.token != nil {
-					creds.logins[AWSCognitoLoginProviderKey.Facebook.rawValue] = result.token
-				}
+				var logins = creds.logins ?? [:]
+				logins[AWSCognitoLoginProviderKey.Facebook.rawValue] = result.token
+				creds.logins = logins
 			}
 		}
 	}
