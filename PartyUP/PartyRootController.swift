@@ -307,6 +307,38 @@ class PartyRootController: UIViewController {
 	@IBAction func segueFromLogin(segue: UIStoryboardSegue) {
 	}
     
+	@IBAction func authenticate(sender: UIButton) {
+		let manager = AuthenticationManager.shared
+		var message: String?
+		var actions = [UIAlertAction]()
+
+		if manager.isLoggedIn() {
+			message = nil
+			actions.append(UIAlertAction(title: NSLocalizedString("Logout", comment: "Logout sheet action"),
+				style: .Default) { _ in manager.logout() })
+		} else {
+			message = NSLocalizedString("Login using", comment: "Login sheet message")
+			let available = manager.availableAuthenticators
+			for auth in available {
+				actions.append(UIAlertAction(title: auth.name, style: .Default) { _ in manager.loginWithAuthenticator(auth) })
+			}
+		}
+
+		actions.append(UIAlertAction(title: "Cancel", style: .Cancel) { _ in })
+
+		let providers = UIAlertController(title: NSLocalizedString("Authentication", comment: "Authentication sheet title"),
+		                                  message: message,
+		                                  preferredStyle: .ActionSheet)
+
+		actions.forEach { providers.addAction($0) }
+
+		if let pop = providers.popoverPresentationController {
+			pop.sourceView = sender
+			pop.sourceRect = sender.bounds
+		}
+
+		self.presentViewController(providers, animated: true, completion: nil)
+	}
 
 	func observeApplicationBecameActive() {
         let defaults = NSUserDefaults.standardUserDefaults()

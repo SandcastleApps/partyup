@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F18b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -95,9 +95,9 @@
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="WRy-pu-28X"/>
                         <leftBarButtonItems>
-                            <barButtonItem id="Zg7-Eg-O5g">
+                            <barButtonItem id="Zg7-Eg-O5g" userLabel="City">
                                 <button key="customView" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3qV-ww-rkQ" userLabel="City Picker">
-                                    <rect key="frame" x="20" y="4" width="84" height="35"/>
+                                    <rect key="frame" x="20" y="4" width="40" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="Mark"/>
                                     <connections>
@@ -105,10 +105,15 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem title="Account" id="E9R-FR-g3L">
-                                <connections>
-                                    <segue destination="zTG-2l-hFa" kind="presentation" id="kg3-Tx-DBp"/>
-                                </connections>
+                            <barButtonItem id="0fK-cX-XLI" userLabel="Account">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EDb-XJ-nku" userLabel="Account Picker">
+                                    <rect key="frame" x="68" y="11" width="40" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="SmallDots"/>
+                                    <connections>
+                                        <action selector="authenticate:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="FYR-ry-cot"/>
+                                    </connections>
+                                </button>
                             </barButtonItem>
                         </leftBarButtonItems>
                         <button key="titleView" opaque="NO" tag="1002" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2su-dS-pTj" userLabel="TitlePrefs">
@@ -155,7 +160,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
@@ -222,7 +227,7 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TU-OM-H3C" id="AWb-fz-eaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">
@@ -366,15 +371,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="Sample Baking Controller" storyboardName="Baking" referencedIdentifier="Sample Baking Controller" id="PEJ-yj-58W" userLabel="Sample Baking Controller" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fqj-xf-Mnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1857" y="-1303"/>
-        </scene>
-        <!--Login-->
-        <scene sceneID="AMq-mb-4ux">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Login" id="zTG-2l-hFa" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D4W-8B-7GS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1795" y="-1002"/>
+            <point key="canvasLocation" x="1858" y="-1282"/>
         </scene>
     </scenes>
     <resources>
@@ -382,6 +379,7 @@
         <image name="Google" width="144" height="18"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Mark" width="30" height="35"/>
+        <image name="SmallDots" width="22" height="5"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="v4R-zo-FVe"/>

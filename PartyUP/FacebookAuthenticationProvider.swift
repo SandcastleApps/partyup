@@ -25,18 +25,10 @@ class FacebookAuthenticationProvider: AuthenticationProvider {
 
     func loginForManager(manager: AuthenticationManager) {
 		if FBSDKAccessToken.currentAccessToken() != nil {
-			completeLoginForManager(manager)
+			completeLoginForManager(manager, withError: nil)
 		} else {
-			loginManager.logInWithReadPermissions(nil) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) -> Void in
-				if (error != nil) {
-					dispatch_async(dispatch_get_main_queue()) {
-						manager.alert("Error logging in with FB: " + error.localizedDescription)
-					}
-				} else if result.isCancelled {
-						//Do nothing
-				} else {
-					self.completeLoginForManager(manager)
-				}
+			loginManager.logInWithReadPermissions(nil) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) in
+				self.completeLoginForManager(manager, withError: error)
 			}
 		}
 	}
@@ -48,7 +40,7 @@ class FacebookAuthenticationProvider: AuthenticationProvider {
 
     func resumeSessionForManager(manager: AuthenticationManager) {
 		if isLoggedIn {
-			completeLoginForManager(manager)
+			completeLoginForManager(manager, withError: nil)
 		}
 	}
 
@@ -64,9 +56,13 @@ class FacebookAuthenticationProvider: AuthenticationProvider {
 
 	// MARK: - Private
 
-    private func completeLoginForManager(manager: AuthenticationManager) {
-		keychain[provider] = "YES"
-		manager.completeLogin([uri : FBSDKAccessToken.currentAccessToken().tokenString])
+	private func completeLoginForManager(manager: AuthenticationManager, withError error: NSError?) {
+		if error == nil {
+			keychain[provider] = "YES"
+			manager.completeLogin([uri : FBSDKAccessToken.currentAccessToken().tokenString], withError: nil)
+		} else {
+			manager.completeLogin(nil, withError: error)
+		}
 	}
 
 	private let keychain: Keychain

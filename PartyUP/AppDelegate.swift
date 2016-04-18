@@ -58,8 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	private struct AwsConstants
 	{
-		static let RegionType = AWSRegionType.USEast1
-		static let IdentityPool = "***REMOVED***"
 		static let BackgroundSession = "com.sandcastleapps.partyup.session"
 	}
 
@@ -97,14 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		observeSettingsChange()
 
-		let credentialProvider = AWSCognitoCredentialsProvider(
-			regionType: AwsConstants.RegionType,
-			identityPoolId: AwsConstants.IdentityPool)
-		let configuration = AWSServiceConfiguration(
-			region: AwsConstants.RegionType,
-			credentialsProvider: credentialProvider)
-
-		AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+		AuthenticationManager.shared.resumeSession()
 
 		application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
         
@@ -121,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.observeSettingsChange), name: NSUserDefaultsDidChangeNotification, object: nil)
 
-		return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+		return AuthenticationManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 	}
 
 	func observeSettingsChange() {
@@ -148,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-		return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+		return AuthenticationManager.shared.application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
 	}
 
 	func scheduleNotificationsFromUrl(url: NSURL, inApplication application: UIApplication, withNotificationSettings notificationSettings: UIUserNotificationSettings) {
