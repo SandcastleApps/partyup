@@ -313,7 +313,8 @@ class PartyRootController: UIViewController {
 		var actions = [UIAlertAction]()
 
 		if manager.isLoggedIn() {
-			message = nil
+			let loggedin = manager.authenticators.reduce(String()) { $0 + ($0.isEmpty ? "" : " + ") + $1.name }
+			message = NSLocalizedString("Logout of \(loggedin)", comment: "Logout sheet message")
 			actions.append(UIAlertAction(title: NSLocalizedString("Logout", comment: "Logout sheet action"),
 				style: .Default) { _ in manager.logout() })
 		} else {
