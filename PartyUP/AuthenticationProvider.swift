@@ -12,6 +12,7 @@ import KeychainAccess
 protocol AuthenticationProvider {
 	var name: String { get }
     var isLoggedIn: Bool { get }
+	var wasLoggedIn: Bool { get }
 
 	func loginForManager(manager: AuthenticationManager)
 	func logout()

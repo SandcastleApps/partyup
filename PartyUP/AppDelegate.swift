@@ -95,8 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		observeSettingsChange()
 
-		AuthenticationManager.shared.resumeSession()
-
 		application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert], categories: nil))
         
         let manager = NSFileManager.defaultManager()

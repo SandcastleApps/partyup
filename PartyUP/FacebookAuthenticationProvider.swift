@@ -21,7 +21,14 @@ class FacebookAuthenticationProvider: AuthenticationProvider {
 		self.loginManager = FBSDKLoginManager()
 	}
 
-	var isLoggedIn: Bool { return FBSDKAccessToken.currentAccessToken() != nil && keychain[provider] != nil }
+	var isLoggedIn: Bool {
+		let token = FBSDKAccessToken.currentAccessToken()
+		return wasLoggedIn && token != nil
+	}
+
+	var wasLoggedIn: Bool {
+		return keychain[provider] != nil
+	}
 
     func loginForManager(manager: AuthenticationManager) {
 		if FBSDKAccessToken.currentAccessToken() != nil {

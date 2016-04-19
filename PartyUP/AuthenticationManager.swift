@@ -18,40 +18,36 @@ class AuthenticationManager {
 	static let shared = AuthenticationManager()
     
 	var credentialsProvider: AWSCognitoCredentialsProvider?
-	let availableAuthenticators: [AuthenticationProvider]
+	let authenticators: [AuthenticationProvider]
     
     init() {
-        availableAuthenticators = [FacebookAuthenticationProvider(keychain: keychain)]
+        authenticators = [FacebookAuthenticationProvider(keychain: keychain)]
     }
     
 	func loginWithAuthenticator(authenticator: AuthenticationProvider) {
-		self.authenticator = authenticator
-		self.authenticator?.loginForManager(self)
+		authenticator.loginForManager(self)
     }
     
     func logout() {
-        authenticator?.logout()
+		authenticators.forEach{ $0.logout() }
         credentialsProvider?.logins = nil
         AWSCognito.defaultCognito().wipe()
         credentialsProvider?.clearKeychain()
-		authenticator = nil
     }
     
     func isLoggedIn() -> Bool {
-        return authenticator?.isLoggedIn ?? false
+		return authenticators.reduce(false) { return $0 || $1.isLoggedIn }
     }
     
     func resumeSession() {
-		for auth in availableAuthenticators {
-			if auth.isLoggedIn {
-				authenticator = auth
-				authenticator?.resumeSessionForManager(self)
-				break
+		for auth in authenticators {
+			if auth.wasLoggedIn {
+				auth.resumeSessionForManager(self)
 			}
 		}
 
-        if self.credentialsProvider == nil {
-			self.completeLogin(nil, withError: nil)
+        if credentialsProvider == nil {
+			completeLogin(nil, withError: nil)
         }
     }
 
@@ -88,11 +84,13 @@ class AuthenticationManager {
 	// MARK: - Application Delegate Integration
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		return authenticator?.application(application, didFinishLaunchingWithOptions: launchOptions) ?? false
+		let isHandled = authenticators.reduce(false) { $0 || $1.application(application, didFinishLaunchingWithOptions: launchOptions) }
+		resumeSession()
+		return isHandled
 	}
 
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-		return authenticator?.application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) ?? false
+		return  authenticators.reduce(false) { $0 || $1.application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) }
 	}
 
 	// MARK: - Private
@@ -109,7 +107,9 @@ class AuthenticationManager {
     private func initialize(logins: [NSObject : AnyObject]?) -> AWSTask? {
         credentialsProvider = AWSCognitoCredentialsProvider(
             regionType: AwsConstants.RegionType,
-            identityPoolId: AwsConstants.IdentityPool)
+            identityId: nil,
+            identityPoolId: AwsConstants.IdentityPool,
+			logins: logins)
         let configuration = AWSServiceConfiguration(
             region: AwsConstants.RegionType,
             credentialsProvider: credentialsProvider)

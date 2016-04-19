@@ -318,8 +318,7 @@ class PartyRootController: UIViewController {
 				style: .Default) { _ in manager.logout() })
 		} else {
 			message = NSLocalizedString("Login using", comment: "Login sheet message")
-			let available = manager.availableAuthenticators
-			for auth in available {
+			for auth in manager.authenticators {
 				actions.append(UIAlertAction(title: auth.name, style: .Default) { _ in manager.loginWithAuthenticator(auth) })
 			}
 		}
