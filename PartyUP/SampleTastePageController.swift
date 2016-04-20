@@ -168,7 +168,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	}
 
 	@IBAction func placeVote(sender: UIButton) {
-		if AuthenticationManager.shared.isLoggedIn() {
+		if AuthenticationManager.shared.isLoggedIn {
 			let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
 			sample.setVote(vote)
 			voteButtons.forEach { button in button.selected = false }
@@ -207,7 +207,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		let cancel = UIAlertAction(
 			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
 			style: .Cancel) { _ in }
-		if AuthenticationManager.shared.isLoggedIn() {
+		if AuthenticationManager.shared.isLoggedIn {
 			options.addAction(report)
 		}
 		options.addAction(mute)

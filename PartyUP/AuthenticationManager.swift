@@ -12,19 +12,23 @@ import AWSCore
 import AWSCognito
 
 class AuthenticationManager {
-	static let LoginCompleteNotification = "LoginCompleteNotification"
-	static let LogoutCompleteNotification = "LogoutCompleteNotification"
+	static let AuthenticationStatusChangeNotification = "AuthenticationStatusChangeNotification"
 
 	static let shared = AuthenticationManager()
 
 	let authenticators: [AuthenticationProvider]
-	var identity: NSUUID? {
+	
+    var identity: NSUUID? {
 		if let identity = credentialsProvider?.identityId {
 			return NSUUID(UUIDString: identity[identity.endIndex.advancedBy(-36)..<identity.endIndex])
 		} else {
 			return nil
 		}
 	}
+    
+    var isLoggedIn: Bool {
+        return authenticators.reduce(false) { return $0 || $1.isLoggedIn }
+    }
     
     init() {
         authenticators = [FacebookAuthenticationProvider(keychain: keychain)]
@@ -39,22 +43,6 @@ class AuthenticationManager {
         credentialsProvider?.logins = nil
         AWSCognito.defaultCognito().wipe()
         credentialsProvider?.clearKeychain()
-    }
-    
-    func isLoggedIn() -> Bool {
-		return authenticators.reduce(false) { return $0 || $1.isLoggedIn }
-    }
-    
-    func resumeSession() {
-		for auth in authenticators {
-			if auth.wasLoggedIn {
-				auth.resumeSessionForManager(self)
-			}
-		}
-
-        if credentialsProvider == nil {
-			completeLogin(nil, withError: nil)
-        }
     }
 
 	func completeLogin(logins: [NSObject : AnyObject]?, withError error: NSError?) {
@@ -109,6 +97,18 @@ class AuthenticationManager {
 		static let RegionType = AWSRegionType.USEast1
 		static let IdentityPool = "***REMOVED***"
 	}
+    
+    private func resumeSession() {
+        for auth in authenticators {
+            if auth.wasLoggedIn {
+                auth.resumeSessionForManager(self)
+            }
+        }
+        
+        if credentialsProvider == nil {
+            completeLogin(nil, withError: nil)
+        }
+    }
     
     private func initialize(logins: [NSObject : AnyObject]?) -> AWSTask? {
         credentialsProvider = AWSCognitoCredentialsProvider(
