@@ -168,10 +168,28 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	}
 
 	@IBAction func placeVote(sender: UIButton) {
-		let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
-		sample.setVote(vote)
-		voteButtons.forEach { button in button.selected = false }
-        Flurry.logEvent("Vote_Cast", withParameters: ["vote" : vote.rawValue])
+		if AuthenticationManager.shared.isLoggedIn() {
+			let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
+			sample.setVote(vote)
+			voteButtons.forEach { button in button.selected = false }
+			Flurry.logEvent("Vote_Cast", withParameters: ["vote" : vote.rawValue])
+		} else {
+			let alert = UIAlertController(
+				title: NSLocalizedString("Authentication Required", comment: "Authentication alert title"),
+				message: NSLocalizedString("PartyUP needs to know who you are to register your vote, please login to vote.", comment: "Login to vote message."),
+				preferredStyle: .Alert)
+			let login = UIAlertAction(
+				title: NSLocalizedString("Login", comment: "Login button"),
+				style: .Default) { _ in }
+			let cancel = UIAlertAction(
+				title: NSLocalizedString("Cancel", comment: "Cancel button"),
+				style: .Default) { _ in }
+
+			alert.addAction(login)
+			alert.addAction(cancel)
+
+			presentViewController(alert, animated: true, completion: nil)
+		}
 	}
 
 	func purveyOffensive() {
@@ -189,7 +207,9 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		let cancel = UIAlertAction(
 			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
 			style: .Cancel) { _ in }
-		options.addAction(report)
+		if AuthenticationManager.shared.isLoggedIn() {
+			options.addAction(report)
+		}
 		options.addAction(mute)
 		options.addAction(cancel)
 
