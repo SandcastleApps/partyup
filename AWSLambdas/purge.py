@@ -41,14 +41,17 @@ def favorite_sample(sample, sample_table, s3):
         id_bytes = sample['id'].value
         id_unique = str(uuid.UUID(bytes=id_bytes[0:16])).upper()
         id_count = ord(id_bytes[16])
-
-        video = s3.Object(basic_bucket, favorite_prefix + '/' + id_unique + str(id_count) + '.mp4')
-        video.copy_from(CopySource={'Bucket': basic_bucket, 'Key': standard_prefix + '/' + id_unique + str(id_count) + '.mp4'}, StorageClass='REDUCED_REDUNDANCY')
-        sample_table.update_item(Key={'event' : sample['event'], 'id': sample['id']}, UpdateExpression="set prefix=:f", ExpressionAttributeValues={':f': favorite_prefix})
+        
+        try:
+            video = s3.Object(basic_bucket, favorite_prefix + '/' + id_unique + str(id_count) + '.mp4')
+            video.copy_from(CopySource={'Bucket': basic_bucket, 'Key': standard_prefix + '/' + id_unique + str(id_count) + '.mp4'}, StorageClass='REDUCED_REDUNDANCY')
+            sample_table.update_item(Key={'event' : sample['event'], 'id': sample['id']}, UpdateExpression="set prefix=:f", ExpressionAttributeValues={':f': favorite_prefix})
+        except:
+            logger.exception("Favorite failure")
 
 def process_sample(sample, vote_table, samples_batch, votes_batch, s3, candidates):
     purge = sample
-
+    
     if sample['time'] >= time.time()-favorite_lifetime:
         rating = sample['ups'] - sample['downs']
         if rating >= 0:
@@ -56,7 +59,7 @@ def process_sample(sample, vote_table, samples_batch, votes_batch, s3, candidate
             sample['rating'] = rating
             if len(candidate_list) >= favorite_count_max:
                 index,value = min(enumerate(candidate_list), key=lambda x: x[1]['rating'])
-                if value['rating'] < rating or (value['rating'] == sample['rating'] and value['time'] < sample['time']):
+                if value['rating'] < rating or (value['rating'] == rating and value['time'] < sample['time']):
                     purge = value
                     candidate_list[index] = sample
             else:
