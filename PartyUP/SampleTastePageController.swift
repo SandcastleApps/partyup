@@ -175,7 +175,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	}
 
 	func purveyOffensive() {
-        let user = UIDevice.currentDevice().identifierForVendor!
+        let user = AuthenticationManager.shared.identity!
 		let options = UIAlertController(
 			title: NSLocalizedString("Offensive Material", comment: "Offensive material alert title"),
 			message: NSLocalizedString("Give this offensive video the boot!", comment: "Offensive material alert message"),

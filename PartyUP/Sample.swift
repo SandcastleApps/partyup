@@ -88,7 +88,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 
     convenience init(event: Venue, comment: String? = nil) {
 		self.init(
-			user: UIDevice.currentDevice().identifierForVendor!,
+			user: AuthenticationManager.shared.identity!,
             event: event,
 			time: NSDate(),
 			comment: comment,
@@ -108,7 +108,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		if vote != self.vote || flag != self.flag {
 			let db = VoteDB()
 			db.sample = VoteDB.hashKeyGenerator(event.unique, sample: identifier)
-			db.user = VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)
+			db.user = VoteDB.rangeKeyGenerator(AuthenticationManager.shared.identity!)
 			db.vote = NSNumber(integer: vote.rawValue)
 			db.flag = NSNumber(bool: flag)
 			AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().save(db).continueWithBlock { task in
@@ -162,7 +162,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
             prefix: data.prefix ?? PartyUpConstants.DefaultStoragePrefix
 		)
 
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(UIDevice.currentDevice().identifierForVendor!)).continueWithBlock { task in
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(AuthenticationManager.shared.identity!)).continueWithBlock { task in
 			var vote = Vote.Meh
 			var flag = false
 

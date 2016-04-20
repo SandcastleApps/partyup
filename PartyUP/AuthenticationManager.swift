@@ -16,9 +16,15 @@ class AuthenticationManager {
 	static let LogoutCompleteNotification = "LogoutCompleteNotification"
 
 	static let shared = AuthenticationManager()
-    
-	var credentialsProvider: AWSCognitoCredentialsProvider?
+
 	let authenticators: [AuthenticationProvider]
+	var identity: NSUUID? {
+		if let identity = credentialsProvider?.identityId {
+			return NSUUID(UUIDString: identity[identity.endIndex.advancedBy(-36)..<identity.endIndex])
+		} else {
+			return nil
+		}
+	}
     
     init() {
         authenticators = [FacebookAuthenticationProvider(keychain: keychain)]
@@ -90,13 +96,13 @@ class AuthenticationManager {
 	}
 
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-		return  authenticators.reduce(false) { $0 || $1.application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) }
+		return authenticators.reduce(false) { $0 || $1.application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) }
 	}
 
 	// MARK: - Private
     
     private let keychain = Keychain(service: NSBundle.mainBundle().bundleIdentifier!)
-    private var authenticator: AuthenticationProvider?
+	private var credentialsProvider: AWSCognitoCredentialsProvider?
 
 	private struct AwsConstants
 	{
