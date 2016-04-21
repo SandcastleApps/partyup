@@ -313,14 +313,14 @@ class PartyRootController: UIViewController {
 		var actions = [UIAlertAction]()
 
 		if manager.isLoggedIn {
-			let loggedin = manager.authenticators.reduce(String()) { $0 + ($0.isEmpty ? "" : " + ") + $1.name }
+			let loggedin = manager.authentics.reduce(String()) { $0 + ($0.isEmpty ? "" : " + ") + $1.name }
 			message = NSLocalizedString("Logout of \(loggedin)", comment: "Logout sheet message")
 			actions.append(UIAlertAction(title: NSLocalizedString("Logout", comment: "Logout sheet action"),
 				style: .Default) { _ in manager.logout() })
 		} else {
 			message = NSLocalizedString("Login using", comment: "Login sheet message")
-			for auth in manager.authenticators {
-				actions.append(UIAlertAction(title: auth.name, style: .Default) { _ in manager.loginWithAuthenticator(auth) })
+			for auth in manager.authentics {
+				actions.append(UIAlertAction(title: auth.name, style: .Default) { _ in auth.login() })
 			}
 		}
 

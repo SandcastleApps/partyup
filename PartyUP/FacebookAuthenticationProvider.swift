@@ -6,48 +6,45 @@
 //  Copyright © 2016 Sandcastle Application Development. All rights reserved.
 //
 
-import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import KeychainAccess
 
-class FacebookAuthenticationProvider: AuthenticationProvider {
+class FacebookAuthenticationProvider: AuthenticationProviding {
 	var name: String { return "Facebook" }
-	var provider: String { return "Facebook" }
-	var uri: String { return "graph.facebook.com" }
 
-    required init(keychain: Keychain) {
-		self.keychain = keychain
+
+    required init(manager: AuthenticationManaging) {
+		self.owner = manager
 		self.loginManager = FBSDKLoginManager()
 	}
 
 	var isLoggedIn: Bool {
-		let token = FBSDKAccessToken.currentAccessToken()
-		return wasLoggedIn && token != nil
+		return wasLoggedIn && FBSDKAccessToken.currentAccessToken() != nil
 	}
 
 	var wasLoggedIn: Bool {
-		return keychain[provider] != nil
+		return owner.keychain[provider] != nil
 	}
 
-    func loginForManager(manager: AuthenticationManager) {
+    func login() {
 		if FBSDKAccessToken.currentAccessToken() != nil {
-			completeLoginForManager(manager, withError: nil)
+			completeLoginWithError(nil)
 		} else {
 			loginManager.logInWithReadPermissions(nil) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) in
-				self.completeLoginForManager(manager, withError: error)
+				self.completeLoginWithError(error)
 			}
 		}
 	}
 
 	func logout() {
 		loginManager.logOut()
-		keychain[provider] = nil
+		owner.keychain[provider] = nil
 	}
 
-    func resumeSessionForManager(manager: AuthenticationManager) {
+    func resumeSession() {
 		if isLoggedIn {
-			completeLoginForManager(manager, withError: nil)
+			completeLoginWithError(nil)
 		}
 	}
 
@@ -63,15 +60,18 @@ class FacebookAuthenticationProvider: AuthenticationProvider {
 
 	// MARK: - Private
 
-	private func completeLoginForManager(manager: AuthenticationManager, withError error: NSError?) {
+	private var provider: String { return "Facebook" }
+	private var uri: String { return "graph.facebook.com" }
+
+	private func completeLoginWithError(error: NSError?) {
 		if error == nil {
-			keychain[provider] = "YES"
-			manager.completeLogin([uri : FBSDKAccessToken.currentAccessToken().tokenString], withError: nil)
+			owner.keychain[provider] = "YES"
+			owner.reportLoginTokens([uri : FBSDKAccessToken.currentAccessToken().tokenString], withError: nil)
 		} else {
-			manager.completeLogin(nil, withError: error)
+			owner.reportLoginTokens(nil, withError: error)
 		}
 	}
 
-	private let keychain: Keychain
+	private unowned var owner: AuthenticationManaging
 	private let loginManager: FBSDKLoginManager
 }

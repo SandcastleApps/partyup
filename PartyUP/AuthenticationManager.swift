@@ -11,12 +11,16 @@ import KeychainAccess
 import AWSCore
 import AWSCognito
 
-class AuthenticationManager {
+class AuthenticationManager: AuthenticationManaging {
 	static let AuthenticationStatusChangeNotification = "AuthenticationStatusChangeNotification"
 
 	static let shared = AuthenticationManager()
 
-	let authenticators: [AuthenticationProvider]
+	let keychain = Keychain(service: NSBundle.mainBundle().bundleIdentifier!)
+
+	var authentics: [AuthenticationProvider] {
+		return authenticators.map { $0 as AuthenticationProvider }
+	}
 	
     var identity: NSUUID? {
 		if let identity = credentialsProvider?.identityId {
@@ -31,11 +35,7 @@ class AuthenticationManager {
     }
     
     init() {
-        authenticators = [FacebookAuthenticationProvider(keychain: keychain)]
-    }
-    
-	func loginWithAuthenticator(authenticator: AuthenticationProvider) {
-		authenticator.loginForManager(self)
+		authenticators = [FacebookAuthenticationProvider(manager: self)]
     }
     
     func logout() {
@@ -45,10 +45,10 @@ class AuthenticationManager {
         credentialsProvider?.clearKeychain()
     }
 
-	func completeLogin(logins: [NSObject : AnyObject]?, withError error: NSError?) {
+	func reportLoginTokens(logins: [String:AnyObject]?, withError error: NSError?) {
 		var task: AWSTask?
 
-		if self.credentialsProvider == nil {
+		if credentialsProvider == nil {
 			task = self.initialize(logins)
 		} else {
 			var merged = credentialsProvider?.logins ?? [:]
@@ -88,8 +88,8 @@ class AuthenticationManager {
 	}
 
 	// MARK: - Private
-    
-    private let keychain = Keychain(service: NSBundle.mainBundle().bundleIdentifier!)
+
+	private var authenticators = [AuthenticationProviding]()
 	private var credentialsProvider: AWSCognitoCredentialsProvider?
 
 	private struct AwsConstants
@@ -101,16 +101,16 @@ class AuthenticationManager {
     private func resumeSession() {
         for auth in authenticators {
             if auth.wasLoggedIn {
-                auth.resumeSessionForManager(self)
+                auth.resumeSession()
             }
         }
         
         if credentialsProvider == nil {
-            completeLogin(nil, withError: nil)
+            reportLoginTokens(nil, withError: nil)
         }
     }
     
-    private func initialize(logins: [NSObject : AnyObject]?) -> AWSTask? {
+    private func initialize(logins: [String:AnyObject]?) -> AWSTask? {
         credentialsProvider = AWSCognitoCredentialsProvider(
             regionType: AwsConstants.RegionType,
             identityId: nil,

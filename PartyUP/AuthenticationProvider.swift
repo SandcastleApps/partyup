@@ -11,13 +11,25 @@ import KeychainAccess
 
 protocol AuthenticationProvider {
 	var name: String { get }
-    var isLoggedIn: Bool { get }
+	var isLoggedIn: Bool { get }
+
+	func login()
+	func logout()
+}
+
+protocol AuthenticationProviding: AuthenticationProvider {
 	var wasLoggedIn: Bool { get }
 
-	func loginForManager(manager: AuthenticationManager)
-	func logout()
-	func resumeSessionForManager(manager: AuthenticationManager)
+	init(manager: AuthenticationManaging)
+
+	func resumeSession()
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool
+}
+
+protocol AuthenticationManaging: class {
+	var keychain: Keychain { get }
+
+	func reportLoginTokens(logins: [String:AnyObject]?, withError error: NSError?)
 }
