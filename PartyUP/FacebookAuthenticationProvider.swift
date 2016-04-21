@@ -26,11 +26,11 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
 		return owner.keychain[provider] != nil
 	}
 
-    func login() {
+    func loginFromViewController(controller: UIViewController) {
 		if FBSDKAccessToken.currentAccessToken() != nil {
 			completeLoginWithError(nil)
 		} else {
-			loginManager.logInWithReadPermissions(nil) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) in
+			loginManager.logInWithReadPermissions(nil, fromViewController: controller) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) in
 				self.completeLoginWithError(error)
 			}
 		}

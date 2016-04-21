@@ -13,7 +13,7 @@ protocol AuthenticationProvider {
 	var name: String { get }
 	var isLoggedIn: Bool { get }
 
-	func login()
+    func loginFromViewController(controller: UIViewController)
 	func logout()
 }
 
