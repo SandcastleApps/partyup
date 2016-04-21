@@ -45,7 +45,7 @@ class AuthenticationManager: AuthenticationManaging {
         credentialsProvider?.clearKeychain()
     }
 
-	func reportLoginTokens(logins: [String:AnyObject]?, withError error: NSError?) {
+	func reportLoggedInTokens(logins: [String:AnyObject]?, withError error: NSError?) {
 		var task: AWSTask?
 
 		if credentialsProvider == nil {
@@ -73,6 +73,10 @@ class AuthenticationManager: AuthenticationManaging {
 //				}
 			return nil
 		}
+	}
+
+	func reportLoggedOutUri(uri: String) {
+
 	}
 
 	// MARK: - Application Delegate Integration
@@ -106,7 +110,7 @@ class AuthenticationManager: AuthenticationManaging {
         }
         
         if credentialsProvider == nil {
-            reportLoginTokens(nil, withError: nil)
+            reportLoggedInTokens(nil, withError: nil)
         }
     }
     

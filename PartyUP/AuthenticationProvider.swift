@@ -31,5 +31,6 @@ protocol AuthenticationProviding: AuthenticationProvider {
 protocol AuthenticationManaging: class {
 	var keychain: Keychain { get }
 
-	func reportLoginTokens(logins: [String:AnyObject]?, withError error: NSError?)
+	func reportLoggedInTokens(logins: [String:AnyObject]?, withError error: NSError?)
+	func reportLoggedOutUri(uri: String)
 }

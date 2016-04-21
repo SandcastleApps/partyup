@@ -13,7 +13,6 @@ import KeychainAccess
 class FacebookAuthenticationProvider: AuthenticationProviding {
 	var name: String { return "Facebook" }
 
-
     required init(manager: AuthenticationManaging) {
 		self.owner = manager
 		self.loginManager = FBSDKLoginManager()
@@ -40,6 +39,8 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
 	func logout() {
 		loginManager.logOut()
 		owner.keychain[provider] = nil
+
+		owner.reportLoggedOutUri(uri)
 	}
 
     func resumeSession() {
@@ -66,9 +67,9 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
 	private func completeLoginWithError(error: NSError?) {
 		if error == nil {
 			owner.keychain[provider] = "YES"
-			owner.reportLoginTokens([uri : FBSDKAccessToken.currentAccessToken().tokenString], withError: nil)
+			owner.reportLoggedInTokens([uri : FBSDKAccessToken.currentAccessToken().tokenString], withError: nil)
 		} else {
-			owner.reportLoginTokens(nil, withError: error)
+			owner.reportLoggedInTokens(nil, withError: error)
 		}
 	}
 
