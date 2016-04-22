@@ -6,31 +6,25 @@
 //  Copyright © 2016 Sandcastle Application Development. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import KeychainAccess
 
 protocol AuthenticationProvider {
 	var name: String { get }
 	var isLoggedIn: Bool { get }
-
-    func loginFromViewController(controller: UIViewController)
-	func logout()
 }
+
+typealias LoginReport = ([String:AnyObject]?, NSError?) -> Void
 
 protocol AuthenticationProviding: AuthenticationProvider {
 	var wasLoggedIn: Bool { get }
 
-	init(manager: AuthenticationManaging)
+	init(keychain: Keychain)
 
-	func resumeSession()
+	func loginFromViewController(controller: UIViewController, completionHander handler: LoginReport)
+	func logout()
+	func resumeSessionWithCompletionHandler(hander: LoginReport)
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool
-}
-
-protocol AuthenticationManaging: class {
-	var keychain: Keychain { get }
-
-	func reportLoggedInTokens(logins: [String:AnyObject]?, withError error: NSError?)
-	func reportLoggedOutUri(uri: String)
 }

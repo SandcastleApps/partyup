@@ -11,12 +11,14 @@ import KeychainAccess
 import AWSCore
 import AWSCognito
 
-class AuthenticationManager: AuthenticationManaging {
-	static let AuthenticationStatusChangeNotification = "AuthenticationStatusChangeNotification"
+enum AuthenticationState: Int {
+	case Unauthenticated, Authenticating, Authenticated
+}
+
+class AuthenticationManager {
+	static let AuthenticationStatusChangeNotification = "AuthenticationStateChangeNotification"
 
 	static let shared = AuthenticationManager()
-
-	let keychain = Keychain(service: NSBundle.mainBundle().bundleIdentifier!)
 
 	var authentics: [AuthenticationProvider] {
 		return authenticators.map { $0 as AuthenticationProvider }
@@ -35,8 +37,14 @@ class AuthenticationManager: AuthenticationManaging {
     }
     
     init() {
-		authenticators = [FacebookAuthenticationProvider(manager: self)]
+		authenticators = [FacebookAuthenticationProvider(keychain: keychain)]
     }
+
+	func loginToProvider(provider: AuthenticationProvider, fromViewController controller: UIViewController) {
+		if let provider = provider as? AuthenticationProviding {
+			provider.loginFromViewController(controller, completionHander: AuthenticationManager.reportLoggedInTokens(self))
+		}
+	}
     
     func logout() {
 		authenticators.forEach{ $0.logout() }
@@ -93,6 +101,7 @@ class AuthenticationManager: AuthenticationManaging {
 
 	// MARK: - Private
 
+	private let keychain = Keychain(service: NSBundle.mainBundle().bundleIdentifier!)
 	private var authenticators = [AuthenticationProviding]()
 	private var credentialsProvider: AWSCognitoCredentialsProvider?
 
@@ -105,7 +114,7 @@ class AuthenticationManager: AuthenticationManaging {
     private func resumeSession() {
         for auth in authenticators {
             if auth.wasLoggedIn {
-                auth.resumeSession()
+				auth.resumeSessionWithCompletionHandler(AuthenticationManager.reportLoggedInTokens(self))
             }
         }
         

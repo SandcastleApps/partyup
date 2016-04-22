@@ -13,8 +13,8 @@ import KeychainAccess
 class FacebookAuthenticationProvider: AuthenticationProviding {
 	var name: String { return "Facebook" }
 
-    required init(manager: AuthenticationManaging) {
-		self.owner = manager
+    required init(keychain: Keychain) {
+		self.keychain = keychain
 		self.loginManager = FBSDKLoginManager()
 	}
 
@@ -23,29 +23,27 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
 	}
 
 	var wasLoggedIn: Bool {
-		return owner.keychain[provider] != nil
+		return keychain[provider] != nil
 	}
 
-    func loginFromViewController(controller: UIViewController) {
+	func loginFromViewController(controller: UIViewController, completionHander handler: LoginReport) {
 		if FBSDKAccessToken.currentAccessToken() != nil {
-			completeLoginWithError(nil)
+			completeLoginWithError(nil, completionHandler:  handler)
 		} else {
 			loginManager.logInWithReadPermissions(nil, fromViewController: controller) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) in
-				self.completeLoginWithError(error)
+				self.completeLoginWithError(error, completionHandler:  handler)
 			}
 		}
 	}
 
 	func logout() {
 		loginManager.logOut()
-		owner.keychain[provider] = nil
-
-		owner.reportLoggedOutUri(uri)
+		keychain[provider] = nil
 	}
 
-    func resumeSession() {
+    func resumeSessionWithCompletionHandler(handler: LoginReport) {
 		if isLoggedIn {
-			completeLoginWithError(nil)
+			completeLoginWithError(nil, completionHandler: handler)
 		}
 	}
 
@@ -64,15 +62,15 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
 	private var provider: String { return "Facebook" }
 	private var uri: String { return "graph.facebook.com" }
 
-	private func completeLoginWithError(error: NSError?) {
+	private func completeLoginWithError(error: NSError?, completionHandler handler: LoginReport) {
 		if error == nil {
-			owner.keychain[provider] = "YES"
-			owner.reportLoggedInTokens([uri : FBSDKAccessToken.currentAccessToken().tokenString], withError: nil)
+			keychain[provider] = "YES"
+			handler([uri : FBSDKAccessToken.currentAccessToken().tokenString], nil)
 		} else {
-			owner.reportLoggedInTokens(nil, withError: error)
+			handler(nil, error)
 		}
 	}
 
-	private unowned var owner: AuthenticationManaging
+	private let keychain: Keychain
 	private let loginManager: FBSDKLoginManager
 }

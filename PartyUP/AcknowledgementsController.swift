@@ -77,7 +77,7 @@ class AcknowledgementsController: UITableViewController {
         } else {
             message = NSLocalizedString("Login using", comment: "Login sheet message")
             for auth in manager.authentics {
-                actions.append(UIAlertAction(title: auth.name, style: .Default) { _ in auth.loginFromViewController(self) })
+                actions.append(UIAlertAction(title: auth.name, style: .Default) { _ in manager.loginToProvider(auth, fromViewController: self) })
             }
         }
         
