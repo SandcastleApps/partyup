@@ -218,28 +218,11 @@ class PartyRootController: UIViewController {
 		}
 		
 		if identifier == "Bake Sample Segue" {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if defaults.boolForKey(PartyUpPreferences.AgreedToTerms) == false {
-                let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
-                let conduct = file.flatMap { try? String.init(contentsOfFile: $0) }
-                let terms = UIAlertController(
-                    title: NSLocalizedString("Rules of Conduct", comment: "Terms alert title"),
-                    message: conduct,
-                    preferredStyle: .Alert)
-                let full = UIAlertAction(
-                    title: NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action"),
-                    style: .Default) { _ in UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!) }
-                let agree = UIAlertAction(
-                    title: NSLocalizedString("Agree To Terms of Service", comment: "Terms alert agree action"),
-                    style: .Default) { _ in defaults.setBool(true, forKey: PartyUpPreferences.AgreedToTerms); self.performSegueWithIdentifier(identifier, sender: nil)}
-                let cancel = UIAlertAction(
-                    title: NSLocalizedString("Let me think about it", comment: "Terms alert cancel action"),
-                    style: .Cancel,
-                    handler: nil)
-                terms.addAction(full)
-                terms.addAction(agree)
-                terms.addAction(cancel)
-                presentViewController(terms, animated: true, completion: nil)
+            if !AuthenticationManager.shared.isLoggedIn {
+                let story = UIStoryboard.init(name: "Login", bundle: nil)
+                if let login = story.instantiateInitialViewController() {
+                    presentViewController(login, animated: true, completion: nil)
+                }
                 
                 return false
             }
