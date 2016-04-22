@@ -24,8 +24,14 @@ class AcknowledgementsController: UITableViewController {
         }
     }
     
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateLogin), name: AuthenticationManager.AuthenticationStatusChangeNotification, object: nil)
+	}
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
 	@IBAction func recruit(sender: UIButton) {
@@ -57,7 +63,7 @@ class AcknowledgementsController: UITableViewController {
         pushWebViewWithContent(NSURL(string: "privacy.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Privacy Policy", comment: "Title of the Privacy Policy webview"))
     }
     
-    private func updateLogin() {
+	func updateLogin() {
         loginButton.setTitle(AuthenticationManager.shared.isLoggedIn ?
             NSLocalizedString("Logout", comment: "Logout button") :
             NSLocalizedString("Login", comment: "Login button"),

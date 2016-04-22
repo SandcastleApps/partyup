@@ -12,7 +12,7 @@ import AWSCore
 import AWSCognito
 
 enum AuthenticationState: Int {
-	case Unauthenticated, Authenticating, Authenticated
+	case Unauthenticated, Transitioning, Authenticated
 }
 
 class AuthenticationManager {
@@ -35,6 +35,8 @@ class AuthenticationManager {
     var isLoggedIn: Bool {
         return authenticators.reduce(false) { return $0 || $1.isLoggedIn }
     }
+
+	private(set) var state: AuthenticationState = .Transitioning
     
     init() {
 		authenticators = [FacebookAuthenticationProvider(keychain: keychain)]
@@ -42,6 +44,7 @@ class AuthenticationManager {
 
 	func loginToProvider(provider: AuthenticationProvider, fromViewController controller: UIViewController) {
 		if let provider = provider as? AuthenticationProviding {
+			postTransitionToState(.Transitioning, withError: nil)
 			provider.loginFromViewController(controller, completionHander: AuthenticationManager.reportLoggedInTokens(self))
 		}
 	}
@@ -51,6 +54,7 @@ class AuthenticationManager {
         credentialsProvider?.logins = nil
         AWSCognito.defaultCognito().wipe()
         credentialsProvider?.clearKeychain()
+		postTransitionToState(.Unauthenticated, withError: nil)
     }
 
 	func reportLoggedInTokens(logins: [String:AnyObject]?, withError error: NSError?) {
@@ -71,20 +75,9 @@ class AuthenticationManager {
 		}
 
 		task?.continueWithBlock { task in
-//			dispatch_async(dispatch_get_main_queue()) {
-//				let notify = NSNotificationCenter.defaultCenter()
-//				if task.error != nil
-//				if task.error != nil {
-//					notify.postNotificationName(AuthenticationManager.LoginCompleteNotification, object: self, userInfo: [])
-//				} else {
-//					notify.postNotificationName(AuthenticationManager.LoginCompleteNotification, object: self, userInfo: [])
-//				}
+			self.postTransitionToState(.Authenticated, withError: task.error)
 			return nil
 		}
-	}
-
-	func reportLoggedOutUri(uri: String) {
-
 	}
 
 	// MARK: - Application Delegate Integration
@@ -137,4 +130,15 @@ class AuthenticationManager {
         
         return self.credentialsProvider?.getIdentityId()
     }
+
+	private func postTransitionToState(state: AuthenticationState, withError error: NSError?) {
+		let old = self.state
+		self.state = state
+		dispatch_async(dispatch_get_main_queue()) {
+			let notify = NSNotificationCenter.defaultCenter()
+			var info: [String:AnyObject] = ["old" : old.rawValue, "new" : state.rawValue]
+			if error != nil { info["error"] = error }
+			notify.postNotificationName(AuthenticationManager.AuthenticationStatusChangeNotification, object: self, userInfo: info)
+		}
+	}
 }
