@@ -22,5 +22,28 @@ class LoginController: UIViewController {
         gradient.colors = [UIColor(red: 251.0/255.0, green: 176.0/255.0, blue: 64.0/255.0, alpha: 1.0).CGColor, UIColor(red: 236.0/255.0, green: 0.0/255.0, blue: 140.0/255.0, alpha: 1.0).CGColor]
         view.layer.insertSublayer(gradient, atIndex: 0)
         view.layer.cornerRadius = 45.0
-    }
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateLogin(_:)), name: AuthenticationManager.AuthenticationStatusChangeNotification, object: nil)
+	}
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
+
+	@IBAction func loginWithFacebook(sender: UIButton) {
+		let manager = AuthenticationManager.shared
+		manager.loginToProvider(manager.authentics.first!, fromViewController: self)
+	}
+	
+	@IBOutlet weak var conductLabel: UILabel! {
+		didSet {
+			conductLabel.text = conduct
+		}
+	}
+
+	func updateLogin(note: NSNotification) {
+		if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) == .Authenticated {
+			performSegueWithIdentifier("unwinder", sender: self)
+		}
+	}
 }

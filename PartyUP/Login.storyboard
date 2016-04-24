@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="e5I-Rg-p8B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F18b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="e5I-Rg-p8B">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Login Controller-->
         <scene sceneID="v3O-Hx-U3f">
             <objects>
-                <viewController storyboardIdentifier="Login" id="e5I-Rg-p8B" customClass="LoginController" customModule="PartyUP" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="e5I-Rg-p8B" customClass="LoginController" customModule="PartyUP" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GMy-8U-6OM"/>
                         <viewControllerLayoutGuide type="bottom" id="Fyc-9G-6Kn"/>
@@ -17,26 +18,69 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TxW-KL-SjF" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="281" y="285" width="38" height="30"/>
-                                <state key="normal" title="Login"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqB-L1-e07">
-                                <rect key="frame" x="282" y="550" width="37" height="30"/>
-                                <state key="normal" title="Done"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqB-L1-e07">
+                                <rect key="frame" x="276" y="562" width="48" height="30"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <segue destination="S4Q-MK-geq" kind="unwind" unwindAction="segueFromLogin:" id="Lkj-bZ-aVU"/>
+                                    <segue destination="S4Q-MK-geq" kind="unwind" identifier="unwinder" unwindAction="segueFromLogin:" id="Lkj-bZ-aVU"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhiteLogo" translatesAutoresizingMaskIntoConstraints="NO" id="nqR-SM-frk">
+                                <rect key="frame" x="261" y="28" width="77" height="95"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRh-Nm-LVP">
+                                <rect key="frame" x="60" y="143" width="480" height="319"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="OdA-gz-ULw">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="319"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGO-XS-Tmd">
+                                            <rect key="frame" x="40" y="26" width="400" height="266.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="QGO-XS-Tmd" firstAttribute="width" secondItem="OdA-gz-ULw" secondAttribute="width" multiplier="5:6" id="KiM-e5-x7V"/>
+                                        <constraint firstItem="QGO-XS-Tmd" firstAttribute="height" secondItem="OdA-gz-ULw" secondAttribute="height" multiplier="5:6" id="R4n-2c-Ubn"/>
+                                        <constraint firstItem="QGO-XS-Tmd" firstAttribute="centerY" secondItem="OdA-gz-ULw" secondAttribute="centerY" id="a5c-rF-uNx"/>
+                                        <constraint firstItem="QGO-XS-Tmd" firstAttribute="centerX" secondItem="OdA-gz-ULw" secondAttribute="centerX" id="t1m-PL-Iae"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPA-5n-VxY" userLabel="facebook">
+                                <rect key="frame" x="156" y="492" width="288" height="62"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" backgroundImage="Facebook">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginWithFacebook:" destination="e5I-Rg-p8B" eventType="touchUpInside" id="W4Q-NP-GSn"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Fyc-9G-6Kn" firstAttribute="top" secondItem="iqB-L1-e07" secondAttribute="bottom" constant="20" id="7fs-gg-gJu"/>
-                            <constraint firstItem="TxW-KL-SjF" firstAttribute="centerY" secondItem="aiG-fn-rSX" secondAttribute="centerY" id="LMf-z0-ShZ"/>
-                            <constraint firstItem="TxW-KL-SjF" firstAttribute="centerX" secondItem="aiG-fn-rSX" secondAttribute="centerX" id="jRU-JM-G0m"/>
+                            <constraint firstItem="Fyc-9G-6Kn" firstAttribute="top" secondItem="iqB-L1-e07" secondAttribute="bottom" constant="8" symbolic="YES" id="7fs-gg-gJu"/>
+                            <constraint firstItem="LRh-Nm-LVP" firstAttribute="width" secondItem="aiG-fn-rSX" secondAttribute="width" multiplier="4:5" id="AeY-U7-Wl0"/>
+                            <constraint firstItem="iqB-L1-e07" firstAttribute="top" secondItem="QPA-5n-VxY" secondAttribute="bottom" constant="8" symbolic="YES" id="BGj-pn-cyV"/>
+                            <constraint firstItem="LRh-Nm-LVP" firstAttribute="top" secondItem="nqR-SM-frk" secondAttribute="bottom" constant="20" id="Ifg-M3-Odv"/>
+                            <constraint firstItem="QPA-5n-VxY" firstAttribute="centerX" secondItem="aiG-fn-rSX" secondAttribute="centerX" id="WQO-RO-a0L"/>
                             <constraint firstItem="iqB-L1-e07" firstAttribute="centerX" secondItem="aiG-fn-rSX" secondAttribute="centerX" id="oJM-sB-9ou"/>
+                            <constraint firstItem="nqR-SM-frk" firstAttribute="centerX" secondItem="aiG-fn-rSX" secondAttribute="centerX" id="piT-jT-877"/>
+                            <constraint firstItem="nqR-SM-frk" firstAttribute="top" secondItem="GMy-8U-6OM" secondAttribute="bottom" constant="8" symbolic="YES" id="qXG-DV-Kz3"/>
+                            <constraint firstItem="QPA-5n-VxY" firstAttribute="top" secondItem="LRh-Nm-LVP" secondAttribute="bottom" constant="30" id="qbA-Ik-UoH"/>
+                            <constraint firstItem="LRh-Nm-LVP" firstAttribute="centerX" secondItem="aiG-fn-rSX" secondAttribute="centerX" id="z0K-Ec-w4r"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="conductLabel" destination="QGO-XS-Tmd" id="d9A-lw-MLw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9RA-Ez-n7O" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="S4Q-MK-geq" userLabel="Exit" sceneMemberID="exit"/>
@@ -44,4 +88,8 @@
             <point key="canvasLocation" x="1795" y="-1002"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Facebook" width="288" height="62"/>
+        <image name="WhiteLogo" width="77" height="95"/>
+    </resources>
 </document>

@@ -63,9 +63,9 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
 	private var uri: String { return "graph.facebook.com" }
 
 	private func completeLoginWithError(error: NSError?, completionHandler handler: LoginReport) {
-		if error == nil {
+		if let token = FBSDKAccessToken.currentAccessToken()?.tokenString {
 			keychain[provider] = "YES"
-			handler([uri : FBSDKAccessToken.currentAccessToken().tokenString], nil)
+			handler([uri : token], error)
 		} else {
 			handler(nil, error)
 		}
