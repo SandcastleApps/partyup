@@ -1,6 +1,0 @@
-framework module MaryPopin {
-  umbrella header "MaryPopin-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -40,8 +40,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
             endingLineNumber = "148"
-            landmarkName = "viewDidDisappear(_:)"
-            landmarkType = "5">
+            landmarkName = "SampleTastePageController"
+            landmarkType = "3">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.Log">
@@ -65,7 +65,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "154"
             endingLineNumber = "154"
-            landmarkName = "updateVoteIndicators()"
+            landmarkName = "viewDidDisappear(_:)"
             landmarkType = "5">
             <Actions>
                <BreakpointActionProxy
@@ -90,7 +90,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "236"
             endingLineNumber = "236"
-            landmarkName = "playerReady(_:)"
+            landmarkName = "purveyOptions(_:)"
             landmarkType = "5">
             <Actions>
                <BreakpointActionProxy
@@ -115,7 +115,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "243"
             endingLineNumber = "243"
-            landmarkName = "playerPlaybackStateDidChange(_:)"
+            landmarkName = "videoPlayerView(_:timeDidChange:)"
             landmarkType = "5">
             <Actions>
                <BreakpointActionProxy
@@ -140,8 +140,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "275"
             endingLineNumber = "275"
-            landmarkName = "observeApplicationBecameActive()"
-            landmarkType = "5">
+            landmarkName = "SampleTastePageController"
+            landmarkType = "3">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.Log">
