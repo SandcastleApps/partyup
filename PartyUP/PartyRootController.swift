@@ -209,19 +209,7 @@ class PartyRootController: UIViewController {
 		
 		if identifier == "Bake Sample Segue" {
             if !AuthenticationManager.shared.isLoggedIn {
-				let manager = AuthenticationManager.shared
-				let terms = SCLAlertView()
-				terms.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
-				}
-				let face = terms.addButton("Log in with Facebook") { manager.loginToProvider(manager.authentics.first!, fromViewController: self) }
-				//face.setImage(UIImage(named: "Up"), forState: .Normal)
-
-				let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
-				let message: String? = file.flatMap { try? String.init(contentsOfFile: $0) }
-				terms.showNotice("Log in", subTitle: message!, closeButtonTitle: "Let me think about it", colorStyle: 0xf77e56)
-
-				face.backgroundColor = UIColor(r: 59, g: 89, b: 152, alpha: 255)
-
+                alertLoginForController(self) { if AuthenticationManager.shared.isLoggedIn { self.performSegueWithIdentifier("Bake Sample Segue", sender: nil) } }
                 return false
             }
             

@@ -175,21 +175,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 			voteButtons.forEach { button in button.selected = false }
 			Flurry.logEvent("Vote_Cast", withParameters: ["vote" : vote.rawValue])
 		} else {
-			let alert = UIAlertController(
-				title: NSLocalizedString("Authentication Required", comment: "Authentication alert title"),
-				message: NSLocalizedString("PartyUP needs to know who you are to register your vote, please login to vote.", comment: "Login to vote message."),
-				preferredStyle: .Alert)
-			let login = UIAlertAction(
-				title: NSLocalizedString("Login", comment: "Login button"),
-				style: .Default) { _ in }
-			let cancel = UIAlertAction(
-				title: NSLocalizedString("Cancel", comment: "Cancel button"),
-				style: .Default) { _ in }
-
-			alert.addAction(login)
-			alert.addAction(cancel)
-
-			presentViewController(alert, animated: true, completion: nil)
+            alertLoginForController(self) { if AuthenticationManager.shared.isLoggedIn { self.placeVote(sender) } }
 		}
 	}
 
