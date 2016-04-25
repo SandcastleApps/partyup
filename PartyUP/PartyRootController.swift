@@ -13,7 +13,7 @@ import LMGeocoder
 import CoreLocation
 import SCLAlertView
 import Flurry_iOS_SDK
-import MaryPopin
+import SCLAlertView
 
 class PartyRootController: UIViewController {
 
@@ -208,19 +208,20 @@ class PartyRootController: UIViewController {
 		}
 		
 		if identifier == "Bake Sample Segue" {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if defaults.boolForKey(PartyUpPreferences.AgreedToTerms) == false {
-                let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
-                let conduct = file.flatMap { try? String.init(contentsOfFile: $0) }
-                let terms = SCLAlertView()
+            if !AuthenticationManager.shared.isLoggedIn {
+				let manager = AuthenticationManager.shared
+				let terms = SCLAlertView()
 				terms.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
 				}
-				terms.addButton(NSLocalizedString("Agree To Terms of Service", comment: "Terms alert agree action")) { _ in defaults.setBool(true, forKey: PartyUpPreferences.AgreedToTerms); self.performSegueWithIdentifier(identifier, sender: nil)
-				}
+				let face = terms.addButton("Log in with Facebook") { manager.loginToProvider(manager.authentics.first!, fromViewController: self) }
+				//face.setImage(UIImage(named: "Up"), forState: .Normal)
 
-				terms.showNotice(NSLocalizedString("Rules of Conduct", comment: "Terms alert title"),
-				subTitle: conduct ?? "Be Nice!",
-				closeButtonTitle: NSLocalizedString("Let me think about it", comment: "Terms alert cancel action"))
+				let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
+				let message: String? = file.flatMap { try? String.init(contentsOfFile: $0) }
+				terms.showNotice("Log in", subTitle: message!, closeButtonTitle: "Let me think about it", colorStyle: 0xf77e56)
+
+				face.backgroundColor = UIColor(r: 59, g: 89, b: 152, alpha: 255)
+
                 return false
             }
             
