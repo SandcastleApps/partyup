@@ -6,17 +6,34 @@
 //  Copyright © 2015 Sandcastle Application Development. All rights reserved.
 //
 
-import JGProgressHUD
+import SCLAlertView
 
-func presentResultHud(hud: JGProgressHUD, inView view: UIView, withTitle title:  String, andDetail detail: String?, indicatingSuccess success: Bool) {
-	if hud.hidden {
-		hud.showInView(view, animated: false)
+typealias AlertHandler = () -> Void
+
+func alertSuccessWithTitle(title: String, andDetail detail: String = String(), closeLabel close: String? = nil, dismissHandler dismiss: AlertHandler? = nil) {
+	let duration = close == nil ? 2.5 : 0.0
+	let alert = SCLAlertView().showSuccess(title, subTitle: detail, closeButtonTitle: close, duration: duration)
+	if let dismiss = dismiss {
+		alert.setDismissBlock(dismiss)
 	}
+}
 
-    hud.tag = success ? 1 : 2
-	hud.indicatorView = success ? JGProgressHUDSuccessIndicatorView() : JGProgressHUDErrorIndicatorView()
-	hud.textLabel.text = title
-	hud.interactionType = .BlockAllTouches
-	hud.detailTextLabel.text = detail
-    hud.dismissAfterDelay(success ? 2.5 : 4.0, animated: true)
+func alertFailureWithTitle(title: String, andDetail detail: String = String(), closeLabel close: String? = nil, dismissHandler dismiss: AlertHandler? = nil) {
+	let duration = close == nil ? 4.0 : 0.0
+	let alert = SCLAlertView().showError(title, subTitle: detail, closeButtonTitle: close, duration: duration)
+	if let dismiss = dismiss {
+		alert.setDismissBlock(dismiss)
+	}
+}
+
+func alertWaitWithTitle(title: String, andDetail detail: String = NSLocalizedString("Hard work happening.", comment: "Please wait"), cancelHandler cancel: AlertHandler? = nil, dismissHandler dismiss: AlertHandler? = nil) -> SCLAlertViewResponder {
+	let alert = SCLAlertView()
+	if let cancel = cancel {
+		alert.addButton(title, action: cancel)
+	}
+	let wait = alert.showWait(title, subTitle: detail)
+	if let dismiss = dismiss {
+		wait.setDismissBlock(dismiss)
+	}
+	return wait
 }

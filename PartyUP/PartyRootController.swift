@@ -11,7 +11,7 @@ import ActionSheetPicker_3_0
 import INTULocationManager
 import LMGeocoder
 import CoreLocation
-import JGProgressHUD
+import SCLAlertView
 import Flurry_iOS_SDK
 import MaryPopin
 
@@ -21,8 +21,6 @@ class PartyRootController: UIViewController {
 	@IBOutlet weak var busyLabel: UILabel!
 	@IBOutlet weak var ackButton: UIButton!
 	@IBOutlet weak var reminderButton: UIButton!
-	
-	private let progressHud = JGProgressHUD(style: .Light)
 
 	private var partyPicker: PartyPickerController!
 	private var regions: [PartyPlace!] = [nil]
@@ -137,17 +135,11 @@ class PartyRootController: UIViewController {
 			self.partyPicker.parties = self.regions[self.selectedRegion]
 
 			if hud == true {
-				presentResultHud(self.progressHud,
-					inView: self.view,
-					withTitle: NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"),
-					andDetail: message,
-					indicatingSuccess: false)
+				alertFailureWithTitle(NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"), andDetail: message)
 			} else {
-				let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
-					message:message,
-					preferredStyle: .Alert)
-				alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services disabled alert button"), style: .Default, handler: nil))
-				self.presentViewController(alert, animated: true, completion: nil)
+				alertFailureWithTitle(NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
+				                      andDetail: message,
+				                      closeLabel: NSLocalizedString("Roger", comment: "Default alert close."))
 			}
 		}
 	}
@@ -187,11 +179,8 @@ class PartyRootController: UIViewController {
 			if city.lastFetchStatus.error == nil {
 				self.partyPicker.parties = self.regions[self.selectedRegion]
 			} else {
-				presentResultHud(self.progressHud,
-					inView: self.view,
-					withTitle: NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from google"),
-					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from google"),
-					indicatingSuccess: false)
+				alertFailureWithTitle(NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from google"),
+					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from google"))
 			}
 
 			if !city.isFetching {
@@ -219,12 +208,19 @@ class PartyRootController: UIViewController {
 		}
 		
 		if identifier == "Bake Sample Segue" {
-            if !AuthenticationManager.shared.isLoggedIn {
-                let story = UIStoryboard.init(name: "Login", bundle: nil)
-                if let login = story.instantiateInitialViewController() {
-					navigationController!.presentPopinController(login, animated: true, completion: nil)
-                }
-                
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if defaults.boolForKey(PartyUpPreferences.AgreedToTerms) == false {
+                let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
+                let conduct = file.flatMap { try? String.init(contentsOfFile: $0) }
+                let terms = SCLAlertView()
+				terms.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
+				}
+				terms.addButton(NSLocalizedString("Agree To Terms of Service", comment: "Terms alert agree action")) { _ in defaults.setBool(true, forKey: PartyUpPreferences.AgreedToTerms); self.performSegueWithIdentifier(identifier, sender: nil)
+				}
+
+				terms.showNotice(NSLocalizedString("Rules of Conduct", comment: "Terms alert title"),
+				subTitle: conduct ?? "Be Nice!",
+				closeButtonTitle: NSLocalizedString("Let me think about it", comment: "Terms alert cancel action"))
                 return false
             }
             
