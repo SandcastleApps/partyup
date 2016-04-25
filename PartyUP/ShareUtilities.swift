@@ -22,11 +22,7 @@ func presentShareSheetOn(presenting: UIViewController,
 		shareSheet.addImage(image)
 		presenting.presentViewController(shareSheet, animated: true, completion:  nil)
 	} else {
-		let alert = UIAlertController(
-			title: NSLocalizedString("Accounts", comment: "Share login alert title"),
-			message: NSLocalizedString("Please login to a \(service.componentsSeparatedByString(".").last!) account to share.", comment: "Share login alert message"), preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Share login alert action"), style: .Default, handler: nil))
-		presenting.presentViewController(alert, animated: true, completion: nil)
+		alertFailureWithTitle(NSLocalizedString("Accounts", comment: "Share login alert title"), andDetail: NSLocalizedString("Please login to a \(service.componentsSeparatedByString(".").last!) account to share.", comment: "Share login alert message"), closeLabel: NSLocalizedString("Roger", comment: "Share login alert action"))
 	}
 }
 

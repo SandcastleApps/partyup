@@ -9,13 +9,13 @@
 import UIKit
 import CoreLocation
 import INTULocationManager
-import JGProgressHUD
+import SCLAlertView
 import Flurry_iOS_SDK
 
 class BakeRootController: UIViewController {
 	private var recordController: RecordSampleController!
 	private var acceptController: AcceptSampleController!
-	private let progressHud = JGProgressHUD(style: .Light)
+	private var waiting: SCLAlertViewResponder?
 
 	var venues = [Venue]()
 	var pregame: Venue?
@@ -27,8 +27,6 @@ class BakeRootController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-		progressHud.delegate = self
 
 		Flurry.logEvent("Entering_Bakery")
 
@@ -88,17 +86,11 @@ class BakeRootController: UIViewController {
 						self.locals = [Venue]()
 
 						if hud == true {
-							presentResultHud(self.progressHud,
-								inView: self.view,
-								withTitle: NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title"),
-								andDetail: message,
-								indicatingSuccess: false)
+							alertFailureWithTitle(NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title"), andDetail: NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title")) { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 						} else {
-							let alert = UIAlertController(title: NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
-								message:message,
-								preferredStyle: .Alert)
-							alert.addAction(UIAlertAction(title: NSLocalizedString("Roger", comment: "Default location services disabled alert button"), style: .Default, handler: { (action) in self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }))
-							self.presentViewController(alert, animated: true, completion: nil)
+							alertFailureWithTitle(NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
+								andDetail: message,
+								closeLabel: NSLocalizedString("Roger", comment: "Default alert close.")) { (action) in self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 						}
 
 						Flurry.logError("Neighborhood_Determination_Failed", message: "Reason \(status.rawValue)", error: nil)
@@ -112,9 +104,8 @@ class BakeRootController: UIViewController {
 		super.viewDidAppear(animated)
 
 		if locals == nil {
-			progressHud.textLabel.text = NSLocalizedString("Determining Venue", comment: "Hud title for waiting for location determination")
-			progressHud.interactionType = .BlockNoTouches
-			progressHud.showInView(view, animated: false)
+			waiting = alertWaitWithTitle(NSLocalizedString("Determining Venue", comment: "Hud title for waiting for location determination"),
+			                             cancelHandler: { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) })
 		}
 	}
 
@@ -127,14 +118,11 @@ class BakeRootController: UIViewController {
 
 		if locals.count > 0 {
 			recordController.recordButton.enabled = true
-			progressHud.dismissAnimated(true);
+			waiting?.close();
 		} else {
 			Flurry.logEvent("Neighborhood_No_Venues")
-			presentResultHud(progressHud,
-				inView: view,
-				withTitle: NSLocalizedString("Unsupported Venue", comment: "Hud title for no nearby venue"),
-				andDetail: NSLocalizedString("You are not at a supported venue.", comment: "Hud detail for no nearby venue"),
-				indicatingSuccess: false)
+			alertFailureWithTitle(NSLocalizedString("Unsupported Venue", comment: "Hud title for no nearby venue"),
+			                    andDetail: NSLocalizedString("You are not at a supported venue.", comment: "Hud detail for no nearby venue")) { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 		}
 	}
 
@@ -165,15 +153,5 @@ class BakeRootController: UIViewController {
 				from.removeFromParentViewController()
 				to.didMoveToParentViewController(self)
 		}
-	}
-}
-
-extension BakeRootController: JGProgressHUDDelegate {
-	func progressHUD(progressHUD: JGProgressHUD!, didDismissFromView view: UIView!) {
-        if progressHUD.tag != 0 {
-            performSegueWithIdentifier("Sampling Done Segue", sender: nil)
-        } else {
-            progressHUD.tag = 0
-        }
 	}
 }

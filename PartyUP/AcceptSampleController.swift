@@ -9,7 +9,7 @@
 import UIKit
 import VIMVideoPlayer
 import ActionSheetPicker_3_0
-import JGProgressHUD
+import SCLAlertView
 import Flurry_iOS_SDK
 
 class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITextViewDelegate {
@@ -61,12 +61,10 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
     @IBOutlet weak var sendView: UIView!
 
 	private let playView = VIMVideoPlayerView()
-	private let progressHud = JGProgressHUD(style: .Light)
+	private var waiting: SCLAlertViewResponder?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		progressHud.delegate = self
 
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
 
@@ -268,8 +266,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 
 		do {
 			if let url = videoUrl {
-				progressHud.textLabel.text = NSLocalizedString("Uploading Party Video", comment: "Hud title while uploading a video")
-				progressHud.showInView(view, animated: true)
+				waiting = alertWaitWithTitle(NSLocalizedString("Uploading Party Video", comment: "Hud title while uploading a video"))
 				var statement: String? = comment.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 				statement = statement?.isEmpty ?? true || comment.textColor != UIColor.blackColor() ? nil : statement
 				let place = venues[selectedLocal]
@@ -283,50 +280,35 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
                 let submission = Submission(sample: sample)
 				submission.submitWithCompletionHander(completionHandlerForSubmission)
 			} else {
-				presentResultHud(progressHud,
-					inView: view,
-					withTitle: NSLocalizedString("Upload Failed", comment: "Hud title when failed due to no video"),
-					andDetail: NSLocalizedString("No video available.", comment: "Hud detail indicating no video available"),
-					indicatingSuccess: false)
+				alertFailureWithTitle(NSLocalizedString("Upload Failed", comment: "Hud title when failed due to no video"),
+				                      andDetail: NSLocalizedString("No video available.", comment: "Hud detail indicating no video available")) { self.host?.acceptedSample() }
 			}
 
 		} catch {
 			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
-			presentResultHud(progressHud,
-				inView: view,
-				withTitle: NSLocalizedString("Preparation Failed", comment: "Hud title when failed due to no video"),
-				andDetail: NSLocalizedString("Couldn't queue video for upload.", comment: "Hud title when failed due to no video"),
-				indicatingSuccess: false)
+			alertFailureWithTitle(NSLocalizedString("Preparation Failed", comment: "Hud title when failed due to no video"),
+				andDetail: NSLocalizedString("Couldn't queue video for upload.", comment: "Hud title when failed due to no video")) { self.host?.acceptedSample() }
 		}
 	}
 
 	private func completionHandlerForSubmission(submission: Submission) {
 		if let error = submission.error {
 			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
-			let alert = UIAlertController(
-				title: NSLocalizedString("Submission Failed", comment: "Alert title after unsuccessfully uploaded sample"),
-				message: NSLocalizedString("You may discard the video or try submitting it again.", comment: "Alert detail after unsuccessfully uploaded sample"),
-				preferredStyle: .Alert)
-			let discard = UIAlertAction(
-				title: NSLocalizedString("Discard", comment: "Submission discard alert button"),
-				style: .Destructive) { _ in
-					Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false])
-					self.progressHud.dismiss()
-					self.host?.rejectedSample() }
-			let retry = UIAlertAction(
-				title: NSLocalizedString("Retry", comment: "Submission retry alert button"),
-				style: .Default) { _ in
-					submission.submitWithCompletionHander(self.completionHandlerForSubmission) }
-			alert.addAction(discard)
-			alert.addAction(retry)
-			presentViewController(alert, animated: true, completion: nil)
+			let alert = SCLAlertView()
+			alert.addButton(NSLocalizedString("Discard", comment: "Submission discard alert button")) {
+				Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false])
+				self.waiting?.close()
+				self.host?.rejectedSample()
+			}
+			alert.addButton(NSLocalizedString("Retry", comment: "Submission retry alert button")) {
+				submission.submitWithCompletionHander(self.completionHandlerForSubmission)
+			}
+			alert.showWarning(NSLocalizedString("Submission Failed", comment: "Alert title after unsuccessfully uploaded sample"),
+			                  subTitle: NSLocalizedString("You may discard the video or try submitting it again.", comment: "Alert detail after unsuccessfully uploaded sample"))
 		} else {
 			Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : true])
-			presentResultHud(self.progressHud,
-				inView: self.view,
-				withTitle: NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
-				andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample"),
-				indicatingSuccess: true)
+			alertFailureWithTitle(NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
+				andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample")) { self.host?.acceptedSample() }
 			UIView.animateWithDuration(2.0,
 				delay: 0.2,
 				usingSpringWithDamping: 1.0,
@@ -385,11 +367,5 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 extension AcceptSampleController: UIBarPositioningDelegate {
 	func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
 		return .TopAttached
-	}
-}
-
-extension AcceptSampleController: JGProgressHUDDelegate {
-	func progressHUD(progressHUD: JGProgressHUD!, didDismissFromView view: UIView!) {
-		self.host?.acceptedSample()
 	}
 }
