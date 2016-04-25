@@ -28,6 +28,7 @@ PODS:
   - KeychainAccess (2.3.5)
   - LMGeocoder (1.0.4)
   - MarqueeLabel-Swift (2.6.6)
+  - MaryPopin (1.4.2)
   - PBJVision (0.4.2)
   - SwiftyJSON (2.3.2)
   - VIMVideoPlayer (6.0.1)
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - KeychainAccess (~> 2.3)
   - LMGeocoder (~> 1.0)
   - MarqueeLabel-Swift (~> 2.6)
+  - MaryPopin (~> 1.4)
   - PBJVision (~> 0.4)
   - SwiftyJSON (~> 2.3)
   - VIMVideoPlayer (~> 6.0)
@@ -69,6 +71,7 @@ SPEC CHECKSUMS:
   KeychainAccess: e283c1981a6c5655e1984cd411c6faf16fa165ae
   LMGeocoder: a0f635f948b0ca420d8d338e54886744cdcb215d
   MarqueeLabel-Swift: debdfb306f9398b3921a43d7c1a7fed3b8a29694
+  MaryPopin: 24affc7fab9608dcad88279e32e774e5de5d54ac
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VIMVideoPlayer: f4ed0a9986294ec3684a2e6bdc738e30051ef4ef

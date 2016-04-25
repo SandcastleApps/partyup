@@ -13,6 +13,7 @@ import LMGeocoder
 import CoreLocation
 import JGProgressHUD
 import Flurry_iOS_SDK
+import MaryPopin
 
 class PartyRootController: UIViewController {
 
@@ -221,7 +222,7 @@ class PartyRootController: UIViewController {
             if !AuthenticationManager.shared.isLoggedIn {
                 let story = UIStoryboard.init(name: "Login", bundle: nil)
                 if let login = story.instantiateInitialViewController() {
-                    presentViewController(login, animated: true, completion: nil)
+					navigationController!.presentPopinController(login, animated: true, completion: nil)
                 }
                 
                 return false
