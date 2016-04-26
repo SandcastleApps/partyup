@@ -31,5 +31,7 @@
 	<true/>
 	<key>RemindersInterval</key>
 	<integer>0</integer>
+	<key>FeedNavigatorArrows</key>
+	<false/>
 </dict>
 </plist>
