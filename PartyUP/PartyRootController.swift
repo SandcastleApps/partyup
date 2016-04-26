@@ -219,7 +219,8 @@ class PartyRootController: UIViewController {
 
 				terms.showNotice(NSLocalizedString("Rules of Conduct", comment: "Terms alert title"),
 				subTitle: conduct ?? "Be Nice!",
-				closeButtonTitle: NSLocalizedString("Let me think about it", comment: "Terms alert cancel action"))
+				closeButtonTitle: NSLocalizedString("Let me think about it", comment: "Terms alert cancel action"),
+				colorStyle: 0xf77e56)
 				
                 return false
             }
