@@ -22,7 +22,7 @@
 				<key>weekday</key>
 				<integer>6</integer>
 				<key>hour</key>
-				<integer>22</integer>
+				<integer>23</integer>
 				<key>minute</key>
 				<integer>30</integer>
 				<key>range</key>
@@ -56,7 +56,7 @@
 				<key>weekday</key>
 				<integer>7</integer>
 				<key>hour</key>
-				<integer>22</integer>
+				<integer>23</integer>
 				<key>minute</key>
 				<integer>30</integer>
 				<key>range</key>
