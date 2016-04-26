@@ -136,7 +136,7 @@ class PartyRootController: UIViewController {
 			if hud == true {
 				alertFailureWithTitle(NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"), andDetail: message)
 			} else {
-				alertFailureWithTitle(NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
+				alertFailureWithTitle(NSLocalizedString("Location Unavailable", comment: "Location services unavailable alert title"),
 				                      andDetail: message,
 				                      closeLabel: NSLocalizedString("Roger", comment: "Default alert close."))
 			}
