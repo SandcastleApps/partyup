@@ -104,8 +104,8 @@ class BakeRootController: UIViewController {
 		super.viewDidAppear(animated)
 
 		if locals == nil {
-			waiting = alertWaitWithTitle(NSLocalizedString("Determining Venue", comment: "Hud title for waiting for location determination"),
-			                             cancelHandler: { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) })
+			waiting = alertWaitWithTitle(andDetail: NSLocalizedString("Determining Venue", comment: "Hud title for waiting for location determination"),
+			                             dismissHandler: { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) })
 		}
 	}
 
@@ -118,7 +118,8 @@ class BakeRootController: UIViewController {
 
 		if locals.count > 0 {
 			recordController.recordButton.enabled = true
-			waiting?.close();
+			waiting?.setDismissBlock { }
+			waiting?.close()
 		} else {
 			Flurry.logEvent("Neighborhood_No_Venues")
 			alertFailureWithTitle(NSLocalizedString("Unsupported Venue", comment: "Hud title for no nearby venue"),
