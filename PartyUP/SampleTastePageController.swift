@@ -185,7 +185,8 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		}
 		options.showInfo(NSLocalizedString("Offensive Material", comment: "Offensive material alert title"),
 			subTitle: NSLocalizedString("Give this offensive video the boot!", comment: "Offensive material alert message"),
-			closeButtonTitle: NSLocalizedString("Cancel", comment: "Cancel alert action"))
+			closeButtonTitle: NSLocalizedString("Cancel", comment: "Cancel alert action"),
+			colorStyle: 0xf77e56)
 	}
 
 	@IBAction func purveyOptions(sender: UIButton) {
