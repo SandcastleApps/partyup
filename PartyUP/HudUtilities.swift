@@ -8,7 +8,7 @@
 
 import SCLAlertView
 
-typealias AlertHandler = () -> Void
+typealias AlertHandler = DismissBlock
 
 func alertSuccessWithTitle(title: String, andDetail detail: String = String(), closeLabel close: String? = nil, dismissHandler dismiss: AlertHandler? = nil) {
 	let duration = close == nil ? 2.5 : 0.0
@@ -26,12 +26,9 @@ func alertFailureWithTitle(title: String, andDetail detail: String = String(), c
 	}
 }
 
-func alertWaitWithTitle(title: String, andDetail detail: String = NSLocalizedString("Hard work happening.", comment: "Please wait"), cancelHandler cancel: AlertHandler? = nil, dismissHandler dismiss: AlertHandler? = nil) -> SCLAlertViewResponder {
+func alertWaitWithTitle(title: String = NSLocalizedString("Working Hard", comment: "Please wait"), andDetail detail: String = String(), dismissHandler dismiss: AlertHandler? = nil) -> SCLAlertViewResponder {
 	let alert = SCLAlertView()
-	if let cancel = cancel {
-		alert.addButton(title, action: cancel)
-	}
-	let wait = alert.showWait(title, subTitle: detail)
+	let wait = alert.showWait(title, subTitle: detail, closeButtonTitle: NSLocalizedString("Cancel", comment: "Cancel button label"), colorStyle: 0xF45E63)
 	if let dismiss = dismiss {
 		wait.setDismissBlock(dismiss)
 	}
