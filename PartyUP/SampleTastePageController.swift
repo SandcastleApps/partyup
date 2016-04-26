@@ -52,7 +52,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	private func formatTime(time: NSDate, relative: Bool) -> String {
 		if relative {
 			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
-            return SampleTastePageController.relativeFormatter.stringFromDate(time, toDate: NSDate(), classicThreshold: stale, postfix: true, substituteZero: true) ?? "WTF?"
+            return SampleTastePageController.relativeFormatter.stringFromDate(time, toDate: NSDate(), classicThreshold: stale, postfix: true, substituteZero: NSLocalizedString("very fresh", comment: "Relative less than a minute old")) ?? "WTF?"
 		} else {
 			return SampleTastePageController.timeFormatter.stringFromDate(time)
 		}
