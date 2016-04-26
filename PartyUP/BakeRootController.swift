@@ -86,9 +86,9 @@ class BakeRootController: UIViewController {
 						self.locals = [Venue]()
 
 						if hud == true {
-							alertFailureWithTitle(NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title"), andDetail: NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title")) { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
+							alertFailureWithTitle(NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title"), andDetail: message) { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 						} else {
-							alertFailureWithTitle(NSLocalizedString("Location Services Unavailable", comment: "Location services unavailable alert title"),
+							alertFailureWithTitle(NSLocalizedString("Location Unavailable", comment: "Location services unavailable alert title"),
 								andDetail: message,
 								closeLabel: NSLocalizedString("Roger", comment: "Default alert close.")) { (action) in self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 						}
