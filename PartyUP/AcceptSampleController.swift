@@ -266,7 +266,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 
 		do {
 			if let url = videoUrl {
-				waiting = alertWaitWithTitle(NSLocalizedString("Uploading Party Video", comment: "Hud title while uploading a video"))
+				waiting = alertWaitWithTitle(NSLocalizedString("Uploading Party Video", comment: "Hud title while uploading a video"), closeButton: nil)
 				var statement: String? = comment.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 				statement = statement?.isEmpty ?? true || comment.textColor != UIColor.blackColor() ? nil : statement
 				let place = venues[selectedLocal]
@@ -285,8 +285,9 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			}
 
 		} catch {
+			self.waiting?.close()
 			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
-			alertFailureWithTitle(NSLocalizedString("Preparation Failed", comment: "Hud title when failed due to no video"),
+			alertFailureWithTitle(NSLocalizedString("Video Missing", comment: "Hud title when failed due to no video"),
 				andDetail: NSLocalizedString("Couldn't queue video for upload.", comment: "Hud title when failed due to no video")) { self.host?.acceptedSample() }
 		}
 	}
@@ -303,11 +304,14 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			alert.addButton(NSLocalizedString("Retry", comment: "Submission retry alert button")) {
 				submission.submitWithCompletionHander(self.completionHandlerForSubmission)
 			}
+			alert.showCloseButton = false
 			alert.showWarning(NSLocalizedString("Submission Failed", comment: "Alert title after unsuccessfully uploaded sample"),
-			                  subTitle: NSLocalizedString("You may discard the video or try submitting it again.", comment: "Alert detail after unsuccessfully uploaded sample"))
+			                  subTitle: NSLocalizedString("You may discard the video or try submitting it again.", comment: "Alert detail after unsuccessfully uploaded sample"),
+			                  colorStyle: 0xf77e56)
 		} else {
+			self.waiting?.close()
 			Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : true])
-			alertFailureWithTitle(NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
+			alertSuccessWithTitle(NSLocalizedString("Submission Done", comment: "Hud title after successfully uploaded sample"),
 				andDetail: NSLocalizedString("Party On!", comment: "Hud detail after successfully uploaded sample")) { self.host?.acceptedSample() }
 			UIView.animateWithDuration(2.0,
 				delay: 0.2,
