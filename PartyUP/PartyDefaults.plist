@@ -11,7 +11,7 @@
 	<key>ListRadius</key>
 	<real>25000</real>
 	<key>StaleSampleInterval</key>
-	<integer>129600</integer>
+	<integer>259200</integer>
 	<key>CameraJump</key>
 	<true/>
 	<key>StickyTowns</key>
