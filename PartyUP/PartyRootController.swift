@@ -136,7 +136,7 @@ class PartyRootController: UIViewController {
 			if hud == true {
 				alertFailureWithTitle(NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"), andDetail: message)
 			} else {
-				alertFailureWithTitle(NSLocalizedString("Location Unavailable", comment: "Location services unavailable alert title"),
+				alertFailureWithTitle(NSLocalizedString("Location Services", comment: "Location services unavailable alert title"),
 				                      andDetail: message,
 				                      closeLabel: NSLocalizedString("Roger", comment: "Default alert close."))
 			}
@@ -212,9 +212,13 @@ class PartyRootController: UIViewController {
                 let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
                 let conduct = file.flatMap { try? String.init(contentsOfFile: $0) }
                 let terms = SCLAlertView()
+				terms.shouldAutoDismiss = false
 				terms.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
 				}
-				terms.addButton(NSLocalizedString("Agree To Terms of Service", comment: "Terms alert agree action")) { _ in defaults.setBool(true, forKey: PartyUpPreferences.AgreedToTerms); self.performSegueWithIdentifier(identifier, sender: nil)
+				terms.addButton(NSLocalizedString("Agree To Terms of Service", comment: "Terms alert agree action")) {
+					terms.hideView()
+					defaults.setBool(true, forKey: PartyUpPreferences.AgreedToTerms)
+					self.performSegueWithIdentifier(identifier, sender: nil)
 				}
 
 				terms.showNotice(NSLocalizedString("Rules of Conduct", comment: "Terms alert title"),
