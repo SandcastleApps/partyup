@@ -243,6 +243,20 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 
     // MARK: - Navigation
 
+    @IBAction func shareSample(sender: UIBarButtonItem) {
+        if let url = videoUrl {
+            var statement = "Shared from PartyUP!"
+            if let addendum = commentCleanUp() {
+                statement += "\n\n" + addendum
+            }
+            let share = UIActivityViewController(activityItems: [statement, url], applicationActivities: nil)
+            share.popoverPresentationController?.barButtonItem = sender
+            self.presentViewController(share, animated: true, completion: nil)
+            
+            Flurry.logEvent("Sample_Shared_Externally")
+        }
+    }
+    
 	@IBAction func rejectSample(sender: UIBarButtonItem) {
 		view.endEditing(false)
 
@@ -260,6 +274,13 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 
 		host?.rejectedSample()
 	}
+    
+    func commentCleanUp() -> String? {
+        var statement: String? = comment.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        statement = statement?.isEmpty ?? true || comment.textColor != UIColor.blackColor() ? nil : statement
+        
+        return statement
+    }
 
 	@IBAction func acceptSample(sender: UIButton) {
 		view.endEditing(false)
@@ -267,8 +288,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 		do {
 			if let url = videoUrl {
 				waiting = alertWaitWithTitle(NSLocalizedString("Uploading Party Video", comment: "Hud title while uploading a video"), closeButton: nil)
-				var statement: String? = comment.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-				statement = statement?.isEmpty ?? true || comment.textColor != UIColor.blackColor() ? nil : statement
+				let statement = commentCleanUp()
 				let place = venues[selectedLocal]
                 let sample = Sample(event: place, comment: statement)
 				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place.unique], timed: true)
