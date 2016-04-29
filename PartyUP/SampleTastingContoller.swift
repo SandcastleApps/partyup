@@ -22,6 +22,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 	@IBOutlet weak var loadingProgress: UIActivityIndicatorView!
 	@IBOutlet weak var nextPage: UIButton!
 	@IBOutlet weak var previousPage: UIButton!
+    private var navigationArrowsVisible: Bool = { return NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.FeedNavigationArrows) }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -189,7 +190,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 
 	func updateNavigationArrows(pageViewController: UIPageViewController)
 	{
-		if let index = (pageViewController.viewControllers?.first as? PageProtocol)?.page {
+		if navigationArrowsVisible, let index = (pageViewController.viewControllers?.first as? PageProtocol)?.page {
 			let prev = !(index > 0)
 			let next = !(index < pages.count - 1)
 

@@ -89,7 +89,7 @@ class PartyTableCell: UITableViewCell {
 
 	func updateVitalityTime() {
 		if let time = videoDate {
-            vitalityLabel.text = PartyTableCell.relativeFormatter.stringFromDate(time, toDate: NSDate(), classicThreshold: nil, substituteZero: true) ?? "?"
+            vitalityLabel.text = PartyTableCell.relativeFormatter.stringFromDate(time, toDate: NSDate(), classicThreshold: 2*24*60*60, substituteZero: NSLocalizedString("now", comment: "Zero interval short form")) ?? "?"
 		} else {
 			vitalityLabel.text = ""
 		}

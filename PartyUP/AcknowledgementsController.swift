@@ -34,6 +34,10 @@ class AcknowledgementsController: UITableViewController {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
+    @IBAction func settings(sender: UIButton) {
+        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+    }
+    
 	@IBAction func recruit(sender: UIButton) {
         presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share PartyUP", comment: "Share action prompt"))
 	}

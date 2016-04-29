@@ -52,7 +52,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	private func formatTime(time: NSDate, relative: Bool) -> String {
 		if relative {
 			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
-            return SampleTastePageController.relativeFormatter.stringFromDate(time, toDate: NSDate(), classicThreshold: stale, postfix: true, substituteZero: true) ?? "WTF?"
+            return SampleTastePageController.relativeFormatter.stringFromDate(time, toDate: NSDate(), classicThreshold: stale, postfix: true, substituteZero: NSLocalizedString("very fresh", comment: "Relative less than a minute old")) ?? "WTF?"
 		} else {
 			return SampleTastePageController.timeFormatter.stringFromDate(time)
 		}
@@ -189,7 +189,8 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		}
 		options.showInfo(NSLocalizedString("Offensive Material", comment: "Offensive material alert title"),
 			subTitle: NSLocalizedString("Give this offensive video the boot!", comment: "Offensive material alert message"),
-			closeButtonTitle: NSLocalizedString("Cancel", comment: "Cancel alert action"))
+			closeButtonTitle: NSLocalizedString("Cancel", comment: "Cancel alert action"),
+			colorStyle: 0xf77e56)
 	}
 
 	@IBAction func purveyOptions(sender: UIButton) {
