@@ -13,6 +13,7 @@ PODS:
   - Instructions (0.4.0)
   - INTULocationManager (4.2.0)
   - LMGeocoder (1.0.4)
+  - LocationPickerViewController (1.0.3)
   - MarqueeLabel-Swift (2.6.6)
   - PBJVision (0.4.2)
   - SCLAlertView (0.5.4)
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - Instructions (~> 0.4)
   - INTULocationManager (~> 4.1)
   - LMGeocoder (~> 1.0)
+  - LocationPickerViewController (~> 1.0)
   - MarqueeLabel-Swift (~> 2.6)
   - PBJVision (~> 0.4)
   - SCLAlertView (~> 0.5)
@@ -46,6 +48,7 @@ SPEC CHECKSUMS:
   Instructions: 7283d009379714e8ff667153014cd62b6e4f4eb9
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   LMGeocoder: a0f635f948b0ca420d8d338e54886744cdcb215d
+  LocationPickerViewController: 1912e170bf903351ef0e24a3185d7acce35f06fc
   MarqueeLabel-Swift: debdfb306f9398b3921a43d7c1a7fed3b8a29694
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SCLAlertView: 081f824b17b7cf41057159535591f4d6fc8acde3
