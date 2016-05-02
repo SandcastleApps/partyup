@@ -14,7 +14,15 @@ import Flurry_iOS_SDK
 
 class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITextViewDelegate {
 
-	var videoUrl: NSURL?
+    var videoUrl: NSURL? {
+        didSet {
+            if let input = videoUrl {
+                let output = input.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("PartyUpVideo.mp4")
+                applyToVideo(fromInput: input, toOutput: output, effectApplicator: AcceptSampleController.generateOverlayOnComposition(self), exportCompletionHander: { exporter in } )
+            }
+        }
+    }
+    
 	var transitionStartY: CGFloat = 0.0
 
 	var venues = [Venue]() {
@@ -375,6 +383,26 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	func observeApplicationEnterBackground() {
 		playView.player.pause()
 	}
+    
+    // MARK: - Overlay
+    
+    func generateOverlayOnComposition(composition: AVMutableVideoComposition, withSize size: CGSize) {
+        if let logo = UIImage(named: "Up") {
+            let over = CALayer()
+            over.contents = logo.CGImage
+            over.frame = CGRectMake(size.width - logo.size.width - 10, size.height - logo.size.height - 10, logo.size.width, logo.size.height)
+            over.opacity = 0.65
+            
+            let parent = CALayer()
+            parent.frame = CGRectMake(0, 0, size.width, size.height)
+            let video = CALayer()
+            video.frame = CGRectMake(0, 0, size.width, size.height)
+            parent.addSublayer(video)
+            parent.addSublayer(over)
+            
+            composition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: video, inLayer: parent)
+        }
+    }
 
 	// MARK: - Tutorial
 

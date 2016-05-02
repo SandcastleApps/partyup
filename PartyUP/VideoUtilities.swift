@@ -33,6 +33,10 @@ func applyToVideo(fromInput input: NSURL, toOutput output: NSURL, effectApplicat
 			videoComposition.frameDuration = CMTimeMake(1, 30)
 
 			effect(videoComposition, videoAssetTrack.naturalSize)
+            
+            let track = composition.tracksWithMediaType(AVMediaTypeVideo).first!
+            videoInstruction.layerInstructions = [AVMutableVideoCompositionLayerInstruction(assetTrack: track)]
+            videoComposition.instructions = [videoInstruction]
 
 			if let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) {
 				exporter.outputURL = output
