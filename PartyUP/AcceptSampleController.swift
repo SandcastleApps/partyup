@@ -387,11 +387,12 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
     // MARK: - Overlay
     
     func generateOverlayOnComposition(composition: AVMutableVideoComposition, withSize size: CGSize) {
-        if let logo = UIImage(named: "Up") {
+        if let logo = UIImage(named: "Watermark-Large") {
             let over = CALayer()
             over.contents = logo.CGImage
-            over.frame = CGRectMake(size.width - logo.size.width - 10, size.height - logo.size.height - 10, logo.size.width, logo.size.height)
-            over.opacity = 0.65
+            over.frame = CGRectMake(size.width - logo.size.width - 10, logo.size.height - 10, logo.size.width, logo.size.height)
+			over.masksToBounds = true
+            //over.opacity = 0.85
             
             let parent = CALayer()
             parent.frame = CGRectMake(0, 0, size.width, size.height)

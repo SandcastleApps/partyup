@@ -24,6 +24,7 @@ func applyToVideo(fromInput input: NSURL, toOutput output: NSURL, effectApplicat
 			try audio.insertTimeRange(CMTimeRangeMake(kCMTimeZero, asset.duration), ofTrack: audioAssetTrack, atTime: kCMTimeZero)
 
 			let videoInstruction = AVMutableVideoCompositionInstruction()
+			videoInstruction
 			videoInstruction.timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration)
 
 			let videoComposition = AVMutableVideoComposition()
@@ -31,14 +32,16 @@ func applyToVideo(fromInput input: NSURL, toOutput output: NSURL, effectApplicat
 			videoComposition.renderSize = videoAssetTrack.naturalSize
 			videoComposition.instructions = [videoInstruction]
 			videoComposition.frameDuration = CMTimeMake(1, 30)
-
-			effect(videoComposition, videoAssetTrack.naturalSize)
             
             let track = composition.tracksWithMediaType(AVMediaTypeVideo).first!
-            videoInstruction.layerInstructions = [AVMutableVideoCompositionLayerInstruction(assetTrack: track)]
+			let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
+			layerInstruction.setTransform(track.preferredTransform, atTime: kCMTimeZero)
+            videoInstruction.layerInstructions = [layerInstruction]
             videoComposition.instructions = [videoInstruction]
 
-			if let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) {
+			effect(videoComposition, videoAssetTrack.naturalSize)
+
+			if let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetMediumQuality) {
 				exporter.outputURL = output
 				exporter.outputFileType = AVFileTypeQuickTimeMovie
 				exporter.shouldOptimizeForNetworkUse = true
