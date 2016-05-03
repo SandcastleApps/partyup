@@ -17,7 +17,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
     var videoUrl: NSURL? {
         didSet {
             if let input = videoUrl {
-                let output = input.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("PartyUpVideo.mp4")
+                let output = input.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("PartyUp.mp4")
                 applyToVideo(fromInput: input, toOutput: output, effectApplicator: AcceptSampleController.generateOverlayOnComposition(self), exportCompletionHander: { exporter in } )
             }
         }
@@ -386,13 +386,14 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
     
     // MARK: - Overlay
     
-    func generateOverlayOnComposition(composition: AVMutableVideoComposition, withSize size: CGSize) {
-        if let logo = UIImage(named: "Watermark-Large") {
+    func generateOverlayOnComposition(composition: AVMutableVideoComposition) {
+        if let logo = UIImage(named: "Watermark") {
+            let size = composition.renderSize
             let over = CALayer()
             over.contents = logo.CGImage
             over.frame = CGRectMake(size.width - logo.size.width - 10, logo.size.height - 10, logo.size.width, logo.size.height)
 			over.masksToBounds = true
-            //over.opacity = 0.85
+            over.opacity = 0.65
             
             let parent = CALayer()
             parent.frame = CGRectMake(0, 0, size.width, size.height)

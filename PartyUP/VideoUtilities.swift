@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-typealias VideoEffectApplicator = (AVMutableVideoComposition, CGSize) -> Void
+typealias VideoEffectApplicator = (AVMutableVideoComposition) -> Void
 typealias VideoExportCompletion = (AVAssetExportSession) -> Void
 
 func applyToVideo(fromInput input: NSURL, toOutput output: NSURL, effectApplicator effect: VideoEffectApplicator, exportCompletionHander exportHandler: VideoExportCompletion) {
@@ -39,7 +39,7 @@ func applyToVideo(fromInput input: NSURL, toOutput output: NSURL, effectApplicat
             videoInstruction.layerInstructions = [layerInstruction]
             videoComposition.instructions = [videoInstruction]
 
-			effect(videoComposition, videoAssetTrack.naturalSize)
+			effect(videoComposition)
 
 			if let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetMediumQuality) {
 				exporter.outputURL = output
