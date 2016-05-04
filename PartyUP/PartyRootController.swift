@@ -26,6 +26,7 @@ class PartyRootController: UIViewController {
 	private var selectedRegion = 0
 
 	private var adRefreshTimer: NSTimer?
+	private var locationRequestId: INTULocationRequestID = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -283,7 +284,7 @@ class PartyRootController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         
 		if regions.first! == nil {
-			if INTULocationManager.locationServicesState() == .Available {
+			if INTULocationManager.locationServicesState() == .Available && locationRequestId == 0 {
 				resolveLocalPlacemark()
 			}
 		} else if defaults.boolForKey(PartyUpPreferences.CameraJump) && defaults.boolForKey(PartyUpPreferences.AgreedToTerms) {
