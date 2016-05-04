@@ -51,48 +51,35 @@ class PartyRootController: UIViewController {
 	}
 
 	func refreshAdvertising() {
-		let cities = regions.map { $0.place }
+		let cities = regions.flatMap { $0.place }
 		Advertisement.refresh(cities)
 	}
 
 	func resolvePopularPlacemarks() {
-		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
-			var gen = cities.generate()
-			func geoHandler(places: [AnyObject]?, error: NSError?) {
-				if let place = places?.first as? LMAddress where error == nil {
-					self.regions.append(PartyPlace(place: place))
-				}
-				if let city = gen.next() {
-					LMGeocoder().geocodeAddressString(city, service: .GoogleService, completionHandler: geoHandler)
-				}
-			}
-			if let city = gen.next() {
-				LMGeocoder().geocodeAddressString(city, service: .GoogleService, completionHandler: geoHandler)
-			}
-		}
+//		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
+//			var gen = cities.generate()
+//			func geoHandler(places: [AnyObject]?, error: NSError?) {
+//				if let place = places?.first as? LMAddress where error == nil {
+//					self.regions.append(PartyPlace(place: place))
+//				}
+//				if let city = gen.next() {
+//					LMGeocoder().geocodeAddressString(city, service: .GoogleService, completionHandler: geoHandler)
+//				}
+//			}
+//			if let city = gen.next() {
+//				LMGeocoder().geocodeAddressString(city, service: .GoogleService, completionHandler: geoHandler)
+//			}
+//		}
 	}
 
 	func resolveLocalPlacemark() {
 		busyIndicator.startAnimating()
 		busyLabel.text = NSLocalizedString("locating", comment: "Status message in bottom bar while determining user location")
 
-		INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.City, timeout: 60) { (location, accuracy, status) in
+		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.City, timeout: 60) { (location, accuracy, status) in
+				self.locationRequestId = 0
 				if status == .Success {
-					LMGeocoder().reverseGeocodeCoordinate(location.coordinate, service: .AppleService) { (places, error) in
-							if let place = places?.first as? LMAddress where error == nil {
-								if let index = self.regions.indexOf({ $0?.place.locality == place.locality }) {
-										self.regions[0] = self.regions[index]
-								} else {
-										self.regions[0] = PartyPlace(place: place)
-								}
-								self.fetchPlaceVenues(self.regions.first!)
-
-								Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
-							} else {
-								self.handleLocationErrors(true, message: NSLocalizedString("Locality Lookup Failed", comment: "Hud message for failed locality lookup"))
-								Flurry.logError("City_Locality_Failed", message: error?.localizedDescription, error: error)
-							}
-					}
+					self.regions[0] = PartyPlace(location: location)
 				} else {
 					var message = "Unknown Error"
 					var hud = true

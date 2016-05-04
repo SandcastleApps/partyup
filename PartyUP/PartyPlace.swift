@@ -21,8 +21,22 @@ class PartyPlace : FetchQueryable {
 		static let SampleUpdate = 30.00
 	}
 
-	let place: LMAddress
-	let pregame: Venue
+	let location: CLLocation
+	private(set) var place: LMAddress? {
+		didSet {
+			if let place = place {
+				let unique = String(format: "*%@$%@$%@*", place.locality, place.administrativeArea, place.country)
+				let name = place.locality + " " + NSLocalizedString("Pregaming", comment: "Place name suffix for pregame venue")
+				self.pregame = Venue(unique: unique, open: 0, close: 0, name: name, details: nil, vicinity: place.administrativeArea, location: location)
+				self.pregame?.fetchSamples()
+				self.pregame?.fetchPromotion()
+
+				Advertisement.fetch(place)
+			}
+		}
+	}
+
+	private(set) var pregame: Venue?
 	var venues = Set<Venue>() {
 		didSet {
 			NSNotificationCenter.defaultCenter().postNotificationName(PartyPlace.CityUpdateNotification, object: self)
@@ -42,22 +56,21 @@ class PartyPlace : FetchQueryable {
 
 	private static let placesKey = "***REMOVED***"
 
-	init(place: LMAddress) {
-		self.place = place
-		let unique = String(format: "*%@$%@$%@*", place.locality, place.administrativeArea, place.country)
-		let name = place.locality + " " + NSLocalizedString("Pregaming", comment: "Place name suffix for pregame venue")
-		self.pregame = Venue(unique: unique, open: 0, close: 0, name: name, details: nil, vicinity: place.administrativeArea, location: CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude))
-		self.pregame.fetchSamples()
-		self.pregame.fetchPromotion()
+	init(location: CLLocation) {
+		self.location = location
 
-		Advertisement.fetch(place)
+		LMGeocoder().reverseGeocodeCoordinate(location.coordinate, service: .AppleService) { (places, error) in
+			if let here = places?.first as? LMAddress where error == nil {
+				self.place = here
+			}
+		}
 	}
 
 	func fetch(radius: Int, categories: String) {
 		if abs(lastFetchStatus.completed.timeIntervalSinceNow) > ThrottlingIntervalConstants.CityUpdate || lastFetchStatus.error != nil  {
 			if !isFetching {
 				isFetching = true
-				let params = ["location" : "\(place.coordinate.latitude),\(place.coordinate.longitude)",
+				let params = ["location" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
 					"types" : categories,
 					"rankby" : "distance",
 					"key" : PartyPlace.placesKey]
@@ -74,7 +87,7 @@ class PartyPlace : FetchQueryable {
 				$0.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
 				$0.fetchPromotion(withTimeliness: ThrottlingIntervalConstants.SampleUpdate)
 			}
-			pregame.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
+			pregame?.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
             NSNotificationCenter.defaultCenter().postNotificationName(PartyPlace.CityUpdateNotification, object: self)
 		}
 	}
