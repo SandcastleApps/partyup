@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ActionSheetPicker_3_0
+import LocationPickerViewController
 import INTULocationManager
 import LMGeocoder
 import CoreLocation
@@ -239,23 +239,28 @@ class PartyRootController: UIViewController {
 
 	@IBAction func chooseLocation(sender: UIButton) {
 		partyPicker.defocusSearch()
-		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
-		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
-			rows: choices,
-			initialSelection: 0,
-			doneBlock: { (picker, row, value) in
-				self.selectedRegion = row
-				if row == 0 {
-					self.resolveLocalPlacemark()
-				} else {
-					self.fetchPlaceVenues(self.regions[row])
-				}
-				Flurry.logEvent("Selected_Town", withParameters: ["town" : choices[row]])
-			},
-			cancelBlock: { (picker) in
-				// cancelled
-			},
-			origin: sender)
+//		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
+//		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
+//			rows: choices,
+//			initialSelection: 0,
+//			doneBlock: { (picker, row, value) in
+//				self.selectedRegion = row
+//				if row == 0 {
+//					self.resolveLocalPlacemark()
+//				} else {
+//					self.fetchPlaceVenues(self.regions[row])
+//				}
+//				Flurry.logEvent("Selected_Town", withParameters: ["town" : choices[row]])
+//			},
+//			cancelBlock: { (picker) in
+//				// cancelled
+//			},
+//			origin: sender)
+		let locationPicker = LocationPicker()
+		let pop = locationPicker.popoverPresentationController
+		locationPicker.pickCompletion = { picked in }
+		pop?.sourceView = sender
+		presentViewController(locationPicker, animated: true, completion: nil)
 	}
 	
 	@IBAction func setReminders(sender: UIButton) {
