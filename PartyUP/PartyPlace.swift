@@ -30,7 +30,11 @@ class PartyPlace : FetchQueryable {
 	}
 
 	var ads: [Advertisement] {
-		return Advertisement.apropos(place.locality, ofFeed: .All) ?? []
+		if let place = place {
+			return Advertisement.apropos(place.locality, ofFeed: .All)
+		} else {
+			return []
+		}
 	}
 
 	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)

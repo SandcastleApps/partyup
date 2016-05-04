@@ -114,7 +114,7 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
 
 	private static var ads = Set<Advertisement>()
 
-	static func apropos(identifier: String, ofFeed feed: FeedCategory) -> [Advertisement]? {
+	static func apropos(identifier: String, ofFeed feed: FeedCategory) -> [Advertisement] {
 		return ads.filter { $0.apropos(identifier, ofFeed: feed) }
 	}
 
