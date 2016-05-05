@@ -125,4 +125,10 @@ class PartyPlace : FetchQueryable {
 			Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: response.result.error)
 		}
 	}
+
+	static func nearestToLocation(location: CLLocation, amoungPlaces places: [PartyPlace], withinRadius radius: CLLocationDistance) -> PartyPlace? {
+		typealias DistanceMap = (PartyPlace, CLLocationDistance)
+		let shortest = places.map { DistanceMap($0, location.distanceFromLocation($0.location)) }.minElement { $0.1 < $1.1 }
+		return shortest?.1 < radius ? shortest?.0 : nil
+	}
 }
