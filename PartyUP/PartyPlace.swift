@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import CoreLocation
-import LMGeocoder
 import Alamofire
 import SwiftyJSON
 import Flurry_iOS_SDK
@@ -21,22 +19,9 @@ class PartyPlace : FetchQueryable {
 		static let SampleUpdate = 30.00
 	}
 
-	let location: CLLocation
-	private(set) var place: LMAddress? {
-		didSet {
-			if let place = place {
-				let unique = String(format: "*%@$%@$%@*", place.locality, place.administrativeArea, place.country)
-				let name = place.locality + " " + NSLocalizedString("Pregaming", comment: "Place name suffix for pregame venue")
-				self.pregame = Venue(unique: unique, open: 0, close: 0, name: name, details: nil, vicinity: place.administrativeArea, location: location)
-				self.pregame?.fetchSamples()
-				self.pregame?.fetchPromotion()
+	let location: Address
 
-				Advertisement.fetch(place)
-			}
-		}
-	}
-
-	private(set) var pregame: Venue?
+	let pregame: Venue
 	var venues = Set<Venue>() {
 		didSet {
 			NSNotificationCenter.defaultCenter().postNotificationName(PartyPlace.CityUpdateNotification, object: self)
@@ -44,11 +29,7 @@ class PartyPlace : FetchQueryable {
 	}
 
 	var ads: [Advertisement] {
-		if let place = place {
-			return Advertisement.apropos(place.locality, ofFeed: .All)
-		} else {
-			return []
-		}
+		return Advertisement.apropos(location.province, ofFeed: .All)
 	}
 
 	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
@@ -56,14 +37,16 @@ class PartyPlace : FetchQueryable {
 
 	private static let placesKey = "***REMOVED***"
 
-	init(location: CLLocation) {
+	init(location: Address) {
 		self.location = location
 
-		LMGeocoder().reverseGeocodeCoordinate(location.coordinate, service: .AppleService) { (places, error) in
-			if let here = places?.first as? LMAddress where error == nil {
-				self.place = here
-			}
-		}
+		let unique = String(format: "*%@$%@$%@*", location.city, location.province, location.country)
+		let name = location.city + " " + NSLocalizedString("Pregaming", comment: "Place name suffix for pregame venue")
+		self.pregame = Venue(unique: unique, open: 0, close: 0, name: name, details: nil, location: location.location)
+		self.pregame.fetchSamples()
+		self.pregame.fetchPromotion()
+
+		Advertisement.fetch(location)
 	}
 
 	func fetch(radius: Int, categories: String) {
@@ -87,7 +70,7 @@ class PartyPlace : FetchQueryable {
 				$0.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
 				$0.fetchPromotion(withTimeliness: ThrottlingIntervalConstants.SampleUpdate)
 			}
-			pregame?.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
+			pregame.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
             NSNotificationCenter.defaultCenter().postNotificationName(PartyPlace.CityUpdateNotification, object: self)
 		}
 	}
@@ -126,9 +109,9 @@ class PartyPlace : FetchQueryable {
 		}
 	}
 
-	static func nearestToLocation(location: CLLocation, amoungPlaces places: [PartyPlace], withinRadius radius: CLLocationDistance) -> PartyPlace? {
-		typealias DistanceMap = (PartyPlace, CLLocationDistance)
-		let shortest = places.map { DistanceMap($0, location.distanceFromLocation($0.location)) }.minElement { $0.1 < $1.1 }
-		return shortest?.1 < radius ? shortest?.0 : nil
-	}
+//	static func nearestToLocation(location: CLLocation, amoungPlaces places: [PartyPlace], withinRadius radius: CLLocationDistance) -> PartyPlace? {
+//		typealias DistanceMap = (PartyPlace, CLLocationDistance)
+//		let shortest = places.map { DistanceMap($0, location.distanceFromLocation($0.location)) }.minElement { $0.1 < $1.1 }
+//		return shortest?.1 < radius ? shortest?.0 : nil
+//	}
 }

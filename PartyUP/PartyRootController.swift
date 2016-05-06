@@ -9,7 +9,6 @@
 import UIKit
 import LocationPickerViewController
 import INTULocationManager
-import LMGeocoder
 import CoreLocation
 import SCLAlertView
 import Flurry_iOS_SDK
@@ -22,8 +21,8 @@ class PartyRootController: UIViewController {
 	@IBOutlet weak var reminderButton: UIButton!
 
 	private var partyPicker: PartyPickerController!
-	private var regions: [PartyPlace!] = [nil]
-	private var selectedRegion = 0
+	private var here: PartyPlace?
+	private var	there: PartyPlace?
 
 	private var adRefreshTimer: NSTimer?
 	private var locationRequestId: INTULocationRequestID = 0
@@ -34,8 +33,6 @@ class PartyRootController: UIViewController {
 		UIView.animateWithDuration(0.5, delay: 0, options: [.Autoreverse, .Repeat, .AllowUserInteraction], animations: { self.ackButton.alpha = 0.85 }, completion: nil)
 
 		refreshReminderButton()
-
-		resolvePopularPlacemarks()
 		resolveLocalPlacemark()
 
 		let nc = NSNotificationCenter.defaultCenter()
@@ -48,29 +45,12 @@ class PartyRootController: UIViewController {
     }
 
 	func refreshSelectedRegion() {
-		fetchPlaceVenues(regions[selectedRegion])
+		fetchPlaceVenues(there)
 	}
 
 	func refreshAdvertising() {
-		let cities = regions.flatMap { $0.place }
+		let cities = [here,there].flatMap { $0?.location }
 		Advertisement.refresh(cities)
-	}
-
-	func resolvePopularPlacemarks() {
-//		if let cities = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) as? [String] {
-//			var gen = cities.generate()
-//			func geoHandler(places: [AnyObject]?, error: NSError?) {
-//				if let place = places?.first as? LMAddress where error == nil {
-//					self.regions.append(PartyPlace(place: place))
-//				}
-//				if let city = gen.next() {
-//					LMGeocoder().geocodeAddressString(city, service: .GoogleService, completionHandler: geoHandler)
-//				}
-//			}
-//			if let city = gen.next() {
-//				LMGeocoder().geocodeAddressString(city, service: .GoogleService, completionHandler: geoHandler)
-//			}
-//		}
 	}
 
 	func resolveLocalPlacemark() {
@@ -80,7 +60,18 @@ class PartyRootController: UIViewController {
 		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.City, timeout: 60) { (location, accuracy, status) in
 				self.locationRequestId = 0
 				if status == .Success {
-					self.regions[0] = PartyPlace(location: location)
+					Address.addressForCoordinates(location.coordinate) { address, error in
+						if let address = address where error == nil {
+							self.here = PartyPlace(location: address)
+							self.there = self.here
+							self.fetchPlaceVenues(self.here)
+
+							Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
+						} else {
+							self.handleLocationErrors(true, message: NSLocalizedString("Locality Lookup Failed", comment: "Hud message for failed locality lookup"))
+							Flurry.logError("City_Locality_Failed", message: error?.localizedDescription, error: error)
+						}
+					}
 				} else {
 					var message = "Unknown Error"
 					var hud = true
@@ -118,8 +109,8 @@ class PartyRootController: UIViewController {
 		dispatch_async(dispatch_get_main_queue()) {
 			self.busyIndicator.stopAnimating()
 			self.busyLabel.text = ""
-			self.regions[0] = nil
-			self.partyPicker.parties = self.regions[self.selectedRegion]
+			self.here = nil
+			self.partyPicker.parties = self.there
 
 			if hud == true {
 				alertFailureWithTitle(NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"), andDetail: message)
@@ -131,7 +122,7 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	func fetchPlaceVenues(place: PartyPlace!) {
+	func fetchPlaceVenues(place: PartyPlace?) {
         if let place = place {
             busyIndicator.startAnimating()
             busyLabel.text = NSLocalizedString("fetching", comment: "Status in bottom bar while fetching venues")
@@ -140,9 +131,7 @@ class PartyRootController: UIViewController {
                 let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
                 place.fetch(radius, categories: categories)
 			}
-        } else {
-            self.partyPicker.parties = self.regions[self.selectedRegion]
-        }
+		}
 	}
 
 	func refreshReminderButton() {
@@ -164,7 +153,7 @@ class PartyRootController: UIViewController {
 	func observeCityUpdateNotification(note: NSNotification) {
 		if let city = note.object as? PartyPlace {
 			if city.lastFetchStatus.error == nil {
-				self.partyPicker.parties = self.regions[self.selectedRegion]
+				self.partyPicker.parties = self.there
 			} else {
 				alertFailureWithTitle(NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from google"),
 					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from google"))
@@ -232,35 +221,25 @@ class PartyRootController: UIViewController {
 		}
 		if segue.identifier == "Bake Sample Segue" {
 			let bakerVC = segue.destinationViewController as! BakeRootController
-			bakerVC.venues = regions.first??.venues.flatMap{ $0 } ?? [Venue]()
-			bakerVC.pregame = regions.first??.pregame
+			bakerVC.venues = here?.venues.flatMap{ $0 } ?? [Venue]()
+			bakerVC.pregame = here?.pregame
 		}
 	}
 
 	@IBAction func chooseLocation(sender: UIButton) {
 		partyPicker.defocusSearch()
-//		let choices = [NSLocalizedString("Here", comment: "The local choice of location")] + regions[1..<regions.endIndex].map { $0.place.locality! }
-//		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Region", comment: "Title of the region picker"),
-//			rows: choices,
-//			initialSelection: 0,
-//			doneBlock: { (picker, row, value) in
-//				self.selectedRegion = row
-//				if row == 0 {
-//					self.resolveLocalPlacemark()
-//				} else {
-//					self.fetchPlaceVenues(self.regions[row])
-//				}
-//				Flurry.logEvent("Selected_Town", withParameters: ["town" : choices[row]])
-//			},
-//			cancelBlock: { (picker) in
-//				// cancelled
-//			},
-//			origin: sender)
 		let locationPicker = LocationPicker()
-		let pop = locationPicker.popoverPresentationController
-		locationPicker.pickCompletion = { picked in }
-		pop?.sourceView = sender
-		presentViewController(locationPicker, animated: true, completion: nil)
+		let locationNavigator = UINavigationController(rootViewController: locationPicker)
+		locationPicker.pickCompletion = { picked in
+			self.there = PartyPlace(location: Address(coordinate: picked.mapItem.placemark.coordinate, mapkitAddress: picked.addressDictionary!))
+			if picked.mapItem.isCurrentLocation {
+				self.here = self.there
+			}
+			self.partyPicker.parties = self.there
+			self.fetchPlaceVenues(self.there)
+		}
+		locationPicker.addButtons()
+		presentViewController(locationNavigator, animated: true, completion: nil)
 	}
 	
 	@IBAction func setReminders(sender: UIButton) {
@@ -288,7 +267,7 @@ class PartyRootController: UIViewController {
 	func observeApplicationBecameActive() {
         let defaults = NSUserDefaults.standardUserDefaults()
         
-		if regions.first! == nil {
+		if here == nil {
 			if INTULocationManager.locationServicesState() == .Available && locationRequestId == 0 {
 				resolveLocalPlacemark()
 			}
