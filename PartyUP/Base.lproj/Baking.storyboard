@@ -273,10 +273,32 @@
                                                 <action selector="rejectSample:" destination="RAd-iG-AkU" id="jbg-qK-35o"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="dp0-1r-zJ6">
-                                            <connections>
-                                                <action selector="shareSample:" destination="RAd-iG-AkU" id="ynN-03-z8g"/>
-                                            </connections>
+                                        <barButtonItem key="rightBarButtonItem" id="oat-xz-CGN" userLabel="Action">
+                                            <view key="customView" contentMode="scaleToFill" id="hT0-JT-I20">
+                                                <rect key="frame" x="491" y="5" width="89" height="33"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Tgc-4L-NxF" userLabel="Encoding">
+                                                        <rect key="frame" x="69" y="7" width="20" height="20"/>
+                                                    </activityIndicatorView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Qx-58-8oa" userLabel="Share">
+                                                        <rect key="frame" x="0.0" y="0.0" width="89" height="33"/>
+                                                        <state key="normal" image="SmallDots"/>
+                                                        <connections>
+                                                            <action selector="shareSample:" destination="RAd-iG-AkU" eventType="touchUpInside" id="0Di-sp-mI0"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="Tgc-4L-NxF" firstAttribute="centerY" secondItem="hT0-JT-I20" secondAttribute="centerY" id="4um-qp-Lss"/>
+                                                    <constraint firstItem="0Qx-58-8oa" firstAttribute="centerY" secondItem="hT0-JT-I20" secondAttribute="centerY" id="71H-IH-U9q"/>
+                                                    <constraint firstItem="0Qx-58-8oa" firstAttribute="height" secondItem="hT0-JT-I20" secondAttribute="height" id="7d3-2x-VEJ"/>
+                                                    <constraint firstItem="0Qx-58-8oa" firstAttribute="width" secondItem="hT0-JT-I20" secondAttribute="width" id="axh-Zt-IhV"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Tgc-4L-NxF" secondAttribute="trailing" id="l8c-na-AGy"/>
+                                                    <constraint firstItem="0Qx-58-8oa" firstAttribute="centerX" secondItem="hT0-JT-I20" secondAttribute="centerX" id="o00-a8-ZJJ"/>
+                                                </constraints>
+                                            </view>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -308,10 +330,12 @@
                     </view>
                     <connections>
                         <outlet property="comment" destination="RmL-zJ-VBo" id="EZi-jE-4dA"/>
+                        <outlet property="encodingProgress" destination="Tgc-4L-NxF" id="Csg-Wl-4aa"/>
                         <outlet property="naviBar" destination="3aO-yg-IwN" id="pJu-ku-vfN"/>
                         <outlet property="review" destination="pcg-n1-3Re" id="AVq-rr-CWU"/>
                         <outlet property="sendButton" destination="QZ4-cg-Erw" id="ogQ-zy-uUL"/>
                         <outlet property="sendView" destination="tt7-oa-KC9" id="mGf-Od-OUB"/>
+                        <outlet property="shareButton" destination="0Qx-58-8oa" id="olY-DT-Sd3"/>
                         <outlet property="venue" destination="qgR-vF-K22" id="fim-Lg-bRE"/>
                     </connections>
                 </viewController>
@@ -348,5 +372,6 @@
         <image name="Logo" width="77" height="96"/>
         <image name="Selfie" width="35" height="30"/>
         <image name="Send" width="15" height="12"/>
+        <image name="SmallDots" width="22" height="5"/>
     </resources>
 </document>
