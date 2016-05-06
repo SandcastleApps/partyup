@@ -16,10 +16,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 
     var videoUrl: NSURL? {
         didSet {
-            if let input = videoUrl {
-                let output = input.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("PartyUp.mp4")
-                applyToVideo(fromInput: input, toOutput: output, effectApplicator: AcceptSampleController.generateOverlayOnComposition(self), exportCompletionHander: { exporter in } )
-            }
+            prepareOverlayFor(videoUrl)
         }
     }
     
@@ -64,17 +61,26 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	}
 
 	@IBOutlet weak var naviBar: UINavigationBar!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var encodingProgress: UIActivityIndicatorView! 
 	@IBOutlet weak var review: UIView!
 	@IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var sendView: UIView!
 
 	private let playView = VIMVideoPlayerView()
 	private var waiting: SCLAlertViewResponder?
+    private var exporter: AVAssetExportSession?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		naviBar.topItem?.titleView = PartyUpConstants.TitleLogo()
+        
+        if let exporter = exporter where exporter.status == .Exporting {
+            encodingProgress.startAnimating()
+            shareButton.hidden = true
+            shareButton.enabled = false
+        }
 
 		playView.translatesAutoresizingMaskIntoConstraints = false
 		playView.layer.cornerRadius = 10
@@ -125,8 +131,31 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	}
 
 	deinit {
+        prepareOverlayFor(nil)
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
+    
+    private func prepareOverlayFor(url: NSURL?) {
+        exporter?.cancelExport()
+        exporter = nil
+        if let input = url {
+            shareButton?.hidden = true
+            encodingProgress?.startAnimating()
+            let output = input.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("PartyUp.mp4")
+            try? NSFileManager.defaultManager().removeItemAtURL(output)
+            exporter = applyToVideo(fromInput: input, toOutput: output, effectApplicator: AcceptSampleController.generateOverlayOnComposition(self), exportCompletionHander: { status in
+                self.encodingProgress?.stopAnimating()
+                self.shareButton?.hidden = false
+                self.shareButton?.enabled = status == .Completed
+            } )
+        }
+        
+        if exporter == nil {
+            encodingProgress?.stopAnimating()
+            shareButton?.hidden = false
+            shareButton?.enabled = false
+        }
+    }
 
 	// MARK: - View Lifecycle
 
@@ -251,14 +280,14 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 
     // MARK: - Navigation
 
-    @IBAction func shareSample(sender: UIBarButtonItem) {
-        if let url = videoUrl {
+    @IBAction func shareSample(sender: UIButton) {
+        if let url = exporter?.outputURL {
             var statement = "Shared from PartyUP!"
             if let addendum = commentCleanUp() {
                 statement += "\n\n" + addendum
             }
             let share = UIActivityViewController(activityItems: [statement, url], applicationActivities: nil)
-            share.popoverPresentationController?.barButtonItem = sender
+            share.popoverPresentationController?.sourceView = sender
             self.presentViewController(share, animated: true, completion: nil)
             
             Flurry.logEvent("Sample_Shared_Externally")

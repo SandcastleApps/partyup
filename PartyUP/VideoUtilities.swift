@@ -9,9 +9,10 @@
 import AVFoundation
 
 typealias VideoEffectApplicator = (AVMutableVideoComposition) -> Void
-typealias VideoExportCompletion = (AVAssetExportSession) -> Void
+typealias VideoExportCompletion = (AVAssetExportSessionStatus) -> Void
 
-func applyToVideo(fromInput input: NSURL, toOutput output: NSURL, effectApplicator effect: VideoEffectApplicator, exportCompletionHander exportHandler: VideoExportCompletion) {
+func applyToVideo(fromInput input: NSURL, toOutput output: NSURL, effectApplicator effect: VideoEffectApplicator, exportCompletionHander exportHandler: VideoExportCompletion) -> AVAssetExportSession? {
+    var export: AVAssetExportSession?
 	let asset = AVAsset(URL: input)
 	let composition = AVMutableComposition()
 	let video = composition.addMutableTrackWithMediaType(AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
@@ -41,20 +42,23 @@ func applyToVideo(fromInput input: NSURL, toOutput output: NSURL, effectApplicat
 
 			effect(videoComposition)
 
-			if let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetMediumQuality) {
-				exporter.outputURL = output
-				exporter.outputFileType = AVFileTypeQuickTimeMovie
-				exporter.shouldOptimizeForNetworkUse = true
-				exporter.videoComposition = videoComposition
+            export = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetMediumQuality)
+			if let export = export {
+				export.outputURL = output
+				export.outputFileType = AVFileTypeQuickTimeMovie
+				export.shouldOptimizeForNetworkUse = true
+				export.videoComposition = videoComposition
 
-				exporter.exportAsynchronouslyWithCompletionHandler({
+				export.exportAsynchronouslyWithCompletionHandler({
 					dispatch_async(dispatch_get_main_queue(),{
-						exportHandler(exporter)
+						exportHandler(export.status)
 					})
 				})
 			}
 		}
 	} catch {
-
+        export = nil
 	}
+    
+    return export
 }
