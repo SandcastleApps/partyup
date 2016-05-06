@@ -20,7 +20,6 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 	let close: NSTimeInterval
 	let name: String
 	let details: String?
-	let vicinity: String?
 	let location: CLLocation
 	var promotion: Promotion? {
 		didSet {
@@ -51,7 +50,7 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 	private(set) var isPromotionFetching = false
 
 	var ads: [Advertisement] {
-		return Advertisement.apropos(unique, ofFeed: Advertisement.FeedCategory.Venue) ?? []
+		return Advertisement.apropos(unique, ofFeed: Advertisement.FeedCategory.Venue)
 	}
 
 	private var votings = Set<NSData>()
@@ -67,13 +66,12 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		}
 	}
 
-	init(unique: String, open: NSTimeInterval, close: NSTimeInterval, name: String, details: String?, vicinity: String?, location: CLLocation) {
+	init(unique: String, open: NSTimeInterval, close: NSTimeInterval, name: String, details: String?, location: CLLocation) {
 		self.unique = unique
 		self.open = open
 		self.close = close
 		self.name = name
 		self.details = details
-		self.vicinity = vicinity
 		self.location = location
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(Venue.sieveOffendingSamples), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
@@ -86,7 +84,6 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 			close: 0,
 			name: venue["name"].stringValue,
 			details: nil, //venue["description"].string,
-			vicinity: venue["vicinity"].stringValue.componentsSeparatedByString(",").first,
 			location: CLLocation(latitude: venue["geometry"]["location"]["lat"].doubleValue, longitude: venue["geometry"]["location"]["lng"].doubleValue)
 		)
 	}
