@@ -19,6 +19,7 @@ target 'PartyUP' do
 	pod 'Instructions', '~> 0.4'
 	pod 'FBSDKLoginKit', '~> 4.11'
 	pod 'KeychainAccess', '~> 2.3'
+	pod 'LocationPickerViewController', '~> 1.0'
 end
 
 target 'PartyUPTests' do

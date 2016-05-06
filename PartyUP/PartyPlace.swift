@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import CoreLocation
-import LMGeocoder
 import Alamofire
 import SwiftyJSON
 import Flurry_iOS_SDK
@@ -21,7 +19,8 @@ class PartyPlace : FetchQueryable {
 		static let SampleUpdate = 30.00
 	}
 
-	let place: LMAddress
+	let location: Address
+
 	let pregame: Venue
 	var venues = Set<Venue>() {
 		didSet {
@@ -30,7 +29,7 @@ class PartyPlace : FetchQueryable {
 	}
 
 	var ads: [Advertisement] {
-		return Advertisement.apropos(place.locality, ofFeed: .All) ?? []
+		return Advertisement.apropos(location.province, ofFeed: .All)
 	}
 
 	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
@@ -38,22 +37,23 @@ class PartyPlace : FetchQueryable {
 
 	private static let placesKey = "***REMOVED***"
 
-	init(place: LMAddress) {
-		self.place = place
-		let unique = String(format: "*%@$%@$%@*", place.locality, place.administrativeArea, place.country)
-		let name = place.locality + " " + NSLocalizedString("Pregaming", comment: "Place name suffix for pregame venue")
-		self.pregame = Venue(unique: unique, open: 0, close: 0, name: name, details: nil, vicinity: place.administrativeArea, location: CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude))
+	init(location: Address) {
+		self.location = location
+
+		let unique = String(format: "*%@$%@$%@*", location.city, location.province, location.country)
+		let name = location.city + " " + NSLocalizedString("Pregaming", comment: "Place name suffix for pregame venue")
+		self.pregame = Venue(unique: unique, open: 0, close: 0, name: name, details: nil, location: location.location)
 		self.pregame.fetchSamples()
 		self.pregame.fetchPromotion()
 
-		Advertisement.fetch(place)
+		Advertisement.fetch(location)
 	}
 
 	func fetch(radius: Int, categories: String) {
 		if abs(lastFetchStatus.completed.timeIntervalSinceNow) > ThrottlingIntervalConstants.CityUpdate || lastFetchStatus.error != nil  {
 			if !isFetching {
 				isFetching = true
-				let params = ["location" : "\(place.coordinate.latitude),\(place.coordinate.longitude)",
+				let params = ["location" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
 					"types" : categories,
 					"rankby" : "distance",
 					"key" : PartyPlace.placesKey]
@@ -108,4 +108,10 @@ class PartyPlace : FetchQueryable {
 			Flurry.logError("Venue_Query_Failed", message: "\(response.description)", error: response.result.error)
 		}
 	}
+
+//	static func nearestToLocation(location: CLLocation, amoungPlaces places: [PartyPlace], withinRadius radius: CLLocationDistance) -> PartyPlace? {
+//		typealias DistanceMap = (PartyPlace, CLLocationDistance)
+//		let shortest = places.map { DistanceMap($0, location.distanceFromLocation($0.location)) }.minElement { $0.1 < $1.1 }
+//		return shortest?.1 < radius ? shortest?.0 : nil
+//	}
 }

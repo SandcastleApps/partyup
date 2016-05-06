@@ -126,7 +126,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Table view data source
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return section == PartySections.animal ? parties?.place.locality : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
+		return section == PartySections.animal ? parties?.location.city : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
 	}
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -217,7 +217,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 						viewerVC.venues = venues
 					}
                     viewerVC.ads = parties?.ads ?? []
-					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.place.locality ?? "All"])
+					Flurry.logEvent("Venue_Videos", withParameters: ["venue" : parties?.location.city ?? "All"])
 				case (PartySections.animal, 1):
 					viewerVC.venues = (parties?.pregame).map { [$0] } ?? []
                     viewerVC.ads = (parties?.pregame).flatMap { $0.ads } ?? []

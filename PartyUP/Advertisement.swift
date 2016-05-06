@@ -114,18 +114,18 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
 
 	private static var ads = Set<Advertisement>()
 
-	static func apropos(identifier: String, ofFeed feed: FeedCategory) -> [Advertisement]? {
+	static func apropos(identifier: String, ofFeed feed: FeedCategory) -> [Advertisement] {
 		return ads.filter { $0.apropos(identifier, ofFeed: feed) }
 	}
 
-	static func refresh(places: [LMAddress]) {
+	static func refresh(places: [Address]) {
 		ads.removeAll()
 		places.forEach { fetch($0) }
 	}
 
-	static func fetch(place: LMAddress) {
+	static func fetch(place: Address) {
 		let query = AWSDynamoDBQueryExpression()
-		query.hashKeyValues = String(format: "%@$%@", place.administrativeArea, place.country)
+		query.hashKeyValues = String(format: "%@$%@", place.province, place.country)
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(AdvertisementDB.self, expression: query).continueWithBlock { (task) in
 			if let result = task.result as? AWSDynamoDBPaginatedOutput {
 				if let items = result.items as? [AdvertisementDB] {
