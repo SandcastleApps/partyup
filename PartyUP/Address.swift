@@ -35,7 +35,7 @@ struct Address {
 
 	init(coordinate: CLLocationCoordinate2D, mapkitAddress address: [NSObject:AnyObject]) {
 		self.coordinate = coordinate
-		self.city = address["City"] as? String ?? "Anoncity"
+		self.city = address["City"] as? String ?? address["SubLocality"] as? String ?? "Anoncity"
 		self.province = address["State"] as? String ?? "Anonstate"
 		self.country = address["Country"] as? String ?? "Anoncountry"
 	}
