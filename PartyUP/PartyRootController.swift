@@ -25,6 +25,7 @@ class PartyRootController: UIViewController {
 	private var here: PartyPlace?
 	private var	there: PartyPlace?
 	private var loginAlert: SCLAlertViewResponder?
+	private var cameraRequested = false
 
 	private var adRefreshTimer: NSTimer?
 	private var locationRequestId: INTULocationRequestID = 0
@@ -42,6 +43,7 @@ class PartyRootController: UIViewController {
 		nc.addObserver(self, selector: #selector(PartyRootController.refreshSelectedRegion), name: PartyPickerController.VenueRefreshRequest, object: nil)
 		nc.addObserver(self, selector: #selector(PartyRootController.observeCityUpdateNotification(_:)), name: PartyPlace.CityUpdateNotification, object: nil)
 		nc.addObserver(self, selector: #selector(PartyRootController.refreshReminderButton), name: NSUserDefaultsDidChangeNotification, object: nil)
+		nc.addObserver(self, selector: #selector(PartyRootController.observeAuthenticationNotification(_:)), name: AuthenticationManager.AuthenticationStatusChangeNotification, object: nil)
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
     }
@@ -168,6 +170,17 @@ class PartyRootController: UIViewController {
 		}
 	}
 
+	func observeAuthenticationNotification(note: NSNotification) {
+		if let raw = note.userInfo?["new"] as? Int, let state = AuthenticationState(rawValue: raw) where state != .Transitioning {
+			if cameraRequested {
+				cameraRequested = false
+				if shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
+					performSegueWithIdentifier("Bake Sample Segue", sender: nil)
+				}
+			}
+		}
+	}
+
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		tutorial.start(self)
@@ -188,7 +201,7 @@ class PartyRootController: UIViewController {
 		if identifier == "Bake Sample Segue" {
             if !AuthenticationManager.shared.isLoggedIn {
 				if loginAlert == nil {
-					loginAlert = alertLoginForController(self) { self.loginAlert = nil }
+					loginAlert = alertLoginForController(self) { self.loginAlert = nil; self.cameraRequested = true }
 				}
                 return false
             }
