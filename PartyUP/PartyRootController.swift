@@ -24,6 +24,7 @@ class PartyRootController: UIViewController {
 	private var partyPicker: PartyPickerController!
 	private var here: PartyPlace?
 	private var	there: PartyPlace?
+	private var loginAlert: SCLAlertViewResponder?
 
 	private var adRefreshTimer: NSTimer?
 	private var locationRequestId: INTULocationRequestID = 0
@@ -186,7 +187,9 @@ class PartyRootController: UIViewController {
 		
 		if identifier == "Bake Sample Segue" {
             if !AuthenticationManager.shared.isLoggedIn {
-                alertLoginForController(self) { if AuthenticationManager.shared.isLoggedIn { self.performSegueWithIdentifier("Bake Sample Segue", sender: nil) } }
+				if loginAlert == nil {
+					loginAlert = alertLoginForController(self) { self.loginAlert = nil }
+				}
                 return false
             }
             

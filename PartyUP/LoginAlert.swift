@@ -8,10 +8,11 @@
 
 import SCLAlertView
 
-func alertLoginForController(controller: UIViewController, withDismiss dismiss: AlertHandler) {
+func alertLoginForController(controller: UIViewController, withDismiss dismiss: AlertHandler) -> SCLAlertViewResponder {
     let manager = AuthenticationManager.shared
     let terms = SCLAlertView()
-    let face = terms.addButton("  Log in with Facebook") { manager.loginToProvider(manager.authentics.first!, fromViewController: controller) }
+    let face = terms.addButton("  Log in with Facebook") { [unowned terms] in terms.hideView()
+		manager.loginToProvider(manager.authentics.first!, fromViewController: controller) }
     let fbIcon = UIImage(named: "Facebook")
     face.setImage(fbIcon, forState: .Normal)
     terms.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
@@ -21,10 +22,13 @@ func alertLoginForController(controller: UIViewController, withDismiss dismiss: 
     
     let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
     let message: String? = file.flatMap { try? String.init(contentsOfFile: $0) }
-    terms.showNotice(NSLocalizedString("Log in", comment: "Login Title"),
+    let responder = terms.showNotice(NSLocalizedString("Log in", comment: "Login Title"),
                      subTitle: message!,
                      closeButtonTitle: NSLocalizedString("Let me think about it", comment: "Login putoff"),
-                     colorStyle: 0xf77e56).setDismissBlock(dismiss)
+                     colorStyle: 0xf77e56)
+	responder.setDismissBlock(dismiss)
     
     face.backgroundColor = UIColor(r: 59, g: 89, b: 152, alpha: 255)
+
+	return responder
 }
