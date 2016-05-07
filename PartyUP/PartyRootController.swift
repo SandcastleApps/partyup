@@ -229,7 +229,7 @@ class PartyRootController: UIViewController {
                 return false
             }
             
-			if presentedViewController != nil {
+			if presentedViewController != nil || navigationController?.topViewController != self {
 				return false
 			}
 		}
