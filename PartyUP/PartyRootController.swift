@@ -231,12 +231,15 @@ class PartyRootController: UIViewController {
 		let locationPicker = LocationPicker()
 		let locationNavigator = UINavigationController(rootViewController: locationPicker)
 		locationPicker.pickCompletion = { picked in
-			self.there = PartyPlace(location: Address(coordinate: picked.mapItem.placemark.coordinate, mapkitAddress: picked.addressDictionary!))
+			let address = Address(coordinate: picked.mapItem.placemark.coordinate, mapkitAddress: picked.addressDictionary!)
+			self.there = PartyPlace(location: address)
 			if picked.mapItem.isCurrentLocation {
 				self.here = self.there
 			}
 			self.partyPicker.parties = self.there
 			self.fetchPlaceVenues(self.there)
+
+			Flurry.logEvent("Selected_Town", withParameters: ["town" : address.debugDescription])
 		}
 		locationPicker.addButtons()
 		presentViewController(locationNavigator, animated: true, completion: nil)

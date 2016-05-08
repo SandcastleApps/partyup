@@ -9,7 +9,7 @@
 import CoreLocation
 import LMGeocoder
 
-struct Address {
+struct Address: CustomDebugStringConvertible {
 	let coordinate: CLLocationCoordinate2D
 	let city: String
 	let province: String
@@ -39,6 +39,8 @@ struct Address {
 		self.province = address["State"] as? String ?? "Anonstate"
 		self.country = address["Country"] as? String ?? "Anoncountry"
 	}
+
+	var debugDescription: String { return "Coordinate: \(coordinate.latitude),\(coordinate.longitude) Address: \(city), \(province), \(country)" }
 
 	static func addressForCoordinates(coordinate: CLLocationCoordinate2D, completionHandler: (Address?, NSError?) -> Void) {
 		LMGeocoder().reverseGeocodeCoordinate(coordinate, service: .AppleService) { (places, error) in
