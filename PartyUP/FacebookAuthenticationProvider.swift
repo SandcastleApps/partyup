@@ -12,6 +12,8 @@ import KeychainAccess
 
 class FacebookAuthenticationProvider: AuthenticationProviding {
 	var name: String { return "Facebook" }
+	var logo: UIImage? { return UIImage(named: "Facebook") }
+	var color: UIColor { return UIColor(r: 59, g: 89, b: 152, alpha: 255) }
 
     required init(keychain: Keychain) {
 		self.keychain = keychain

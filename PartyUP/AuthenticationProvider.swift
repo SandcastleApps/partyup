@@ -12,6 +12,8 @@ import KeychainAccess
 protocol AuthenticationProvider {
 	var name: String { get }
 	var isLoggedIn: Bool { get }
+	var logo: UIImage? { get }
+	var color: UIColor { get }
 }
 
 typealias LoginReport = ([String:AnyObject]?, NSError?) -> Void
