@@ -8,27 +8,90 @@
 
 import SCLAlertView
 
-func alertLoginForController(controller: UIViewController, withDismiss dismiss: AlertHandler) -> SCLAlertViewResponder {
-    let manager = AuthenticationManager.shared
-    let terms = SCLAlertView()
-    let face = terms.addButton("  Log in with Facebook") { [unowned terms] in terms.hideView()
-		manager.loginToProvider(manager.authentics.first!, fromViewController: controller) }
-    let fbIcon = UIImage(named: "Facebook")
-    face.setImage(fbIcon, forState: .Normal)
-    terms.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
-    }
-    
-    terms.shouldAutoDismiss = false
-    
-    let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
-    let message: String? = file.flatMap { try? String.init(contentsOfFile: $0) }
-    let responder = terms.showNotice(NSLocalizedString("Log in", comment: "Login Title"),
-                     subTitle: message!,
-                     closeButtonTitle: NSLocalizedString("Let me think about it", comment: "Login putoff"),
-                     colorStyle: 0xf77e56)
-	responder.setDismissBlock(dismiss)
-    
-    face.backgroundColor = UIColor(r: 59, g: 89, b: 152, alpha: 255)
+typealias AuthenticationFlowCompletion = (AuthenticationManager) -> Void
 
-	return responder
+class AuthenticationFlow {
+
+	private(set) var isActive = false
+
+	func beginFlowOnController(controller: UIViewController, onCompletion complete: AuthenticationFlowCompletion) {
+		isActive = true
+		self.complete = complete
+		let alert = SCLAlertView()
+		let inLabel = NSLocalizedString("Log in with", comment: "Login service button label")
+		let outLabel = NSLocalizedString("Log out of", comment: "Logout service button label")
+		var buttons = [(SCLButton,UIColor)]()
+		for auth in manager.authentics {
+			let label = "  " + (auth.isLoggedIn ? outLabel : inLabel) + " \(auth.name)"
+			let button = alert.addButton(label) {
+				[unowned alert] in alert.hideView()
+				self.manager.loginToProvider(auth, fromViewController: controller)
+			}
+			button.setImage(auth.logo, forState: .Normal)
+			buttons.append((button,auth.color))
+		}
+		alert.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
+		}
+
+		alert.shouldAutoDismiss = false
+
+		let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
+		let message: String? = file.flatMap { try? String.init(contentsOfFile: $0) }
+		leader = alert.showNotice(NSLocalizedString("Log in", comment: "Login Title"),
+		                                 subTitle: message!,
+		                                 closeButtonTitle: NSLocalizedString("Let me think about it", comment: "Login putoff"),
+		                                 colorStyle: 0xf77e56)
+
+		buttons.forEach { $0.0.backgroundColor = $0.1 }
+	}
+
+	func cancelLogin() -> Bool {
+		if let leader = leader {
+			leader.close()
+			complete?(manager)
+			isActive = false
+		}
+
+		return isActive
+	}
+
+	init() {
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AuthenticationFlow.observeAuthenticationNotification(_:)), name: AuthenticationManager.AuthenticationStatusChangeNotification, object: manager)
+	}
+
+	deinit {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
+
+	@objc
+	func observeAuthenticationNotification(note: NSNotification) {
+		if let raw = note.userInfo?["new"] as? Int, let state = AuthenticationState(rawValue: raw) {
+			switch state {
+			case .Authenticated:
+				follower = alertSuccessWithTitle(NSLocalizedString("Logged In", comment: "Logged in alert title"),
+				                                 andDetail: NSLocalizedString("Party Hearty!", comment: "Logged in alert detail"),
+				                                 closeLabel: nil, dismissHandler: { self.complete?(self.manager); self.isActive = false } )
+				AuthenticationFlow.flow = nil
+			case .Unauthenticated:
+				follower = alertFailureWithTitle(NSLocalizedString("Not Logged In", comment: "Not logged in alert title"),
+				                                 andDetail: NSLocalizedString("Better luck next time.", comment: "Not logged in alert detail"),
+				                                 closeLabel: nil, dismissHandler: { self.complete?(self.manager); self.isActive = false } )
+				AuthenticationFlow.flow = nil
+			case .Transitioning:
+				break
+			}
+		}
+	}
+
+	private let manager = AuthenticationManager.shared
+	private weak var leader: SCLAlertViewResponder?
+	private weak var follower: SCLAlertViewResponder?
+	private var complete: AuthenticationFlowCompletion?
+
+	static var shared: AuthenticationFlow {
+		flow = flow ?? AuthenticationFlow()
+		return flow!
+	}
+
+	private static var flow: AuthenticationFlow?
 }
