@@ -10,7 +10,7 @@ import SCLAlertView
 
 typealias AlertHandler = DismissBlock
 
-func alertSuccessWithTitle(title: String, andDetail detail: String = String(), closeLabel close: String? = nil, dismissHandler dismiss: AlertHandler? = nil) {
+func alertSuccessWithTitle(title: String, andDetail detail: String = String(), closeLabel close: String? = nil, dismissHandler dismiss: AlertHandler? = nil) -> SCLAlertViewResponder {
 	let duration = close == nil ? 2.5 : 0.0
 	let alert = SCLAlertView()
 	alert.showCloseButton = close != nil
@@ -18,9 +18,11 @@ func alertSuccessWithTitle(title: String, andDetail detail: String = String(), c
 	if let dismiss = dismiss {
 		responder.setDismissBlock(dismiss)
 	}
+
+	return responder
 }
 
-func alertFailureWithTitle(title: String, andDetail detail: String = String(), closeLabel close: String? = nil, dismissHandler dismiss: AlertHandler? = nil) {
+func alertFailureWithTitle(title: String, andDetail detail: String = String(), closeLabel close: String? = nil, dismissHandler dismiss: AlertHandler? = nil) -> SCLAlertViewResponder {
 	let duration = close == nil ? 4.0 : 0.0
 	let alert = SCLAlertView()
 	alert.showCloseButton = close != nil
@@ -28,6 +30,8 @@ func alertFailureWithTitle(title: String, andDetail detail: String = String(), c
 	if let dismiss = dismiss {
 		responder.setDismissBlock(dismiss)
 	}
+
+	return responder
 }
 
 func alertWaitWithTitle(title: String = NSLocalizedString("Working Hard", comment: "Please wait"), andDetail detail: String = String(), closeButton close: String? = NSLocalizedString("Cancel", comment: "Cancel button label"), dismissHandler dismiss: AlertHandler? = nil) -> SCLAlertViewResponder {
