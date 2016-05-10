@@ -186,6 +186,9 @@ class PartyRootController: UIViewController {
 		partyPicker.defocusSearch()
 		let locationPicker = LocationPicker()
 		let locationNavigator = UINavigationController(rootViewController: locationPicker)
+		locationPicker.title = NSLocalizedString("Party Place", comment: "Location picker title")
+		locationPicker.searchBarPlaceholder = NSLocalizedString("Search party cities", comment: "Location picker search bar")
+		locationPicker.setColors(UIColor(red: 247.0/255.0, green: 126.0/255.0, blue: 86.0/255.00, alpha: 1.0))
 		locationPicker.locationDeniedHandler = { _ in
 			var status: INTULocationStatus
 			switch INTULocationManager.locationServicesState() {
