@@ -88,6 +88,7 @@
 		1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */; };
 		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; };
 		1FF051E31C1FB61800A7A67C /* WebPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF051E21C1FB61800A7A67C /* WebPageController.swift */; };
+		1FF505D41CE21913009F0893 /* LocationUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF505D31CE21913009F0893 /* LocationUtilities.swift */; };
 		7EE829BA4B1CF0AEA5ED4483 /* Pods_PartyUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 128EACD71E506CC4A1C9C3CF /* Pods_PartyUP.framework */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +187,7 @@
 		1FF051E21C1FB61800A7A67C /* WebPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebPageController.swift; sourceTree = "<group>"; };
 		1FF051E41C1FCB5900A7A67C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Acknowledge.strings; sourceTree = "<group>"; };
 		1FF2BA991BCAC7A200336651 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1FF505D31CE21913009F0893 /* LocationUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUtilities.swift; sourceTree = "<group>"; };
 		278EBC8A59A48011B5054E11 /* Pods-PartyUP.deployment.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.deployment.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.deployment.xcconfig"; sourceTree = "<group>"; };
 		32D34C6B37B78DE55095C096 /* Pods-PartyUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.release.xcconfig"; sourceTree = "<group>"; };
 		E250F03FAB390B1DB74C492F /* Pods-PartyUP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartyUP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP.debug.xcconfig"; sourceTree = "<group>"; };
@@ -240,9 +242,7 @@
 				1F427A071BA59F4C00E622CF /* Assets.xcassets */,
 				1F427A091BA59F4C00E622CF /* LaunchScreen.storyboard */,
 				1F427A0C1BA59F4C00E622CF /* Info.plist */,
-				1F7687931BFE278200D96768 /* HudUtilities.swift */,
-				1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */,
-				1FC64B0B1CD6262D001C3C96 /* VideoUtilities.swift */,
+				1FF505D21CE2187C009F0893 /* Utilities */,
 				1F69A6251CA5C64200A84731 /* Extensions */,
 			);
 			name = Support;
@@ -433,6 +433,17 @@
 				1FD940AD1CB5DC8B006D01E4 /* TutorialOverlayManager.swift */,
 			);
 			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		1FF505D21CE2187C009F0893 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1F7687931BFE278200D96768 /* HudUtilities.swift */,
+				1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */,
+				1FC64B0B1CD6262D001C3C96 /* VideoUtilities.swift */,
+				1FF505D31CE21913009F0893 /* LocationUtilities.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		F45C5C08936EE0B946D71CE9 /* Pods */ = {
@@ -701,6 +712,7 @@
 				1F03C37A1BA898F20037D7D8 /* PartyPickerController.swift in Sources */,
 				1F43C5C81CC3AF8500FA4156 /* AuthenticationProvider.swift in Sources */,
 				1FBD40031C11DCCD0093D852 /* RecruitPageController.swift in Sources */,
+				1FF505D41CE21913009F0893 /* LocationUtilities.swift in Sources */,
 				1F2AA0C41C9B918000363DA8 /* FetchQueryable.swift in Sources */,
 				1F427A011BA59F4C00E622CF /* AppDelegate.swift in Sources */,
 				1FF051E31C1FB61800A7A67C /* WebPageController.swift in Sources */,
