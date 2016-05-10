@@ -1,5 +1,5 @@
 //
-//  LoginAlert.swift
+//  AuthenticationFlow.swift
 //  PartyUP
 //
 //  Created by Fritz Vander Heide on 2016-04-25.

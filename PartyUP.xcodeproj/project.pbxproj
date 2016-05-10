@@ -81,7 +81,7 @@
 		1FC64B0C1CD6262D001C3C96 /* VideoUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC64B0B1CD6262D001C3C96 /* VideoUtilities.swift */; };
 		1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */; };
 		1FD1CDC61C8318B00003C744 /* Defensive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1CDC51C8318B00003C744 /* Defensive.swift */; };
-		1FD775F41CCEBE5B00E1AC7F /* LoginAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD775F31CCEBE5B00E1AC7F /* LoginAlert.swift */; };
+		1FD775F41CCEBE5B00E1AC7F /* AuthenticationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD775F31CCEBE5B00E1AC7F /* AuthenticationFlow.swift */; };
 		1FD940AE1CB5DC8B006D01E4 /* TutorialOverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD940AD1CB5DC8B006D01E4 /* TutorialOverlayManager.swift */; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
 		1FDA455B1C1CECD200F5E458 /* ShareUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */; };
@@ -178,7 +178,7 @@
 		1FC64B0B1CD6262D001C3C96 /* VideoUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoUtilities.swift; sourceTree = "<group>"; };
 		1FD0E08F1BF56117005590C5 /* CALayer+RuntimeAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+RuntimeAttributes.swift"; sourceTree = "<group>"; };
 		1FD1CDC51C8318B00003C744 /* Defensive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defensive.swift; sourceTree = "<group>"; };
-		1FD775F31CCEBE5B00E1AC7F /* LoginAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginAlert.swift; sourceTree = "<group>"; };
+		1FD775F31CCEBE5B00E1AC7F /* AuthenticationFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationFlow.swift; sourceTree = "<group>"; };
 		1FD940AD1CB5DC8B006D01E4 /* TutorialOverlayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialOverlayManager.swift; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
 		1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareUtilities.swift; sourceTree = "<group>"; };
@@ -342,7 +342,7 @@
 				1F43C5C51CC3A40D00FA4156 /* AuthenticationManager.swift */,
 				1F43C5C71CC3AF8500FA4156 /* AuthenticationProvider.swift */,
 				1F43C5C91CC3B3AA00FA4156 /* FacebookAuthenticationProvider.swift */,
-				1FD775F31CCEBE5B00E1AC7F /* LoginAlert.swift */,
+				1FD775F31CCEBE5B00E1AC7F /* AuthenticationFlow.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -724,7 +724,7 @@
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
 				1F2C485C1C8DBDE500DE07B2 /* Submission.swift in Sources */,
 				1FD1CDC61C8318B00003C744 /* Defensive.swift in Sources */,
-				1FD775F41CCEBE5B00E1AC7F /* LoginAlert.swift in Sources */,
+				1FD775F41CCEBE5B00E1AC7F /* AuthenticationFlow.swift in Sources */,
 				1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */,
 				1FDA455B1C1CECD200F5E458 /* ShareUtilities.swift in Sources */,
 				1F69A6271CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift in Sources */,
