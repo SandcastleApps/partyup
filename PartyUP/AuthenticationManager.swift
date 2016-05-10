@@ -75,7 +75,9 @@ class AuthenticationManager {
 		}
 
 		task?.continueWithBlock { task in
-			self.postTransitionToState(.Authenticated, withError: task.error)
+			var state: AuthenticationState = .Unauthenticated
+			if let logins = self.credentialsProvider?.logins where !logins.isEmpty { state = .Authenticated }
+			self.postTransitionToState(state, withError: task.error)
 			return nil
 		}
 	}
