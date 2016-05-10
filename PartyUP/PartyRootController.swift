@@ -69,58 +69,24 @@ class PartyRootController: UIViewController {
 
 							Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
 						} else {
-							self.handleLocationErrors(true, message: NSLocalizedString("Locality Lookup Failed", comment: "Hud message for failed locality lookup"))
+							self.cancelLocationLookup()
+							alertFailureWithTitle(NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"), andDetail: NSLocalizedString("Failed to lookup your city.", comment: "Hud message for failed locality lookup"))
 							Flurry.logError("City_Locality_Failed", message: error?.localizedDescription, error: error)
 						}
 					}
 				} else {
-					var message = "Unknown Error"
-					var hud = true
-
-					switch status {
-					case .ServicesRestricted:
-						fallthrough
-					case .ServicesNotDetermined:
-						fallthrough
-					case .ServicesDenied:
-						message = NSLocalizedString("Please enable \"While Using the App\" location access for PartyUP to see parties near you.", comment: "Location services denied alert message")
-						hud = false
-					case .ServicesDisabled:
-						message = NSLocalizedString("Please enable location services to see parties near you.", comment: "Location services disabled alert message")
-						hud = false
-					case .TimedOut:
-						message = NSLocalizedString("Timed out determining your location, try again later.", comment: "Location services timeout hud message.")
-						hud = true
-					case .Error:
-						message = NSLocalizedString("An unknown location services error occured, sorry about that.", comment: "Location services unknown error hud message")
-						hud = true
-					case .Success:
-						message = NSLocalizedString("Strange, very strange.", comment: "Location services succeeded but we went to error.")
-						hud = true
-					}
-
-					self.handleLocationErrors(hud, message: message)
-
+					self.cancelLocationLookup()
+					alertFailureWithLocationServicesStatus(status)
 					Flurry.logError("City_Determination_Failed", message: "Reason \(status.rawValue)", error: nil)
 			}
 		}
 	}
 
-	func handleLocationErrors(hud: Bool, message: String) {
-		dispatch_async(dispatch_get_main_queue()) {
-			self.busyIndicator.stopAnimating()
-			self.busyLabel.text = ""
-			self.here = nil
-			self.partyPicker.parties = self.there
-
-			if hud == true {
-				alertFailureWithTitle(NSLocalizedString("Failed to find you", comment: "Location determination failure hud title"), andDetail: message)
-			} else {
-				alertFailureWithTitle(NSLocalizedString("Location Services", comment: "Location services unavailable alert title"),
-				                      andDetail: message,
-				                      closeLabel: NSLocalizedString("Roger", comment: "Default alert close."))
-			}
-		}
+	func cancelLocationLookup() {
+		self.busyIndicator.stopAnimating()
+		self.busyLabel.text = ""
+		self.here = nil
+		self.partyPicker.parties = self.there
 	}
 
 	func fetchPlaceVenues(place: PartyPlace?) {
@@ -220,6 +186,22 @@ class PartyRootController: UIViewController {
 		partyPicker.defocusSearch()
 		let locationPicker = LocationPicker()
 		let locationNavigator = UINavigationController(rootViewController: locationPicker)
+		locationPicker.locationDeniedHandler = { _ in
+			var status: INTULocationStatus
+			switch INTULocationManager.locationServicesState() {
+			case .Denied:
+				status = .ServicesDenied
+			case .Restricted:
+				status = .ServicesRestricted
+			case .Disabled:
+				status = .ServicesDisabled
+			case .NotDetermined:
+				status = .ServicesNotDetermined
+			case .Available:
+				status = .Error
+			}
+			alertFailureWithLocationServicesStatus(status)
+		}
 		locationPicker.pickCompletion = { picked in
 			let address = Address(coordinate: picked.mapItem.placemark.coordinate, mapkitAddress: picked.addressDictionary!)
 			self.there = PartyPlace(location: address)

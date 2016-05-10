@@ -52,47 +52,20 @@ class BakeRootController: UIViewController {
 				let locs = self.venues.filter { venue in return location.distanceFromLocation(venue.location) <= radius + location.horizontalAccuracy }.sort { $0.location.distanceFromLocation(location) < $1.location.distanceFromLocation(location) }
 				dispatch_async(dispatch_get_main_queue()) { self.collectSample(locs) }
 			} else {
-				var message = "Unknown Error"
-				var hud = true
 				var tries = retry
 
 				switch status {
-				case .ServicesRestricted:
-					fallthrough
-				case .ServicesNotDetermined:
-					fallthrough
-				case .ServicesDenied:
-					message = NSLocalizedString("Please enable \"While Using the App\" location access for PartyUP to submit videos.", comment: "Location services denied alert message while recording")
-					hud = false
+				case .ServicesRestricted, .ServicesNotDetermined, .ServicesDenied, .ServicesDisabled:
 					tries = 0
-				case .ServicesDisabled:
-					message = NSLocalizedString("Please enable location services to submit videos.", comment: "Location services disabled alert message while recording")
-					hud = false
-					tries = 0
-				case .TimedOut:
-					message = NSLocalizedString("Timed out determining your location, try again later.", comment: "Location services timeout hud message while recording")
-					hud = true
-				case .Error:
-					message = NSLocalizedString("An unknown location services error occured, sorry about that.", comment: "Location services unknown error hud message while recording")
-					hud = true
-				case .Success:
-					message = NSLocalizedString("Strange, very strange.", comment: "Location services succeeded but we went to error.")
-					hud = true
+				default:
+					break
 				}
 				dispatch_async(dispatch_get_main_queue()) {
 					if tries > 0 {
 						self.determineLocation(remainingRetries: tries - 1)
 					} else {
 						self.locals = [Venue]()
-
-						if hud == true {
-							alertFailureWithTitle(NSLocalizedString("Undetermined Location", comment: "Location determination failure hud title"), andDetail: message) { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
-						} else {
-							alertFailureWithTitle(NSLocalizedString("Location Unavailable", comment: "Location services unavailable alert title"),
-								andDetail: message,
-								closeLabel: NSLocalizedString("Roger", comment: "Default alert close.")) { (action) in self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
-						}
-
+						alertFailureWithLocationServicesStatus(status) { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 						Flurry.logError("Neighborhood_Determination_Failed", message: "Reason \(status.rawValue)", error: nil)
 					}
 				}
