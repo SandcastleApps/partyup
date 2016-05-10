@@ -175,7 +175,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 			voteButtons.forEach { button in button.selected = false }
 			Flurry.logEvent("Vote_Cast", withParameters: ["vote" : vote.rawValue])
 		} else {
-            AuthenticationFlow.startLoginOnController(self).addAction { manager in
+            AuthenticationFlow.shared.startOnController(self).addAction { manager in
 				if manager.isLoggedIn { self.placeVote(sender) } }
 		}
 	}
