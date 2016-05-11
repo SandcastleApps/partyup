@@ -1,6 +1,6 @@
 PODS:
   - ActionSheetPicker-3.0 (2.0.5)
-  - Alamofire (3.3.1)
+  - Alamofire (3.4.0)
   - AWSCognito (2.3.6):
     - AWSCore (= 2.3.6)
   - AWSCore (2.3.6)
@@ -36,28 +36,28 @@ PODS:
   - VIMVideoPlayer (6.0.1)
 
 DEPENDENCIES:
-  - ActionSheetPicker-3.0 (~> 2)
-  - Alamofire (~> 3)
-  - AWSCognito (~> 2.2)
-  - AWSDynamoDB (~> 2.2)
-  - AWSS3 (~> 2.2)
+  - ActionSheetPicker-3.0
+  - Alamofire
+  - AWSCognito
+  - AWSDynamoDB
+  - AWSS3
   - DACircularProgress
-  - FBSDKLoginKit (~> 4.11)
-  - Flurry-iOS-SDK (~> 7.3)
-  - Instructions (~> 0.4)
-  - INTULocationManager (~> 4)
-  - KeychainAccess (~> 2.3)
-  - LMGeocoder (~> 1)
-  - LocationPickerViewController (~> 1)
-  - MarqueeLabel (~> 2)
-  - PBJVision (~> 0)
-  - SCLAlertView (~> 0.5)
-  - SwiftyJSON (~> 2)
-  - VIMVideoPlayer (~> 6)
+  - FBSDKLoginKit
+  - Flurry-iOS-SDK
+  - Instructions
+  - INTULocationManager
+  - KeychainAccess
+  - LMGeocoder
+  - LocationPickerViewController
+  - MarqueeLabel
+  - PBJVision
+  - SCLAlertView
+  - SwiftyJSON
+  - VIMVideoPlayer
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
-  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   AWSCognito: af54fe65171c7c994c134e5d29b1ee60ee234825
   AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
   AWSDynamoDB: 0bfd95eb10363090d8570a48d5feb4e3d7ec5264
