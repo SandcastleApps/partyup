@@ -29,7 +29,7 @@ class AuthenticationFlow {
     func stop() {
         if let leader = leader {
             leader.close()
-            isFlowing = false
+            AuthenticationFlow.flow = nil
         }
     }
 
@@ -81,15 +81,13 @@ class AuthenticationFlow {
 		if let raw = note.userInfo?["new"] as? Int, let state = AuthenticationState(rawValue: raw) {
 			switch state {
 			case .Authenticated:
-				follower = alertSuccessWithTitle(NSLocalizedString("Logged In", comment: "Logged in alert title"),
+				alertSuccessWithTitle(NSLocalizedString("Logged In", comment: "Logged in alert title"),
 				                                 andDetail: NSLocalizedString("Party Hearty!", comment: "Logged in alert detail"),
 				                                 closeLabel: nil, dismissHandler: AuthenticationFlow.end(self))
-				AuthenticationFlow.flow = nil
 			case .Unauthenticated:
-				follower = alertFailureWithTitle(NSLocalizedString("Not Logged In", comment: "Not logged in alert title"),
+				alertFailureWithTitle(NSLocalizedString("Not Logged In", comment: "Not logged in alert title"),
 				                                 andDetail: NSLocalizedString("Better luck next time.", comment: "Not logged in alert detail"),
 				                                 closeLabel: nil, dismissHandler: AuthenticationFlow.end(self) )
-				AuthenticationFlow.flow = nil
 			case .Transitioning:
 				break
 			}
@@ -98,7 +96,6 @@ class AuthenticationFlow {
 
 	private let manager = AuthenticationManager.shared
 	private var leader: SCLAlertViewResponder?
-	private var follower: SCLAlertViewResponder?
 	private var completers = [AuthenticationFlowCompletion]()
 
     static var shared: AuthenticationFlow {
