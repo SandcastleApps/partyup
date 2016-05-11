@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MarqueeLabel_Swift
+import MarqueeLabel
 
 class PartyTableCell: UITableViewCell {
 	@IBOutlet weak var vitalityDot: UILabel!

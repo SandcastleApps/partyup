@@ -27,15 +27,17 @@ PODS:
   - KeychainAccess (2.3.5)
   - LMGeocoder (1.0.4)
   - LocationPickerViewController (1.0.3)
-  - MarqueeLabel-Swift (2.6.6)
+  - MarqueeLabel (2.7.4):
+    - MarqueeLabel/ObjC (= 2.7.4)
+  - MarqueeLabel/ObjC (2.7.4)
   - PBJVision (0.4.2)
   - SCLAlertView (0.5.4)
   - SwiftyJSON (2.3.2)
   - VIMVideoPlayer (6.0.1)
 
 DEPENDENCIES:
-  - ActionSheetPicker-3.0 (~> 2.0)
-  - Alamofire (~> 3.1)
+  - ActionSheetPicker-3.0 (~> 2)
+  - Alamofire (~> 3)
   - AWSCognito (~> 2.2)
   - AWSDynamoDB (~> 2.2)
   - AWSS3 (~> 2.2)
@@ -43,15 +45,15 @@ DEPENDENCIES:
   - FBSDKLoginKit (~> 4.11)
   - Flurry-iOS-SDK (~> 7.3)
   - Instructions (~> 0.4)
-  - INTULocationManager (~> 4.1)
+  - INTULocationManager (~> 4)
   - KeychainAccess (~> 2.3)
-  - LMGeocoder (~> 1.0)
-  - LocationPickerViewController (~> 1.0)
-  - MarqueeLabel-Swift (~> 2.6)
-  - PBJVision (~> 0.4)
+  - LMGeocoder (~> 1)
+  - LocationPickerViewController (~> 1)
+  - MarqueeLabel (~> 2)
+  - PBJVision (~> 0)
   - SCLAlertView (~> 0.5)
-  - SwiftyJSON (~> 2.3)
-  - VIMVideoPlayer (~> 6.0)
+  - SwiftyJSON (~> 2)
+  - VIMVideoPlayer (~> 6)
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
@@ -70,7 +72,7 @@ SPEC CHECKSUMS:
   KeychainAccess: e283c1981a6c5655e1984cd411c6faf16fa165ae
   LMGeocoder: a0f635f948b0ca420d8d338e54886744cdcb215d
   LocationPickerViewController: 1912e170bf903351ef0e24a3185d7acce35f06fc
-  MarqueeLabel-Swift: debdfb306f9398b3921a43d7c1a7fed3b8a29694
+  MarqueeLabel: c06f6081f9e1da2d1e756ceb9c5fab5bd9c2f57c
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SCLAlertView: 081f824b17b7cf41057159535591f4d6fc8acde3
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a

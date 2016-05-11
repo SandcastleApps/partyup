@@ -1343,7 +1343,7 @@ SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright (c) 2015 Charles Powell
+			<string>Copyright (c) 2011-2016 Charles Powell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -1358,7 +1358,7 @@ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABI
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.</string>
 			<key>Title</key>
-			<string>MarqueeLabel-Swift</string>
+			<string>MarqueeLabel</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
