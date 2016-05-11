@@ -352,7 +352,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	private func completionHandlerForSubmission(submission: Submission) {
 		if let error = submission.error {
 			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
-			let alert = SCLAlertView()
+			let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: false))
 			alert.addButton(NSLocalizedString("Discard", comment: "Submission discard alert button")) {
 				Flurry.endTimedEvent("Sample_Accepted", withParameters: ["status" : false])
 				self.waiting?.close()
@@ -361,7 +361,6 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			alert.addButton(NSLocalizedString("Retry", comment: "Submission retry alert button")) {
 				submission.submitWithCompletionHander(self.completionHandlerForSubmission)
 			}
-			alert.showCloseButton = false
 			alert.showWarning(NSLocalizedString("Submission Failed", comment: "Alert title after unsuccessfully uploaded sample"),
 			                  subTitle: NSLocalizedString("You may discard the video or try submitting it again.", comment: "Alert detail after unsuccessfully uploaded sample"),
 			                  colorStyle: 0xf77e56)
