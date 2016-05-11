@@ -756,9 +756,13 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
                 localSearchRequest.region = MKCoordinateRegionMakeWithDistance(currentCoordinate, searchDistance, searchDistance)
             }
             MKLocalSearch(request: localSearchRequest).startWithCompletionHandler({ (localSearchResponse, error) -> Void in
-                guard error == nil else { return }
-                guard let localSearchResponse = localSearchResponse else { return }
-                guard localSearchResponse.mapItems.count > 0 else { return }
+                guard error == nil,
+                    let localSearchResponse = localSearchResponse where localSearchResponse.mapItems.count > 0 else {
+                    let locationItem = LocationItem(locationName: searchText)
+                    self.searchResultLocations = [locationItem]
+                    self.tableView.reloadData()
+                    return
+                }
                 
                 self.searchResultLocations = localSearchResponse.mapItems.map({ LocationItem(mapItem: $0) })
                 self.tableView.reloadData()
@@ -941,8 +945,11 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     private func selectLocationItem(locationItem: LocationItem) {
         selectedLocationItem = locationItem
         searchBar.text = locationItem.name
-        let coordinate = coordinateObjectFromTuple(locationItem.coordinate)
-        showMapViewWithCenterCoordinate(coordinate, WithDistance: longitudinalDistance)
+        if let coordinate = locationItem.coordinate {
+            showMapViewWithCenterCoordinate(coordinateObjectFromTuple(coordinate), WithDistance: longitudinalDistance)
+        } else {
+            closeMapView()
+        }
         
         doneButtonItem?.enabled = true
         locationDidSelect(locationItem)

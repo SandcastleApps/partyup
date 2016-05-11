@@ -26,7 +26,7 @@ PODS:
   - INTULocationManager (4.2.0)
   - KeychainAccess (2.3.5)
   - LMGeocoder (1.0.4)
-  - LocationPickerViewController (1.0.3)
+  - LocationPickerViewController (1.1.1)
   - MarqueeLabel (2.7.4):
     - MarqueeLabel/ObjC (= 2.7.4)
   - MarqueeLabel/ObjC (2.7.4)
@@ -71,7 +71,7 @@ SPEC CHECKSUMS:
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   KeychainAccess: e283c1981a6c5655e1984cd411c6faf16fa165ae
   LMGeocoder: a0f635f948b0ca420d8d338e54886744cdcb215d
-  LocationPickerViewController: 1912e170bf903351ef0e24a3185d7acce35f06fc
+  LocationPickerViewController: 327256ac75af9ba70f091936b4b01de5ab81ca20
   MarqueeLabel: c06f6081f9e1da2d1e756ceb9c5fab5bd9c2f57c
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SCLAlertView: 081f824b17b7cf41057159535591f4d6fc8acde3
