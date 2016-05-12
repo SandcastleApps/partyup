@@ -126,7 +126,20 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Table view data source
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return section == PartySections.animal ? parties?.location.city : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
+		return section == PartySections.animal ? (parties?.location.city ?? " ") : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
+	}
+
+	override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		if let header = view as? UITableViewHeaderFooterView {
+			header.textLabel?.textAlignment = .Center
+			header.textLabel?.textColor = UIColor.whiteColor()
+			let gradient: CAGradientLayer = CAGradientLayer()
+			gradient.frame = view.bounds
+			gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+			gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+			gradient.colors = [UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor, UIColor(r: 236, g: 0, b: 140, alpha: 255).CGColor, UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor]
+			header.backgroundView?.layer.insertSublayer(gradient, atIndex: 0)
+		}
 	}
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
