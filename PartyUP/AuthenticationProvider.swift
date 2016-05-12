@@ -8,6 +8,7 @@
 
 import Foundation
 import KeychainAccess
+import AWSCore
 
 protocol AuthenticationProvider {
 	var name: String { get }
@@ -18,7 +19,7 @@ protocol AuthenticationProvider {
 
 typealias LoginReport = ([String:AnyObject]?, NSError?) -> Void
 
-protocol AuthenticationProviding: AuthenticationProvider {
+protocol AuthenticationProviding: AuthenticationProvider, AWSIdentityProvider {
 	var wasLoggedIn: Bool { get }
 
 	init(keychain: Keychain)

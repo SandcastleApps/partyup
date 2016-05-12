@@ -15,7 +15,7 @@ enum AuthenticationState: Int {
 	case Unauthenticated, Transitioning, Authenticated
 }
 
-class AuthenticationManager {
+class AuthenticationManager: NSObject, AWSIdentityProviderManager {
 	static let AuthenticationStatusChangeNotification = "AuthenticationStateChangeNotification"
 
 	static let shared = AuthenticationManager()
@@ -81,6 +81,12 @@ class AuthenticationManager {
 			return nil
 		}
 	}
+    
+    // MARK: - Identity Provider Manager
+    
+    func logins() -> AWSTask {
+        <#code#>
+    }
 
 	// MARK: - Application Delegate Integration
 

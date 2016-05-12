@@ -9,6 +9,7 @@
 import FBSDKCoreKit
 import FBSDKLoginKit
 import KeychainAccess
+import AWSCore
 
 class FacebookAuthenticationProvider: AuthenticationProviding {
 	var name: String { return "Facebook" }
@@ -58,6 +59,19 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
 		return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
 	}
+    
+    // MARK: - AWS Identity Provider
+    
+    var identityProviderName: String {
+        return uri
+    }
+    
+    var token: AWSTask {
+        if let token = FBSDKAccessToken.currentAccessToken() {
+            
+        }
+        
+    }
 
 	// MARK: - Private
 
