@@ -71,7 +71,7 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
 				}
 				self.credentialsProvider?.logins = merged
 			}
-			task = self.credentialsProvider?.refresh()
+			task = self.credentialsProvider?.credentials()
 		}
 
 		task?.continueWithBlock { task in
