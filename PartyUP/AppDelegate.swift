@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Flurry.setUserID(UIDevice.currentDevice().identifierForVendor?.UUIDString)
 		Flurry.startSession(FlurryConstants.ApplicationIdentifier)
 
-		let tint = UIColor(red: 247.0/255.0, green: 126.0/255.0, blue: 86.0/255.00, alpha: 1.0)
+		let tint = UIColor(r: 247, g: 126, b: 86, alpha: 255)
 
 		window?.tintColor = tint
 		UINavigationBar.appearance().backgroundColor = UIColor.whiteColor()
