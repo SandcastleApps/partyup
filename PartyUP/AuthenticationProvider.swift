@@ -17,7 +17,7 @@ protocol AuthenticationProvider {
 	var color: UIColor { get }
 }
 
-typealias LoginReport = ([String:AnyObject]?, NSError?) -> Void
+typealias LoginReport = (NSError?) -> Void
 
 protocol AuthenticationProviding: AuthenticationProvider, AWSIdentityProvider {
 	var wasLoggedIn: Bool { get }

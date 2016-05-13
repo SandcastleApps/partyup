@@ -11,7 +11,8 @@ import FBSDKLoginKit
 import KeychainAccess
 import AWSCore
 
-class FacebookAuthenticationProvider: AuthenticationProviding {
+
+class FacebookAuthenticationProvider: NSObject, AuthenticationProviding {
 	var name: String { return "Facebook" }
 	var logo: UIImage? { return UIImage(named: "Facebook") }
 	var color: UIColor { return UIColor(r: 59, g: 89, b: 152, alpha: 255) }
@@ -66,11 +67,13 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
         return uri
     }
     
-    var token: AWSTask {
+    func token() -> AWSTask {
         if let token = FBSDKAccessToken.currentAccessToken() {
-            
+            return AWSTask(result: token.tokenString)
         }
-        
+		else {
+			return AWSTask(result: nil)
+		}
     }
 
 	// MARK: - Private
@@ -81,9 +84,9 @@ class FacebookAuthenticationProvider: AuthenticationProviding {
 	private func completeLoginWithError(error: NSError?, completionHandler handler: LoginReport) {
 		if let token = FBSDKAccessToken.currentAccessToken()?.tokenString {
 			keychain[provider] = "YES"
-			handler([uri : token], error)
+			handler(error)
 		} else {
-			handler(nil, error)
+			handler(error)
 		}
 	}
 

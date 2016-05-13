@@ -38,45 +38,38 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
 
 	private(set) var state: AuthenticationState = .Transitioning
     
-    init() {
+    override init() {
 		authenticators = [FacebookAuthenticationProvider(keychain: keychain)]
+		super.init()
     }
 
 	func loginToProvider(provider: AuthenticationProvider, fromViewController controller: UIViewController) {
 		if let provider = provider as? AuthenticationProviding {
 			postTransitionToState(.Transitioning, withError: nil)
-			provider.loginFromViewController(controller, completionHander: AuthenticationManager.reportLoggedInTokens(self))
+			provider.loginFromViewController(controller, completionHander: AuthenticationManager.reportLoginWithError(self))
 		}
 	}
     
     func logout() {
 		authenticators.forEach{ $0.logout() }
-        credentialsProvider?.logins = nil
         AWSCognito.defaultCognito().wipe()
         credentialsProvider?.clearKeychain()
 		postTransitionToState(.Unauthenticated, withError: nil)
     }
 
-	func reportLoggedInTokens(logins: [String:AnyObject]?, withError error: NSError?) {
+	func reportLoginWithError(error: NSError?) {
 		var task: AWSTask?
 
 		if credentialsProvider == nil {
-			task = self.initialize(logins)
+			task = self.initialize()
 		} else {
-			var merged = credentialsProvider?.logins ?? [:]
-
-			if let logins = logins {
-				for (key, value) in logins {
-					merged[key] = value
-				}
-				self.credentialsProvider?.logins = merged
-			}
-			task = self.credentialsProvider?.credentials()
+			credentialsProvider?.invalidateCachedTemporaryCredentials()
+			task = credentialsProvider?.getIdentityId()
 		}
 
 		task?.continueWithBlock { task in
 			var state: AuthenticationState = .Unauthenticated
-			if let logins = self.credentialsProvider?.logins where !logins.isEmpty { state = .Authenticated }
+			if self.isLoggedIn { state = .Authenticated }
 			self.postTransitionToState(state, withError: task.error)
 			return nil
 		}
@@ -85,7 +78,19 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
     // MARK: - Identity Provider Manager
     
     func logins() -> AWSTask {
-        <#code#>
+		let tasks = authenticators.map { $0.token() }
+
+		return AWSTask(forCompletionOfAllTasksWithResults: tasks).continueWithSuccessBlock { task in
+			if let tokens = task.result as? [String] {
+				var logins = [String:String]()
+				for authentic in zip(self.authenticators,tokens) {
+					logins[authentic.0.identityProviderName] = authentic.1
+				}
+				return logins
+			} else {
+				return nil
+			}
+		}
     }
 
 	// MARK: - Application Delegate Integration
@@ -115,21 +120,20 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
     private func resumeSession() {
         for auth in authenticators {
             if auth.wasLoggedIn {
-				auth.resumeSessionWithCompletionHandler(AuthenticationManager.reportLoggedInTokens(self))
+				auth.resumeSessionWithCompletionHandler(AuthenticationManager.reportLoginWithError(self))
             }
         }
         
         if credentialsProvider == nil {
-            reportLoggedInTokens(nil, withError: nil)
+            reportLoginWithError(nil)
         }
     }
     
-    private func initialize(logins: [String:AnyObject]?) -> AWSTask? {
+    private func initialize() -> AWSTask? {
         credentialsProvider = AWSCognitoCredentialsProvider(
             regionType: AwsConstants.RegionType,
-            identityId: nil,
             identityPoolId: AwsConstants.IdentityPool,
-			logins: logins)
+			identityProviderManager: self)
         let configuration = AWSServiceConfiguration(
             region: AwsConstants.RegionType,
             credentialsProvider: credentialsProvider)
