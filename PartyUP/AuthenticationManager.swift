@@ -54,7 +54,7 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
 		authenticators.forEach{ $0.logout() }
         AWSCognito.defaultCognito().wipe()
         credentialsProvider?.clearKeychain()
-		postTransitionToState(.Unauthenticated, withError: nil)
+		reportLoginWithError(nil)
     }
 
 	func reportLoginWithError(error: NSError?) {
@@ -64,6 +64,7 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
 			task = self.initialize()
 		} else {
 			credentialsProvider?.invalidateCachedTemporaryCredentials()
+            credentialsProvider?.identityProvider.clear()
 			task = credentialsProvider?.getIdentityId()
 		}
 
