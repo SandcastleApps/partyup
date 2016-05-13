@@ -188,7 +188,7 @@ class PartyRootController: UIViewController {
 		let locationNavigator = UINavigationController(rootViewController: locationPicker)
 		locationPicker.title = NSLocalizedString("Party Place", comment: "Location picker title")
 		locationPicker.searchBarPlaceholder = NSLocalizedString("Search party cities", comment: "Location picker search bar")
-		locationPicker.setColors(UIColor(red: 247.0/255.0, green: 126.0/255.0, blue: 86.0/255.00, alpha: 1.0))
+		locationPicker.setColors(UIColor(r: 247, g: 126, b: 86, alpha: 255))
 		locationPicker.locationDeniedHandler = { _ in
 			var status: INTULocationStatus
 			switch INTULocationManager.locationServicesState() {
@@ -237,9 +237,6 @@ class PartyRootController: UIViewController {
 	}
 
 	@IBAction func segueFromAcknowledgements(segue: UIStoryboardSegue) {
-	}
-
-	@IBAction func segueFromLogin(segue: UIStoryboardSegue) {
 	}
 
 	func observeApplicationBecameActive() {

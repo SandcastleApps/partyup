@@ -29,7 +29,7 @@ class PartyPlace : FetchQueryable {
 	}
 
 	var ads: [Advertisement] {
-		return Advertisement.apropos(location.province, ofFeed: .All)
+		return Advertisement.apropos(location.city, ofFeed: .All)
 	}
 
 	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
