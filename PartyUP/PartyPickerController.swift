@@ -126,18 +126,21 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Table view data source
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return section == PartySections.animal ? (parties?.location.city ?? " ") : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
+		let head = section == PartySections.animal ? (parties?.location.city ?? " ") : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
+		return " " + head + " "
 	}
 
 	override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		if let header = view as? UITableViewHeaderFooterView {
 			header.textLabel?.textAlignment = .Center
-			header.textLabel?.textColor = UIColor.whiteColor()
+			header.textLabel?.textColor = UIColor.darkTextColor()
+			header.textLabel?.backgroundColor = UIColor.whiteColor()
 			let gradient: CAGradientLayer = CAGradientLayer()
-			gradient.frame = view.bounds
+			gradient.frame = view.bounds.insetBy(dx: 10.0, dy: view.bounds.midY - 2.0)
 			gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
 			gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
 			gradient.colors = [UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor, UIColor(r: 236, g: 0, b: 140, alpha: 255).CGColor, UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor]
+			header.backgroundView?.backgroundColor = UIColor.whiteColor()
 			header.backgroundView?.layer.insertSublayer(gradient, atIndex: 0)
 		}
 	}
