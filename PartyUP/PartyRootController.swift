@@ -146,7 +146,7 @@ class PartyRootController: UIViewController {
     // MARK: - Navigation
 
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-		if tutorial.tutoring {
+		if tutorial.tutoring || presentedViewController != nil || navigationController?.topViewController != self {
 			return false
 		}
 		
@@ -161,10 +161,6 @@ class PartyRootController: UIViewController {
 				}
                 return false
             }
-            
-			if presentedViewController != nil || navigationController?.topViewController != self {
-				return false
-			}
 		}
 
 		return true
@@ -246,7 +242,7 @@ class PartyRootController: UIViewController {
 			if INTULocationManager.locationServicesState() == .Available && locationRequestId == 0 {
 				resolveLocalPlacemark()
 			}
-		} else if defaults.boolForKey(PartyUpPreferences.CameraJump) && defaults.boolForKey(PartyUpPreferences.AgreedToTerms) {
+		} else if defaults.boolForKey(PartyUpPreferences.CameraJump) {
 			if shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
 				performSegueWithIdentifier("Bake Sample Segue", sender: nil)
 			}
