@@ -136,7 +136,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			header.textLabel?.textColor = UIColor.darkTextColor()
 			header.textLabel?.backgroundColor = UIColor.whiteColor()
 			let gradient: CAGradientLayer = CAGradientLayer()
-			gradient.frame = view.bounds.insetBy(dx: 10.0, dy: view.bounds.midY - 2.0)
+			gradient.frame = view.bounds.insetBy(dx: 10.0, dy: view.bounds.midY - 1.0)
 			gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
 			gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
 			gradient.colors = [UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor, UIColor(r: 236, g: 0, b: 140, alpha: 255).CGColor, UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor]
