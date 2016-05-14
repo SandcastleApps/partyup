@@ -63,6 +63,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		searchController.hidesNavigationBarDuringPresentation = false
 		searchController.searchBar.sizeToFit()
 		searchController.searchBar.searchBarStyle = .Minimal
+        searchController.searchBar.placeholder = NSLocalizedString("Filter Venues", comment: "City hub filter placeholder.")
 		tableView.tableHeaderView = searchController.searchBar
 		definesPresentationContext = true
 

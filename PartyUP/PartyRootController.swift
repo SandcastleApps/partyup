@@ -183,7 +183,7 @@ class PartyRootController: UIViewController {
 		let locationPicker = LocationPicker()
 		let locationNavigator = UINavigationController(rootViewController: locationPicker)
 		locationPicker.title = NSLocalizedString("Party Place", comment: "Location picker title")
-		locationPicker.searchBarPlaceholder = NSLocalizedString("Enter an address near your party destination", comment: "Location picker search bar")
+		locationPicker.searchBarPlaceholder = NSLocalizedString("Search for place or address", comment: "Location picker search bar")
 		locationPicker.setColors(UIColor(r: 247, g: 126, b: 86, alpha: 255))
 		locationPicker.locationDeniedHandler = { _ in
 			var status: INTULocationStatus
