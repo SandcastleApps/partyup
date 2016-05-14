@@ -209,11 +209,11 @@ final class Sample: CustomDebugStringConvertible, Equatable
 			return "Samples"
 		}
 
-		@objc static func hashKeyAttribute() -> String! {
+		@objc static func hashKeyAttribute() -> String {
 			return "event"
 		}
 
-		@objc static func rangeKeyAttribute() -> String! {
+		@objc static func rangeKeyAttribute() -> String {
 			return "id"
 		}
 	}
@@ -243,11 +243,11 @@ final class Sample: CustomDebugStringConvertible, Equatable
             return "Votes"
         }
         
-        @objc static func hashKeyAttribute() -> String! {
+        @objc static func hashKeyAttribute() -> String {
             return "sample"
         }
         
-        @objc static func rangeKeyAttribute() -> String! {
+        @objc static func rangeKeyAttribute() -> String {
             return "user"
         }
         

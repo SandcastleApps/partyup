@@ -99,11 +99,11 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
             return "Advertisements"
         }
         
-        @objc static func hashKeyAttribute() -> String! {
+        @objc static func hashKeyAttribute() -> String {
             return "administration"
         }
 
-		@objc static func rangeKeyAttribute() -> String! {
+		@objc static func rangeKeyAttribute() -> String {
 			return "media"
 		}
     }
@@ -125,7 +125,10 @@ final class Advertisement: CustomDebugStringConvertible, Hashable
 
 	static func fetch(place: Address) {
 		let query = AWSDynamoDBQueryExpression()
-		query.hashKeyValues = String(format: "%@$%@", place.province, place.country)
+		let hash = String(format: "%@$%@", place.province, place.country)
+		query.keyConditionExpression = "#h = :hash"
+		query.expressionAttributeNames = ["#h": "administration"]
+		query.expressionAttributeValues = [":hash" : hash]
 		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().query(AdvertisementDB.self, expression: query).continueWithBlock { (task) in
 			if let result = task.result as? AWSDynamoDBPaginatedOutput {
 				if let items = result.items as? [AdvertisementDB] {

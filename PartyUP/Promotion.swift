@@ -55,7 +55,7 @@ final class Promotion: CustomDebugStringConvertible, Equatable
             return "Promotions"
         }
         
-        @objc static func hashKeyAttribute() -> String! {
+        @objc static func hashKeyAttribute() -> String {
             return "venue"
         }
     }
