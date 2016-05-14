@@ -4935,6 +4935,21 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>3476A3B4C7E5DD71E2E662D9366604B7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libFlurry_7.6.3.a</string>
+			<key>path</key>
+			<string>Flurry/libFlurry_7.6.3.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>34B9EBEDE9000EE830EEFA1337BBBF75</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -11809,21 +11824,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7919AE334B2DBCCAA16532314BE9EAE1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>archive.ar</string>
-			<key>name</key>
-			<string>libFlurry_7.6.0.a</string>
-			<key>path</key>
-			<string>Flurry/libFlurry_7.6.0.a</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>7947076E93ABCC9A2DF2A26975841093</key>
 		<dict>
 			<key>baseConfigurationReference</key>
@@ -12229,19 +12229,6 @@
 			<string>AWSDynamoDBResources.h</string>
 			<key>path</key>
 			<string>AWSDynamoDB/AWSDynamoDBResources.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7BFC1271DFA2D3BF7CDA5583D01E706A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>7919AE334B2DBCCAA16532314BE9EAE1</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -19405,6 +19392,19 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
+		<key>C98C65672146ACD7CBD340DAA7AE79B7</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>3476A3B4C7E5DD71E2E662D9366604B7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>C9A820F033302A3EEFE8F52D0344633B</key>
 		<dict>
 			<key>containerPortal</key>
@@ -21613,7 +21613,7 @@
 			<array>
 				<string>3A4F92DB5D383898C29BE3045B5E4439</string>
 				<string>B6CA09A9AC334FF567CA92ABC4B00971</string>
-				<string>7BFC1271DFA2D3BF7CDA5583D01E706A</string>
+				<string>C98C65672146ACD7CBD340DAA7AE79B7</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>

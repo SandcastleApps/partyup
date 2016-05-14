@@ -19,9 +19,9 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.11.0):
     - FBSDKCoreKit
-  - Flurry-iOS-SDK (7.6.0):
-    - Flurry-iOS-SDK/FlurrySDK (= 7.6.0)
-  - Flurry-iOS-SDK/FlurrySDK (7.6.0)
+  - Flurry-iOS-SDK (7.6.3):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.6.3)
+  - Flurry-iOS-SDK/FlurrySDK (7.6.3)
   - Instructions (0.4.0)
   - INTULocationManager (4.2.0)
   - KeychainAccess (2.3.5)
@@ -66,7 +66,7 @@ SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FBSDKCoreKit: 686ac982723a14ec9ddb85e2f81235d7706c891b
   FBSDKLoginKit: bade9fc78277764149ccc5bfaadbf13c83175c6a
-  Flurry-iOS-SDK: 9822fe709195f0e3ae3e52c785eee9ff651ff648
+  Flurry-iOS-SDK: 5ea9c76a73ce16bff005d21a4f0b539d2c15d97d
   Instructions: 7283d009379714e8ff667153014cd62b6e4f4eb9
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   KeychainAccess: e283c1981a6c5655e1984cd411c6faf16fa165ae
