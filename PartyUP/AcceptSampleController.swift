@@ -142,7 +142,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
             shareButton?.hidden = true
             encodingProgress?.startAnimating()
             let output = input.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("PartyUp.mp4")
-            try? NSFileManager.defaultManager().removeItemAtURL(output)
+            let _ = try? NSFileManager.defaultManager().removeItemAtURL(output)
             exporter = applyToVideo(fromInput: input, toOutput: output, effectApplicator: AcceptSampleController.generateOverlayOnComposition(self), exportCompletionHander: { status in
                 self.encodingProgress?.stopAnimating()
                 self.shareButton?.hidden = false
