@@ -27,9 +27,18 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	private var venueTotal = 0
+    private var isFetching = false {
+        didSet {
+            if isFetching != oldValue {
+                partyTable?.tableFooterView = isFetching ? partyFooters.first : partyFooters.last
+            }
+        }
+    }
 
 	var parties: PartyPlace? {
 		didSet {
+            isFetching = parties?.isFetching ?? true
+            
 			if parties !== oldValue || parties?.venues.count > venueTotal {
 				updateSearchResultsForSearchController(searchController)
 				venueTotal = parties?.venues.count ?? 0
@@ -38,8 +47,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 					partyTable?.setContentOffset(CGPointZero, animated: false)
 				}
 
-				if let parti = parties, avc = navigationController?.topViewController as? SampleTastingContoller
-					where !parti.isFetching && avc.venues == nil {
+				if let avc = navigationController?.topViewController as? SampleTastingContoller
+					where !isFetching && avc.venues == nil {
 					avc.venues = venues
 				}
 			}
@@ -52,9 +61,16 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	private var searchController: UISearchController!
 
 	@IBOutlet var partyTable: UITableView!
+    @IBOutlet var partyFooters: [UIView]! {
+        didSet {
+            partyFooters.forEach { $0.frame.size.height = 150 }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    NSBundle.mainBundle().loadNibNamed("PartyTableFooter", owner: self, options: nil)
 
 		searchController = UISearchController(searchResultsController: nil)
 		searchController.searchResultsUpdater = self
