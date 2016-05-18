@@ -40,6 +40,24 @@ struct Address: CustomDebugStringConvertible {
 		self.country = address["Country"] as? String ?? "Anoncountry"
 	}
 
+	init(plist: [NSObject:AnyObject]) {
+		var remainder = plist
+		var local = CLLocationCoordinate2D()
+		if let coord = remainder.removeValueForKey("coordinate") as? [String:Double] {
+			if let lat = coord["latitude"], let lon = coord["longitude"] {
+				local = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+			}
+		}
+
+		self.init(coordinate: local, address: remainder as! [String:String])
+	}
+
+	var plist: [NSObject:AnyObject] {
+		let local = ["latitude":NSNumber(double: coordinate.latitude),"longitude":NSNumber(double: coordinate.longitude)]
+		let plist: [NSObject:AnyObject] = ["coordinate":local,"city":city,"province":province,"country":country]
+		return plist
+	}
+
 	var debugDescription: String { return "Coordinate: \(coordinate.latitude),\(coordinate.longitude) Address: \(city), \(province), \(country)" }
 
 	static func addressForCoordinates(coordinate: CLLocationCoordinate2D, completionHandler: (Address?, NSError?) -> Void) {
