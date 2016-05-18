@@ -60,7 +60,7 @@ struct Address: CustomDebugStringConvertible {
 	}
 
 	var appleAddressDictionary: [String:AnyObject] {
-		return ["locality":city,"administrativeArea":province,"country":country]
+		return ["Name":"\(city) \(province)","City":city,"State":province,"Country":country]
 	}
 
 	var debugDescription: String { return "Coordinate: \(coordinate.latitude),\(coordinate.longitude) Address: \(city), \(province), \(country)" }
