@@ -15,9 +15,6 @@ import Flurry_iOS_SDK
 import SCLAlertView
 
 class PartyRootController: UIViewController {
-
-	@IBOutlet weak var busyIndicator: UIActivityIndicatorView!
-	@IBOutlet weak var busyLabel: UILabel!
 	@IBOutlet weak var ackButton: UIButton!
 	@IBOutlet weak var reminderButton: UIButton!
 
@@ -45,8 +42,12 @@ class PartyRootController: UIViewController {
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
     }
 
-	func refreshSelectedRegion() {
-		fetchPlaceVenues(there)
+	func refreshSelectedRegion(note: NSNotification) {
+		if let adjust = note.userInfo?["adjustLocation"] as? Bool where adjust {
+			chooseLocation()
+		} else {
+			fetchPlaceVenues(there)
+		}
 	}
 
 	func refreshAdvertising() {
@@ -55,8 +56,7 @@ class PartyRootController: UIViewController {
 	}
 
 	func resolveLocalPlacemark() {
-		busyIndicator.startAnimating()
-		busyLabel.text = NSLocalizedString("locating", comment: "Status message in bottom bar while determining user location")
+		partyPicker.isFetching = true
 
 		locationRequestId = INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(.City, timeout: 60) { (location, accuracy, status) in
 				self.locationRequestId = 0
@@ -83,16 +83,14 @@ class PartyRootController: UIViewController {
 	}
 
 	func cancelLocationLookup() {
-		self.busyIndicator.stopAnimating()
-		self.busyLabel.text = ""
-		self.here = nil
-		self.partyPicker.parties = self.there
+		here = nil
+		partyPicker.parties = self.there
+		partyPicker.isFetching = false
 	}
 
 	func fetchPlaceVenues(place: PartyPlace?) {
         if let place = place {
-            busyIndicator.startAnimating()
-            busyLabel.text = NSLocalizedString("fetching", comment: "Status in bottom bar while fetching venues")
+            partyPicker.isFetching = true
             
             if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
                 let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
@@ -126,10 +124,7 @@ class PartyRootController: UIViewController {
 					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from google"))
 			}
 
-			if !city.isFetching {
-				self.busyIndicator.stopAnimating()
-				self.busyLabel.text = ""
-			}
+			partyPicker.isFetching = city.isFetching
 		}
 	}
 
@@ -178,7 +173,7 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	@IBAction func chooseLocation(sender: UIButton) {
+	@IBAction func chooseLocation() {
 		partyPicker.defocusSearch()
 		let locationPicker = LocationPicker()
 		let locationNavigator = UINavigationController(rootViewController: locationPicker)

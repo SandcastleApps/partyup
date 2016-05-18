@@ -27,7 +27,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	private var venueTotal = 0
-    private var isFetching = false {
+
+	var isFetching = false {
         didSet {
             if isFetching != oldValue {
                 partyTable?.tableFooterView = isFetching ? partyFooters.first : partyFooters.last
@@ -36,9 +37,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     }
 
 	var parties: PartyPlace? {
-		didSet {
-            isFetching = parties?.isFetching ?? true
-            
+		didSet {            
 			if parties !== oldValue || parties?.venues.count > venueTotal {
 				updateSearchResultsForSearchController(searchController)
 				venueTotal = parties?.venues.count ?? 0
@@ -104,8 +103,12 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		freshTimer?.invalidate()
 	}
 
+	@IBAction func adjustLocation() {
+		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : true])
+	}
+
 	@IBAction func updateLocalVenues() {
-		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self)
+		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : false])
 	}
 
 	func updateFreshnessIndicators() {
