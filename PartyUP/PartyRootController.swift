@@ -222,7 +222,7 @@ class PartyRootController: UIViewController {
 
 			Flurry.logEvent("Selected_Town", withParameters: ["town" : address.debugDescription])
 		}
-		locationPicker.addButtons()
+        locationPicker.addButtons(UIBarButtonItem(title: NSLocalizedString("Let's Go!", comment: "Location picker select bar item"), style: .Done, target: nil, action: nil))
 		locationPicker.alternativeLocations = stickyTowns
 		presentViewController(locationNavigator, animated: true, completion: nil)
 	}
