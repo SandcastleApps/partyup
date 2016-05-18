@@ -16,8 +16,36 @@
 	<true/>
 	<key>StickyTowns</key>
 	<array>
-		<string>Sydney, NS, Canada</string>
-		<string>Halifax, NS, Canada</string>
+		<dict>
+			<key>coordinate</key>
+			<dict>
+				<key>latitude</key>
+				<real>44.646244</real>
+				<key>longitude</key>
+				<real>-63.573566</real>
+			</dict>
+			<key>city</key>
+			<string>Halifax</string>
+			<key>province</key>
+			<string>NS</string>
+			<key>country</key>
+			<string>Canada</string>
+		</dict>
+		<dict>
+			<key>coordinate</key>
+			<dict>
+				<key>latitude</key>
+				<real>46.1380869</real>
+				<key>longitude</key>
+				<real>-60.1946735</real>
+			</dict>
+			<key>city</key>
+			<string>Sydney</string>
+			<key>province</key>
+			<string>NS</string>
+			<key>country</key>
+			<string>Canada</string>
+		</dict>
 	</array>
 	<key>Tutorial</key>
 	<true/>

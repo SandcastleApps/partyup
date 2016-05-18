@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import MapKit
 import LMGeocoder
 
 struct Address: CustomDebugStringConvertible {
@@ -58,6 +59,10 @@ struct Address: CustomDebugStringConvertible {
 		return plist
 	}
 
+	var appleAddressDictionary: [String:AnyObject] {
+		return ["locality":city,"administrativeArea":province,"country":country]
+	}
+
 	var debugDescription: String { return "Coordinate: \(coordinate.latitude),\(coordinate.longitude) Address: \(city), \(province), \(country)" }
 
 	static func addressForCoordinates(coordinate: CLLocationCoordinate2D, completionHandler: (Address?, NSError?) -> Void) {
@@ -68,5 +73,11 @@ struct Address: CustomDebugStringConvertible {
 			}
 			completionHandler(address, error)
 		}
+	}
+}
+
+extension MKPlacemark {
+	convenience init(address: Address) {
+		self.init(coordinate: address.coordinate, addressDictionary: address.appleAddressDictionary)
 	}
 }

@@ -25,6 +25,21 @@ class PartyRootController: UIViewController {
 	private var adRefreshTimer: NSTimer?
 	private var locationRequestId: INTULocationRequestID = 0
 
+	private var stickyTowns: [LocationItem] = {
+		var towns = [LocationItem]()
+		if let list = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) {
+			for town in list {
+				if let town = town as? [NSObject:AnyObject] {
+					let address = Address(plist: town)
+					let location = LocationItem(coordinate: (address.coordinate.latitude,address.coordinate.longitude), addressDictionary: address.appleAddressDictionary)
+					towns.append(location)
+				}
+			}
+		}
+
+		return towns
+	}()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -208,6 +223,7 @@ class PartyRootController: UIViewController {
 			Flurry.logEvent("Selected_Town", withParameters: ["town" : address.debugDescription])
 		}
 		locationPicker.addButtons()
+		locationPicker.alternativeLocations = stickyTowns
 		presentViewController(locationNavigator, animated: true, completion: nil)
 	}
 	
