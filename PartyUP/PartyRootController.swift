@@ -25,7 +25,7 @@ class PartyRootController: UIViewController {
 	private var adRefreshTimer: NSTimer?
 	private var locationRequestId: INTULocationRequestID = 0
 
-	private var stickyTowns: [LocationItem] = {
+	private lazy var stickyTowns: [LocationItem] = {
 		var towns = [LocationItem]()
 		if let list = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) {
 			for town in list {
