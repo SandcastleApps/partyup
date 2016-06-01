@@ -1,7 +1,9 @@
-platform :ios, '8.0'
+workspace 'PartyUP.xcworkspace'
 use_frameworks!
 
 target 'PartyUP' do
+	project 'PartyUP.xcodeproj'
+	platform :ios, '8.0'
 	pod 'AWSS3'
 	pod 'AWSDynamoDB'
 	pod 'AWSCognito'
@@ -21,12 +23,3 @@ target 'PartyUP' do
 	pod 'KeychainAccess'
 	pod 'LocationPickerViewController'
 end
-
-target 'PartyUPTests' do
-
-end
-
-target 'PartyUPUITests' do
-
-end
-
