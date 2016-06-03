@@ -132,14 +132,14 @@ class PartyRootController: UIViewController {
 
 	func observeCityUpdateNotification(note: NSNotification) {
 		if let city = note.object as? PartyPlace {
+            partyPicker.isFetching = city.isFetching
+            
 			if city.lastFetchStatus.error == nil {
 				self.partyPicker.parties = self.there
 			} else {
 				alertFailureWithTitle(NSLocalizedString("Venue Query Failed", comment: "Hud title failed to fetch venues from google"),
 					andDetail: NSLocalizedString("The venue query failed.", comment: "Hud detail failed to fetch venues from google"))
 			}
-
-			partyPicker.isFetching = city.isFetching
 		}
 	}
 
