@@ -239,6 +239,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
     // MARK: - Navigation
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        return !(navigationController?.topViewController is SampleTastingContoller)
+    }
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if let selection = (sender as? UITableViewCell).flatMap( {partyTable.indexPathForCell($0)} ) {
