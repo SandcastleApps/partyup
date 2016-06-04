@@ -68,7 +68,7 @@ struct Address: CustomDebugStringConvertible {
 	static func addressForCoordinates(coordinate: CLLocationCoordinate2D, completionHandler: (Address?, NSError?) -> Void) {
 		LMGeocoder().reverseGeocodeCoordinate(coordinate, service: .AppleService) { (places, error) in
 			var address: Address?
-			if let place = places.first as? LMAddress {
+			if let place = places?.first as? LMAddress {
 				address = Address(coordinate: coordinate, address: place)
 			}
 			completionHandler(address, error)

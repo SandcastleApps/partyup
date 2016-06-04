@@ -61,7 +61,11 @@ class PartyRootController: UIViewController {
 		if let adjust = note.userInfo?["adjustLocation"] as? Bool where adjust {
 			chooseLocation()
 		} else {
-			fetchPlaceVenues(there)
+			if there == nil {
+				resolveLocalPlacemark()
+			} else {
+				fetchPlaceVenues(there)
+			}
 		}
 	}
 
