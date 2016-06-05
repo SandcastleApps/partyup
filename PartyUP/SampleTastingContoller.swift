@@ -116,7 +116,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
             if case .Video(let sample) = $0 {
                 return !Defensive.shared.muted(sample.user) && !(sample.flag ?? false)
             } else {
-                return false
+                return true
             }
         }
         
@@ -132,7 +132,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
                     return false
                 }
             }
-			if let toVC = dequeTastePageController(index ?? pages.count) {
+			if let toVC = dequeTastePageController(index ?? pages.count - 1) {
 				pvc.setViewControllers([toVC], direction: .Forward, animated: true) { completed in if completed { self.updateNavigationArrows(pvc) } }
 			}
 		}
