@@ -169,14 +169,22 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	}
 
 	@IBAction func placeVote(sender: UIButton) {
+		let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
+		placeVote(vote)
+		voteButtons.forEach { button in button.selected = false }
+	}
+
+	func placeVote(vote: Vote, andFlag flag: Bool = false) {
 		if AuthenticationManager.shared.isLoggedIn {
-			let vote = sender.selected ? Vote.Meh : Vote(rawValue: sender.tag)!
-			sample.setVote(vote)
-			voteButtons.forEach { button in button.selected = false }
+			sample.setVote(vote, andFlag: flag)
 			Flurry.logEvent("Vote_Cast", withParameters: ["vote" : vote.rawValue])
+			if flag {
+				let user = AuthenticationManager.shared.identity!
+				Flurry.logEvent("Offensive_Sample_Reported", withParameters: [ "reporter" : user, "sample" : self.sample.media.description])
+			}
 		} else {
-            AuthenticationFlow.shared.startOnController(self).addAction { manager in
-				if manager.isLoggedIn { self.placeVote(sender) } }
+			AuthenticationFlow.shared.startOnController(self).addAction { manager in
+				if manager.isLoggedIn { self.placeVote(vote, andFlag: flag) } }
 		}
 	}
 
@@ -184,7 +192,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
         let user = AuthenticationManager.shared.identity!
 		let options = SCLAlertView()
 
-		options.addButton(NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action")) { self.sample.setVote(Vote.Down, andFlag: true); Flurry.logEvent("Offensive_Sample_Reported", withParameters: [ "reporter" : user, "sample" : self.sample.media.description])
+		options.addButton(NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action")) { self.placeVote(Vote.Down, andFlag: true)
 		}
 		options.addButton(NSLocalizedString("Mute Contributor", comment: "Mute contributor alert action")) { Defensive.shared.mute(self.sample.user); Flurry.logEvent("Offensive_User_Muted", withParameters: ["reporter" : user, "offender" : self.sample.user.UUIDString])
 		}
