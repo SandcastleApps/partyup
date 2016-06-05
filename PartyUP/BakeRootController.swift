@@ -65,6 +65,8 @@ class BakeRootController: UIViewController {
 						self.determineLocation(remainingRetries: tries - 1)
 					} else {
 						self.locals = [Venue]()
+						self.waiting?.setDismissBlock { }
+						self.waiting?.close()
 						alertFailureWithLocationServicesStatus(status) { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
 						Flurry.logError("Neighborhood_Determination_Failed", message: "Reason \(status.rawValue)", error: nil)
 					}
