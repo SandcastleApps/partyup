@@ -162,7 +162,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
             prefix: data.prefix ?? PartyUpConstants.DefaultStoragePrefix
 		)
 
-		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(AuthenticationManager.shared.identity!)).continueWithBlock { task in
+		AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper().load(VoteDB.self, hashKey: VoteDB.hashKeyGenerator(event.unique, sample: identifier), rangeKey: VoteDB.rangeKeyGenerator(AuthenticationManager.shared.identity!)).continueWithBlock { [weak self] task in
 			var vote = Vote.Meh
 			var flag = false
 
@@ -172,8 +172,8 @@ final class Sample: CustomDebugStringConvertible, Equatable
 			}
 
 			dispatch_async(dispatch_get_main_queue()) {
-				self.vote = vote
-				self.flag = flag
+				self?.vote = vote
+				self?.flag = flag
 			}
 
 			return nil
