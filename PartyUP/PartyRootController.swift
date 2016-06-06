@@ -25,19 +25,11 @@ class PartyRootController: UIViewController {
 	private var adRefreshTimer: NSTimer?
 	private var locationRequestId: INTULocationRequestID = 0
 
-	private lazy var stickyTowns: [LocationItem] = {
-		var towns = [LocationItem]()
-		if let list = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns) {
-			for town in list {
-				if let town = town as? [NSObject:AnyObject] {
-					let address = Address(plist: town)
-					let location = LocationItem(coordinate: (address.coordinate.latitude,address.coordinate.longitude), addressDictionary: address.appleAddressDictionary)
-					towns.append(location)
-				}
-			}
-		}
-
-		return towns
+	private var favoriting: SCLAlertViewResponder?
+	private lazy var stickyTowns: [Address] = {
+		let raw = NSUserDefaults.standardUserDefaults().arrayForKey(PartyUpPreferences.StickyTowns)
+		let plist = raw as? [[NSObject:AnyObject]]
+		return plist?.flatMap { Address(plist: $0) } ?? [Address]()
 	}()
 
     override func viewDidLoad() {
@@ -191,6 +183,24 @@ class PartyRootController: UIViewController {
 			bakerVC.pregame = here?.pregame
 		}
 	}
+	
+	@IBAction func favoriteLocation(sender: UILongPressGestureRecognizer) {
+		if var place = there?.location where favoriting == nil {
+			let alert = SCLAlertView()
+			let nameField = alert.addTextField(NSLocalizedString("Location Name", comment: "Favorite location text title"))
+			alert.addButton(NSLocalizedString("Add Favorite", comment: "Add favorite location button")) {
+					place.identifier = nameField.text
+					self.stickyTowns.append(place)
+					NSUserDefaults.standardUserDefaults().setObject(self.stickyTowns.map { $0.plist }, forKey: PartyUpPreferences.StickyTowns)
+				}
+			
+			favoriting = alert.showEdit(NSLocalizedString("Favorite Location", comment: "Favorite location title"),
+			               subTitle: NSLocalizedString("Add selected location as a favorite.", comment: "Favorite location subtitle"),
+			               closeButtonTitle: NSLocalizedString("Cancel", comment: "Favorite location cancel"),
+			               colorStyle: 0xF45E63)
+			favoriting?.setDismissBlock { self.favoriting = nil }
+		}
+	}
 
 	@IBAction func chooseLocation() {
 		partyPicker.defocusSearch()
@@ -227,7 +237,7 @@ class PartyRootController: UIViewController {
 			Flurry.logEvent("Selected_Town", withParameters: ["town" : address.debugDescription])
 		}
         locationPicker.addButtons(UIBarButtonItem(title: NSLocalizedString("Let's Go!", comment: "Location picker select bar item"), style: .Done, target: nil, action: nil))
-		locationPicker.alternativeLocations = stickyTowns
+		locationPicker.alternativeLocations = stickyTowns.map { LocationItem(coordinate: (latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude), addressDictionary: $0.appleAddressDictionary) }
 		presentViewController(locationNavigator, animated: true, completion: nil)
 	}
 	
