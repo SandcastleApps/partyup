@@ -25,6 +25,8 @@ extension NSDateComponentsFormatter {
         }
         
         var formatted = stringFromTimeInterval(interval) ?? "?"
+		formatted = formatted.characters.split(",").prefixUpTo(self.maximumUnitCount).map { String($0) }.joinWithSeparator(",")
+		
         if capped {
             formatted += "+"
         }
