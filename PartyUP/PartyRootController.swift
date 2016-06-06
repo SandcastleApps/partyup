@@ -226,7 +226,8 @@ class PartyRootController: UIViewController {
 			alertFailureWithLocationServicesStatus(status)
 		}
 		locationPicker.pickCompletion = { picked in
-			let address = Address(coordinate: picked.mapItem.placemark.coordinate, mapkitAddress: picked.addressDictionary!)
+            let name : String? = picked.mapItem.phoneNumber == "Yep" ? picked.name : nil
+            let address = Address(coordinate: picked.mapItem.placemark.coordinate, mapkitAddress: picked.addressDictionary!, name: name)
 			self.there = PartyPlace(location: address)
 			if picked.mapItem.isCurrentLocation {
 				self.here = self.there
@@ -244,7 +245,11 @@ class PartyRootController: UIViewController {
             }
         }
         locationPicker.addButtons(UIBarButtonItem(title: NSLocalizedString("Let's Go!", comment: "Location picker select bar item"), style: .Done, target: nil, action: nil))
-		locationPicker.alternativeLocations = stickyTowns.map { LocationItem(coordinate: (latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude), addressDictionary: $0.appleAddressDictionary) }
+		locationPicker.alternativeLocations = stickyTowns.map {
+            let item = LocationItem(coordinate: (latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude), addressDictionary: $0.appleAddressDictionary)
+            item.mapItem.phoneNumber = "Yep"
+            return item
+        }
 		presentViewController(locationNavigator, animated: true, completion: nil)
 	}
 	

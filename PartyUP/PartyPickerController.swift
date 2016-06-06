@@ -146,7 +146,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Table view data source
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		let head = section == PartySections.animal ? (parties?.location.city ?? " ") : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
+		let head = section == PartySections.animal ? (parties?.location.name ?? " ") : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
 		return " " + head + " "
 	}
 

@@ -12,7 +12,7 @@ import LMGeocoder
 
 struct Address: CustomDebugStringConvertible {
 	var identifier: String?
-	var name: String { return identifier ?? (city + " " + province) }
+	var name: String { return identifier ?? city }
 	let coordinate: CLLocationCoordinate2D
 	let city: String
 	let province: String

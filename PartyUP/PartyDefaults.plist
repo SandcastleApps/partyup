@@ -30,6 +30,8 @@
 			<string>NS</string>
 			<key>country</key>
 			<string>Canada</string>
+			<key>name</key>
+			<string>Halifax</string>
 		</dict>
 		<dict>
 			<key>coordinate</key>
@@ -45,6 +47,8 @@
 			<string>NS</string>
 			<key>country</key>
 			<string>Canada</string>
+			<key>name</key>
+			<string>Sydney</string>
 		</dict>
 	</array>
 	<key>Tutorial</key>
