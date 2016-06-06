@@ -11,6 +11,8 @@ import MapKit
 import LMGeocoder
 
 struct Address: CustomDebugStringConvertible {
+	var identifier: String?
+	var name: String { return identifier ?? (city + " " + province) }
 	let coordinate: CLLocationCoordinate2D
 	let city: String
 	let province: String
@@ -20,25 +22,28 @@ struct Address: CustomDebugStringConvertible {
 		return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 	}
 
-	init(coordinate: CLLocationCoordinate2D, address: [String:String]) {
+	init(coordinate: CLLocationCoordinate2D, address: [String:String], name: String? = nil) {
 		self.coordinate = coordinate
 		self.city = address["city"] ?? "Anoncity"
 		self.province = address["province"] ?? "Anonstate"
 		self.country = address["country"] ?? "Anoncountry"
+		self.identifier = name
 	}
 
-	init(coordinate: CLLocationCoordinate2D, address: LMAddress) {
+	init(coordinate: CLLocationCoordinate2D, address: LMAddress, name: String? = nil) {
 		self.coordinate = coordinate
 		self.city = address.locality
 		self.province = address.administrativeArea
 		self.country = address.country
+		self.identifier = name
 	}
 
-	init(coordinate: CLLocationCoordinate2D, mapkitAddress address: [NSObject:AnyObject]) {
+	init(coordinate: CLLocationCoordinate2D, mapkitAddress address: [NSObject:AnyObject], name: String? = nil) {
 		self.coordinate = coordinate
 		self.city = address["City"] as? String ?? address["SubLocality"] as? String ?? "Anoncity"
 		self.province = address["State"] as? String ?? "Anonstate"
 		self.country = address["Country"] as? String ?? "Anoncountry"
+		self.identifier = name
 	}
 
 	init(plist: [NSObject:AnyObject]) {
@@ -49,21 +54,21 @@ struct Address: CustomDebugStringConvertible {
 				local = CLLocationCoordinate2D(latitude: lat, longitude: lon)
 			}
 		}
-
-		self.init(coordinate: local, address: remainder as! [String:String])
+		let name = remainder.removeValueForKey("name") as? String
+		self.init(coordinate: local, address: remainder as! [String:String], name: name)
 	}
 
 	var plist: [NSObject:AnyObject] {
 		let local = ["latitude":NSNumber(double: coordinate.latitude),"longitude":NSNumber(double: coordinate.longitude)]
-		let plist: [NSObject:AnyObject] = ["coordinate":local,"city":city,"province":province,"country":country]
+		let plist: [NSObject:AnyObject] = ["name":name,"coordinate":local,"city":city,"province":province,"country":country]
 		return plist
 	}
 
 	var appleAddressDictionary: [String:AnyObject] {
-		return ["Name":"\(city) \(province)","City":city,"State":province,"Country":country]
+		return ["Name":name,"City":city,"State":province,"Country":country]
 	}
 
-	var debugDescription: String { return "Coordinate: \(coordinate.latitude),\(coordinate.longitude) Address: \(city), \(province), \(country)" }
+	var debugDescription: String { return "Name: \(name), Coordinate: \(coordinate.latitude),\(coordinate.longitude) Address: \(city), \(province), \(country)" }
 
 	static func addressForCoordinates(coordinate: CLLocationCoordinate2D, completionHandler: (Address?, NSError?) -> Void) {
 		LMGeocoder().reverseGeocodeCoordinate(coordinate, service: .AppleService) { (places, error) in
