@@ -23,7 +23,8 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 	private static let relativeFormatter: NSDateComponentsFormatter = {
 		let formatter = NSDateComponentsFormatter()
-		formatter.allowedUnits = [.Day, .Hour, .Minute]
+		formatter.allowedUnits = [.Month, .WeekOfMonth, .Day, .Hour, .Minute]
+		formatter.maximumUnitCount = 1
 		formatter.zeroFormattingBehavior = .DropAll
 		formatter.unitsStyle = .Full
 		return formatter }()
