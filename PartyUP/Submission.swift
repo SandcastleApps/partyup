@@ -65,8 +65,9 @@ class Submission
 
         let uploadExpr = AWSS3TransferUtilityUploadExpression()
         uploadExpr.setValue("REDUCED_REDUNDANCY", forRequestParameter: "x-amz-storage-class")
-        uploadExpr.setValue(sample.event.name, forRequestParameter: "x-amz-meta-venue")
-        uploadExpr.setValue(sample.event.location.description, forRequestParameter: "x-amz-meta-where")
+        uploadExpr.setValue("\(sample.event.location.coordinate.latitude),\(sample.event.location.coordinate.longitude)", forRequestParameter: "x-amz-meta-where")
+        uploadExpr.setValue(sample.event.unique, forRequestParameter: "x-amz-meta-event")
+        uploadExpr.setValue(sample.identifier.base64EncodedStringWithOptions([]), forRequestParameter: "x-amz-meta-id")
         
         let task = transfer.uploadFile(url,
             bucket: PartyUpConstants.StorageBucket,
