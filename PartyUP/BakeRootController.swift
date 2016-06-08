@@ -91,10 +91,11 @@ class BakeRootController: UIViewController {
 			locals.append(pregame)
 		}
 
+		waiting?.setDismissBlock { }
+		waiting?.close()
+
 		if locals.count > 0 {
 			recordController.recordButton.enabled = true
-			waiting?.setDismissBlock { }
-			waiting?.close()
 		} else {
 			Flurry.logEvent("Neighborhood_No_Venues")
 			alertFailureWithTitle(NSLocalizedString("Unsupported Venue", comment: "Hud title for no nearby venue"),
