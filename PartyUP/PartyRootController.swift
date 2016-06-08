@@ -16,7 +16,11 @@ import SCLAlertView
 
 class PartyRootController: UIViewController {
 	@IBOutlet weak var ackButton: UIButton!
-    @IBOutlet weak var cameraButton: UIButton!
+	@IBOutlet weak var cameraButton: UIButton! {
+		didSet {
+			cameraButton?.enabled = here != nil
+		}
+	}
 	@IBOutlet weak var reminderButton: UIButton!
 
 	private var partyPicker: PartyPickerController!
