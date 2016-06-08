@@ -75,7 +75,9 @@ class PartyRootController: UIViewController {
 					Address.addressForCoordinates(location.coordinate) { address, error in
 						if let address = address where error == nil {
 							self.here = PartyPlace(location: address)
-							self.there = self.here
+							if self.there == nil {
+								self.there = self.here
+							}
 							self.fetchPlaceVenues(self.here)
 
 							Flurry.setLatitude(location!.coordinate.latitude, longitude: location!.coordinate.longitude, horizontalAccuracy: Float(location!.horizontalAccuracy), verticalAccuracy: Float(location!.verticalAccuracy))
