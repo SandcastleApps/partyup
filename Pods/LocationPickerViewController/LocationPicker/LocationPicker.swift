@@ -835,7 +835,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             }
             
             if let currentLocation = locationManager.location {
-                reverseGeocodeLocation(currentLocation)
+				reverseGeocodeLocation(currentLocation, current: true)
             }
         } else {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! LocationCell
@@ -930,7 +930,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if tableView.indexPathForSelectedRow?.row == 0 {
             let currentLocation = locations[0]
-            reverseGeocodeLocation(currentLocation)
+			reverseGeocodeLocation(currentLocation, current: true)
             if #available(iOS 9.0, *) {
             } else {
                 locationManager.stopUpdatingLocation()
@@ -955,7 +955,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         locationDidSelect(locationItem)
     }
     
-    private func reverseGeocodeLocation(location: CLLocation) {
+	private func reverseGeocodeLocation(location: CLLocation, current: Bool = false) {
         geocoder.cancelGeocode()
         geocoder.reverseGeocodeLocation(location, completionHandler: { (placeMarks, error) -> Void in
             guard error == nil else {
@@ -966,6 +966,9 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             
             if !self.searchBar.isFirstResponder() {
                 let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placeMarks[0]))
+				if current {
+					mapItem.name = "No matter where you go, there you are!"
+				}
                 self.selectLocationItem(LocationItem(mapItem: mapItem))
             }
         })
