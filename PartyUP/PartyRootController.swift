@@ -229,7 +229,7 @@ class PartyRootController: UIViewController {
             let name : String? = picked.mapItem.phoneNumber == "Yep" ? picked.name : nil
             let address = Address(coordinate: picked.mapItem.placemark.coordinate, mapkitAddress: picked.addressDictionary!, name: name)
 			self.there = PartyPlace(location: address)
-			if picked.mapItem.isCurrentLocation {
+			if picked.mapItem.name == "No matter where you go, there you are!" {
 				self.here = self.there
 			}
 			self.partyPicker.parties = self.there
