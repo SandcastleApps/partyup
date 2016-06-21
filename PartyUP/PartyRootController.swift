@@ -283,6 +283,11 @@ class PartyRootController: UIViewController {
 	@IBAction func segueFromAcknowledgements(segue: UIStoryboardSegue) {
 	}
 
+    @IBAction func achievementPopup(sender: UIButton) {
+        let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: true))
+        alert.showInfo("Coming Soon", subTitle: "Look for an exciting new feature late this summer!", closeButtonTitle: "Can't Wait", colorStyle: 0xf77e56)
+    }
+    
 	func observeApplicationBecameActive() {
         let defaults = NSUserDefaults.standardUserDefaults()
         
