@@ -20,7 +20,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
     
 	var transitionStartY: CGFloat = 0.0
 
-	private let maxVideoDuration = 10.0
+	private let maxVideoDuration = 20.0
 	private let minVideoDuration = 5.0
 	let vision = PBJVision.sharedInstance()
 	var timer: NSTimer!
@@ -125,7 +125,7 @@ class RecordSampleController: UIViewController, PBJVisionDelegate {
 	func observeTimerInterval() {
 		timerBar.progress = CGFloat(vision.capturedVideoSeconds / maxVideoDuration)
 
-		if timerBar.progress >= 0.5 {
+		if timerBar.progress >= CGFloat(minVideoDuration/maxVideoDuration) {
 			timerBar.progressTintColor = UIColor(red: 0.98, green: 0.66, blue: 0.26, alpha: 1.0)
 		}
 
