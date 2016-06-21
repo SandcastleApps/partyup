@@ -58,7 +58,6 @@
                         <constraints>
                             <constraint firstItem="d5F-bg-ppA" firstAttribute="top" secondItem="FfD-C9-end" secondAttribute="bottom" constant="-5" id="Eii-EO-07q"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FfD-C9-end" secondAttribute="trailing" constant="-20" id="Gyj-rm-nT4"/>
-                            <constraint firstAttribute="bottom" secondItem="2FC-d8-V6C" secondAttribute="bottom" constant="44" id="NDS-dO-Dpe"/>
                             <constraint firstItem="FfD-C9-end" firstAttribute="top" secondItem="2FC-d8-V6C" secondAttribute="bottom" symbolic="YES" id="V36-1s-IaN"/>
                             <constraint firstItem="FfD-C9-end" firstAttribute="leading" secondItem="VBb-Vv-VoX" secondAttribute="leadingMargin" constant="-20" id="YyT-Yg-ZjV"/>
                             <constraint firstItem="O1V-oS-o4a" firstAttribute="centerY" secondItem="VBb-Vv-VoX" secondAttribute="centerY" multiplier="1:4" id="cHO-NQ-Nrt"/>
@@ -67,11 +66,6 @@
                             <constraint firstAttribute="trailing" secondItem="2FC-d8-V6C" secondAttribute="trailing" id="jHf-n5-5om"/>
                             <constraint firstItem="2FC-d8-V6C" firstAttribute="top" secondItem="eTC-9P-OL1" secondAttribute="bottom" id="k97-TP-rYf"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="NDS-dO-Dpe"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="PiD-pt-Zf8">
                         <nil key="title"/>
