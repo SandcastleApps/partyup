@@ -107,8 +107,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		#if DEBUG
 			AWSLogger.defaultLogger().logLevel = .Warn
-		#endif
-
+		#else
+            AWSLogger.defaultLogger().logLevel = .Error
+        #endif
+        
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.observeSettingsChange), name: NSUserDefaultsDidChangeNotification, object: nil)
 
 		return AuthenticationManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
