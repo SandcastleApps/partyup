@@ -40,7 +40,7 @@
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="ZEI-2q-XcN">
                                             <rect key="frame" x="20" y="7" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <state key="normal" title="🏆"/>
                                             <connections>
                                                 <action selector="achievementPopup:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="MeJ-jU-yXs"/>
@@ -51,10 +51,10 @@
                                     <barButtonItem enabled="NO" image="Google" id="ndb-0g-sNZ"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="c9c-Jf-vpe"/>
                                     <barButtonItem style="plain" id="9hm-rh-Sut">
-                                        <button key="customView" hidden="YES" opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FcS-0x-nDp">
-                                            <rect key="frame" x="515" y="7" width="65" height="30"/>
+                                        <button key="customView" hidden="YES" opaque="NO" tag="1004" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FcS-0x-nDp">
+                                            <rect key="frame" x="504" y="7" width="76" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <state key="normal" title="Off 🔕"/>
                                             <connections>
                                                 <action selector="setReminders:" destination="SEJ-wv-10Q" eventType="touchUpInside" id="aHE-dH-WUi"/>
