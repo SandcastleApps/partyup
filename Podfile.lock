@@ -1,13 +1,13 @@
 PODS:
-  - ActionSheetPicker-3.0 (2.0.5)
-  - Alamofire (3.4.0)
-  - AWSCognito (2.4.1):
-    - AWSCore (= 2.4.1)
-  - AWSCore (2.4.1)
-  - AWSDynamoDB (2.4.1):
-    - AWSCore (= 2.4.1)
-  - AWSS3 (2.4.1):
-    - AWSCore (= 2.4.1)
+  - ActionSheetPicker-3.0 (2.1.0)
+  - Alamofire (3.4.1)
+  - AWSCognito (2.4.4):
+    - AWSCore (= 2.4.4)
+  - AWSCore (2.4.4)
+  - AWSDynamoDB (2.4.4):
+    - AWSCore (= 2.4.4)
+  - AWSS3 (2.4.4):
+    - AWSCore (= 2.4.4)
   - Bolts (1.7.0):
     - Bolts/AppLinks (= 1.7.0)
     - Bolts/Tasks (= 1.7.0)
@@ -15,22 +15,22 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
   - DACircularProgress (2.3.1)
-  - FBSDKCoreKit (4.11.0):
+  - FBSDKCoreKit (4.13.1):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.11.0):
+  - FBSDKLoginKit (4.13.1):
     - FBSDKCoreKit
-  - Flurry-iOS-SDK (7.6.3):
-    - Flurry-iOS-SDK/FlurrySDK (= 7.6.3)
-  - Flurry-iOS-SDK/FlurrySDK (7.6.3)
+  - Flurry-iOS-SDK (7.6.4):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.6.4)
+  - Flurry-iOS-SDK/FlurrySDK (7.6.4)
   - Instructions (0.4.0)
   - INTULocationManager (4.2.0)
   - KeychainAccess (2.3.5)
-  - LocationPickerViewController (1.1.1)
-  - MarqueeLabel (2.7.4):
-    - MarqueeLabel/ObjC (= 2.7.4)
-  - MarqueeLabel/ObjC (2.7.4)
+  - LocationPickerViewController (1.2.0)
+  - MarqueeLabel (2.7.6):
+    - MarqueeLabel/ObjC (= 2.7.6)
+  - MarqueeLabel/ObjC (2.7.6)
   - PBJVision (0.4.2)
-  - SCLAlertView (0.5.6)
+  - SCLAlertView (0.5.9)
   - SwiftyJSON (2.3.2)
   - VIMVideoPlayer (6.0.1)
 
@@ -54,24 +54,24 @@ DEPENDENCIES:
   - VIMVideoPlayer
 
 SPEC CHECKSUMS:
-  ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
-  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
-  AWSCognito: a57173a82505161bd1a9c8cfe393cea9b5b1f6bb
-  AWSCore: 9bfd632f04aaf12053e639d2a9120372844beb0d
-  AWSDynamoDB: 1e9b01602df37e9d5ef014eff9d7b16663add6bb
-  AWSS3: d7a3a694ffc4010e90b14755b5b9dbf70989c117
+  ActionSheetPicker-3.0: db66605feb85689279d328206c61f0e4f398df92
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  AWSCognito: 49a62a8f56d605a0454c900a37be207539bcb6e1
+  AWSCore: 67be10cc1e295e8238809e980fb1572b9e2ad8e6
+  AWSDynamoDB: 3f5e0995e7c216a175748821a6cb4aaff7a6228a
+  AWSS3: 31a46c196f4a41d324f396181ce16ab687b36a0a
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  FBSDKCoreKit: 686ac982723a14ec9ddb85e2f81235d7706c891b
-  FBSDKLoginKit: bade9fc78277764149ccc5bfaadbf13c83175c6a
-  Flurry-iOS-SDK: 5ea9c76a73ce16bff005d21a4f0b539d2c15d97d
+  FBSDKCoreKit: 2807fe0da2ddb49a1469da6d6ff597f99912980f
+  FBSDKLoginKit: 6d350cb6a22d6956e9d078885de6ee8a0ebc51b4
+  Flurry-iOS-SDK: 9da972687d3af9f48038dcd86eae9cad3acca456
   Instructions: 7283d009379714e8ff667153014cd62b6e4f4eb9
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   KeychainAccess: e283c1981a6c5655e1984cd411c6faf16fa165ae
-  LocationPickerViewController: 327256ac75af9ba70f091936b4b01de5ab81ca20
-  MarqueeLabel: c06f6081f9e1da2d1e756ceb9c5fab5bd9c2f57c
+  LocationPickerViewController: 68054f63b9fb4a9e77f99e6402d811c061f22ee7
+  MarqueeLabel: 0b5c6eaf6aa5474390c26ad3304da9afcff6da83
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
-  SCLAlertView: c2b916952520d96cf5e886a38053f1b8c3da502e
+  SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VIMVideoPlayer: f4ed0a9986294ec3684a2e6bdc738e30051ef4ef
 

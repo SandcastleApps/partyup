@@ -200,6 +200,15 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     public var locationDeniedAlertController: UIAlertController?
     
     
+    /**
+     Allows the selection of locations that did not match or exactly match search results.
+     
+     - Note:
+     If an arbitrary location is selected, its coordinate in `LocationItem` will be `nil`. __Default__ is __`false`__.
+    */
+    public var allowArbitraryLocation = false
+    
+    
     
     // MARK: UI Customizations
     
@@ -293,7 +302,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     public let mapView = MKMapView()
     public let pinView = UIImageView()
     
-    public private(set) var doneButtonItem: UIBarButtonItem?
+    public private(set) var barButtonItems: (doneButtonItem: UIBarButtonItem, cancelButtonItem: UIBarButtonItem)?
     
     
     
@@ -346,7 +355,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        guard doneButtonItem == nil else { return }
+        guard barButtonItems?.doneButtonItem == nil else { return }
         if let locationItem = selectedLocationItem {
             locationDidPick(locationItem)
         }
@@ -460,7 +469,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      Add two bar buttons that confirm and cancel user's location pick.
      
      - important:
-     If this method is called, only when user tap this button can the pick closure, method and delegate method be called.
+     If this method is called, only when user tap done button can the pick closure, method and delegate method be called.
      If you don't provide `UIBarButtonItem` object, default system style bar button will be used.
      
      - Note:
@@ -470,14 +479,13 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      - parameter cancelButtonItem:    An `UIBarButtonITem` tapped to cancel selection, default is a _Cancel_ `barButtonSystemItem`
      - parameter doneButtonOrientation: The direction of the done button, default is `.Right`
      */
-    public func addButtons(doneButtonItem: UIBarButtonItem? = nil,
+    public func addBarButtons(doneButtonItem: UIBarButtonItem? = nil,
                            cancelButtonItem: UIBarButtonItem? = nil,
                            doneButtonOrientation: NavigationItemOrientation = .Right) {
         let doneButtonItem = doneButtonItem ?? UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
         doneButtonItem.enabled = false
         doneButtonItem.target = self
         doneButtonItem.action = #selector(doneButtonDidTap(_:))
-        self.doneButtonItem = doneButtonItem
         
         let cancelButtonItem = cancelButtonItem ?? UIBarButtonItem(barButtonSystemItem: .Cancel, target: nil, action: nil)
         cancelButtonItem.target = self
@@ -491,6 +499,8 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             navigationItem.leftBarButtonItem = doneButtonItem
             navigationItem.rightBarButtonItem = cancelButtonItem
         }
+        
+        barButtonItems = (doneButtonItem, cancelButtonItem)
         
     }
     
@@ -731,7 +741,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
                 tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
             }
-            if let doneButtonItem = doneButtonItem {
+            if let doneButtonItem = barButtonItems?.doneButtonItem {
                 doneButtonItem.enabled = false
             }
         default:
@@ -758,13 +768,29 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             MKLocalSearch(request: localSearchRequest).startWithCompletionHandler({ (localSearchResponse, error) -> Void in
                 guard error == nil,
                     let localSearchResponse = localSearchResponse where localSearchResponse.mapItems.count > 0 else {
-                    let locationItem = LocationItem(locationName: searchText)
-                    self.searchResultLocations = [locationItem]
-                    self.tableView.reloadData()
-                    return
+                        if self.allowArbitraryLocation {
+                            let locationItem = LocationItem(locationName: searchText)
+                            self.searchResultLocations = [locationItem]
+                        } else {
+                            self.searchResultLocations = []
+                        }
+                        self.tableView.reloadData()
+                        return
                 }
                 
                 self.searchResultLocations = localSearchResponse.mapItems.map({ LocationItem(mapItem: $0) })
+                
+                if self.allowArbitraryLocation {
+                    let locationFound = self.searchResultLocations.filter({
+                        $0.name.lowercaseString == searchText.lowercaseString}).count > 0
+                    
+                    if !locationFound {
+                        // Insert arbitrary location without coordinate
+                        let locationItem = LocationItem(locationName: searchText)
+                        self.searchResultLocations.insert(locationItem, atIndex: 0)
+                    }
+                }
+                
                 self.tableView.reloadData()
             })
         } else {
@@ -773,7 +799,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             tableView.reloadData()
             closeMapView()
             
-            if let doneButtonItem = doneButtonItem {
+            if let doneButtonItem = barButtonItems?.doneButtonItem {
                 doneButtonItem.enabled = false
             }
         }
@@ -835,7 +861,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             }
             
             if let currentLocation = locationManager.location {
-				reverseGeocodeLocation(currentLocation, current: true)
+                reverseGeocodeLocation(currentLocation)
             }
         } else {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! LocationCell
@@ -930,7 +956,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if tableView.indexPathForSelectedRow?.row == 0 {
             let currentLocation = locations[0]
-			reverseGeocodeLocation(currentLocation, current: true)
+            reverseGeocodeLocation(currentLocation)
             if #available(iOS 9.0, *) {
             } else {
                 locationManager.stopUpdatingLocation()
@@ -951,11 +977,11 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             closeMapView()
         }
         
-        doneButtonItem?.enabled = true
+        barButtonItems?.doneButtonItem.enabled = true
         locationDidSelect(locationItem)
     }
     
-	private func reverseGeocodeLocation(location: CLLocation, current: Bool = false) {
+    private func reverseGeocodeLocation(location: CLLocation) {
         geocoder.cancelGeocode()
         geocoder.reverseGeocodeLocation(location, completionHandler: { (placeMarks, error) -> Void in
             guard error == nil else {
@@ -966,9 +992,6 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             
             if !self.searchBar.isFirstResponder() {
                 let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placeMarks[0]))
-				if current {
-					mapItem.name = "No matter where you go, there you are!"
-				}
                 self.selectLocationItem(LocationItem(mapItem: mapItem))
             }
         })

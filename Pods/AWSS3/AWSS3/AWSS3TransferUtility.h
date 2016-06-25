@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, AWSS3TransferUtilityErrorType) {
 
 FOUNDATION_EXPORT NSString *const AWSS3TransferUtilityURLSessionDidBecomeInvalidNotification;
 
+@class AWSS3TransferUtilityConfiguration;
 @class AWSS3TransferUtilityTask;
 @class AWSS3TransferUtilityUploadTask;
 @class AWSS3TransferUtilityDownloadTask;
@@ -62,7 +63,7 @@ typedef void (^AWSS3TransferUtilityDownloadCompletionHandlerBlock) (AWSS3Transfe
 
  @param task                     The upload task object.
  @param progress                 The progress object.
- 
+
  @note Refer to `- URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:` in `NSURLSessionTaskDelegate` for more details on upload progress and `- URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:` in `NSURLSessionDownloadDelegate` for more details on download progress.
  */
 typedef void (^AWSS3TransferUtilityProgressBlock) (AWSS3TransferUtilityTask *task,
@@ -167,6 +168,54 @@ typedef void (^AWSS3TransferUtilityProgressBlock) (AWSS3TransferUtilityTask *tas
  @param key           A string to identify the service client.
  */
 + (void)registerS3TransferUtilityWithConfiguration:(AWSServiceConfiguration *)configuration
+                                            forKey:(NSString *)key;
+
+/**
+ Creates a service client with the given service configuration and registers it for the key.
+
+ For example, set the default service configuration in `- application:didFinishLaunchingWithOptions:`
+
+ *Swift*
+
+     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+         let credentialProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: "YourIdentityPoolId")
+         let configuration = AWSServiceConfiguration(region: .USWest2, credentialsProvider: credentialProvider)
+         AWSS3TransferUtility.registerS3TransferUtilityWithConfiguration(configuration, transferUtilityConfiguration: nil, forKey: "USWest2S3TransferUtility")
+
+         return true
+     }
+
+ *Objective-C*
+
+     - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+         AWSCognitoCredentialsProvider *credentialsProvider = [[AWSCognitoCredentialsProvider alloc] initWithRegionType:AWSRegionUSEast1
+                                                                                                         identityPoolId:@"YourIdentityPoolId"];
+         AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest2
+                                                                              credentialsProvider:credentialsProvider];
+
+         [AWSS3TransferUtility registerS3TransferUtilityWithConfiguration:configuration transferUtilityConfiguration:nil forKey:@"USWest2S3TransferUtility"];
+
+         return YES;
+     }
+
+ Then call the following to get the service client:
+
+ *Swift*
+
+     let S3TransferUtility = AWSS3TransferUtility(forKey: "USWest2S3TransferUtility")
+
+ *Objective-C*
+
+     AWSS3TransferUtility *S3TransferUtility = [AWSS3TransferUtility S3TransferUtilityForKey:@"USWest2S3TransferUtility"];
+
+ @warning After calling this method, do not modify the configuration object. It may cause unspecified behaviors.
+
+ @param configuration A service configuration object.
+ @param transferUtilityConfiguration An S3 transfer utility configuration object.
+ @param key           A string to identify the service client.
+ */
++ (void)registerS3TransferUtilityWithConfiguration:(AWSServiceConfiguration *)configuration
+                      transferUtilityConfiguration:(nullable AWSS3TransferUtilityConfiguration *)transferUtilityConfiguration
                                             forKey:(NSString *)key;
 
 /**
@@ -323,6 +372,15 @@ handleEventsForBackgroundURLSession:(NSString *)identifier
 
 @end
 
+#pragma mark - AWSS3TransferUtilityConfiguration
+
+@interface AWSS3TransferUtilityConfiguration : NSObject <NSCopying>
+
+@property (nonatomic, assign, getter=isAccelerateModeEnabled) BOOL accelerateModeEnabled;
+
+@end
+
+
 #pragma mark - AWSS3TransferUtilityTasks
 
 /**
@@ -404,9 +462,14 @@ handleEventsForBackgroundURLSession:(NSString *)identifier
 @interface AWSS3TransferUtilityExpression : NSObject
 
 /**
- The request parameters.
+ This NSDictionary can contains additional request headers to be included in the pre-signed URL. Default is emtpy.
  */
-@property (readonly, nullable) NSDictionary<NSString *, NSString *> *requestParameters;
+@property (nonatomic, readonly) NSDictionary<NSString *, NSString *> *requestHeaders;
+
+/**
+ This NSDictionary can contains additional request parameters to be included in the pre-signed URL. Adding additional request parameters enables more advanced pre-signed URLs, such as accessing Amazon S3's torrent resource for an object, or for specifying a version ID when accessing an object. Default is emtpy.
+ */
+@property (nonatomic, readonly) NSDictionary<NSString *, NSString *> *requestParameters;
 
 /**
  The progress feedback block.
@@ -414,12 +477,20 @@ handleEventsForBackgroundURLSession:(NSString *)identifier
 @property (copy, nonatomic, nullable) AWSS3TransferUtilityProgressBlock progressBlock;
 
 /**
- Sets value for the request parameter.
+ Set an additional request header to be included in the pre-signed URL.
 
- @param value            The request parameter value.
- @param requestParameter The key for the request parameter value.
+ @param value The value of the request parameter being added. Set to nil if parameter doesn't contains value.
+ @param requestHeader The name of the request header.
  */
-- (void)setValue:(NSString *)value forRequestParameter:(NSString *)requestParameter;
+- (void)setValue:(nullable NSString *)value forRequestHeader:(NSString *)requestHeader;
+
+/**
+ Set an additional request parameter to be included in the pre-signed URL. Adding additional request parameters enables more advanced pre-signed URLs, such as accessing Amazon S3's torrent resource for an object, or for specifying a version ID when accessing an object.
+
+ @param value The value of the request parameter being added. Set to nil if parameter doesn't contains value.
+ @param requestParameter The name of the request parameter, as it appears in the URL's query string (e.g. AWSS3PresignedURLVersionID).
+ */
+- (void)setValue:(nullable NSString *)value forRequestParameter:(NSString *)requestParameter;
 
 @end
 
@@ -431,7 +502,7 @@ handleEventsForBackgroundURLSession:(NSString *)identifier
 /**
  The upload request header for `Content-MD5`.
  */
-@property (strong, nonatomic, nullable) NSString *contentMD5;
+@property (nonatomic, nullable) NSString *contentMD5;
 
 @end
 

@@ -32,6 +32,7 @@ static NSString *const AWSInfoS3TransferUtility = @"S3TransferUtility";
 @interface AWSS3TransferUtility() <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
 
 @property (strong, nonatomic) AWSServiceConfiguration *configuration;
+@property (strong, nonatomic) AWSS3TransferUtilityConfiguration *transferUtilityConfiguration;
 @property (strong, nonatomic) AWSS3PreSignedURLBuilder *preSignedURLBuilder;
 @property (strong, nonatomic) NSURLSession *session;
 @property (strong, nonatomic) NSString *sessionIdentifier;
@@ -69,9 +70,12 @@ static NSString *const AWSInfoS3TransferUtility = @"S3TransferUtility";
 
 @interface AWSS3TransferUtilityExpression()
 
-@property (strong, nonatomic) NSMutableDictionary *internalRequestParameters;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSString *> *internalRequestHeaders;
+
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSString *> *internalRequestParameters;
 
 - (void)assignRequestParameters:(AWSS3GetPreSignedURLRequest *)getPreSignedURLRequest;
+- (void)assignRequestHeaders:(AWSS3GetPreSignedURLRequest *)getPreSignedURLRequest;
 
 @end
 
@@ -106,10 +110,14 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         AWSServiceConfiguration *serviceConfiguration = nil;
+        AWSS3TransferUtilityConfiguration *transferUtilityConfiguration = nil;
         AWSServiceInfo *serviceInfo = [[AWSInfo defaultAWSInfo] defaultServiceInfo:AWSInfoS3TransferUtility];
         if (serviceInfo) {
             serviceConfiguration = [[AWSServiceConfiguration alloc] initWithRegion:serviceInfo.region
                                                                credentialsProvider:serviceInfo.cognitoCredentialsProvider];
+            NSNumber *accelerateModeEnabled = [serviceInfo.infoDictionary valueForKey:@"AccelerateModeEnabled"];
+            transferUtilityConfiguration = [AWSS3TransferUtilityConfiguration new];
+            transferUtilityConfiguration.accelerateModeEnabled = [accelerateModeEnabled boolValue];
         }
 
         if (!serviceConfiguration) {
@@ -123,6 +131,7 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
         }
 
         _defaultS3TransferUtility = [[AWSS3TransferUtility alloc] initWithConfiguration:serviceConfiguration
+                                                           transferUtilityConfiguration:transferUtilityConfiguration
                                                                              identifier:nil];
     });
 
@@ -130,12 +139,21 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
 }
 
 + (void)registerS3TransferUtilityWithConfiguration:(AWSServiceConfiguration *)configuration forKey:(NSString *)key {
+    [self registerS3TransferUtilityWithConfiguration:configuration
+                        transferUtilityConfiguration:nil
+                                              forKey:key];
+}
+
++ (void)registerS3TransferUtilityWithConfiguration:(AWSServiceConfiguration *)configuration
+                      transferUtilityConfiguration:(AWSS3TransferUtilityConfiguration *)transferUtilityConfiguration
+                                            forKey:(NSString *)key {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _serviceClients = [AWSSynchronizedMutableDictionary new];
     });
 
     AWSS3TransferUtility *s3TransferUtility = [[AWSS3TransferUtility alloc] initWithConfiguration:configuration
+                                                                     transferUtilityConfiguration:transferUtilityConfiguration
                                                                                        identifier:[NSString stringWithFormat:@"%@.%@", AWSS3TransferUtilityIdentifier, key]];
     [_serviceClients setObject:s3TransferUtility
                         forKey:key];
@@ -153,7 +171,13 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
         if (serviceInfo) {
             AWSServiceConfiguration *serviceConfiguration = [[AWSServiceConfiguration alloc] initWithRegion:serviceInfo.region
                                                                                         credentialsProvider:serviceInfo.cognitoCredentialsProvider];
+
+            NSNumber *accelerateModeEnabled = [serviceInfo.infoDictionary valueForKey:@"AccelerateModeEnabled"];
+            AWSS3TransferUtilityConfiguration *transferUtilityConfiguration = [AWSS3TransferUtilityConfiguration new];
+            transferUtilityConfiguration.accelerateModeEnabled = [accelerateModeEnabled boolValue];
+
             [AWSS3TransferUtility registerS3TransferUtilityWithConfiguration:serviceConfiguration
+                                                transferUtilityConfiguration:transferUtilityConfiguration
                                                                       forKey:key];
         }
 
@@ -176,10 +200,14 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
 }
 
 - (instancetype)initWithConfiguration:(AWSServiceConfiguration *)serviceConfiguration
+         transferUtilityConfiguration:(AWSS3TransferUtilityConfiguration *)transferUtilityConfiguration
                            identifier:(NSString *)identifier {
     if (self = [super init]) {
         _configuration = [serviceConfiguration copy];
         [_configuration addUserAgentProductToken:AWSS3TransferUtilityUserAgent];
+
+        _transferUtilityConfiguration = [transferUtilityConfiguration copy];
+
         _preSignedURLBuilder = [[AWSS3PreSignedURLBuilder alloc] initWithConfiguration:_configuration];
 
         if (identifier) {
@@ -268,6 +296,8 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
     transferUtilityTask.bucket = bucket;
     transferUtilityTask.key = key;
 
+    [expression setValue:contentType forRequestHeader:@"Content-Type"];
+
     expression.completionHandler = completionHandler;
     transferUtilityTask.expression = expression;
 
@@ -277,9 +307,9 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
     getPreSignedURLRequest.HTTPMethod = AWSHTTPMethodPUT;
     getPreSignedURLRequest.expires = [NSDate dateWithTimeIntervalSinceNow:AWSS3TransferUtilityTimeoutIntervalForResource];
     getPreSignedURLRequest.minimumCredentialsExpirationInterval = AWSS3TransferUtilityTimeoutIntervalForResource;
-    getPreSignedURLRequest.contentType = contentType;
-    getPreSignedURLRequest.contentMD5 = expression.contentMD5;
+    getPreSignedURLRequest.accelerateModeEnabled = self.transferUtilityConfiguration.isAccelerateModeEnabled;
 
+    [expression assignRequestHeaders:getPreSignedURLRequest];
     [expression assignRequestParameters:getPreSignedURLRequest];
 
     __weak AWSS3TransferUtility *weakSelf = self;
@@ -290,12 +320,14 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
         request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         request.HTTPMethod = @"PUT";
 
-        [request setValue:self.configuration.userAgent
-       forHTTPHeaderField:@"User-Agent"];
-        [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
+        [request setValue:self.configuration.userAgent forHTTPHeaderField:@"User-Agent"];
 
-        if ([getPreSignedURLRequest.contentMD5 length] > 0) {
-            [request setValue:getPreSignedURLRequest.contentMD5 forHTTPHeaderField:@"Content-MD5"];
+        for (NSString *key in expression.requestHeaders) {
+            [request setValue:expression.requestHeaders[key] forHTTPHeaderField:key];
+        }
+
+        if ([AWSLogger defaultLogger].logLevel >= AWSLogLevelDebug) {
+            AWSLogDebug(@"Request headers:\n%@", request.allHTTPHeaderFields);
         }
 
         NSURLSessionUploadTask *uploadTask = [weakSelf.session uploadTaskWithRequest:request
@@ -356,7 +388,9 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
     getPreSignedURLRequest.key = key;
     getPreSignedURLRequest.HTTPMethod = AWSHTTPMethodGET;
     getPreSignedURLRequest.expires = [NSDate dateWithTimeIntervalSinceNow:AWSS3TransferUtilityTimeoutIntervalForResource];
+    getPreSignedURLRequest.accelerateModeEnabled = self.transferUtilityConfiguration.isAccelerateModeEnabled;
 
+    [expression assignRequestHeaders:getPreSignedURLRequest];
     [expression assignRequestParameters:getPreSignedURLRequest];
 
     __weak AWSS3TransferUtility *weakSelf = self;
@@ -368,6 +402,14 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
         request.HTTPMethod = @"GET";
 
         [request setValue:[AWSServiceConfiguration baseUserAgent] forHTTPHeaderField:@"User-Agent"];
+
+        for (NSString *key in expression.requestHeaders) {
+            [request setValue:expression.requestHeaders[key] forHTTPHeaderField:key];
+        }
+
+        if ([AWSLogger defaultLogger].logLevel >= AWSLogLevelDebug) {
+            AWSLogDebug(@"Request headers:\n%@", request.allHTTPHeaderFields);
+        }
 
         NSURLSessionDownloadTask *downloadTask = [weakSelf.session downloadTaskWithRequest:request];
         [downloadTask resume];
@@ -590,7 +632,7 @@ static AWSS3TransferUtility *_defaultS3TransferUtility = nil;
 
 + (void)interceptApplication:(UIApplication *)application
 handleEventsForBackgroundURLSession:(NSString *)identifier
-  completionHandler:(void (^)())completionHandler {
+           completionHandler:(void (^)())completionHandler {
     // For the default service client
     if ([identifier isEqualToString:_defaultS3TransferUtility.sessionIdentifier]) {
         _defaultS3TransferUtility.backgroundURLSessionCompletionHandler = completionHandler;
@@ -628,20 +670,20 @@ didCompleteWithError:(NSError *)error {
         assert([task.response isKindOfClass:[NSHTTPURLResponse class]]);
         NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)task.response;
 
-        if (HTTPResponse.statusCode % 100 == 3
+        if (HTTPResponse.statusCode / 100 == 3
             && HTTPResponse.statusCode != 304) { // 304 Not Modified is a valid response.
             error = [NSError errorWithDomain:AWSS3TransferUtilityErrorDomain
                                         code:AWSS3TransferUtilityErrorRedirection
                                     userInfo:nil];
         }
 
-        if (HTTPResponse.statusCode % 100 == 4) {
+        if (HTTPResponse.statusCode / 100 == 4) {
             error = [NSError errorWithDomain:AWSS3TransferUtilityErrorDomain
                                         code:AWSS3TransferUtilityErrorClientError
                                     userInfo:nil];
         }
 
-        if (HTTPResponse.statusCode % 100 == 5) {
+        if (HTTPResponse.statusCode / 100 == 5) {
             error = [NSError errorWithDomain:AWSS3TransferUtilityErrorDomain
                                         code:AWSS3TransferUtilityErrorServerError
                                     userInfo:nil];
@@ -736,6 +778,27 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
 @end
 
+#pragma mark - AWSS3TransferUtilityConfiguration
+
+@implementation AWSS3TransferUtilityConfiguration
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _accelerateModeEnabled = NO;
+    }
+
+    return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    AWSS3TransferUtilityConfiguration *configuration = [[[self class] allocWithZone:zone] init];
+    configuration.accelerateModeEnabled = self.isAccelerateModeEnabled;
+
+    return configuration;
+}
+
+@end
+
 #pragma mark - AWSS3TransferUtilityTasks
 
 @implementation AWSS3TransferUtilityTask
@@ -804,24 +867,41 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
 @implementation AWSS3TransferUtilityExpression
 
-- (void)setValue:(NSString *)value forRequestParameter:(NSString *)requestParameter {
-    if (value) {
-        [self.internalRequestParameters setObject:value forKey:requestParameter];
-    } else {
-        [self.internalRequestParameters setObject:[NSNull null] forKey:requestParameter];
-    }
-}
-
-- (NSMutableDictionary *)internalRequestParameters {
-    if(!_internalRequestParameters) {
+- (instancetype)init {
+    if (self = [super init]) {
+        _internalRequestHeaders = [NSMutableDictionary new];
         _internalRequestParameters = [NSMutableDictionary new];
     }
-    return _internalRequestParameters;
+
+    return self;
+}
+
+- (NSDictionary<NSString *, NSString *> *)requestHeaders {
+    return [NSDictionary dictionaryWithDictionary:self.internalRequestHeaders];
+}
+
+- (NSDictionary<NSString *, NSString *> *)requestParameters {
+    return [NSDictionary dictionaryWithDictionary:self.internalRequestParameters];
+}
+
+- (void)setValue:(NSString *)value forRequestHeader:(NSString *)requestHeader {
+    [self.internalRequestHeaders setValue:value forKey:requestHeader];
+}
+
+- (void)setValue:(NSString *)value forRequestParameter:(NSString *)requestParameter {
+    [self.internalRequestParameters setValue:value forKey:requestParameter];
+}
+
+- (void)assignRequestHeaders:(AWSS3GetPreSignedURLRequest *)getPreSignedURLRequest {
+    for (NSString *key in self.internalRequestHeaders) {
+        [getPreSignedURLRequest setValue:self.internalRequestHeaders[key]
+                        forRequestHeader:key];
+    }
 }
 
 - (void)assignRequestParameters:(AWSS3GetPreSignedURLRequest *)getPreSignedURLRequest {
-    for (NSString *key in _internalRequestParameters) {
-        [getPreSignedURLRequest setValue:_internalRequestParameters[key]
+    for (NSString *key in self.internalRequestParameters) {
+        [getPreSignedURLRequest setValue:self.internalRequestParameters[key]
                      forRequestParameter:key];
     }
 }
@@ -829,6 +909,14 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 @end
 
 @implementation AWSS3TransferUtilityUploadExpression
+
+- (NSString *)contentMD5 {
+    return [self.internalRequestHeaders valueForKey:@"Content-MD5"];
+}
+
+- (void)setContentMD5:(NSString *)contentMD5 {
+    [self setValue:contentMD5 forRequestHeader:@"Content-MD5"];
+}
 
 @end
 

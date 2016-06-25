@@ -268,8 +268,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
         [self setUpWithRegionType:regionType
                  identityProvider:identityProvider
                     unauthRoleArn:nil
-                      authRoleArn:nil
-                  useEnhancedFlow:YES];
+                      authRoleArn:nil];
     }
 
     return self;
@@ -286,8 +285,19 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
         [self setUpWithRegionType:regionType
                  identityProvider:identityProvider
                     unauthRoleArn:nil
-                      authRoleArn:nil
-                  useEnhancedFlow:YES];
+                      authRoleArn:nil];
+    }
+
+    return self;
+}
+
+- (instancetype)initWithRegionType:(AWSRegionType)regionType
+                  identityProvider:(id<AWSCognitoCredentialsProviderHelper>)identityProvider {
+    if (self = [super init]) {
+        [self setUpWithRegionType:regionType
+                 identityProvider:identityProvider
+                    unauthRoleArn:nil
+                      authRoleArn:nil];
     }
 
     return self;
@@ -301,8 +311,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
         [self setUpWithRegionType:regionType
                  identityProvider:identityProvider
                     unauthRoleArn:unauthRoleArn
-                      authRoleArn:authRoleArn
-                  useEnhancedFlow:NO];
+                      authRoleArn:authRoleArn];
     }
 
     return self;
@@ -321,8 +330,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
         [self setUpWithRegionType:regionType
                  identityProvider:identityProvider
                     unauthRoleArn:unauthRoleArn
-                      authRoleArn:authRoleArn
-                  useEnhancedFlow:NO];
+                      authRoleArn:authRoleArn];
     }
 
     return self;
@@ -331,8 +339,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
 - (void)setUpWithRegionType:(AWSRegionType)regionType
            identityProvider:(id<AWSCognitoCredentialsProviderHelper>)identityProvider
               unauthRoleArn:(NSString *)unauthRoleArn
-                authRoleArn:(NSString *)authRoleArn
-            useEnhancedFlow:(BOOL)useEnhancedFlow {
+                authRoleArn:(NSString *)authRoleArn {
     _refreshExecutor = [AWSExecutor executorWithOperationQueue:[NSOperationQueue new]];
     _refreshingCredentials = NO;
     _semaphore = dispatch_semaphore_create(0);
@@ -340,7 +347,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
     _identityProvider = identityProvider;
     _unAuthRoleArn = unauthRoleArn;
     _authRoleArn = authRoleArn;
-    _useEnhancedFlow = useEnhancedFlow;
+    _useEnhancedFlow = !unauthRoleArn && !authRoleArn;
 
     // initialize keychain - name spaced by app bundle and identity pool id
     _keychain = [AWSUICKeyChainStore keyChainStoreWithService:[NSString stringWithFormat:@"%@.%@.%@", [NSBundle mainBundle].bundleIdentifier, [AWSCognitoCredentialsProvider class], identityProvider.identityPoolId]];
@@ -358,12 +365,11 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:regionType
                                                                          credentialsProvider:credentialsProvider];
 
-    _sts = [[AWSSTS alloc] initWithConfiguration:configuration];
     _cognitoIdentity = [[AWSCognitoIdentity alloc] initWithConfiguration:configuration];
 
-    // Use the new flow if we explictly created an ehancedProvider
-    // or if the roles are both nil (developer authenticated identities flow)
-    _useEnhancedFlow = useEnhancedFlow || ((unauthRoleArn == nil) && (authRoleArn == nil));
+    if (!_useEnhancedFlow) {
+        _sts = [[AWSSTS alloc] initWithConfiguration:configuration];
+    }
 }
 
 - (AWSTask<AWSCredentials *> *)getCredentialsWithSTS:(NSDictionary<NSString *,NSString *> *)logins
@@ -408,13 +414,15 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
 }
 
 - (AWSTask<AWSCredentials *> *)getCredentialsWithCognito:(NSDictionary<NSString *,NSString *> *)logins
-                                           authenticated:(BOOL)isAuthenticated {
+                                           authenticated:(BOOL)isAuthenticated
+                                           customRoleArn:(NSString *)customRoleArn {
     // Grab a reference to our provider in case it changes out from under us
     id<AWSCognitoCredentialsProviderHelper> providerRef = self.identityProvider;
 
     AWSCognitoIdentityGetCredentialsForIdentityInput *getCredentialsInput = [AWSCognitoIdentityGetCredentialsForIdentityInput new];
     getCredentialsInput.identityId = self.identityId;
     getCredentialsInput.logins = logins;
+    getCredentialsInput.customRoleArn = customRoleArn;
 
     return [[[self.cognitoIdentity getCredentialsForIdentity:getCredentialsInput] continueWithBlock:^id(AWSTask *task) {
         // When an invalid identityId is cached in the keychain for auth,
@@ -460,6 +468,7 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
                 AWSCognitoIdentityGetCredentialsForIdentityInput *getCredentialsRetry = [AWSCognitoIdentityGetCredentialsForIdentityInput new];
                 getCredentialsRetry.identityId = self.identityId;
                 getCredentialsRetry.logins = logins;
+                getCredentialsRetry.customRoleArn = customRoleArn;
 
                 return [self.cognitoIdentity getCredentialsForIdentity:getCredentialsRetry];
             }];
@@ -552,8 +561,13 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
         self.refreshingCredentials = YES;
 
         if (self.useEnhancedFlow) {
+            NSString * customRoleArn = nil;
+            if([providerRef.identityProviderManager respondsToSelector:@selector(customRoleArn)]){
+                customRoleArn = providerRef.identityProviderManager.customRoleArn;
+            }
             return [self getCredentialsWithCognito:logins
-                                     authenticated:[providerRef isAuthenticated]];
+                                     authenticated:[providerRef isAuthenticated]
+                                     customRoleArn:customRoleArn];
         } else {
             return [self getCredentialsWithSTS:logins
                                  authenticated:[providerRef isAuthenticated]];

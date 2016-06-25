@@ -255,7 +255,7 @@ class PartyRootController: UIViewController {
                 NSUserDefaults.standardUserDefaults().setObject(self.stickyTowns.map { $0.plist }, forKey: PartyUpPreferences.StickyTowns)
             }
         }
-        locationPicker.addButtons(UIBarButtonItem(title: NSLocalizedString("Let's Go!", comment: "Location picker select bar item"), style: .Done, target: nil, action: nil))
+        locationPicker.addBarButtons(UIBarButtonItem(title: NSLocalizedString("Let's Go!", comment: "Location picker select bar item"), style: .Done, target: nil, action: nil))
 		locationPicker.alternativeLocations = stickyTowns.map {
             let item = LocationItem(coordinate: (latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude), addressDictionary: $0.appleAddressDictionary)
             item.mapItem.phoneNumber = "Yep"

@@ -18,16 +18,33 @@
 
 NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdentityErrorDomain";
 
+@implementation AWSCognitoIdentityCognitoIdentityProvider
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"clientId" : @"ClientId",
+             @"providerName" : @"ProviderName",
+             };
+}
+
+@end
+
 @implementation AWSCognitoIdentityCreateIdentityPoolInput
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
              @"allowUnauthenticatedIdentities" : @"AllowUnauthenticatedIdentities",
+             @"cognitoIdentityProviders" : @"CognitoIdentityProviders",
              @"developerProviderName" : @"DeveloperProviderName",
              @"identityPoolName" : @"IdentityPoolName",
              @"openIdConnectProviderARNs" : @"OpenIdConnectProviderARNs",
+             @"samlProviderARNs" : @"SamlProviderARNs",
              @"supportedLoginProviders" : @"SupportedLoginProviders",
              };
+}
+
++ (NSValueTransformer *)cognitoIdentityProvidersJSONTransformer {
+	return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSCognitoIdentityCognitoIdentityProvider class]];
 }
 
 @end
@@ -49,6 +66,30 @@ NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdenti
     } reverseBlock:^id(NSDate *date) {
         return [NSString stringWithFormat:@"%f", [date timeIntervalSince1970]];
     }];
+}
+
+@end
+
+@implementation AWSCognitoIdentityDeleteIdentitiesInput
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"identityIdsToDelete" : @"IdentityIdsToDelete",
+             };
+}
+
+@end
+
+@implementation AWSCognitoIdentityDeleteIdentitiesResponse
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"unprocessedIdentityIds" : @"UnprocessedIdentityIds",
+             };
+}
+
++ (NSValueTransformer *)unprocessedIdentityIdsJSONTransformer {
+	return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSCognitoIdentityUnprocessedIdentityId class]];
 }
 
 @end
@@ -87,6 +128,7 @@ NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdenti
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
+             @"customRoleArn" : @"CustomRoleArn",
              @"identityId" : @"IdentityId",
              @"logins" : @"Logins",
              };
@@ -232,12 +274,18 @@ NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdenti
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
              @"allowUnauthenticatedIdentities" : @"AllowUnauthenticatedIdentities",
+             @"cognitoIdentityProviders" : @"CognitoIdentityProviders",
              @"developerProviderName" : @"DeveloperProviderName",
              @"identityPoolId" : @"IdentityPoolId",
              @"identityPoolName" : @"IdentityPoolName",
              @"openIdConnectProviderARNs" : @"OpenIdConnectProviderARNs",
+             @"samlProviderARNs" : @"SamlProviderARNs",
              @"supportedLoginProviders" : @"SupportedLoginProviders",
              };
+}
+
++ (NSValueTransformer *)cognitoIdentityProvidersJSONTransformer {
+	return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSCognitoIdentityCognitoIdentityProvider class]];
 }
 
 @end
@@ -257,6 +305,7 @@ NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdenti
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
+             @"hideDisabled" : @"HideDisabled",
              @"identityPoolId" : @"IdentityPoolId",
              @"maxResults" : @"MaxResults",
              @"nextToken" : @"NextToken",
@@ -388,6 +437,39 @@ NSString *const AWSCognitoIdentityErrorDomain = @"com.amazonaws.AWSCognitoIdenti
              @"logins" : @"Logins",
              @"loginsToRemove" : @"LoginsToRemove",
              };
+}
+
+@end
+
+@implementation AWSCognitoIdentityUnprocessedIdentityId
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"errorCode" : @"ErrorCode",
+             @"identityId" : @"IdentityId",
+             };
+}
+
++ (NSValueTransformer *)errorCodeJSONTransformer {
+    return [AWSMTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(NSString *value) {
+        if ([value isEqualToString:@"AccessDenied"]) {
+            return @(AWSCognitoIdentityErrorCodeAccessDenied);
+        }
+        if ([value isEqualToString:@"InternalServerError"]) {
+            return @(AWSCognitoIdentityErrorCodeInternalServerError);
+        }
+        return @(AWSCognitoIdentityErrorCodeUnknown);
+    } reverseBlock:^NSString *(NSNumber *value) {
+        switch ([value integerValue]) {
+            case AWSCognitoIdentityErrorCodeAccessDenied:
+                return @"AccessDenied";
+            case AWSCognitoIdentityErrorCodeInternalServerError:
+                return @"InternalServerError";
+            case AWSCognitoIdentityErrorCodeUnknown:
+            default:
+                return nil;
+        }
+    }];
 }
 
 @end
