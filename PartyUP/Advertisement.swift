@@ -8,7 +8,6 @@
 
 import Foundation
 import AWSDynamoDB
-import LMGeocoder
 
 final class Advertisement: CustomDebugStringConvertible, Hashable
 {

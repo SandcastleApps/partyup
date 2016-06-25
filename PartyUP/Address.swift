@@ -8,7 +8,6 @@
 
 import CoreLocation
 import MapKit
-import LMGeocoder
 
 struct Address: CustomDebugStringConvertible {
 	var identifier: String?
@@ -30,11 +29,11 @@ struct Address: CustomDebugStringConvertible {
 		self.identifier = name
 	}
 
-	init(coordinate: CLLocationCoordinate2D, address: LMAddress, name: String? = nil) {
+	init(coordinate: CLLocationCoordinate2D, address: CLPlacemark, name: String? = nil) {
 		self.coordinate = coordinate
-		self.city = address.locality
-		self.province = address.administrativeArea
-		self.country = address.country
+		self.city = address.locality ?? "Anoncity"
+		self.province = address.administrativeArea ?? "Anonstate"
+		self.country = address.country ?? "Anoncountry"
 		self.identifier = name
 	}
 
@@ -71,14 +70,17 @@ struct Address: CustomDebugStringConvertible {
 	var debugDescription: String { return "Name: \(name), Coordinate: \(coordinate.latitude),\(coordinate.longitude) Address: \(city), \(province), \(country)" }
 
 	static func addressForCoordinates(coordinate: CLLocationCoordinate2D, completionHandler: (Address?, NSError?) -> Void) {
-		LMGeocoder().reverseGeocodeCoordinate(coordinate, service: .AppleService) { (places, error) in
+        geocoder.cancelGeocode()
+		geocoder.reverseGeocodeLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)) { (places, error) in
 			var address: Address?
-			if let place = places?.first as? LMAddress {
+			if let place = places?.first {
 				address = Address(coordinate: coordinate, address: place)
 			}
 			completionHandler(address, error)
 		}
 	}
+    
+    static let geocoder = CLGeocoder()
 }
 
 extension MKPlacemark {

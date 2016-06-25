@@ -11,7 +11,6 @@ target 'PartyUP' do
 	pod 'Alamofire'
 	pod 'SwiftyJSON'
 	pod 'INTULocationManager'
-	pod 'LMGeocoder'
 	pod 'PBJVision'
 	pod 'VIMVideoPlayer'
 	pod 'ActionSheetPicker-3.0'
