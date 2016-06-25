@@ -273,4 +273,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
 		Flurry.logEvent("Returned_From_Tasting")
 	}
+    
+    @IBAction func ratePartyUp(sender: UIButton) {
+        let url = "itms-apps://itunes.apple.com/app/id\(PartyUpConstants.AppleStoreIdentifier)"
+        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+    }
 }
