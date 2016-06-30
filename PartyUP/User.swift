@@ -10,7 +10,7 @@ import Foundation
 import FBSDKCoreKit
 
 class User {
-	var name: String = "Anonymous Chickenshit"
+	var aliases = ["Anonymous Chickenshit"]
 
 	init() {
 		refresh()
@@ -20,15 +20,13 @@ class User {
 
 	func refresh() {
 		if let token = FBSDKAccessToken.currentAccessToken() where token.hasGranted("public_profile") {
-			FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name,last_name"]).startWithCompletionHandler({ (conneciton, profile, error) in
+			FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"name"]).startWithCompletionHandler({ (connection, profile, error) in
 				if error == nil {
-					if let firstName = profile["first_name"] as? String, lastName = profile["last_name"] as? String {
-						self.name = "\(firstName) \(lastName)"
-					}
+                    if let name = profile["name"] as? String {
+                        self.aliases.append(name)
+                    }
 				}
 			})
 		}
 	}
-
-	static let me = User()
 }

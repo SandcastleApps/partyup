@@ -24,6 +24,8 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
 		return authenticators.map { $0 as AuthenticationProvider }
 	}
 	
+    let user = User()
+    
     var identity: NSUUID? {
 		if let identity = credentialsProvider?.identityId {
 			return NSUUID(UUIDString: identity[identity.endIndex.advancedBy(-36)..<identity.endIndex])
@@ -37,6 +39,7 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
     }
 
 	private(set) var state: AuthenticationState = .Transitioning
+    
     
     override init() {
 		authenticators = [FacebookAuthenticationProvider(keychain: keychain)]

@@ -265,7 +265,6 @@
 				1FD1CDC51C8318B00003C744 /* Defensive.swift */,
 				1F2AA0C31C9B918000363DA8 /* FetchQueryable.swift */,
 				1F4650951CDCD60300957998 /* Address.swift */,
-				1F93D48D1D2560860053AA98 /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -348,6 +347,7 @@
 				1F43C5C71CC3AF8500FA4156 /* AuthenticationProvider.swift */,
 				1F43C5C91CC3B3AA00FA4156 /* FacebookAuthenticationProvider.swift */,
 				1FD775F31CCEBE5B00E1AC7F /* AuthenticationFlow.swift */,
+				1F93D48D1D2560860053AA98 /* User.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";

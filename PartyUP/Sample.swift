@@ -34,6 +34,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 	typealias UsageStamp = UInt8
 
 	let user: NSUUID
+    let alias: String?
     unowned let event: Venue
 	let time: NSDate
 	var comment: String?
@@ -76,8 +77,9 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		}
 	}
 
-    init(user: NSUUID, event: Venue, time: NSDate, comment: String?, stamp: UsageStamp, rating: [Int], prefix: String = PartyUpConstants.DefaultStoragePrefix) {
+    init(user: NSUUID, event: Venue, time: NSDate, alias: String?, comment: String?, stamp: UsageStamp, rating: [Int], prefix: String = PartyUpConstants.DefaultStoragePrefix) {
 		self.user = user
+        self.alias = alias
         self.event = event
 		self.time = time
 		self.comment = comment
@@ -86,11 +88,12 @@ final class Sample: CustomDebugStringConvertible, Equatable
         self.prefix = prefix
 	}
 
-    convenience init(event: Venue, comment: String? = nil) {
+    convenience init(event: Venue, alias: String? = nil, comment: String? = nil) {
 		self.init(
 			user: AuthenticationManager.shared.identity!,
             event: event,
 			time: NSDate(),
+			alias: alias,
 			comment: comment,
 			stamp: StampFactory.stamper,
 			rating: [0,0],
@@ -101,7 +104,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 	}
 
 	var debugDescription: String {
-		get { return "User = \(user.UUIDString) stamp = \(stamp)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
+		get { return "User = \(user.UUIDString) alias = \(alias)\nStamp = \(stamp)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
 	}
 
 	func setVote(vote: Vote, andFlag flag: Bool = false) {
@@ -156,6 +159,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 			user: NSUUID(UUIDBytes: UnsafePointer(data.id!.bytes)),
             event: event,
 			time: NSDate(timeIntervalSince1970: data.time!.doubleValue),
+			alias: data.alias,
 			comment: data.comment,
 			stamp: (UnsafePointer<UInt8>(data.id!.bytes) + 16).memory,
 			rating: [data.ups?.integerValue ?? 0, data.downs?.integerValue ?? 0],
@@ -200,6 +204,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		var id: NSData?
 		var event: String?
 		var time: NSNumber?
+        var alias: String?
 		var comment: String?
 		var ups: NSNumber?
 		var downs: NSNumber?
