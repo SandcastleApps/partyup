@@ -61,6 +61,7 @@
 		1F783F4A1CAD99D100B5E753 /* CBU.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F783F491CAD99D100B5E753 /* CBU.gpx */; };
 		1F8BF1C11C1C55C500221D82 /* AcknowledgementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C01C1C55C500221D82 /* AcknowledgementsController.swift */; };
 		1F8BF1C41C1C55DD00221D82 /* Acknowledge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C21C1C55DD00221D82 /* Acknowledge.storyboard */; };
+		1F93D48E1D2560860053AA98 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F93D48D1D2560860053AA98 /* User.swift */; };
 		1F9509951BACACE8005BDC18 /* NSURL+Mime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* NSURL+Mime.swift */; };
 		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; };
 		1F9879861C401D060079467E /* drink.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1F9879851C401D060079467E /* drink.caf */; };
@@ -153,6 +154,7 @@
 		1F783F491CAD99D100B5E753 /* CBU.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CBU.gpx; path = Globetrotter/CBU.gpx; sourceTree = SOURCE_ROOT; };
 		1F8BF1C01C1C55C500221D82 /* AcknowledgementsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcknowledgementsController.swift; sourceTree = "<group>"; };
 		1F8BF1C31C1C55DD00221D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Acknowledge.storyboard; sourceTree = "<group>"; };
+		1F93D48D1D2560860053AA98 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* NSURL+Mime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Mime.swift"; sourceTree = "<group>"; };
 		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
 		1F9879851C401D060079467E /* drink.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = drink.caf; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				1FD1CDC51C8318B00003C744 /* Defensive.swift */,
 				1F2AA0C31C9B918000363DA8 /* FetchQueryable.swift */,
 				1F4650951CDCD60300957998 /* Address.swift */,
+				1F93D48D1D2560860053AA98 /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				1FDA455B1C1CECD200F5E458 /* ShareUtilities.swift in Sources */,
 				1F69A6271CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift in Sources */,
 				1F9509951BACACE8005BDC18 /* NSURL+Mime.swift in Sources */,
+				1F93D48E1D2560860053AA98 /* User.swift in Sources */,
 				1F8BF1C11C1C55C500221D82 /* AcknowledgementsController.swift in Sources */,
 				1FBD401D1C14609C0093D852 /* PartyPlace.swift in Sources */,
 				1F43C5C61CC3A40D00FA4156 /* AuthenticationManager.swift in Sources */,

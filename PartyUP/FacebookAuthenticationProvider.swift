@@ -34,7 +34,7 @@ class FacebookAuthenticationProvider: NSObject, AuthenticationProviding {
 		if FBSDKAccessToken.currentAccessToken() != nil {
 			completeLoginWithError(nil, completionHandler:  handler)
 		} else {
-			loginManager.logInWithReadPermissions(nil, fromViewController: controller) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) in
+			loginManager.logInWithReadPermissions(["public_profile"], fromViewController: controller) { (result: FBSDKLoginManagerLoginResult!, error : NSError!) in
 				self.completeLoginWithError(error, completionHandler:  handler)
 			}
 		}
