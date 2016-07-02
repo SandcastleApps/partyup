@@ -494,11 +494,12 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	// MARK: - Tutorial
 
 	private enum CoachIdentifier: Int {
-		case Greeting = -2100, Comment = 2101, Venue, Submit
+		case Greeting = -2100, Comment = 2101, Venue, Submit, Alias
 	}
 
 	private static let availableCoachMarks = [
-		TutorialMark(identifier: CoachIdentifier.Venue.rawValue, hint: "Tap to select where\nyou are partying.")]
+		TutorialMark(identifier: CoachIdentifier.Venue.rawValue, hint: "Tap to select where\nyou are partying."),
+		TutorialMark(identifier: CoachIdentifier.Alias.rawValue, hint: "Tap to select one of\nyour social aliases.")]
 
 	private let tutorial = TutorialOverlayManager(marks: AcceptSampleController.availableCoachMarks)
 }
