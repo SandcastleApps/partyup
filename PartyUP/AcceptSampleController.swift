@@ -29,34 +29,12 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	}
 
 	private var selectedLocal = 0
+	private var selectedAlias = 0
 
 	@IBOutlet weak var comment: UITextView! {
 		didSet {
 			comment.delegate = self
 			setCommentPlaceholder()
-		}
-	}
-
-	@IBOutlet weak var venue: UIButton! {
-		didSet {
-			venueButtonState()
-		}
-	}
-
-	private func venueButtonState() {
-		var label = NSLocalizedString("No Venues Available", comment: "Label used in sample acceptance when the user is not near any venues")
-
-		if selectedLocal < venues.count {
-			label = venues[selectedLocal].name
-		}
-
-		venue?.setTitle(label, forState: .Disabled)
-
-		if venues.count > 1 {
-			label += " ▼"
-			venue?.setTitle(label, forState: .Normal)
-		} else {
-			venue?.enabled = false
 		}
 	}
 
@@ -163,6 +141,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 		super.viewWillAppear(animated)
 		review.hidden = true
 		comment.hidden = true
+		alias.hidden = true
 		venue.hidden = true
 		sendView.hidden = true
 	}
@@ -175,12 +154,14 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 		review.transform = CGAffineTransformMakeTranslation(0, offset)
 		comment.transform = CGAffineTransformMakeTranslation(0, offset)
 		venue.transform = CGAffineTransformMakeTranslation(0, offset)
+		alias.transform = CGAffineTransformMakeTranslation(0, offset)
 		sendView.transform = CGAffineTransformMakeTranslation(0, sendView.bounds.height)
 		sendButton.transform = CGAffineTransformMakeTranslation(-sendButton.bounds.width, 0)
 
 		review.hidden = false
 		comment.hidden = false
 		venue.hidden = false
+		alias.hidden = false
 		sendView.hidden = false
 
 		UIView.animateWithDuration(0.5,
@@ -210,7 +191,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			initialSpringVelocity: 10,
 			options: [],
 			animations: {
-				self.venue.transform = CGAffineTransformIdentity
+				self.alias.transform = CGAffineTransformIdentity
 			},
 			completion: nil)
 
@@ -220,12 +201,87 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			initialSpringVelocity: 10,
 			options: [],
 			animations: {
+				self.venue.transform = CGAffineTransformIdentity
+			},
+			completion: nil)
+
+		UIView.animateWithDuration(0.5,
+			delay: 0.3,
+			usingSpringWithDamping: 0.85,
+			initialSpringVelocity: 10,
+			options: [],
+			animations: {
 				self.comment.transform = CGAffineTransformIdentity
 			},
 			completion: { done in if done { self.tutorial.start(self) } })
 	}
+	//MARK: - Alias Picker
+
+	private let aliases = AuthenticationManager.shared.user.aliases
+
+	@IBOutlet weak var alias: UIButton! {
+		didSet {
+			aliasButtonState()
+		}
+	}
+
+	func aliasButtonState() {
+		var label = "Anonymous"
+
+		if selectedAlias < aliases.count {
+			label = aliases[selectedAlias]
+		}
+
+		alias?.setTitle(label, forState: .Disabled)
+
+		if aliases.count > 1 {
+			label += " ▼"
+			alias?.setTitle(label, forState: .Normal)
+		} else {
+			alias?.enabled = false
+		}
+	}
+	
+	@IBAction func selectAlias(sender: UIButton) {
+		view.endEditing(false)
+
+		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Alias", comment: "Title of the alias picker"),
+			rows: aliases,
+			initialSelection: 0,
+			doneBlock: { (_, row, _) in
+				self.selectedAlias = row
+				self.aliasButtonState()
+			},
+			cancelBlock: { _ in
+				// cancelled
+			},
+			origin: sender)
+	}
 
 	// MARK: - Venue Picker
+
+	@IBOutlet weak var venue: UIButton! {
+		didSet {
+			venueButtonState()
+		}
+	}
+
+	private func venueButtonState() {
+		var label = NSLocalizedString("No Venues Available", comment: "Label used in sample acceptance when the user is not near any venues")
+
+		if selectedLocal < venues.count {
+			label = venues[selectedLocal].name
+		}
+
+		venue?.setTitle(label, forState: .Disabled)
+
+		if venues.count > 1 {
+			label += " ▼"
+			venue?.setTitle(label, forState: .Normal)
+		} else {
+			venue?.enabled = false
+		}
+	}
 
 	@IBAction func selectVenue(sender: UIButton) {
 		view.endEditing(false)
@@ -233,11 +289,11 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Venue", comment: "Title of the venue picker"),
 			rows: venues.map { $0.name },
 			initialSelection: 0,
-			doneBlock: { (picker, row, value) in
+			doneBlock: { (_, row, _) in
 				self.selectedLocal = row
 				self.venueButtonState()
 			},
-			cancelBlock: { (picker) in
+			cancelBlock: { _ in
 				// cancelled
 			},
 			origin: sender)
@@ -327,8 +383,9 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 				waiting = alertWaitWithTitle(NSLocalizedString("Uploading Party Video", comment: "Hud title while uploading a video"), closeButton: nil)
 				let statement = commentCleanUp()
 				let place = venues[selectedLocal]
-                let sample = Sample(event: place, comment: statement)
-				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place.unique], timed: true)
+				let alias: String? = selectedAlias > 0 ? aliases[selectedAlias] : nil
+				let sample = Sample(event: place, alias: alias, comment: statement)
+				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place.unique, "alias" : alias ?? "Anon"], timed: true)
 				#if (arch(i386) || arch(x86_64)) && os(iOS)
 					try NSFileManager.defaultManager().copyItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
 				#else

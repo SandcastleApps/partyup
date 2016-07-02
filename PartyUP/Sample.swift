@@ -188,6 +188,7 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		get {
 			let db = SampleDB()
 			db.time = time.timeIntervalSince1970
+			db.alias = alias
 			db.comment = comment
 			db.id = identifier
             db.event = event.unique

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -230,8 +230,24 @@
                                     <action selector="selectVenue:" destination="RAd-iG-AkU" eventType="touchUpInside" id="cxu-RA-bP6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="2102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MD1-m6-tHe">
+                                <rect key="frame" x="20" y="114" width="560" height="26"/>
+                                <color key="backgroundColor" red="0.98431372549999996" green="0.70588235290000001" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
+                                <state key="normal" title="Alias">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="selectAlias:" destination="RAd-iG-AkU" eventType="touchUpInside" id="gON-Ug-jTs"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcg-n1-3Re" userLabel="Review Video">
-                                <rect key="frame" x="83" y="114" width="434" height="434"/>
+                                <rect key="frame" x="100" y="148" width="400" height="400"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="pcg-n1-3Re" secondAttribute="width" multiplier="1:1" id="vxR-RL-NHu"/>
@@ -314,21 +330,26 @@
                             <constraint firstAttribute="trailing" secondItem="tt7-oa-KC9" secondAttribute="trailing" id="4dT-n4-ySw"/>
                             <constraint firstItem="qgR-vF-K22" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leadingMargin" id="9U1-8k-5Sf"/>
                             <constraint firstItem="3aO-yg-IwN" firstAttribute="trailing" secondItem="JgB-7N-lNo" secondAttribute="trailing" symbolic="YES" id="LvW-kL-LJh"/>
+                            <constraint firstItem="MD1-m6-tHe" firstAttribute="height" secondItem="qgR-vF-K22" secondAttribute="height" id="OW8-0g-BSR"/>
                             <constraint firstItem="tt7-oa-KC9" firstAttribute="bottom" secondItem="jPO-st-b8s" secondAttribute="top" constant="2" id="Rkw-uU-zTA"/>
                             <constraint firstItem="RmL-zJ-VBo" firstAttribute="trailing" secondItem="JgB-7N-lNo" secondAttribute="trailingMargin" id="Tng-Gc-1Sc"/>
+                            <constraint firstItem="pcg-n1-3Re" firstAttribute="top" secondItem="MD1-m6-tHe" secondAttribute="bottom" constant="8" symbolic="YES" id="UXx-nn-RZd"/>
                             <constraint firstItem="tt7-oa-KC9" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leading" id="Ugw-do-tpf"/>
                             <constraint firstItem="qgR-vF-K22" firstAttribute="top" secondItem="RmL-zJ-VBo" secondAttribute="bottom" constant="8" id="YLe-jo-pNz"/>
-                            <constraint firstItem="qgR-vF-K22" firstAttribute="bottom" secondItem="pcg-n1-3Re" secondAttribute="top" constant="-8" id="ZTP-zS-u2H"/>
+                            <constraint firstItem="MD1-m6-tHe" firstAttribute="centerX" secondItem="JgB-7N-lNo" secondAttribute="centerX" id="bJ0-GM-9Eg"/>
                             <constraint firstItem="RmL-zJ-VBo" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leadingMargin" id="epm-T2-YR1"/>
+                            <constraint firstItem="MD1-m6-tHe" firstAttribute="width" secondItem="qgR-vF-K22" secondAttribute="width" id="fiK-RD-jsK"/>
                             <constraint firstItem="pcg-n1-3Re" firstAttribute="centerX" secondItem="JgB-7N-lNo" secondAttribute="centerX" id="i5U-ue-3rb"/>
                             <constraint firstItem="3aO-yg-IwN" firstAttribute="leading" secondItem="JgB-7N-lNo" secondAttribute="leading" id="iqu-UT-Wf6"/>
                             <constraint firstItem="pcg-n1-3Re" firstAttribute="bottom" secondItem="tt7-oa-KC9" secondAttribute="top" constant="-8" id="kQe-nr-v3h"/>
                             <constraint firstItem="RmL-zJ-VBo" firstAttribute="top" secondItem="3aO-yg-IwN" secondAttribute="bottom" constant="8" id="m1d-to-uNu"/>
+                            <constraint firstItem="MD1-m6-tHe" firstAttribute="top" secondItem="qgR-vF-K22" secondAttribute="bottom" constant="8" symbolic="YES" id="pVC-1d-Vzs"/>
                             <constraint firstItem="qgR-vF-K22" firstAttribute="trailing" secondItem="JgB-7N-lNo" secondAttribute="trailingMargin" id="pxL-V3-20m"/>
                             <constraint firstItem="pcg-n1-3Re" firstAttribute="width" secondItem="JgB-7N-lNo" secondAttribute="width" priority="750" constant="-10" id="zpC-R8-GdJ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alias" destination="MD1-m6-tHe" id="wHp-6s-aJf"/>
                         <outlet property="comment" destination="RmL-zJ-VBo" id="EZi-jE-4dA"/>
                         <outlet property="encodingProgress" destination="Tgc-4L-NxF" id="Csg-Wl-4aa"/>
                         <outlet property="naviBar" destination="3aO-yg-IwN" id="pJu-ku-vfN"/>
