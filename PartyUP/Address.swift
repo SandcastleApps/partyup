@@ -70,13 +70,14 @@ struct Address: CustomDebugStringConvertible {
 	var debugDescription: String { return "Name: \(name), Coordinate: \(coordinate.latitude),\(coordinate.longitude) Address: \(city), \(province), \(country)" }
 
 	static func addressForCoordinates(coordinate: CLLocationCoordinate2D, completionHandler: (Address?, NSError?) -> Void) {
-        geocoder.cancelGeocode()
-		geocoder.reverseGeocodeLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)) { (places, error) in
-			var address: Address?
-			if let place = places?.first {
-				address = Address(coordinate: coordinate, address: place)
+		if !geocoder.geocoding {
+			geocoder.reverseGeocodeLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)) { (places, error) in
+				var address: Address?
+				if let place = places?.first {
+					address = Address(coordinate: coordinate, address: place)
+				}
+				completionHandler(address, error)
 			}
-			completionHandler(address, error)
 		}
 	}
     
