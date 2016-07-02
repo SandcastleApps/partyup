@@ -469,13 +469,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F427A251BA59F4C00E622CF /* Build configuration list for PBXNativeTarget "PartyUP" */;
 			buildPhases = (
-				9F724BC8A8FD3454D40CA2D2 /* 📦 Check Pods Manifest.lock */,
+				9F724BC8A8FD3454D40CA2D2 /* [CP] Check Pods Manifest.lock */,
 				1F4279F91BA59F4C00E622CF /* Sources */,
 				1F4279FA1BA59F4C00E622CF /* Frameworks */,
 				1F4279FB1BA59F4C00E622CF /* Resources */,
 				1F0918821C6C1C880020B498 /* Copy Settings Bundle */,
-				221F014A86C1C34E3ED4F32F /* 📦 Embed Pods Frameworks */,
-				4E64FCE776EB200AC4B062C4 /* 📦 Copy Pods Resources */,
+				221F014A86C1C34E3ED4F32F /* [CP] Embed Pods Frameworks */,
+				4E64FCE776EB200AC4B062C4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -656,14 +656,14 @@
 			shellPath = /bin/sh;
 			shellScript = "echo ${SCRIPT_OUTPUT_FILE_0}\necho ${SCRIPT_INPUT_FILE_0}\nif [-f ${SCRIPT_OUTPUT_FILE_0}]; then\n    rm ${SCRIPT_OUTPUT_FILE_0}\nfi\n\nzip -j ${SCRIPT_OUTPUT_FILE_0} ${SCRIPT_INPUT_FILE_0}\n\naws lambda update-function-code --function-name purgeStaleItems --zip-file fileb://${SCRIPT_OUTPUT_FILE_0}";
 		};
-		221F014A86C1C34E3ED4F32F /* 📦 Embed Pods Frameworks */ = {
+		221F014A86C1C34E3ED4F32F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -671,14 +671,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4E64FCE776EB200AC4B062C4 /* 📦 Copy Pods Resources */ = {
+		4E64FCE776EB200AC4B062C4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,14 +686,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PartyUP/Pods-PartyUP-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9F724BC8A8FD3454D40CA2D2 /* 📦 Check Pods Manifest.lock */ = {
+		9F724BC8A8FD3454D40CA2D2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
