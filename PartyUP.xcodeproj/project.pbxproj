@@ -61,6 +61,7 @@
 		1F783F4A1CAD99D100B5E753 /* CBU.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F783F491CAD99D100B5E753 /* CBU.gpx */; };
 		1F8BF1C11C1C55C500221D82 /* AcknowledgementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C01C1C55C500221D82 /* AcknowledgementsController.swift */; };
 		1F8BF1C41C1C55DD00221D82 /* Acknowledge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8BF1C21C1C55DD00221D82 /* Acknowledge.storyboard */; };
+		1F8EACE91D28636400BED59F /* Seedling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8EACE81D28636400BED59F /* Seedling.swift */; };
 		1F93D48E1D2560860053AA98 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F93D48D1D2560860053AA98 /* User.swift */; };
 		1F9509951BACACE8005BDC18 /* NSURL+Mime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509941BACACE8005BDC18 /* NSURL+Mime.swift */; };
 		1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9509961BAF81FB005BDC18 /* Dynamo.swift */; };
@@ -154,6 +155,7 @@
 		1F783F491CAD99D100B5E753 /* CBU.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CBU.gpx; path = Globetrotter/CBU.gpx; sourceTree = SOURCE_ROOT; };
 		1F8BF1C01C1C55C500221D82 /* AcknowledgementsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcknowledgementsController.swift; sourceTree = "<group>"; };
 		1F8BF1C31C1C55DD00221D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Acknowledge.storyboard; sourceTree = "<group>"; };
+		1F8EACE81D28636400BED59F /* Seedling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seedling.swift; sourceTree = "<group>"; };
 		1F93D48D1D2560860053AA98 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1F9509941BACACE8005BDC18 /* NSURL+Mime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Mime.swift"; sourceTree = "<group>"; };
 		1F9509961BAF81FB005BDC18 /* Dynamo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamo.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				1FD1CDC51C8318B00003C744 /* Defensive.swift */,
 				1F2AA0C31C9B918000363DA8 /* FetchQueryable.swift */,
 				1F4650951CDCD60300957998 /* Address.swift */,
+				1F8EACE81D28636400BED59F /* Seedling.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				1F10FD961C624A050090743C /* AnimalTableCell.swift in Sources */,
 				1F2DDB251C5E658C00E28DE4 /* Promotion.swift in Sources */,
 				1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */,
+				1F8EACE91D28636400BED59F /* Seedling.swift in Sources */,
 				1F39157F1CCE806100FF7F89 /* UIColor+Uint.swift in Sources */,
 				1F4650961CDCD60300957998 /* Address.swift in Sources */,
 				1F9509971BAF81FB005BDC18 /* Dynamo.swift in Sources */,
