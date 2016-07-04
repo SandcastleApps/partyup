@@ -8,24 +8,7 @@
 
 import AWSDynamoDB
 
-enum Vote: Int, CustomDebugStringConvertible {
-    case Down = -1, Meh = 0, Up = 1
-    
-    var debugDescription: String {
-        get {
-            switch self {
-            case Down:
-                return "Down"
-            case Meh:
-                return "Meh"
-            case Up:
-                return "Up"
-            }
-        }
-    }
-}
-
-final class Sample: CustomDebugStringConvertible, Equatable
+final class Sample: Votable, Equatable
 {
 	static let RatingUpdateNotification = "SampleRatingUpdateNotification"
 	static let VoteUpdateNotification = "SampleVoteUpdateNotification"
@@ -101,10 +84,6 @@ final class Sample: CustomDebugStringConvertible, Equatable
 		)
 
 		StampFactory.stamper = StampFactory.stamper &+ 1
-	}
-
-	var debugDescription: String {
-		get { return "User = \(user.UUIDString) alias = \(alias)\nStamp = \(stamp)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\nRating = \(rating)\n" }
 	}
 
 	func setVote(vote: Vote, andFlag flag: Bool = false) {

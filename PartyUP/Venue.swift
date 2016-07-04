@@ -29,6 +29,8 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		}
 	}
 
+	var treats: [Tastable]? { return samples?.map({ $0 as Tastable }) }
+
 	var samples: [Sample]? {
 		didSet {
 			lastFetchStatus = FetchStatus(completed: NSDate(), error: nil)

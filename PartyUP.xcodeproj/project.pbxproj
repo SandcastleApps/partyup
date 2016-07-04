@@ -88,6 +88,8 @@
 		1FD940AE1CB5DC8B006D01E4 /* TutorialOverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD940AD1CB5DC8B006D01E4 /* TutorialOverlayManager.swift */; };
 		1FDA2F2A1BB1930D00D33540 /* SampleTastingContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */; };
 		1FDA455B1C1CECD200F5E458 /* ShareUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */; };
+		1FDDFB4A1D29DF18007A631D /* Tastable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDDFB491D29DF18007A631D /* Tastable.swift */; };
+		1FDDFB4C1D2AA13C007A631D /* Votable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDDFB4B1D2AA13C007A631D /* Votable.swift */; };
 		1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */; };
 		1FEF51111BBF4D1500710948 /* AcceptSampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */; };
 		1FF051E31C1FB61800A7A67C /* WebPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF051E21C1FB61800A7A67C /* WebPageController.swift */; };
@@ -187,6 +189,8 @@
 		1FD940AD1CB5DC8B006D01E4 /* TutorialOverlayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialOverlayManager.swift; sourceTree = "<group>"; };
 		1FDA2F291BB1930D00D33540 /* SampleTastingContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTastingContoller.swift; sourceTree = "<group>"; };
 		1FDA455A1C1CECD200F5E458 /* ShareUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareUtilities.swift; sourceTree = "<group>"; };
+		1FDDFB491D29DF18007A631D /* Tastable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tastable.swift; sourceTree = "<group>"; };
+		1FDDFB4B1D2AA13C007A631D /* Votable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Votable.swift; sourceTree = "<group>"; };
 		1FEF0D4C1BEE189F00A1F689 /* PartyRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyRootController.swift; sourceTree = "<group>"; };
 		1FEF51101BBF4D1500710948 /* AcceptSampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptSampleController.swift; sourceTree = "<group>"; };
 		1FF051E21C1FB61800A7A67C /* WebPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebPageController.swift; sourceTree = "<group>"; };
@@ -268,6 +272,8 @@
 				1F2AA0C31C9B918000363DA8 /* FetchQueryable.swift */,
 				1F4650951CDCD60300957998 /* Address.swift */,
 				1F8EACE81D28636400BED59F /* Seedling.swift */,
+				1FDDFB491D29DF18007A631D /* Tastable.swift */,
+				1FDDFB4B1D2AA13C007A631D /* Votable.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -737,6 +743,7 @@
 				1FD1CDC61C8318B00003C744 /* Defensive.swift in Sources */,
 				1FD775F41CCEBE5B00E1AC7F /* AuthenticationFlow.swift in Sources */,
 				1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */,
+				1FDDFB4C1D2AA13C007A631D /* Votable.swift in Sources */,
 				1FDA455B1C1CECD200F5E458 /* ShareUtilities.swift in Sources */,
 				1F69A6271CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift in Sources */,
 				1F9509951BACACE8005BDC18 /* NSURL+Mime.swift in Sources */,
@@ -752,6 +759,7 @@
 				1FD0E0901BF56117005590C5 /* CALayer+RuntimeAttributes.swift in Sources */,
 				1F9997491BB61939003457E2 /* RecordSampleController.swift in Sources */,
 				1FB916501C6A42D700ED62DE /* PartyTableCell.swift in Sources */,
+				1FDDFB4A1D29DF18007A631D /* Tastable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

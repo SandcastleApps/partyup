@@ -11,7 +11,7 @@ import UIKit
 class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     private enum PageContent {
-        case Video(Sample)
+        case Video(Tastable)
         case Ad(Advertisement)
         case Recruit
     }
@@ -82,12 +82,12 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
     private var adPages = [Int:Advertisement]()
     private var adOvers = [Int:Advertisement]()
     
-    private var samples = [Sample]()
+    private var samples = [Tastable]()
 	private var observations = Set<Venue>()
 
 	func sampleFetchObserver(note: NSNotification) {
 		if let venue = note.object as? Venue {
-			if observations.remove(venue) != nil, let local = venue.samples {
+			if observations.remove(venue) != nil, let local = venue.treats {
 				samples.appendContentsOf(local)
 				if observations.isEmpty {
 					samples.sortInPlace { $0.time.compare($1.time) == .OrderedDescending }
@@ -113,7 +113,7 @@ class SampleTastingContoller: UIViewController, UIPageViewControllerDataSource, 
 
 	func sieveOffensiveSamples() {
         let filtered = pages.filter {
-            if case .Video(let sample) = $0 {
+            if case .Video(let treat) = $0, let sample = treat as? Votable {
                 return !Defensive.shared.muted(sample.user) && !(sample.flag ?? false)
             } else {
                 return true

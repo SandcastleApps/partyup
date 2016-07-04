@@ -31,3 +31,21 @@ func fetchSeedlings(atLocation location: CLLocation, inRadius radius: Int, compl
     }
 }
 
+class Seedling: Tastable {
+	let user: NSUUID
+	let alias: String?
+	unowned let event: Venue
+	let time: NSDate
+	let comment: String?
+	let media: NSURL
+
+	init(user: NSUUID, alias: String?, event: Venue, time: NSDate, comment: String?, media: NSURL) {
+		self.user = user
+		self.alias = alias
+		self.event = event
+		self.time = time
+		self.comment = comment
+		self.media = media
+	}
+}
+

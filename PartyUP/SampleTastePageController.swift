@@ -30,9 +30,13 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		return formatter }()
 
 	var page: Int!
-    var sample: Sample! {
+    var sample: Tastable! {
         didSet {
-            media = NSURL(string: sample.media.path!, relativeToURL: PartyUpConstants.ContentDistribution)
+			if sample.media.host == nil {
+				media = NSURL(string: sample.media.path!, relativeToURL: PartyUpConstants.ContentDistribution)
+			} else {
+				media = sample.media
+			}
         }
     }
 	var ad: NSURL?
@@ -130,8 +134,10 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		let notify = NSNotificationCenter.defaultCenter()
 		notify.addObserver(self, selector: #selector(SampleTastePageController.observeApplicationBecameActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
 		notify.addObserver(self, selector: #selector(SampleTastePageController.observeApplicationEnterBackground), name: UIApplicationDidEnterBackgroundNotification, object: nil)
-		notify.addObserver(self, selector: #selector(SampleTastePageController.updateVoteIndicators), name: Sample.RatingUpdateNotification, object: sample)
-		notify.addObserver(self, selector: #selector(SampleTastePageController.updateVoteIndicators), name: Sample.VoteUpdateNotification, object: sample)
+		if let sample = sample as? Sample {
+			notify.addObserver(self, selector: #selector(SampleTastePageController.updateVoteIndicators), name: Sample.RatingUpdateNotification, object: sample)
+			notify.addObserver(self, selector: #selector(SampleTastePageController.updateVoteIndicators), name: Sample.VoteUpdateNotification, object: sample)
+		}
 	}
 
 	deinit {
@@ -161,10 +167,14 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	}
 
 	func updateVoteIndicators() {
-		voteButtons[0].selected = sample.vote == .Down
-		voteButtons[1].selected = sample.vote == .Up
-
-		voteLabel.text = "\(sample.rating[0] - sample.rating[1])"
+		if let treat = sample as? Votable {
+			voteButtons[0].selected = treat.vote == .Down
+			voteButtons[1].selected = treat.vote == .Up
+			voteLabel.text = "\(treat.rating[0] - treat.rating[1])"
+		} else {
+			voteButtons.forEach { $0.hidden = true }
+			voteLabel.hidden = true
+		}
 	}
 
 	func shareSampleVia(service: String) {
@@ -179,16 +189,18 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	}
 
 	func placeVote(vote: Vote, andFlag flag: Bool = false) {
-		if AuthenticationManager.shared.isLoggedIn {
-			sample.setVote(vote, andFlag: flag)
-			Flurry.logEvent("Vote_Cast", withParameters: ["vote" : vote.rawValue])
-			if flag {
-				let user = AuthenticationManager.shared.identity!
-				Flurry.logEvent("Offensive_Sample_Reported", withParameters: [ "reporter" : user, "sample" : self.sample.media.description])
+		if let treat = sample as? Votable {
+			if AuthenticationManager.shared.isLoggedIn {
+				treat.setVote(vote, andFlag: flag)
+				Flurry.logEvent("Vote_Cast", withParameters: ["vote" : vote.rawValue])
+				if flag {
+					let user = AuthenticationManager.shared.identity!
+					Flurry.logEvent("Offensive_Sample_Reported", withParameters: [ "reporter" : user, "sample" : self.sample.media.description])
+				}
+			} else {
+				AuthenticationFlow.shared.startOnController(self).addAction { manager in
+					if manager.isLoggedIn { self.placeVote(vote, andFlag: flag) } }
 			}
-		} else {
-			AuthenticationFlow.shared.startOnController(self).addAction { manager in
-				if manager.isLoggedIn { self.placeVote(vote, andFlag: flag) } }
 		}
 	}
 
