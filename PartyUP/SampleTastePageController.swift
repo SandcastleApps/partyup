@@ -40,7 +40,6 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	@IBOutlet weak var videoFailed: UILabel!
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
-	@IBOutlet weak var aliasLabel: UILabel!
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
 	@IBOutlet weak var videoReview: UIView!
@@ -69,12 +68,18 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
         super.viewDidLoad()
 
 		timeLabel.text = formatTime(sample.time, relative: displayRelativeTime)
+        
+        let text = NSMutableAttributedString()
+        
+        if let alias = sample.alias {
+            text.appendAttributedString(NSAttributedString(string: alias + "  ", attributes: [NSFontAttributeName:UIFont.boldSystemFontOfSize(14)]))
+        }
 		
 		if let comment = sample.comment {
-			commentLabel.text = comment
+			 text.appendAttributedString(NSAttributedString(string: comment, attributes: [NSFontAttributeName:UIFont.systemFontOfSize((14))]))
 		}
-
-		aliasLabel.text = sample.alias ?? NSLocalizedString("Anonymous Milquetoast", comment: "Anonymous user moniker")
+        
+        commentLabel.attributedText = text
 
 		updateVoteIndicators()
 

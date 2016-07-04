@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -136,12 +136,12 @@ Video Unavailable</string>
                                     <constraint firstItem="BnE-ho-ATh" firstAttribute="centerY" secondItem="WNy-Cg-5eP" secondAttribute="centerY" id="czE-w0-Cx3"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3004" contentMode="scaleToFill" verticalHuggingPriority="100" verticalCompressionResistancePriority="250" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3004" contentMode="scaleToFill" verticalHuggingPriority="100" verticalCompressionResistancePriority="250" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
                                 <rect key="frame" x="20" y="665" width="528" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="20" id="6gz-0m-ols"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNJ-K7-UNE" userLabel="Video Progress" customClass="DACircularProgressView">
@@ -153,7 +153,7 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" tag="3001" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="700" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA" userLabel="Time Label">
-                                <rect key="frame" x="510" y="636" width="38" height="20.5"/>
+                                <rect key="frame" x="20" y="636" width="528" height="21"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="8uE-Dk-IOM"/>
@@ -164,12 +164,6 @@ Video Unavailable</string>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="I3x-VG-PDu" appends="YES" id="HDi-zd-vt7"/>
                                 </connections>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Who" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="z9P-co-BGs" userLabel="Alias Label">
-                                <rect key="frame" x="20" y="635" width="482.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
                             </label>
                             <containerView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4v0-Xe-eaq" userLabel="Advertise Overlay">
                                 <rect key="frame" x="0.0" y="28" width="600" height="572"/>
@@ -258,13 +252,10 @@ Video Unavailable</string>
                             <constraint firstAttribute="trailing" secondItem="4v0-Xe-eaq" secondAttribute="trailing" id="LH2-Ft-xgu"/>
                             <constraint firstItem="Exw-3e-lvu" firstAttribute="leading" secondItem="Sy6-pN-RsA" secondAttribute="trailing" constant="8" symbolic="YES" id="LfD-5f-KOb"/>
                             <constraint firstItem="4v0-Xe-eaq" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leading" id="SVI-59-KgN"/>
-                            <constraint firstItem="Sy6-pN-RsA" firstAttribute="leading" secondItem="z9P-co-BGs" secondAttribute="trailing" constant="8" symbolic="YES" id="SVV-tg-biw"/>
                             <constraint firstItem="e0F-a8-syX" firstAttribute="top" secondItem="Sy6-pN-RsA" secondAttribute="bottom" constant="8" symbolic="YES" id="Uwz-GJ-wLP"/>
-                            <constraint firstItem="z9P-co-BGs" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leadingMargin" id="Vqz-9E-mNm"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="width" secondItem="EGl-He-1VL" secondAttribute="width" constant="-10" id="a4D-hs-Ipc"/>
                             <constraint firstItem="N0f-1d-Fcz" firstAttribute="centerY" secondItem="EGl-He-1VL" secondAttribute="centerY" multiplier="1:4" id="aK3-UE-eRM"/>
                             <constraint firstItem="N0f-1d-Fcz" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="cWo-HI-zU7"/>
-                            <constraint firstItem="z9P-co-BGs" firstAttribute="baseline" secondItem="Sy6-pN-RsA" secondAttribute="baseline" id="cxp-nB-QaT"/>
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="0IQ-ql-QTH" secondAttribute="bottom" constant="8" symbolic="YES" id="h00-H8-vy0"/>
                             <constraint firstItem="Sy6-pN-RsA" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="bottom" constant="8" symbolic="YES" id="h16-bo-Eyp"/>
                             <constraint firstItem="e0F-a8-syX" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leadingMargin" id="kQn-Cc-dja"/>
@@ -277,11 +268,11 @@ Video Unavailable</string>
                             <constraint firstAttribute="trailing" secondItem="0IQ-ql-QTH" secondAttribute="trailing" id="usg-ic-ui1"/>
                             <constraint firstItem="Exw-3e-lvu" firstAttribute="baseline" secondItem="Sy6-pN-RsA" secondAttribute="baseline" id="xQe-ft-kyk"/>
                             <constraint firstAttribute="trailing" secondItem="Exw-3e-lvu" secondAttribute="trailing" id="yIU-4q-zeI"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Sy6-pN-RsA" secondAttribute="leading" id="ySX-t4-BcS"/>
                             <constraint firstItem="0IQ-ql-QTH" firstAttribute="leading" secondItem="e0F-a8-syX" secondAttribute="trailing" constant="8" symbolic="YES" id="yYa-Bm-zGa"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="aliasLabel" destination="z9P-co-BGs" id="2Jv-w1-u0L"/>
                         <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
                         <outlet property="videoFailed" destination="BnE-ho-ATh" id="dVS-Vs-RLI"/>
@@ -300,7 +291,7 @@ Video Unavailable</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3240.5" y="-593.5"/>
+            <point key="canvasLocation" x="3240" y="-594"/>
         </scene>
         <!--Recruit Page Controller-->
         <scene sceneID="cr5-wz-YKb">
