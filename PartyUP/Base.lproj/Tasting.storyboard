@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -137,7 +137,7 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3004" contentMode="scaleToFill" verticalHuggingPriority="100" verticalCompressionResistancePriority="250" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
-                                <rect key="frame" x="20" y="665" width="528" height="20"/>
+                                <rect key="frame" x="20" y="664" width="528" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="20" id="6gz-0m-ols"/>
                                 </constraints>
@@ -153,7 +153,7 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" tag="3001" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="700" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA" userLabel="Time Label">
-                                <rect key="frame" x="20" y="636" width="528" height="21"/>
+                                <rect key="frame" x="20" y="636" width="528" height="20"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="8uE-Dk-IOM"/>
@@ -165,53 +165,35 @@ Video Unavailable</string>
                                     <outletCollection property="gestureRecognizers" destination="I3x-VG-PDu" appends="YES" id="HDi-zd-vt7"/>
                                 </connections>
                             </label>
-                            <containerView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4v0-Xe-eaq" userLabel="Advertise Overlay">
-                                <rect key="frame" x="0.0" y="28" width="600" height="572"/>
-                                <connections>
-                                    <segue destination="lyF-m8-FoM" kind="embed" id="YW2-4Y-iha"/>
-                                </connections>
-                            </containerView>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="0IQ-ql-QTH" userLabel="Vote View">
                                 <rect key="frame" x="556" y="592" width="44" height="0.0"/>
                                 <subviews>
                                     <button opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpR-Vf-xMl" userLabel="Down">
-                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.5" width="44" height="48.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="BMh-wc-Sha"/>
-                                            <constraint firstAttribute="width" secondItem="qpR-Vf-xMl" secondAttribute="height" multiplier="1:1" id="YVe-fr-dle"/>
-                                            <constraint firstAttribute="width" constant="22" id="cbK-5C-ZgN"/>
+                                            <constraint firstAttribute="width" constant="44" id="BMh-wc-Sha"/>
+                                            <constraint firstAttribute="width" secondItem="qpR-Vf-xMl" secondAttribute="height" multiplier="1:1.1" id="YVe-fr-dle"/>
                                         </constraints>
                                         <state key="normal" image="Down"/>
                                         <state key="selected" image="DownSelect"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="cbK-5C-ZgN"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="placeVote:" destination="qqy-na-3Zk" eventType="touchUpInside" id="tjz-Nz-oPG"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcm-Ri-sef" userLabel="Up">
-                                        <rect key="frame" x="0.0" y="-45" width="44" height="44"/>
+                                        <rect key="frame" x="0.0" y="-49.5" width="44" height="48.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="Gf2-Qk-tM1"/>
-                                            <constraint firstAttribute="width" secondItem="Gcm-Ri-sef" secondAttribute="height" multiplier="1:1" id="Hl4-MT-mkc"/>
-                                            <constraint firstAttribute="width" constant="22" id="th8-n1-dcU"/>
+                                            <constraint firstAttribute="width" constant="44" id="Gf2-Qk-tM1"/>
+                                            <constraint firstAttribute="width" secondItem="Gcm-Ri-sef" secondAttribute="height" multiplier="1:1.1" id="Hl4-MT-mkc"/>
                                         </constraints>
                                         <state key="normal" image="Up"/>
                                         <state key="selected" image="UpSelect"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="th8-n1-dcU"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="placeVote:" destination="qqy-na-3Zk" eventType="touchUpInside" id="oeV-SA-Ozz"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="3002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n4K-5j-O8G">
-                                        <rect key="frame" x="11" y="-10" width="21" height="20"/>
+                                        <rect key="frame" x="11" y="-10.5" width="21" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="38O-DJ-ZgO"/>
                                             <constraint firstAttribute="width" constant="21" id="RTg-hn-VM4"/>
@@ -226,7 +208,7 @@ Video Unavailable</string>
                                     <constraint firstItem="n4K-5j-O8G" firstAttribute="top" secondItem="Gcm-Ri-sef" secondAttribute="bottom" constant="-9" id="P6g-Du-Jqs"/>
                                     <constraint firstItem="n4K-5j-O8G" firstAttribute="centerX" secondItem="0IQ-ql-QTH" secondAttribute="centerX" id="T35-i5-Q9A"/>
                                     <constraint firstItem="qpR-Vf-xMl" firstAttribute="centerX" secondItem="0IQ-ql-QTH" secondAttribute="centerX" id="XTh-WL-E9b"/>
-                                    <constraint firstItem="qpR-Vf-xMl" firstAttribute="top" secondItem="n4K-5j-O8G" secondAttribute="bottom" constant="-10" id="Yjm-0I-SWx"/>
+                                    <constraint firstItem="qpR-Vf-xMl" firstAttribute="top" secondItem="n4K-5j-O8G" secondAttribute="bottom" constant="-9" id="Yjm-0I-SWx"/>
                                     <constraint firstAttribute="width" constant="44" id="ecw-mx-l9d"/>
                                     <constraint firstItem="n4K-5j-O8G" firstAttribute="centerY" secondItem="0IQ-ql-QTH" secondAttribute="centerY" id="frN-Uh-dWn"/>
                                     <constraint firstItem="Gcm-Ri-sef" firstAttribute="centerX" secondItem="0IQ-ql-QTH" secondAttribute="centerX" id="hig-5o-1RS"/>
@@ -243,6 +225,12 @@ Video Unavailable</string>
                                     <action selector="purveyOptions:" destination="qqy-na-3Zk" eventType="touchUpInside" id="VoC-eA-I29"/>
                                 </connections>
                             </button>
+                            <containerView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4v0-Xe-eaq" userLabel="Advertise Overlay">
+                                <rect key="frame" x="0.0" y="28" width="600" height="572"/>
+                                <connections>
+                                    <segue destination="lyF-m8-FoM" kind="embed" id="YW2-4Y-iha"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -399,14 +387,14 @@ Video Unavailable</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Down" width="12" height="15"/>
-        <image name="DownSelect" width="21" height="24"/>
+        <image name="Down" width="18" height="23"/>
+        <image name="DownSelect" width="32" height="35"/>
         <image name="Left" width="15" height="12"/>
         <image name="Logo" width="77" height="96"/>
         <image name="Right" width="15" height="12"/>
         <image name="SmallDots" width="22" height="5"/>
-        <image name="Up" width="12" height="15"/>
-        <image name="UpSelect" width="21" height="24"/>
+        <image name="Up" width="18" height="23"/>
+        <image name="UpSelect" width="32" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="YW2-4Y-iha"/>
