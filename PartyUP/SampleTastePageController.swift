@@ -172,9 +172,20 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		voteLabel.text = "\(sample.rating[0] - sample.rating[1])"
 	}
 
-	func shareSampleVia(service: String) {
+	@IBAction func shareSampleVia(sender: UIButton) {
+		var service: String
+		switch sender.tag {
+		case 101:
+			service = SLServiceTypeTwitter
+		case 102:
+			service = SLServiceTypeFacebook
+		default:
+			return
+		}
 		let message = NSLocalizedString("#PartyUP at \(sample.event.name)", comment: "Share video message prefix")
 		presentShareSheetOn(self, viaService: service, withMessage: message, url: media, image: nil)
+	}
+	@IBAction func shareFacebook(sender: UIButton) {
 	}
 
 	@IBAction func placeVote(sender: UIButton) {
@@ -197,7 +208,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		}
 	}
 
-	func purveyOffensive() {
+	@IBAction func purveyOffensive(sender: UIButton) {
         let user = AuthenticationManager.shared.identity!
 		let options = SCLAlertView()
 
@@ -209,36 +220,6 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 			subTitle: NSLocalizedString("Give this offensive video the boot!", comment: "Offensive material alert message"),
 			closeButtonTitle: NSLocalizedString("Cancel", comment: "Cancel alert action"),
 			colorStyle: 0xf77e56)
-	}
-
-	@IBAction func purveyOptions(sender: UIButton) {
-		let options = UIAlertController(
-			title: NSLocalizedString("Share or Report", comment: "Share or Report alert title"),
-			message: NSLocalizedString("Share this video or report it as offensive.", comment: "Share and Report message"),
-			preferredStyle: .ActionSheet)
-		let twitter = UIAlertAction(
-			title: NSLocalizedString("Share Video via Twitter", comment: "Share via Twitter alert action"),
-			style: .Default) { _ in self.shareSampleVia(SLServiceTypeTwitter) }
-		let facebook = UIAlertAction(
-			title: NSLocalizedString("Share Video via Facebook", comment: "Share via Facebook alert action"),
-			style: .Default) { _ in self.shareSampleVia(SLServiceTypeFacebook) }
-		let report = UIAlertAction(
-			title: NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action"),
-			style: .Destructive) { _ in self.purveyOffensive() }
-		let cancel = UIAlertAction(
-			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
-			style: .Cancel) { _ in }
-		options.addAction(twitter)
-		options.addAction(facebook)
-		options.addAction(report)
-		options.addAction(cancel)
-
-		if let pop = options.popoverPresentationController {
-			pop.sourceView = sender
-			pop.sourceRect = sender.bounds
-		}
-
-		presentViewController(options, animated: true, completion: nil)
 	}
 
 	// MARK: - Player
