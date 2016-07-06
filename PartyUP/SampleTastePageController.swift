@@ -72,11 +72,11 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
         let text = NSMutableAttributedString()
         
         if let alias = sample.alias {
-            text.appendAttributedString(NSAttributedString(string: alias + "  ", attributes: [NSFontAttributeName:UIFont.boldSystemFontOfSize(15)]))
+            text.appendAttributedString(NSAttributedString(string: alias + "  ", attributes: [NSFontAttributeName:UIFont.boldSystemFontOfSize(16)]))
         }
 		
 		if let comment = sample.comment {
-			 text.appendAttributedString(NSAttributedString(string: comment, attributes: [NSFontAttributeName:UIFont.systemFontOfSize((15))]))
+			 text.appendAttributedString(NSAttributedString(string: comment, attributes: [NSFontAttributeName:UIFont.systemFontOfSize((16))]))
 		}
         
         commentLabel.attributedText = text
