@@ -264,7 +264,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
     }
     
     private static let availableCoachMarks = [
-        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "See what's going on,\nswipe through videos!")]
+        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: NSLocalizedString("See what's going on,\nswipe through videos!", comment: "Taste video greeting coachmark"))]
     
     private let tutorial = TutorialOverlayManager(marks: SampleTastePageController.availableCoachMarks)
 }
