@@ -308,11 +308,11 @@ class PartyRootController: UIViewController {
     }
     
     private static let availableCoachMarks = [
-        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "Welcome to the PartyUP City Hub!\nThis is where you find the parties.\nTap a place to see what is going on!"),
-        TutorialMark(identifier: CoachIdentifier.Camera.rawValue, hint: "Take video of your\nnightlife adventures!"),
-        TutorialMark(identifier: CoachIdentifier.City.rawValue, hint: "See what is going on in\nother party cities."),
-        TutorialMark(identifier: CoachIdentifier.Reminder.rawValue, hint: "You want to remember to PartyUP?\nSet reminders here."),
-        TutorialMark(identifier: CoachIdentifier.About.rawValue, hint: "Learn more about PartyUP!")]
+        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: NSLocalizedString("Welcome to the PartyUP City Hub!\nThis is where you find the parties.\nTap a place to see what is going on!", comment: "City hub welcome coachmark")),
+        TutorialMark(identifier: CoachIdentifier.Camera.rawValue, hint: NSLocalizedString("Take video of your\nnightlife adventures!", comment: "City hub camera coachmark")),
+        TutorialMark(identifier: CoachIdentifier.City.rawValue, hint: NSLocalizedString("See what is going on in\nother party cities.", comment: "City hub location selector coachmark")),
+        TutorialMark(identifier: CoachIdentifier.Reminder.rawValue, hint: NSLocalizedString("You want to remember to PartyUP?\nSet reminders here.", comment: "City hub reminder button coachmark")),
+        TutorialMark(identifier: CoachIdentifier.About.rawValue, hint: NSLocalizedString("Learn more about PartyUP!", comment: "City hub acknowledgements coachmark"))]
     
     private let tutorial = TutorialOverlayManager(marks: PartyRootController.availableCoachMarks)
 }
