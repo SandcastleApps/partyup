@@ -99,11 +99,11 @@
                         <viewControllerLayoutGuide type="bottom" id="1ZI-if-Z26"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EGl-He-1VL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="-3000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0f-1d-Fcz" userLabel="Greeting Pilot">
-                                <rect key="frame" x="206" y="91" width="1" height="1"/>
+                                <rect key="frame" x="299" y="74" width="1" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="lcI-fW-Pea"/>
@@ -111,10 +111,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-Cg-5eP" userLabel="Review">
-                                <rect key="frame" x="5" y="28" width="404" height="414"/>
+                                <rect key="frame" x="5" y="28" width="590" height="600"/>
                                 <subviews>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BnE-ho-ATh" userLabel="Video Failed">
-                                        <rect key="frame" x="121" y="183" width="162" height="48"/>
+                                        <rect key="frame" x="214" y="276" width="162" height="48"/>
                                         <string key="text">💢
 Video Unavailable</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -122,7 +122,7 @@ Video Unavailable</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6IQ-1N-b0C">
-                                        <rect key="frame" x="187" y="192" width="30" height="30"/>
+                                        <rect key="frame" x="280" y="285" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="KnS-nW-roO"/>
                                             <constraint firstAttribute="height" constant="30" id="geR-KK-mJS"/>
@@ -137,7 +137,7 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNJ-K7-UNE" userLabel="Video Progress" customClass="DACircularProgressView">
-                                <rect key="frame" x="384" y="33" width="20" height="20"/>
+                                <rect key="frame" x="570" y="33" width="20" height="20"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="1Ud-H6-JTU"/>
@@ -145,10 +145,10 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X68-l0-vg1" userLabel="Time And Share">
-                                <rect key="frame" x="0.0" y="444" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="630" width="600" height="44"/>
                                 <subviews>
                                     <label opaque="NO" tag="3001" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="700" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA" userLabel="Time Label">
-                                        <rect key="frame" x="18" y="12" width="43" height="20"/>
+                                        <rect key="frame" x="18" y="12" width="442" height="20"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="8uE-Dk-IOM"/>
@@ -161,7 +161,7 @@ Video Unavailable</string>
                                         </connections>
                                     </label>
                                     <button opaque="NO" tag="102" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbL-OI-v96" userLabel="Facebook">
-                                        <rect key="frame" x="282" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="468" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="AVu-Zy-iEb"/>
                                             <constraint firstAttribute="height" constant="44" id="wMb-7B-L3J"/>
@@ -174,7 +174,7 @@ Video Unavailable</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="101" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jsX-uH-2fJ" userLabel="Twitter">
-                                        <rect key="frame" x="326" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="512" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="TQH-s4-fG9"/>
                                             <constraint firstAttribute="width" constant="44" id="UcX-WD-3dq"/>
@@ -186,7 +186,7 @@ Video Unavailable</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3003" contentMode="scaleAspectFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu" userLabel="•••">
-                                        <rect key="frame" x="370" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="556" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="1ag-XW-Bxo"/>
                                             <constraint firstAttribute="width" constant="44" id="UcM-cE-dHW"/>
@@ -204,6 +204,7 @@ Video Unavailable</string>
                                     <constraint firstItem="Sy6-pN-RsA" firstAttribute="leading" secondItem="X68-l0-vg1" secondAttribute="leadingMargin" constant="10" id="BWY-OM-Zx0"/>
                                     <constraint firstAttribute="height" constant="44" id="E8G-rs-Lv5"/>
                                     <constraint firstItem="Exw-3e-lvu" firstAttribute="centerY" secondItem="X68-l0-vg1" secondAttribute="centerY" id="abD-Ej-YjZ"/>
+                                    <constraint firstItem="vbL-OI-v96" firstAttribute="leading" secondItem="Sy6-pN-RsA" secondAttribute="trailing" constant="8" symbolic="YES" id="adb-YK-YXZ"/>
                                     <constraint firstItem="jsX-uH-2fJ" firstAttribute="centerY" secondItem="X68-l0-vg1" secondAttribute="centerY" id="oiq-qa-VrA"/>
                                     <constraint firstAttribute="trailing" secondItem="Exw-3e-lvu" secondAttribute="trailing" id="rvt-jl-JBQ"/>
                                     <constraint firstItem="vbL-OI-v96" firstAttribute="centerY" secondItem="X68-l0-vg1" secondAttribute="centerY" id="u4l-ls-LMa"/>
@@ -211,10 +212,10 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="200" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0IQ-ql-QTH" userLabel="Vote View">
-                                <rect key="frame" x="370" y="490" width="44" height="238"/>
+                                <rect key="frame" x="556" y="676" width="44" height="0.0"/>
                                 <subviews>
                                     <button opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpR-Vf-xMl" userLabel="Down">
-                                        <rect key="frame" x="0.0" y="120" width="44" height="49"/>
+                                        <rect key="frame" x="0.0" y="1" width="44" height="49"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="BMh-wc-Sha"/>
                                             <constraint firstAttribute="width" secondItem="qpR-Vf-xMl" secondAttribute="height" multiplier="1:1.1" id="YVe-fr-dle"/>
@@ -226,7 +227,7 @@ Video Unavailable</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcm-Ri-sef" userLabel="Up">
-                                        <rect key="frame" x="0.0" y="70" width="44" height="48"/>
+                                        <rect key="frame" x="0.0" y="-49" width="44" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="Gf2-Qk-tM1"/>
                                             <constraint firstAttribute="width" secondItem="Gcm-Ri-sef" secondAttribute="height" multiplier="1:1.1" id="Hl4-MT-mkc"/>
@@ -238,7 +239,7 @@ Video Unavailable</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="3002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n4K-5j-O8G">
-                                        <rect key="frame" x="11" y="109" width="21" height="20"/>
+                                        <rect key="frame" x="11" y="-10" width="21" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="38O-DJ-ZgO"/>
                                             <constraint firstAttribute="width" constant="21" id="RTg-hn-VM4"/>
@@ -260,13 +261,13 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4v0-Xe-eaq" userLabel="Advertise Overlay">
-                                <rect key="frame" x="0.0" y="28" width="414" height="708"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="572"/>
                                 <connections>
                                     <segue destination="lyF-m8-FoM" kind="embed" id="YW2-4Y-iha"/>
                                 </connections>
                             </containerView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3004" contentMode="scaleToFill" verticalHuggingPriority="100" verticalCompressionResistancePriority="250" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
-                                <rect key="frame" x="20" y="490" width="342" height="238"/>
+                                <rect key="frame" x="20" y="676" width="528" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="20" id="6gz-0m-ols"/>
                                 </constraints>
@@ -299,13 +300,7 @@ Video Unavailable</string>
                             <constraint firstAttribute="trailing" secondItem="0IQ-ql-QTH" secondAttribute="trailing" id="usg-ic-ui1"/>
                             <constraint firstItem="0IQ-ql-QTH" firstAttribute="leading" secondItem="e0F-a8-syX" secondAttribute="trailing" constant="8" symbolic="YES" id="yYa-Bm-zGa"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="4v0-Xe-eaq"/>
-                            </mask>
-                        </variation>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
@@ -414,7 +409,7 @@ Video Unavailable</string>
                         <viewControllerLayoutGuide type="bottom" id="bQD-py-R1y"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="x9t-C5-WiG" userLabel="Web">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="708"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="572"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
