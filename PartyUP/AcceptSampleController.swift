@@ -217,7 +217,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	}
 	//MARK: - Alias Picker
 
-	private let aliases = AuthenticationManager.shared.user.aliases
+	private let aliases = [NSLocalizedString("Post Anonymously", comment: "anonymous user moniker")] + AuthenticationManager.shared.user.aliases
 
 	@IBOutlet weak var alias: UIButton! {
 		didSet {
@@ -498,8 +498,8 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	}
 
 	private static let availableCoachMarks = [
-		TutorialMark(identifier: CoachIdentifier.Venue.rawValue, hint: "Tap to select where\nyou are partying."),
-		TutorialMark(identifier: CoachIdentifier.Alias.rawValue, hint: "Tap to select one of\nyour social aliases.")]
+        TutorialMark(identifier: CoachIdentifier.Venue.rawValue, hint: NSLocalizedString("Tap to select where\nyou are partying.", comment: "Accept video venue selection coachmark")),
+        TutorialMark(identifier: CoachIdentifier.Alias.rawValue, hint: NSLocalizedString("Tap to select one of\nyour social aliases.", comment: "Accept video alias selection coachmark"))]
 
 	private let tutorial = TutorialOverlayManager(marks: AcceptSampleController.availableCoachMarks)
 }

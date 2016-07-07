@@ -14,7 +14,7 @@ import AWSCore
 
 class FacebookAuthenticationProvider: NSObject, AuthenticationProviding {
 	var name: String { return "Facebook" }
-	var logo: UIImage? { return UIImage(named: "Facebook") }
+	var logo: UIImage? { return UIImage(named: "Facebook White") }
 	var color: UIColor { return UIColor(r: 59, g: 89, b: 152, alpha: 255) }
 
     required init(keychain: Keychain) {

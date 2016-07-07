@@ -122,7 +122,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
 	}
 
-	func didFinishShowingFromCoachMarksController(coachMarksController: CoachMarksController) {
+	func coachMarksController(coachMarksController: CoachMarksController, didFinishShowingAndWasSkipped skipped: Bool) {
 		if var seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
 			seen.appendContentsOf(unseen.map { $0.identifier})
 			defaults.setObject(seen, forKey: PartyUpPreferences.TutorialViewed)

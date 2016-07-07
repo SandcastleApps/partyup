@@ -44,7 +44,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	@IBOutlet weak var videoFailed: UILabel!
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
-	@IBOutlet weak var aliasLabel: UILabel!
+	@IBOutlet weak var shareView: UIView!
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
 	@IBOutlet weak var videoReview: UIView!
@@ -73,12 +73,24 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
         super.viewDidLoad()
 
 		timeLabel.text = formatTime(sample.time, relative: displayRelativeTime)
+        
+        let text = NSMutableAttributedString()
+        
+        if let alias = sample.alias {
+            text.appendAttributedString(NSAttributedString(string: alias + "  ", attributes: [NSFontAttributeName:UIFont.boldSystemFontOfSize(16)]))
+        }
 		
 		if let comment = sample.comment {
-			commentLabel.text = comment
+			 text.appendAttributedString(NSAttributedString(string: comment, attributes: [NSFontAttributeName:UIFont.systemFontOfSize((16))]))
 		}
+        
+        commentLabel.attributedText = text
 
-		aliasLabel.text = sample.alias ?? NSLocalizedString("Anonymous Milquetoast", comment: "Anonymous user moniker")
+		let line: CAGradientLayer = CAGradientLayer()
+		line.startPoint = CGPoint(x: 0.0, y: 0.5)
+		line.endPoint = CGPoint(x: 1.0, y: 0.5)
+		line.colors = [UIColor.lightGrayColor().CGColor, UIColor.darkGrayColor().CGColor, UIColor.lightGrayColor().CGColor]
+		shareView.layer.insertSublayer(line, atIndex: 0)
 
 		updateVoteIndicators()
 
@@ -166,6 +178,11 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		Flurry.endTimedEvent("Sample_Tasted", withParameters: ["duration" : duration])
 	}
 
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		shareView.layer.sublayers?[0].frame = CGRect(x: 0.0, y: shareView.bounds.height, width: shareView.bounds.width, height: 0.5)
+	}
+
 	func updateVoteIndicators() {
 		if let treat = sample as? Votable {
 			voteButtons[0].selected = treat.vote == .Down
@@ -177,7 +194,16 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		}
 	}
 
-	func shareSampleVia(service: String) {
+	@IBAction func shareSampleVia(sender: UIButton) {
+		var service: String
+		switch sender.tag {
+		case 101:
+			service = SLServiceTypeTwitter
+		case 102:
+			service = SLServiceTypeFacebook
+		default:
+			return
+		}
 		let message = NSLocalizedString("#PartyUP at \(sample.event.name)", comment: "Share video message prefix")
 		presentShareSheetOn(self, viaService: service, withMessage: message, url: media, image: nil)
 	}
@@ -204,7 +230,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		}
 	}
 
-	func purveyOffensive() {
+	@IBAction func purveyOffensive(sender: UIButton) {
         let user = AuthenticationManager.shared.identity!
 		let options = SCLAlertView()
 
@@ -216,36 +242,6 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 			subTitle: NSLocalizedString("Give this offensive video the boot!", comment: "Offensive material alert message"),
 			closeButtonTitle: NSLocalizedString("Cancel", comment: "Cancel alert action"),
 			colorStyle: 0xf77e56)
-	}
-
-	@IBAction func purveyOptions(sender: UIButton) {
-		let options = UIAlertController(
-			title: NSLocalizedString("Share or Report", comment: "Share or Report alert title"),
-			message: NSLocalizedString("Share this video or report it as offensive.", comment: "Share and Report message"),
-			preferredStyle: .ActionSheet)
-		let twitter = UIAlertAction(
-			title: NSLocalizedString("Share Video via Twitter", comment: "Share via Twitter alert action"),
-			style: .Default) { _ in self.shareSampleVia(SLServiceTypeTwitter) }
-		let facebook = UIAlertAction(
-			title: NSLocalizedString("Share Video via Facebook", comment: "Share via Facebook alert action"),
-			style: .Default) { _ in self.shareSampleVia(SLServiceTypeFacebook) }
-		let report = UIAlertAction(
-			title: NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action"),
-			style: .Destructive) { _ in self.purveyOffensive() }
-		let cancel = UIAlertAction(
-			title: NSLocalizedString("Cancel", comment: "Cancel alert action"),
-			style: .Cancel) { _ in }
-		options.addAction(twitter)
-		options.addAction(facebook)
-		options.addAction(report)
-		options.addAction(cancel)
-
-		if let pop = options.popoverPresentationController {
-			pop.sourceView = sender
-			pop.sourceRect = sender.bounds
-		}
-
-		presentViewController(options, animated: true, completion: nil)
 	}
 
 	// MARK: - Player
@@ -290,7 +286,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
     }
     
     private static let availableCoachMarks = [
-        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: "See what's going on,\nswipe through videos!")]
+        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: NSLocalizedString("See what's going on,\nswipe through videos!", comment: "Taste video greeting coachmark"))]
     
     private let tutorial = TutorialOverlayManager(marks: SampleTastePageController.availableCoachMarks)
 }

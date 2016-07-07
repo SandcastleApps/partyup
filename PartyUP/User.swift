@@ -10,7 +10,7 @@ import Foundation
 import FBSDKCoreKit
 
 class User {
-	var aliases = [NSLocalizedString("Anonymous Milquetoast", comment: "anonymous user moniker")]
+	var aliases = [String]()
 
 	init() {
 		refresh()
