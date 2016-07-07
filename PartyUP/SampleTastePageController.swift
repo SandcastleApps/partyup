@@ -40,6 +40,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	@IBOutlet weak var videoFailed: UILabel!
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
+	@IBOutlet weak var shareView: UIView!
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
 	@IBOutlet weak var videoReview: UIView!
@@ -80,6 +81,16 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		}
         
         commentLabel.attributedText = text
+
+		let line: CAGradientLayer = CAGradientLayer()
+//		line.shadowColor = UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor
+//		line.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//		line.shadowRadius = 1.0
+//		line.shadowOpacity = 1.0
+		line.startPoint = CGPoint(x: 0.0, y: 0.5)
+		line.endPoint = CGPoint(x: 1.0, y: 0.5)
+		line.colors = [UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor, UIColor(r: 236, g: 0, b: 140, alpha: 255).CGColor, UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor]
+		shareView.layer.insertSublayer(line, atIndex: 0)
 
 		updateVoteIndicators()
 
@@ -165,6 +176,11 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		Flurry.endTimedEvent("Sample_Tasted", withParameters: ["duration" : duration])
 	}
 
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		shareView.layer.sublayers?[0].frame = CGRect(x: 10.0, y: shareView.bounds.height, width: shareView.bounds.width - 20.0, height: 0.5)
+	}
+
 	func updateVoteIndicators() {
 		voteButtons[0].selected = sample.vote == .Down
 		voteButtons[1].selected = sample.vote == .Up
@@ -184,8 +200,6 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		}
 		let message = NSLocalizedString("#PartyUP at \(sample.event.name)", comment: "Share video message prefix")
 		presentShareSheetOn(self, viaService: service, withMessage: message, url: media, image: nil)
-	}
-	@IBAction func shareFacebook(sender: UIButton) {
 	}
 
 	@IBAction func placeVote(sender: UIButton) {
