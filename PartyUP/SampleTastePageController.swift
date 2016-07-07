@@ -83,13 +83,9 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
         commentLabel.attributedText = text
 
 		let line: CAGradientLayer = CAGradientLayer()
-//		line.shadowColor = UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor
-//		line.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//		line.shadowRadius = 1.0
-//		line.shadowOpacity = 1.0
 		line.startPoint = CGPoint(x: 0.0, y: 0.5)
 		line.endPoint = CGPoint(x: 1.0, y: 0.5)
-		line.colors = [UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor, UIColor(r: 236, g: 0, b: 140, alpha: 255).CGColor, UIColor(r: 251, g: 176, b: 64, alpha: 255).CGColor]
+		line.colors = [UIColor.lightGrayColor().CGColor, UIColor.darkGrayColor().CGColor, UIColor.lightGrayColor().CGColor]
 		shareView.layer.insertSublayer(line, atIndex: 0)
 
 		updateVoteIndicators()
@@ -178,7 +174,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		shareView.layer.sublayers?[0].frame = CGRect(x: 10.0, y: shareView.bounds.height, width: shareView.bounds.width - 20.0, height: 0.5)
+		shareView.layer.sublayers?[0].frame = CGRect(x: 0.0, y: shareView.bounds.height, width: shareView.bounds.width, height: 0.5)
 	}
 
 	func updateVoteIndicators() {

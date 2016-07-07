@@ -145,7 +145,7 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="200" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0IQ-ql-QTH" userLabel="Vote View">
-                                <rect key="frame" x="556" y="676" width="44" height="0.0"/>
+                                <rect key="frame" x="556" y="667" width="44" height="0.0"/>
                                 <subviews>
                                     <button opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpR-Vf-xMl" userLabel="Down">
                                         <rect key="frame" x="0.0" y="1" width="44" height="49"/>
@@ -194,7 +194,7 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X68-l0-vg1" userLabel="Time And Share">
-                                <rect key="frame" x="0.0" y="630" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="621" width="600" height="44"/>
                                 <subviews>
                                     <label opaque="NO" tag="3001" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="700" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA" userLabel="Time Label">
                                         <rect key="frame" x="18" y="12" width="442" height="20"/>
@@ -259,7 +259,7 @@ Video Unavailable</string>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3004" contentMode="scaleToFill" verticalHuggingPriority="100" verticalCompressionResistancePriority="250" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-a8-syX" userLabel="Comment Text">
-                                <rect key="frame" x="20" y="676" width="528" height="20"/>
+                                <rect key="frame" x="11" y="667" width="537" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="20" id="6gz-0m-ols"/>
                                 </constraints>
@@ -287,12 +287,12 @@ Video Unavailable</string>
                             <constraint firstItem="N0f-1d-Fcz" firstAttribute="centerY" secondItem="EGl-He-1VL" secondAttribute="centerY" multiplier="1:4" id="aK3-UE-eRM"/>
                             <constraint firstItem="N0f-1d-Fcz" firstAttribute="centerX" secondItem="EGl-He-1VL" secondAttribute="centerX" id="cWo-HI-zU7"/>
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="0IQ-ql-QTH" secondAttribute="bottom" priority="750" constant="8" symbolic="YES" id="h00-H8-vy0"/>
-                            <constraint firstItem="e0F-a8-syX" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leadingMargin" id="kQn-Cc-dja"/>
+                            <constraint firstItem="e0F-a8-syX" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leading" constant="11" id="kQn-Cc-dja"/>
                             <constraint firstItem="WNy-Cg-5eP" firstAttribute="height" secondItem="EGl-He-1VL" secondAttribute="width" id="kjD-cg-CK9"/>
                             <constraint firstItem="DNJ-K7-UNE" firstAttribute="trailing" secondItem="WNy-Cg-5eP" secondAttribute="trailing" constant="-5" id="noT-CU-HiI"/>
                             <constraint firstItem="DNJ-K7-UNE" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="top" constant="5" id="rIS-w6-1v9"/>
                             <constraint firstItem="X68-l0-vg1" firstAttribute="leading" secondItem="EGl-He-1VL" secondAttribute="leading" id="rSz-41-SdU"/>
-                            <constraint firstItem="X68-l0-vg1" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="bottom" constant="2" id="s8C-b1-T4y"/>
+                            <constraint firstItem="X68-l0-vg1" firstAttribute="top" secondItem="WNy-Cg-5eP" secondAttribute="bottom" constant="-7" id="s8C-b1-T4y"/>
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" relation="lessThanOrEqual" secondItem="e0F-a8-syX" secondAttribute="bottom" constant="8" symbolic="YES" id="tGy-Ys-kGe"/>
                             <constraint firstItem="1ZI-if-Z26" firstAttribute="top" secondItem="4v0-Xe-eaq" secondAttribute="bottom" id="tmx-aY-Z9t"/>
                             <constraint firstAttribute="trailing" secondItem="0IQ-ql-QTH" secondAttribute="trailing" id="usg-ic-ui1"/>
