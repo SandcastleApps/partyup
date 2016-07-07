@@ -28,8 +28,13 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 			}
 		}
 	}
+    
+    var seeds: [Seedling]?
 
-	var treats: [Tastable]? { return samples?.map({ $0 as Tastable }) }
+    var treats: [Tastable]? {
+        guard let real = samples, let fake = seeds else { return nil }
+        return real.map({ $0 as Tastable }) + fake.map({ $0 as Tastable})
+    }
 
 	var samples: [Sample]? {
 		didSet {
@@ -77,6 +82,8 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		self.location = location
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(Venue.sieveOffendingSamples), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
+        
+        self.seeds = [] //[Seedling(user: NSUUID(), alias: "Poltergiest", event: self, time: NSDate(), comment: "Hi there", media: NSURL(string: "http://www.partyuptonight.com/images/s1.jpg")!)]
 	}
 
 	convenience init(venue: JSON) {

@@ -14,6 +14,12 @@ import Flurry_iOS_SDK
 import SCLAlertView
 
 class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerViewDelegate {
+    
+    enum MediaType {
+        case Video(VIMVideoPlayerView)
+        case Picture(UIImageView)
+        case Undetermined
+    }
 
 	private static let timeFormatter: NSDateFormatter = {
 		let formatter = NSDateFormatter()
@@ -51,9 +57,18 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	@IBOutlet weak var voteLabel: UILabel!
 	@IBOutlet var voteButtons: [UIButton]!
 
-	private let playView = VIMVideoPlayerView()
+	private var playView = VIMVideoPlayerView()//MediaType.Undetermined
+
 	private var displayRelativeTime = true
-    private var media: NSURL?
+    private var media: NSURL? //{
+//        didSet {
+//            if let media = media {
+//                if media.mime ==
+//            } else {
+//                playView = .Undetermined
+//            }
+//        }
+//    }
 
 	private func formatTime(time: NSDate, relative: Bool) -> String {
 		if relative {
