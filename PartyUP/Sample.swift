@@ -60,6 +60,8 @@ final class Sample: Votable, Equatable
 		}
 	}
 
+	var isShareable: Bool { return true }
+
     init(user: NSUUID, event: Venue, time: NSDate, alias: String?, comment: String?, stamp: UsageStamp, rating: [Int], prefix: String = PartyUpConstants.DefaultStoragePrefix) {
 		self.user = user
         self.alias = alias

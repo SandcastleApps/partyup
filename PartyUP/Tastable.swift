@@ -18,10 +18,11 @@ protocol Tastable: CustomDebugStringConvertible {
 	var comment: String? { get }
 	var media: NSURL { get }
 	var debugDescription: String { get }
+	var isShareable: Bool { get }
 }
 
 extension Tastable   {
-	var debugDescription: String {
-		get { return "User = \(user.UUIDString) alias = \(alias)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\n" }
-	}
+	var debugDescription: String { return "User = \(user.UUIDString) alias = \(alias)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\n" }
+
+	var isShareable: Bool { return false }
 }

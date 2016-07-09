@@ -12,6 +12,7 @@ import Social
 import DACircularProgress
 import Flurry_iOS_SDK
 import SCLAlertView
+import Alamofire
 
 class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerViewDelegate {
     
@@ -43,6 +44,8 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 			} else {
 				media = sample.media
 			}
+
+			shareView?.hidden = sample?.isShareable == false
         }
     }
 	var ad: NSURL?
@@ -50,25 +53,47 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	@IBOutlet weak var videoFailed: UILabel!
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
-	@IBOutlet weak var shareView: UIView!
+	@IBOutlet weak var infoView: UIView!
+	@IBOutlet weak var shareView: UIView! {
+		didSet {
+			shareView?.hidden = sample?.isShareable == false
+		}
+	}
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
 	@IBOutlet weak var videoReview: UIView!
 	@IBOutlet weak var voteLabel: UILabel!
 	@IBOutlet var voteButtons: [UIButton]!
 
-	private var playView = VIMVideoPlayerView()//MediaType.Undetermined
+	private var playView: UIView?
 
 	private var displayRelativeTime = true
-    private var media: NSURL? //{
-//        didSet {
-//            if let media = media {
-//                if media.mime ==
-//            } else {
-//                playView = .Undetermined
-//            }
-//        }
-//    }
+    private var media: NSURL? {
+        didSet {
+            if let media = media {
+				if media.mime.hasPrefix("video") {
+					let play = VIMVideoPlayerView()
+					play.player.setURL(media)
+					playView = play
+				} else if media.mime.hasPrefix("image") {
+					let view = UIImageView()
+					view.contentMode = .ScaleAspectFill
+					playView = view
+					Alamofire.request(.GET, media)
+						.validate()
+						.validate(contentType: [media.mime])
+						.responseData(queue: dispatch_get_main_queue()) { response in
+							if let data = response.data, let image = UIImage(data: data) {
+								if let play = self.playView as? UIImageView { play.image = image }
+							}
+							self.videoWaiting.stopAnimating()
+					}
+				}
+            } else {
+                playView = nil
+            }
+        }
+    }
 
 	private func formatTime(time: NSDate, relative: Bool) -> String {
 		if relative {
@@ -105,57 +130,58 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		line.startPoint = CGPoint(x: 0.0, y: 0.5)
 		line.endPoint = CGPoint(x: 1.0, y: 0.5)
 		line.colors = [UIColor.lightGrayColor().CGColor, UIColor.darkGrayColor().CGColor, UIColor.lightGrayColor().CGColor]
-		shareView.layer.insertSublayer(line, atIndex: 0)
+		infoView.layer.insertSublayer(line, atIndex: 0)
 
 		updateVoteIndicators()
 
-		playView.translatesAutoresizingMaskIntoConstraints = false
-		playView.layer.cornerRadius = 10
-		playView.layer.masksToBounds = true
-		playView.delegate = self
-		playView.player.enableTimeUpdates()
-		playView.player.looping = true
+		if let playView = playView {
+			playView.translatesAutoresizingMaskIntoConstraints = false
+			playView.layer.cornerRadius = 10
+			playView.layer.masksToBounds = true
 
-		videoReview.addSubview(playView)
+			videoReview.addSubview(playView)
 
-		videoReview.addConstraint(NSLayoutConstraint(
-			item: playView,
-			attribute: .CenterX,
-			relatedBy: .Equal,
-			toItem: videoReview,
-			attribute: .CenterX,
-			multiplier: 1.0,
-			constant: 0))
+			videoReview.addConstraint(NSLayoutConstraint(
+				item: playView,
+				attribute: .CenterX,
+				relatedBy: .Equal,
+				toItem: videoReview,
+				attribute: .CenterX,
+				multiplier: 1.0,
+				constant: 0))
 
-		videoReview.addConstraint(NSLayoutConstraint(
-			item: playView,
-			attribute: .Width,
-			relatedBy: .Equal,
-			toItem: videoReview,
-			attribute: .Width,
-			multiplier: 1.0,
-			constant: 0))
+			videoReview.addConstraint(NSLayoutConstraint(
+				item: playView,
+				attribute: .Width,
+				relatedBy: .Equal,
+				toItem: videoReview,
+				attribute: .Width,
+				multiplier: 1.0,
+				constant: 0))
 
-		videoReview.addConstraint(NSLayoutConstraint(
-			item: playView,
-			attribute: .Height,
-			relatedBy: .Equal,
-			toItem: playView,
-			attribute: .Width,
-			multiplier: 1.0,
-			constant: 0))
+			videoReview.addConstraint(NSLayoutConstraint(
+				item: playView,
+				attribute: .Height,
+				relatedBy: .Equal,
+				toItem: playView,
+				attribute: .Width,
+				multiplier: 1.0,
+				constant: 0))
 
-		videoReview.addConstraint(NSLayoutConstraint(
-			item: playView,
-			attribute: .Top,
-			relatedBy: .Equal,
-			toItem: videoReview,
-			attribute: .Top,
-			multiplier: 1.0,
-			constant: 0))
+			videoReview.addConstraint(NSLayoutConstraint(
+				item: playView,
+				attribute: .Top,
+				relatedBy: .Equal,
+				toItem: videoReview,
+				attribute: .Top,
+				multiplier: 1.0,
+				constant: 0))
 
-		if let media = media {
-			playView.player.setURL(media)
+			if let playView = playView as? VIMVideoPlayerView {
+				playView.delegate = self
+				playView.player.enableTimeUpdates()
+				playView.player.looping = true
+			}
 		}
 
 		let notify = NSNotificationCenter.defaultCenter()
@@ -169,14 +195,14 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
-		playView.player.pause()
+		if let play = playView as? VIMVideoPlayerView { play.player.pause() }
 	}
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
 		navigationController?.navigationBar.topItem?.title = sample.event.name
-		playView.player.play()
+		if let play = playView as? VIMVideoPlayerView { play.player.play() }
         
         tutorial.start(self)
 
@@ -185,17 +211,19 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 	override func viewDidDisappear(animated: Bool) {
 		super.viewDidDisappear(animated)
-		playView.player.pause()
 		var duration = 0.0
-		if let time = playView.player.player.currentItem?.duration {
-			duration = CMTimeGetSeconds(time)
+		if let play = playView as? VIMVideoPlayerView {
+			play.player.pause()
+			if let time = play.player.player.currentItem?.duration {
+				duration = CMTimeGetSeconds(time)
+			}
 		}
 		Flurry.endTimedEvent("Sample_Tasted", withParameters: ["duration" : duration])
 	}
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		shareView.layer.sublayers?[0].frame = CGRect(x: 0.0, y: shareView.bounds.height, width: shareView.bounds.width, height: 0.5)
+		infoView.layer.sublayers?[0].frame = CGRect(x: 0.0, y: infoView.bounds.height, width: infoView.bounds.width, height: 0.5)
 	}
 
 	func updateVoteIndicators() {
@@ -280,12 +308,12 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 
 	func observeApplicationBecameActive() {
 		if let pvc = parentViewController as? UIPageViewController where pvc.viewControllers?.first == self {
-			playView.player.play()
+			if let play = playView as? VIMVideoPlayerView { play.player.play() }
 		}
 	}
 
 	func observeApplicationEnterBackground() {
-		playView.player.pause()
+		if let play = playView as? VIMVideoPlayerView { play.player.pause() }
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
