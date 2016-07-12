@@ -22,7 +22,6 @@ class PartyPlace : FetchQueryable {
 	let location: Address
 
 	let pregame: Venue
-    var seeders = [SeedVenue]()
 	var venues = Set<Venue>() {
 		didSet {
 			NSNotificationCenter.defaultCenter().postNotificationName(PartyPlace.CityUpdateNotification, object: self)
@@ -63,9 +62,6 @@ class PartyPlace : FetchQueryable {
 					.responseJSON { response in
 						self.grokResponse(response)
 				}
-                fetchSeedlings(atLocation: location.location, inRadius: radius) { seeds,error in
-                   self.seeders = seeds
-                }
 			}
 		} else {
 			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)

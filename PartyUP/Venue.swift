@@ -83,8 +83,7 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		self.location = location
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(Venue.sieveOffendingSamples), name: Defensive.OffensiveMuteUpdateNotification, object: nil)
-        
-        self.seeds = [] //[Seedling(user: NSUUID(), alias: "Poltergiest", event: self, time: NSDate(), comment: "Hi there", media: NSURL(string: "http://www.partyuptonight.com/images/s1.jpg")!)]
+
 	}
 
 	convenience init(venue: JSON) {
@@ -149,7 +148,7 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 						return nil
 					}
 
-					fetchSeedlings(withQuery: name, atLocation: location, inRadius: 15)
+					fetchSeedlings()
 				}
 			} else {
 				dispatch_async(dispatch_get_main_queue()) {
