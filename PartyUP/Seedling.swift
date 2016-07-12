@@ -14,7 +14,7 @@ typealias SeedVenue = (id: String, loc: CLLocation, name: String)
 
 func fetchSeedlings(atLocation location: CLLocation, inRadius radius: Int, complete: ([SeedVenue], NSError?)->Void) {
     if FBSDKAccessToken.currentAccessToken() != nil {
-        FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"club","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(radius)","fields":"id,name,location"]).startWithCompletionHandler { (connection, places, error) in
+        FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(radius)","fields":"id,name,location"]).startWithCompletionHandler { (connection, places, error) in
             var venues = [SeedVenue]()
             if let places = places["data"] as? [AnyObject] where error == nil {
                 for place in places {
@@ -29,6 +29,24 @@ func fetchSeedlings(atLocation location: CLLocation, inRadius radius: Int, compl
             complete(venues, error)
         }
     }
+}
+
+func fetchSeedlings(withQuery query: String, atLocation location: CLLocation, inRadius radius: Int) {
+	if FBSDKAccessToken.currentAccessToken() != nil {
+		FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(radius)","fields":"id,name,location"]).startWithCompletionHandler { (connection, places, error) in
+			print("** for ** \(query)")
+			if let places = places["data"] as? [AnyObject] where error == nil {
+
+				for place in places {
+					guard let id = place["id"] as? String, let name = place["name"] as? String,
+						let here = place["location"] as? [String:AnyObject] else { continue }
+					guard let latitude = here["latitude"] as? Double,
+						let longitude = here["longitude"] as? Double else { continue }
+					print("-> \(id) \(name) (\(latitude),\(longitude))")
+				}
+			}
+		}
+	}
 }
 
 class Seedling: Tastable {

@@ -9,6 +9,7 @@
 import SwiftyJSON
 import CoreLocation
 import AWSDynamoDB
+import FBSDKCoreKit
 
 final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 {
@@ -147,6 +148,8 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 
 						return nil
 					}
+
+					fetchSeedlings(withQuery: name, atLocation: location, inRadius: 15)
 				}
 			} else {
 				dispatch_async(dispatch_get_main_queue()) {
