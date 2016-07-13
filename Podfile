@@ -21,4 +21,5 @@ target 'PartyUP' do
 	pod 'FBSDKLoginKit'
 	pod 'KeychainAccess'
 	pod 'LocationPickerViewController'
+	pod 'SwiftDate'
 end
