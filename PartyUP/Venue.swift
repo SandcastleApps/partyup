@@ -30,7 +30,11 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		}
 	}
     
-    var seeds: [Seedling]?
+	var seeds: [Seedling]? {
+		didSet {
+			done(delta: (seeds?.count ?? 0) - (oldValue?.count ?? 0))
+		}
+	}
 
     var treats: [Tastable]? {
         guard let real = samples, let fake = seeds else { return nil }
@@ -39,15 +43,21 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 
 	var samples: [Sample]? {
 		didSet {
+			done(delta: (samples?.count ?? 0) - (oldValue?.count ?? 0))
+		}
+	}
+
+	private func done(delta delta: Int) {
+		if samples != nil && seeds != nil {
 			lastFetchStatus = FetchStatus(completed: NSDate(), error: nil)
 			isFetching = false
-			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : oldValue?.count ?? 0])
+			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["delta" : delta])
 		}
 	}
 
 	var vitality: Int {
 		get {
-			return samples?.count ?? 0
+			return (samples?.count ?? 0) + (seeds?.count ?? 0)
 		}
 	}
 
@@ -152,7 +162,7 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 				}
 			} else {
 				dispatch_async(dispatch_get_main_queue()) {
-					NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : self.vitality])
+					NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["delta" : 0])
 				}
 			}
     }

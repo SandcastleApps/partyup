@@ -33,7 +33,9 @@ extension Venue {
                     self.seeds = seeders
                 }
             }
-        }
+		} else {
+			self.seeds = [Seedling]()
+		}
     }
 }
 
