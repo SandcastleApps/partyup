@@ -14,7 +14,7 @@ import SwiftDate
 extension Venue {
     func fetchSeedlings() {
         if FBSDKAccessToken.currentAccessToken() != nil {
-            FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"\(self.name)","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(10)","fields":"videos.limit(10){source,description,from,updated_time},photos.limit(10){source,description,from,updated_time}"]).startWithCompletionHandler { (connection, places, error) in
+            FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"\(self.name)","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(30)","fields":"videos.limit(10){source,description,from,updated_time},photos.limit(10){source,description,from,updated_time}"]).startWithCompletionHandler { (connection, places, error) in
                 var seeders = [Seedling]()
                 if error == nil, let place = (places["data"] as? [AnyObject])?.first {
 					for type in ["photos","videos"] {
@@ -24,7 +24,7 @@ extension Venue {
 								let time = (item["updated_time"] as? String).flatMap({$0.toDate(DateFormat.ISO8601)}) where time > 7.days.ago else { continue }
 								let comment = item["description"] as? String
 								let alias = (item["from"] as? [String:AnyObject])?["name"] as? String
-								seeders.append(Seedling(user: NSUUID(), alias: alias, event: self, time: time, comment: comment, media: source))
+                                seeders.append(Seedling(user: NSUUID(), alias: alias, event: self, time: time, comment: comment, media: source, via: "Facebook"))
 							}
 						}
 					}
@@ -46,14 +46,16 @@ class Seedling: Tastable {
 	let time: NSDate
 	let comment: String?
 	let media: NSURL
+    let via: String
 
-	init(user: NSUUID, alias: String?, event: Venue, time: NSDate, comment: String?, media: NSURL) {
+    init(user: NSUUID, alias: String?, event: Venue, time: NSDate, comment: String?, media: NSURL, via: String = "Facebook") {
 		self.user = user
 		self.alias = alias
 		self.event = event
 		self.time = time
 		self.comment = comment
 		self.media = media
+        self.via = via
 	}
 }
 

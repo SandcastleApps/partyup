@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 protocol Tastable: CustomDebugStringConvertible {
 	var user: NSUUID { get }
 	var alias: String? { get }
@@ -19,10 +17,12 @@ protocol Tastable: CustomDebugStringConvertible {
 	var media: NSURL { get }
 	var debugDescription: String { get }
 	var isShareable: Bool { get }
+    var via: String { get }
 }
 
 extension Tastable   {
 	var debugDescription: String { return "User = \(user.UUIDString) alias = \(alias)\nEvent = \(event)\nTimestamp = \(time)\nComment = \(comment)\n" }
 
 	var isShareable: Bool { return false }
+    var via: String { return "PartyUp" }
 }
