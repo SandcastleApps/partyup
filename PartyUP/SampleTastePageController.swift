@@ -50,6 +50,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
     }
 	var ad: NSURL?
 
+	@IBOutlet weak var voteWidth: NSLayoutConstraint!
 	@IBOutlet weak var videoFailed: UILabel!
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
@@ -234,6 +235,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		} else {
 			voteButtons.forEach { $0.hidden = true }
 			voteLabel.hidden = true
+			voteWidth.constant = 0
 		}
 	}
 

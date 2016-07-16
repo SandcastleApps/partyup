@@ -321,6 +321,7 @@ Video Unavailable</string>
                         <outlet property="videoReview" destination="WNy-Cg-5eP" id="mXZ-Sg-DrE"/>
                         <outlet property="videoWaiting" destination="6IQ-1N-b0C" id="ryK-Os-g6S"/>
                         <outlet property="voteLabel" destination="n4K-5j-O8G" id="iyI-Ci-8Lp"/>
+                        <outlet property="voteWidth" destination="ecw-mx-l9d" id="YOj-c7-Awg"/>
                         <outletCollection property="voteButtons" destination="qpR-Vf-xMl" collectionClass="NSMutableArray" id="i7i-4C-Uzf"/>
                         <outletCollection property="voteButtons" destination="Gcm-Ri-sef" collectionClass="NSMutableArray" id="A6j-0T-am7"/>
                     </connections>
