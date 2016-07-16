@@ -57,6 +57,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	@IBOutlet weak var infoView: UIView!
 	@IBOutlet weak var feedView: UIView!
 	@IBOutlet weak var seedView: UIView!
+	@IBOutlet weak var seedVia: UIImageView!
 
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
@@ -227,9 +228,11 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	}
 
 	private func updateShareVisibility() {
-		let sharable = sample?.isShareable == true
-		feedView?.hidden = !sharable
-		seedView?.hidden = sharable
+		if let sample = sample {
+			feedView?.hidden = !sample.isShareable
+			seedView?.hidden = sample.isShareable
+			seedVia?.image = UIImage(named: sample.via)
+		}
 	}
 
 	@objc

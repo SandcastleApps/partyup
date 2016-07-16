@@ -214,13 +214,34 @@ Video Unavailable</string>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXp-b5-ocj" userLabel="Seed">
                                                 <rect key="frame" x="0.0" y="0.0" width="531.5" height="44"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sown via" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drg-ok-6Sz" userLabel="Seed Label">
+                                                        <rect key="frame" x="406" y="12" width="68.5" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iae-fV-344">
+                                                        <rect key="frame" x="489" y="11" width="22" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="3Wa-Zw-fqt"/>
+                                                            <constraint firstAttribute="width" constant="22" id="i3H-Uq-7Tn"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="Drg-ok-6Sz" firstAttribute="centerY" secondItem="ZXp-b5-ocj" secondAttribute="centerY" id="A4J-Bb-i9t"/>
+                                                    <constraint firstItem="Drg-ok-6Sz" firstAttribute="trailing" secondItem="Iae-fV-344" secondAttribute="leading" constant="-15" id="AFG-yD-fxo"/>
+                                                    <constraint firstItem="Iae-fV-344" firstAttribute="centerY" secondItem="ZXp-b5-ocj" secondAttribute="centerY" id="fhp-wJ-lQF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Iae-fV-344" secondAttribute="trailing" constant="20" symbolic="YES" id="jFq-yx-uqa"/>
+                                                </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGz-3l-cej" userLabel="Feed">
                                                 <rect key="frame" x="0.0" y="0.0" width="531.5" height="44"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="102" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbL-OI-v96" userLabel="Facebook">
-                                                        <rect key="frame" x="399.5" y="0.0" width="44" height="44"/>
+                                                        <rect key="frame" x="399" y="0.0" width="44" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="AVu-Zy-iEb"/>
                                                             <constraint firstAttribute="height" constant="44" id="h2C-mg-0Db"/>
@@ -232,7 +253,7 @@ Video Unavailable</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="101" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jsX-uH-2fJ" userLabel="Twitter">
-                                                        <rect key="frame" x="443.5" y="0.0" width="44" height="44"/>
+                                                        <rect key="frame" x="443" y="0.0" width="44" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="2C4-BP-wt6"/>
                                                             <constraint firstAttribute="width" constant="44" id="UcX-WD-3dq"/>
@@ -244,7 +265,7 @@ Video Unavailable</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="3003" contentMode="scaleAspectFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu" userLabel="•••">
-                                                        <rect key="frame" x="487.5" y="0.0" width="44" height="44"/>
+                                                        <rect key="frame" x="487" y="0.0" width="44" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="FBe-uj-foL"/>
                                                             <constraint firstAttribute="width" constant="44" id="UcM-cE-dHW"/>
@@ -334,6 +355,7 @@ Video Unavailable</string>
                         <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>
                         <outlet property="feedView" destination="TGz-3l-cej" id="ha4-iO-3Hi"/>
                         <outlet property="infoView" destination="X68-l0-vg1" id="9sA-LE-RZA"/>
+                        <outlet property="seedVia" destination="Iae-fV-344" id="6ge-84-jZo"/>
                         <outlet property="seedView" destination="ZXp-b5-ocj" id="ebI-b5-7dU"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
                         <outlet property="videoFailed" destination="BnE-ho-ATh" id="dVS-Vs-RLI"/>
