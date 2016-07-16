@@ -197,7 +197,7 @@ Video Unavailable</string>
                                 <rect key="frame" x="0.0" y="621" width="600" height="44"/>
                                 <subviews>
                                     <label opaque="NO" tag="3001" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="700" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA" userLabel="Time Label">
-                                        <rect key="frame" x="18" y="12" width="442" height="20"/>
+                                        <rect key="frame" x="18" y="12" width="42.5" height="20"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="8uE-Dk-IOM"/>
@@ -210,53 +210,72 @@ Video Unavailable</string>
                                         </connections>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9J-9m-TrD" userLabel="Share">
-                                        <rect key="frame" x="468" y="0.0" width="132" height="44"/>
+                                        <rect key="frame" x="68" y="0.0" width="531.5" height="44"/>
                                         <subviews>
-                                            <button opaque="NO" tag="102" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbL-OI-v96" userLabel="Facebook">
-                                                <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXp-b5-ocj" userLabel="Seed">
+                                                <rect key="frame" x="0.0" y="0.0" width="531.5" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGz-3l-cej" userLabel="Feed">
+                                                <rect key="frame" x="0.0" y="0.0" width="531.5" height="44"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="102" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbL-OI-v96" userLabel="Facebook">
+                                                        <rect key="frame" x="399.5" y="0.0" width="44" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="44" id="AVu-Zy-iEb"/>
+                                                            <constraint firstAttribute="height" constant="44" id="h2C-mg-0Db"/>
+                                                        </constraints>
+                                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                        <state key="normal" title="Button" image="Facebook"/>
+                                                        <connections>
+                                                            <action selector="shareSampleVia:" destination="qqy-na-3Zk" eventType="touchUpInside" id="onN-oi-2UK"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="101" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jsX-uH-2fJ" userLabel="Twitter">
+                                                        <rect key="frame" x="443.5" y="0.0" width="44" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="2C4-BP-wt6"/>
+                                                            <constraint firstAttribute="width" constant="44" id="UcX-WD-3dq"/>
+                                                        </constraints>
+                                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                        <state key="normal" title="Button" image="Twitter"/>
+                                                        <connections>
+                                                            <action selector="shareSampleVia:" destination="qqy-na-3Zk" eventType="touchUpInside" id="nzX-tZ-oQ8"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="3003" contentMode="scaleAspectFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu" userLabel="•••">
+                                                        <rect key="frame" x="487.5" y="0.0" width="44" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="FBe-uj-foL"/>
+                                                            <constraint firstAttribute="width" constant="44" id="UcM-cE-dHW"/>
+                                                        </constraints>
+                                                        <state key="normal" image="SmallDots"/>
+                                                        <connections>
+                                                            <action selector="purveyOffensive:" destination="qqy-na-3Zk" eventType="touchUpInside" id="lSv-ib-d1r"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="44" id="AVu-Zy-iEb"/>
+                                                    <constraint firstItem="vbL-OI-v96" firstAttribute="trailing" secondItem="jsX-uH-2fJ" secondAttribute="leading" id="8H7-oK-KxE"/>
+                                                    <constraint firstItem="Exw-3e-lvu" firstAttribute="centerY" secondItem="TGz-3l-cej" secondAttribute="centerY" id="KPj-Uj-frP"/>
+                                                    <constraint firstItem="Exw-3e-lvu" firstAttribute="leading" secondItem="jsX-uH-2fJ" secondAttribute="trailing" id="Ubm-S8-Wsy"/>
+                                                    <constraint firstItem="jsX-uH-2fJ" firstAttribute="centerY" secondItem="TGz-3l-cej" secondAttribute="centerY" id="XR4-Qd-euj"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Exw-3e-lvu" secondAttribute="trailing" id="ao5-1F-tjs"/>
+                                                    <constraint firstItem="vbL-OI-v96" firstAttribute="centerY" secondItem="TGz-3l-cej" secondAttribute="centerY" id="ay5-Zm-HQK"/>
                                                 </constraints>
-                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" title="Button" image="Facebook"/>
-                                                <connections>
-                                                    <action selector="shareSampleVia:" destination="qqy-na-3Zk" eventType="touchUpInside" id="onN-oi-2UK"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="101" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jsX-uH-2fJ" userLabel="Twitter">
-                                                <rect key="frame" x="44" y="0.0" width="44" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="44" id="UcX-WD-3dq"/>
-                                                </constraints>
-                                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" title="Button" image="Twitter"/>
-                                                <connections>
-                                                    <action selector="shareSampleVia:" destination="qqy-na-3Zk" eventType="touchUpInside" id="nzX-tZ-oQ8"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3003" contentMode="scaleAspectFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu" userLabel="•••">
-                                                <rect key="frame" x="88" y="0.0" width="44" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="44" id="UcM-cE-dHW"/>
-                                                </constraints>
-                                                <state key="normal" image="SmallDots"/>
-                                                <connections>
-                                                    <action selector="purveyOffensive:" destination="qqy-na-3Zk" eventType="touchUpInside" id="lSv-ib-d1r"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="Exw-3e-lvu" firstAttribute="leading" secondItem="jsX-uH-2fJ" secondAttribute="trailing" id="Ecj-Du-Yz9"/>
-                                            <constraint firstAttribute="trailing" secondItem="Exw-3e-lvu" secondAttribute="trailing" id="PV1-eg-2R2"/>
-                                            <constraint firstItem="vbL-OI-v96" firstAttribute="bottom" secondItem="N9J-9m-TrD" secondAttribute="bottom" id="dlj-kP-V1A"/>
-                                            <constraint firstItem="Exw-3e-lvu" firstAttribute="top" secondItem="N9J-9m-TrD" secondAttribute="top" id="feA-W8-vpe"/>
-                                            <constraint firstItem="jsX-uH-2fJ" firstAttribute="bottom" secondItem="N9J-9m-TrD" secondAttribute="bottom" id="hNY-Zw-Ii5"/>
-                                            <constraint firstItem="vbL-OI-v96" firstAttribute="top" secondItem="N9J-9m-TrD" secondAttribute="top" id="jz0-Hr-f7g"/>
-                                            <constraint firstItem="vbL-OI-v96" firstAttribute="leading" secondItem="N9J-9m-TrD" secondAttribute="leading" id="mCi-4a-8ex"/>
-                                            <constraint firstItem="Exw-3e-lvu" firstAttribute="bottom" secondItem="N9J-9m-TrD" secondAttribute="bottom" id="seh-V8-0Qn"/>
-                                            <constraint firstItem="jsX-uH-2fJ" firstAttribute="leading" secondItem="vbL-OI-v96" secondAttribute="trailing" id="yTi-pD-5Qr"/>
-                                            <constraint firstItem="jsX-uH-2fJ" firstAttribute="top" secondItem="N9J-9m-TrD" secondAttribute="top" id="z1x-ml-fOi"/>
+                                            <constraint firstItem="ZXp-b5-ocj" firstAttribute="leading" secondItem="N9J-9m-TrD" secondAttribute="leading" id="4Sb-XW-40V"/>
+                                            <constraint firstItem="TGz-3l-cej" firstAttribute="leading" secondItem="N9J-9m-TrD" secondAttribute="leading" id="5pQ-Y1-aIt"/>
+                                            <constraint firstItem="TGz-3l-cej" firstAttribute="top" secondItem="N9J-9m-TrD" secondAttribute="top" id="JOv-UT-2Nj"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZXp-b5-ocj" secondAttribute="trailing" id="Mi8-aJ-fV4"/>
+                                            <constraint firstAttribute="bottom" secondItem="TGz-3l-cej" secondAttribute="bottom" id="fEb-ys-wbe"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZXp-b5-ocj" secondAttribute="bottom" id="iWM-jE-bgu"/>
+                                            <constraint firstAttribute="trailing" secondItem="TGz-3l-cej" secondAttribute="trailing" id="rJg-NF-VO7"/>
+                                            <constraint firstItem="ZXp-b5-ocj" firstAttribute="top" secondItem="N9J-9m-TrD" secondAttribute="top" id="upp-dV-Hmi"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -313,8 +332,9 @@ Video Unavailable</string>
                     </view>
                     <connections>
                         <outlet property="commentLabel" destination="e0F-a8-syX" id="9iS-gR-lx7"/>
+                        <outlet property="feedView" destination="TGz-3l-cej" id="ha4-iO-3Hi"/>
                         <outlet property="infoView" destination="X68-l0-vg1" id="9sA-LE-RZA"/>
-                        <outlet property="shareView" destination="N9J-9m-TrD" id="U5F-Ve-NWn"/>
+                        <outlet property="seedView" destination="ZXp-b5-ocj" id="ebI-b5-7dU"/>
                         <outlet property="timeLabel" destination="Sy6-pN-RsA" id="L4R-fh-l56"/>
                         <outlet property="videoFailed" destination="BnE-ho-ATh" id="dVS-Vs-RLI"/>
                         <outlet property="videoProgress" destination="DNJ-K7-UNE" id="rTi-ge-ElP"/>

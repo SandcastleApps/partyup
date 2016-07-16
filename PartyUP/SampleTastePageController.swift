@@ -45,7 +45,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 				media = sample.media
 			}
 
-			shareView?.hidden = sample?.isShareable == false
+			updateShareVisibility()
         }
     }
 	var ad: NSURL?
@@ -55,11 +55,9 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 	@IBOutlet weak var videoWaiting: UIActivityIndicatorView!
 	@IBOutlet weak var commentLabel: UITextView!
 	@IBOutlet weak var infoView: UIView!
-	@IBOutlet weak var shareView: UIView! {
-		didSet {
-			shareView?.hidden = sample?.isShareable == false
-		}
-	}
+	@IBOutlet weak var feedView: UIView!
+	@IBOutlet weak var seedView: UIView!
+
 	@IBOutlet weak var timeLabel: UILabel!
 	@IBOutlet weak var videoProgress: DACircularProgressView!
 	@IBOutlet weak var videoReview: UIView!
@@ -134,6 +132,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		infoView.layer.insertSublayer(line, atIndex: 0)
 
 		updateVoteIndicators()
+		updateShareVisibility()
 
 		if let playView = playView {
 			playView.translatesAutoresizingMaskIntoConstraints = false
@@ -227,7 +226,14 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		infoView.layer.sublayers?[0].frame = CGRect(x: 0.0, y: infoView.bounds.height, width: infoView.bounds.width, height: 0.5)
 	}
 
-	func updateVoteIndicators() {
+	private func updateShareVisibility() {
+		let sharable = sample?.isShareable == true
+		feedView?.hidden = !sharable
+		seedView?.hidden = sharable
+	}
+
+	@objc
+	private func updateVoteIndicators() {
 		if let treat = sample as? Votable {
 			voteButtons[0].selected = treat.vote == .Down
 			voteButtons[1].selected = treat.vote == .Up
