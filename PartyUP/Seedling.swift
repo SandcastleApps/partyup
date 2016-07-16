@@ -14,7 +14,7 @@ import SwiftDate
 extension Venue {
     func fetchSeedlings() {
         if FBSDKAccessToken.currentAccessToken() != nil {
-            FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"\(self.name)","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(30)","fields":"videos.limit(10){source,description,from,updated_time},photos.limit(10){source,description,from,updated_time}"]).startWithCompletionHandler { (connection, places, error) in
+            FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"\(self.name)","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(100)","fields":"videos.limit(10){source,description,from,updated_time},photos.limit(10){source,description,from,updated_time}"]).startWithCompletionHandler { (connection, places, error) in
                 var seeders = [Seedling]()
                 if error == nil, let place = (places["data"] as? [AnyObject])?.first {
 					for type in ["photos","videos"] {
