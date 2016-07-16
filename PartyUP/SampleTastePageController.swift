@@ -45,7 +45,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 				media = sample.media
 			}
 
-			updateShareVisibility()
+			updateSampleVisibility()
         }
     }
 	var ad: NSURL?
@@ -133,7 +133,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		infoView.layer.insertSublayer(line, atIndex: 0)
 
 		updateVoteIndicators()
-		updateShareVisibility()
+		updateSampleVisibility()
 
 		if let playView = playView {
 			playView.translatesAutoresizingMaskIntoConstraints = false
@@ -227,11 +227,12 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 		infoView.layer.sublayers?[0].frame = CGRect(x: 0.0, y: infoView.bounds.height, width: infoView.bounds.width, height: 0.5)
 	}
 
-	private func updateShareVisibility() {
+	private func updateSampleVisibility() {
 		if let sample = sample {
 			feedView?.hidden = !sample.isShareable
 			seedView?.hidden = sample.isShareable
 			seedVia?.image = UIImage(named: sample.via)
+			videoProgress?.hidden = media?.mime.hasPrefix("video") == false
 		}
 	}
 
