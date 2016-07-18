@@ -14,24 +14,30 @@ import SwiftDate
 extension Venue {
     func fetchSeedlings() {
         if FBSDKAccessToken.currentAccessToken() != nil {
-            FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"\(self.name)","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(100)","fields":"videos.limit(10){source,description,from,updated_time},photos.limit(10){source,description,from,updated_time}"]).startWithCompletionHandler { (connection, places, error) in
-                var seeders = [Seedling]()
-                if error == nil, let place = (places["data"] as? [AnyObject])?.first {
-					for type in ["photos","videos"] {
-						if let media = place[type] as? [String:AnyObject], let data = media["data"] as? [AnyObject] {
-							for item in data {
+            FBSDKGraphRequest(graphPath: "/search", parameters: ["q":"\(self.name)","type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(100)","fields":"link"]).startWithCompletionHandler { (connection, places, error) in
+				if error == nil,
+					let place = (places["data"] as? [AnyObject])?.first as? [String:AnyObject],
+					let id = place["id"] as? String {
+					FBSDKGraphRequest(graphPath: "/\(id)", parameters: ["fields":"video_broadcasts{video{source,description,from,updated_time}}"]).startWithCompletionHandler {
+						(connection, page, error) in
+						var seeders = [Seedling]()
+						if let broadcasts = page["video_broadcasts"] as? [String:AnyObject], let videos = broadcasts["data"] as? [AnyObject] {
+							for video in videos {
+								if let item = video["video"] as? [String:AnyObject]{
 								guard let source = (item["source"] as? String).flatMap({NSURL(string: $0)}),
-								let time = (item["updated_time"] as? String).flatMap({$0.toDate(DateFormat.ISO8601)}) where time > 7.days.ago else { continue }
+									let time = (item["updated_time"] as? String).flatMap({$0.toDate(DateFormat.ISO8601)})  else { continue }
 								let comment = item["description"] as? String
 								let alias = (item["from"] as? [String:AnyObject])?["name"] as? String
-                                seeders.append(Seedling(user: NSUUID(), alias: alias, event: self, time: time, comment: comment, media: source, via: "Facebook"))
+								seeders.append(Seedling(user: NSUUID(), alias: alias, event: self, time: time, comment: comment, media: source, via: "Facebook"))
+							}
 							}
 						}
+
+						dispatch_async(dispatch_get_main_queue()) {
+							self.seeds = seeders
+						}
 					}
-                }
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.seeds = seeders
-                }
+				}
             }
 		} else {
 			self.seeds = [Seedling]()
