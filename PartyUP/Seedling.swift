@@ -43,7 +43,9 @@ extension Venue {
 
 									self.seeds = seeders
 							}
-						}
+                        } else {
+                            self.seeds = [Seedling]()
+                        }
 					case .Failure(let error):
 						print("Error fetching places: \(error)")
 						self.seeds = [Seedling]()
