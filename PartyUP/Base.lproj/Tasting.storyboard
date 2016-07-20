@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -197,7 +197,7 @@ Video Unavailable</string>
                                 <rect key="frame" x="0.0" y="621" width="600" height="44"/>
                                 <subviews>
                                     <label opaque="NO" tag="3001" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="700" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sy6-pN-RsA" userLabel="Time Label">
-                                        <rect key="frame" x="18" y="12" width="42.5" height="20"/>
+                                        <rect key="frame" x="18" y="12" width="43" height="20"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="8uE-Dk-IOM"/>
@@ -210,13 +210,13 @@ Video Unavailable</string>
                                         </connections>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9J-9m-TrD" userLabel="Share">
-                                        <rect key="frame" x="68" y="0.0" width="531.5" height="44"/>
+                                        <rect key="frame" x="69" y="0.0" width="531" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXp-b5-ocj" userLabel="Seed">
-                                                <rect key="frame" x="0.0" y="0.0" width="531.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="531" height="44"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sown via" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drg-ok-6Sz" userLabel="Seed Label">
-                                                        <rect key="frame" x="406" y="12" width="68.5" height="21"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="via" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drg-ok-6Sz" userLabel="Seed Label">
+                                                        <rect key="frame" x="452" y="12" width="22" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -238,7 +238,7 @@ Video Unavailable</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGz-3l-cej" userLabel="Feed">
-                                                <rect key="frame" x="0.0" y="0.0" width="531.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="531" height="44"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="102" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbL-OI-v96" userLabel="Facebook">
                                                         <rect key="frame" x="399" y="0.0" width="44" height="44"/>
