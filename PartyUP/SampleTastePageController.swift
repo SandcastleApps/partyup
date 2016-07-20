@@ -77,7 +77,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 					playView = play
 				} else if media.mime.hasPrefix("image") {
 					let view = UIImageView()
-					view.contentMode = .ScaleAspectFill
+					view.contentMode = .ScaleAspectFit
 					playView = view
 					Alamofire.request(.GET, media)
 						.validate()
