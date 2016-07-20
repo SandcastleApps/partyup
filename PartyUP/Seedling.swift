@@ -28,15 +28,15 @@ extension Venue {
 		var fields = String()
 		if let options = defaults.dictionaryForKey("SeedingOptions") {
 			if let video = options["Facebook"]?["Video"] as? Bool where video == true {
-				fields += "videos.limit(5){source,description,from,updated_time}"
+				fields += "videos.limit(3){source,description,from,updated_time}"
 			}
 			if let broad = options["Facebook"]?["Broadcast"] as? Bool where broad == true {
 				fields += fields.isEmpty ? "" : ","
-				fields += "video_broadcasts{video{source,description,from,updated_time}}"
+				fields += "video_broadcasts.limit(3){video{source,description,from,updated_time}}"
 			}
 			if let timeline = options["Facebook"]?["Timeline"] as? Bool where timeline == true {
 				fields += fields.isEmpty ? "" : ","
-				fields += "albums.limit(1){photos.limit(5){source,name,from,updated_time}}"
+				fields += "albums.limit(1){photos.limit(1){source,name,from,updated_time}}"
 			}
 		}
         
