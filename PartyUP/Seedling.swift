@@ -26,13 +26,13 @@ extension Venue {
         
 		if let token = FBSDKAccessToken.currentAccessToken() {
 			Alamofire.request(.GET,
-				"https://graph.facebook.com/v2.7/search", parameters: ["q":name,"type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(100)","fields":"link","access_token":token.tokenString]).responseJSON { response in
+			                  NSURL(string: "search", relativeToURL: FacebookConstants.GraphApiHost)!, parameters: ["q":name,"type":"place","center":"\(location.coordinate.latitude),\(location.coordinate.longitude)","distance":"\(100)","fields":"link","access_token":token.tokenString]).responseJSON { response in
 					switch response.result {
 					case .Success(let data):
 						let places = JSON(data)
 						if let id = places["data"][0]["id"].string {
 							Alamofire.request(.GET,
-								"https://graph.facebook.com/v2.7/\(id)", parameters: ["fields":"video_broadcasts{video{source,description,from,updated_time}},albums.limit(1){photos.limit(5){source,name,from,updated_time}},videos.limit(5){source,description,from,updated_time}","access_token":token.tokenString]).responseJSON(queue: dispatch_get_main_queue()) { response in
+								NSURL(string: id, relativeToURL: FacebookConstants.GraphApiHost)!, parameters: ["fields":"video_broadcasts{video{source,description,from,updated_time}},albums.limit(1){photos.limit(5){source,name,from,updated_time}},videos.limit(5){source,description,from,updated_time}","access_token":token.tokenString]).responseJSON(queue: dispatch_get_main_queue()) { response in
 									var seeders = [Seedling]()
 									switch response.result {
 									case .Success(let data):

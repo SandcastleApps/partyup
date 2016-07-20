@@ -47,6 +47,11 @@ struct PartyUpConstants
 	}
 }
 
+struct FacebookConstants
+{
+	static let GraphApiHost = NSURL(scheme: "https", host: "graph.facebook.com/v2.7", path: "/")!
+}
+
 struct FlurryConstants
 {
 	static let ApplicationIdentifier = "***REMOVED***"
