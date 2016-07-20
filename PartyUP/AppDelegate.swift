@@ -34,6 +34,7 @@ struct PartyUpPreferences
 
 struct PartyUpConstants
 {
+    static let RecordVideoNotification = "RecordVideoNotification"
     static let AppleStoreIdentifier = "***REMOVED***"
 	static let DefaultStoragePrefix = "media"
     static let PartyUpWebsite = NSURL(scheme: "http", host: "www.partyuptonight.com/v1", path: "/")!

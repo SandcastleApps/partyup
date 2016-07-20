@@ -54,6 +54,11 @@ class PartyRootController: UIViewController {
 		nc.addObserver(self, selector: #selector(PartyRootController.refreshSelectedRegion), name: PartyPickerController.VenueRefreshRequest, object: nil)
 		nc.addObserver(self, selector: #selector(PartyRootController.observeCityUpdateNotification(_:)), name: PartyPlace.CityUpdateNotification, object: nil)
 		nc.addObserver(self, selector: #selector(PartyRootController.refreshReminderButton), name: NSUserDefaultsDidChangeNotification, object: nil)
+        nc.addObserverForName(PartyUpConstants.RecordVideoNotification, object: nil, queue: nil) {_ in 
+            if self.shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
+                self.performSegueWithIdentifier("Bake Sample Segue", sender: nil)
+            }
+        }
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
     }

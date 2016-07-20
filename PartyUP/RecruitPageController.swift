@@ -15,9 +15,10 @@ class RecruitPageController: UIViewController, PageProtocol {
 	var ad: NSURL?
 
 	@IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var postButton: UIButton!
 	
 	override func viewDidLoad() {
-		UIView.animateWithDuration(1.0, delay: 0, options: [.Autoreverse, .Repeat, .AllowUserInteraction], animations: { self.shareButton.alpha = 0.5 }, completion: nil)
+        UIView.animateWithDuration(1.0, delay: 0, options: [.Autoreverse, .Repeat, .AllowUserInteraction], animations: { self.shareButton.alpha = 0.5; self.postButton.alpha = 0.5 }, completion: nil)
 	}
 
 	override func viewDidAppear(animated: Bool) {
@@ -30,6 +31,11 @@ class RecruitPageController: UIViewController, PageProtocol {
 		presentShareActionsOn(self, atOrigin: sender, withPrompt: NSLocalizedString("Share PartyUP", comment: "Share action prompt"))
 	}
 
+    @IBAction func post(sender: UIButton) {
+        navigationController?.popToRootViewControllerAnimated(true)
+        NSNotificationCenter.defaultCenter().postNotificationName(PartyUpConstants.RecordVideoNotification, object: nil)
+    }
+    
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if let avc = segue.destinationViewController as? AdvertisingOverlayController {
 			avc.url = ad

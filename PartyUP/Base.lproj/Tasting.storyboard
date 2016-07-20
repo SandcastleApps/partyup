@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -401,16 +402,46 @@ Video Unavailable</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-TN-INi">
-                                <rect key="frame" x="157" y="384" width="285" height="66"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
-                                <state key="normal" title="Share PartyUP">
-                                    <color key="titleColor" red="0.95294117649999999" green="0.32549019610000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="recruit:" destination="brb-Pr-cZY" eventType="touchUpInside" id="DxZ-mg-u3Q"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zgb-x4-fey" userLabel="Options">
+                                <rect key="frame" x="20" y="364" width="560" height="164"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-TN-INi">
+                                        <rect key="frame" x="138" y="16" width="285" height="66"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                        <state key="normal" title="Share PartyUP">
+                                            <color key="titleColor" red="0.95294117649999999" green="0.32549019610000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="recruit:" destination="brb-Pr-cZY" eventType="touchUpInside" id="DxZ-mg-u3Q"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6As-Wf-5k2">
+                                        <rect key="frame" x="272" y="71" width="17" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EM5-tU-EB2" userLabel="Post Button">
+                                        <rect key="frame" x="156" y="82" width="248" height="66"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                        <state key="normal" title="Post a Video">
+                                            <color key="titleColor" red="0.95294117649999999" green="0.32549019610000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="post:" destination="brb-Pr-cZY" eventType="touchUpInside" id="U0q-LF-bz8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="6As-Wf-5k2" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="1yh-C6-Z1x"/>
+                                    <constraint firstItem="8u3-TN-INi" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="4Rq-H0-bdZ"/>
+                                    <constraint firstItem="EM5-tU-EB2" firstAttribute="top" secondItem="6As-Wf-5k2" secondAttribute="centerY" symbolic="YES" id="671-qh-J78"/>
+                                    <constraint firstItem="6As-Wf-5k2" firstAttribute="centerY" secondItem="Zgb-x4-fey" secondAttribute="centerY" id="Ep1-cL-670"/>
+                                    <constraint firstItem="8u3-TN-INi" firstAttribute="bottom" secondItem="6As-Wf-5k2" secondAttribute="centerY" symbolic="YES" id="ejT-RI-D8m"/>
+                                    <constraint firstItem="EM5-tU-EB2" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="vmo-2w-pWV"/>
+                                </constraints>
+                            </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="0gR-y7-nrm">
                                 <rect key="frame" x="262" y="61" width="77" height="96"/>
                             </imageView>
@@ -424,30 +455,27 @@ Video Unavailable</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="1PP-YK-jxD"/>
+                            <constraint firstItem="Zgb-x4-fey" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="92" id="5N9-js-5ec"/>
                             <constraint firstItem="7gN-us-vbo" firstAttribute="top" secondItem="VqQ-di-9KS" secondAttribute="bottom" constant="8" symbolic="YES" id="8Py-N5-4oW"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="width" secondItem="Hvi-Rp-BID" secondAttribute="width" multiplier="6:7" id="Fip-03-qtd"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="width" secondItem="Hvi-Rp-BID" secondAttribute="width" multiplier="3:4" id="Qv1-NC-qzB"/>
-                            <constraint firstItem="8u3-TN-INi" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="Y1d-07-htC"/>
                             <constraint firstItem="7gN-us-vbo" firstAttribute="leading" secondItem="Hvi-Rp-BID" secondAttribute="leading" id="a5V-JR-nHg"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="ao1-P2-rVe"/>
+                            <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="Zgb-x4-fey" secondAttribute="bottom" constant="72" id="bZf-yB-xOy"/>
                             <constraint firstItem="0gR-y7-nrm" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="cyE-iI-b9j"/>
-                            <constraint firstItem="8u3-TN-INi" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="8" symbolic="YES" id="eX4-rs-KxX"/>
                             <constraint firstItem="0gR-y7-nrm" firstAttribute="bottom" secondItem="tPz-jc-M19" secondAttribute="top" constant="-50" id="gPa-Dn-b5s"/>
+                            <constraint firstItem="Zgb-x4-fey" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="mKY-jT-gBt"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerY" secondItem="Hvi-Rp-BID" secondAttribute="centerY" multiplier="0.75" id="nlh-jZ-bTn"/>
-                            <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="8u3-TN-INi" secondAttribute="bottom" constant="150" id="nra-3L-NOA"/>
                             <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="7gN-us-vbo" secondAttribute="bottom" id="nx1-3h-9gP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Zgb-x4-fey" secondAttribute="trailing" id="q7Q-Xw-DyH"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="top" secondItem="tPz-jc-M19" secondAttribute="bottom" constant="8" symbolic="YES" id="qgG-Mm-FU4"/>
                             <constraint firstAttribute="trailing" secondItem="7gN-us-vbo" secondAttribute="trailing" id="tPK-oL-JIs"/>
-                            <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="8u3-TN-INi" secondAttribute="bottom" constant="30" id="wpg-7K-SUT"/>
+                            <constraint firstItem="Zgb-x4-fey" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="w85-do-dEH"/>
+                            <constraint firstItem="Zgb-x4-fey" firstAttribute="leading" secondItem="Hvi-Rp-BID" secondAttribute="leadingMargin" id="wNU-m4-mn0"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="eX4-rs-KxX"/>
-                                <exclude reference="wpg-7K-SUT"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
+                        <outlet property="postButton" destination="EM5-tU-EB2" id="ewE-MC-AmJ"/>
                         <outlet property="shareButton" destination="8u3-TN-INi" id="cnB-xm-KMX"/>
                     </connections>
                 </viewController>
@@ -495,6 +523,6 @@ Video Unavailable</string>
         <image name="UpSelect" width="21" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YW2-4Y-iha"/>
+        <segue reference="NLr-k9-B1X"/>
     </inferredMetricsTieBreakers>
 </document>
