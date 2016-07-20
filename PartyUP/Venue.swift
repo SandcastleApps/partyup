@@ -36,10 +36,7 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 		}
 	}
 
-    var treats: [Tastable]? {
-        guard let real = samples, let fake = seeds else { return nil }
-        return real.map({ $0 as Tastable }) + fake.map({ $0 as Tastable})
-    }
+    var treats: [Tastable]?
 
 	var samples: [Sample]? {
 		didSet {
@@ -48,9 +45,10 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 	}
 
 	private func done(delta delta: Int) {
-		if samples != nil && seeds != nil {
+		if let real = samples, fake = seeds {
 			lastFetchStatus = FetchStatus(completed: NSDate(), error: nil)
 			isFetching = false
+            treats = (real.map({ $0 as Tastable }) + fake.map({ $0 as Tastable})).sort { $0.time > $1.time }
 			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["delta" : delta])
 		}
 	}

@@ -32,7 +32,7 @@ class PartyTableCell: UITableViewCell {
 				videoDate = nil
 				venues.forEach { venue in
 					self.videoTotal += venue.vitality
-					self.videoDate = greaterDate(one: venue.samples?.first?.time, two: videoDate)
+					self.videoDate = greaterDate(one: venue.treats?.first?.time, two: videoDate)
 					nc.addObserver(self, selector: #selector(PartyTableCell.updateVitality(_:)), name: Venue.VitalityUpdateNotification, object: venue)
 					nc.addObserver(self, selector: #selector(PartyTableCell.updateTagline), name: Venue.PromotionUpdateNotification, object: venue)
 				}
@@ -63,9 +63,9 @@ class PartyTableCell: UITableViewCell {
 		if let venue = note.object as? Venue, delta = note.userInfo?["delta"] as? Int {
 			videoTotal += delta
 			if venue.vitality >= delta {
-				videoDate = greaterDate(one: venue.samples?.first?.time, two: videoDate)
+				videoDate = greaterDate(one: venue.treats?.first?.time, two: videoDate)
 			} else {
-				videoDate = venues?.reduce(nil) { greaterDate(one: $0, two: $1.samples?.first?.time) }
+				videoDate = venues?.reduce(nil) { greaterDate(one: $0, two: $1.treats?.first?.time) }
 			}
 			updateVitalityInfo()
 		}
