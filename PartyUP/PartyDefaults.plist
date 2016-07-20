@@ -65,5 +65,17 @@
 	<integer>0</integer>
 	<key>FeedNavigatorArrows</key>
 	<false/>
+	<key>SeedingOptions</key>
+	<dict>
+		<key>Facebook</key>
+		<dict>
+			<key>Video</key>
+			<true/>
+			<key>Timeline</key>
+			<true/>
+			<key>Broadcast</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>

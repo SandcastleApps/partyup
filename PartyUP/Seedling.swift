@@ -23,6 +23,22 @@ extension Venue {
             
             return Seedling(user: NSUUID(), alias: alias, event: self, time: time, comment: comment, media: source, via: "Facebook")
         }
+
+		let defaults = NSUserDefaults.standardUserDefaults()
+		var fields = String()
+		if let options = defaults.dictionaryForKey("SeedingOptions") {
+			if let video = options["Facebook"]?["Video"] as? Bool where video == true {
+				fields += "videos.limit(5){source,description,from,updated_time}"
+			}
+			if let broad = options["Facebook"]?["Broadcast"] as? Bool where broad == true {
+				fields += fields.isEmpty ? "" : ","
+				fields += "video_broadcasts{video{source,description,from,updated_time}}"
+			}
+			if let timeline = options["Facebook"]?["Timeline"] as? Bool where timeline == true {
+				fields += fields.isEmpty ? "" : ","
+				fields += "albums.limit(1){photos.limit(5){source,name,from,updated_time}}"
+			}
+		}
         
 		if let token = FBSDKAccessToken.currentAccessToken() {
 			Alamofire.request(.GET,
@@ -32,7 +48,7 @@ extension Venue {
 						let places = JSON(data)
 						if let id = places["data"][0]["id"].string {
 							Alamofire.request(.GET,
-								NSURL(string: id, relativeToURL: FacebookConstants.GraphApiHost)!, parameters: ["fields":"video_broadcasts{video{source,description,from,updated_time}},albums.limit(1){photos.limit(5){source,name,from,updated_time}},videos.limit(5){source,description,from,updated_time}","access_token":token.tokenString]).responseJSON(queue: dispatch_get_main_queue()) { response in
+								NSURL(string: id, relativeToURL: FacebookConstants.GraphApiHost)!, parameters: ["fields":fields,"access_token":token.tokenString]).responseJSON(queue: dispatch_get_main_queue()) { response in
 									var seeders = [Seedling]()
 									switch response.result {
 									case .Success(let data):

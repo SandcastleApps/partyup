@@ -29,6 +29,7 @@ struct PartyUpPreferences
 	static let RemindersInterval = "RemindersInterval"
     static let SampleSuppressionThreshold = "SampleSuppressionThreshold"
     static let FeedNavigationArrows = "FeedNavigationArrows"
+	static let SeedingOptions = "SeedingOptions"
 }
 
 struct PartyUpConstants
