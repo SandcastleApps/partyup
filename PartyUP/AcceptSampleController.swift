@@ -380,7 +380,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 
 		do {
 			if let url = videoUrl {
-				waiting = alertWaitWithTitle(NSLocalizedString("Uploading Party Video", comment: "Hud title while uploading a video"), closeButton: nil)
+				waiting = alertWaitWithTitle(NSLocalizedString("Uploading Party Post", comment: "Hud title while uploading a post"), closeButton: nil)
 				let statement = commentCleanUp()
 				let place = venues[selectedLocal]
 				let alias: String? = selectedAlias > 0 ? aliases[selectedAlias] : nil
@@ -402,7 +402,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 			self.waiting?.close()
 			Flurry.logError("Submission_Failed", message: "\(error)", error: nil)
 			alertFailureWithTitle(NSLocalizedString("Video Missing", comment: "Hud title when failed due to no video"),
-				andDetail: NSLocalizedString("Couldn't queue video for upload.", comment: "Hud title when failed due to no video")) { self.host?.acceptedSample() }
+				andDetail: NSLocalizedString("Couldn't queue post for upload.", comment: "Hud title when failed due to no video")) { self.host?.acceptedSample() }
 		}
 	}
 
@@ -419,7 +419,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 				submission.submitWithCompletionHander(self.completionHandlerForSubmission)
 			}
 			alert.showWarning(NSLocalizedString("Submission Failed", comment: "Alert title after unsuccessfully uploaded sample"),
-			                  subTitle: NSLocalizedString("You may discard the video or try submitting it again.", comment: "Alert detail after unsuccessfully uploaded sample"),
+			                  subTitle: NSLocalizedString("You may discard the post or try submitting it again.", comment: "Alert detail after unsuccessfully uploaded sample"),
 			                  colorStyle: 0xf77e56)
 		} else {
 			self.waiting?.close()

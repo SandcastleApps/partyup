@@ -289,12 +289,12 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
         let user = AuthenticationManager.shared.identity!
 		let options = SCLAlertView()
 
-		options.addButton(NSLocalizedString("Report Offensive Video", comment: "Report offensive alert action")) { self.placeVote(Vote.Down, andFlag: true)
+		options.addButton(NSLocalizedString("Report Offensive Post", comment: "Report offensive alert action")) { self.placeVote(Vote.Down, andFlag: true)
 		}
 		options.addButton(NSLocalizedString("Mute Contributor", comment: "Mute contributor alert action")) { Defensive.shared.mute(self.sample.user); Flurry.logEvent("Offensive_User_Muted", withParameters: ["reporter" : user, "offender" : self.sample.user.UUIDString])
 		}
 		options.showInfo(NSLocalizedString("Offensive Material", comment: "Offensive material alert title"),
-			subTitle: NSLocalizedString("Give this offensive video the boot!", comment: "Offensive material alert message"),
+			subTitle: NSLocalizedString("Give this offensive post the boot!", comment: "Offensive material alert message"),
 			closeButtonTitle: NSLocalizedString("Cancel", comment: "Cancel alert action"),
 			colorStyle: 0xf77e56)
 	}
@@ -341,7 +341,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
     }
     
     private static let availableCoachMarks = [
-        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: NSLocalizedString("See what's going on,\nswipe through videos!", comment: "Taste video greeting coachmark"))]
+        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: NSLocalizedString("See what's going on,\nswipe through posts!", comment: "Taste video greeting coachmark"))]
     
     private let tutorial = TutorialOverlayManager(marks: SampleTastePageController.availableCoachMarks)
 }

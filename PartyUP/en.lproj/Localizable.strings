@@ -21,7 +21,7 @@
 "Cancel" = "Cancel";
 
 /* Hud title when failed due to no video */
-"Couldn't queue video for upload." = "Upload Failed";
+"Couldn't queue post for upload." = "Upload Failed";
 
 /* Hud title for waiting for location determination */
 "Determining Venue" = "Determining where you are partying";

@@ -10,7 +10,7 @@ import UIKit
 
 class AnimalTableCell: PartyTableCell {
 	override func updateTagline() {
-		taglineLabel.text = NSLocalizedString("\(videoTotal) videos", comment: "All venues cell video count label")
+		taglineLabel.text = NSLocalizedString("\(videoTotal) posts", comment: "All venues cell post count label")
 	}
 }
 
