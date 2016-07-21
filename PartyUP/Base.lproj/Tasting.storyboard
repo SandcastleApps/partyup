@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -405,14 +404,14 @@ Video Unavailable</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zgb-x4-fey" userLabel="Options">
                                 <rect key="frame" x="20" y="364" width="560" height="164"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-TN-INi">
-                                        <rect key="frame" x="138" y="16" width="285" height="66"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
-                                        <state key="normal" title="Share PartyUP">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="EM5-tU-EB2" userLabel="Post Button">
+                                        <rect key="frame" x="141" y="28" width="279" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Post Your Own Video">
                                             <color key="titleColor" red="0.95294117649999999" green="0.32549019610000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="recruit:" destination="brb-Pr-cZY" eventType="touchUpInside" id="DxZ-mg-u3Q"/>
+                                            <action selector="post:" destination="brb-Pr-cZY" eventType="touchUpInside" id="U0q-LF-bz8"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6As-Wf-5k2">
@@ -421,14 +420,14 @@ Video Unavailable</string>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EM5-tU-EB2" userLabel="Post Button">
-                                        <rect key="frame" x="156" y="82" width="248" height="66"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
-                                        <state key="normal" title="Post a Video">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-TN-INi">
+                                        <rect key="frame" x="184" y="88" width="192" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Share PartyUP">
                                             <color key="titleColor" red="0.95294117649999999" green="0.32549019610000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="post:" destination="brb-Pr-cZY" eventType="touchUpInside" id="U0q-LF-bz8"/>
+                                            <action selector="recruit:" destination="brb-Pr-cZY" eventType="touchUpInside" id="DxZ-mg-u3Q"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -436,9 +435,9 @@ Video Unavailable</string>
                                 <constraints>
                                     <constraint firstItem="6As-Wf-5k2" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="1yh-C6-Z1x"/>
                                     <constraint firstItem="8u3-TN-INi" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="4Rq-H0-bdZ"/>
-                                    <constraint firstItem="EM5-tU-EB2" firstAttribute="top" secondItem="6As-Wf-5k2" secondAttribute="centerY" symbolic="YES" id="671-qh-J78"/>
+                                    <constraint firstItem="EM5-tU-EB2" firstAttribute="centerY" secondItem="6As-Wf-5k2" secondAttribute="centerY" constant="-30" id="671-qh-J78"/>
                                     <constraint firstItem="6As-Wf-5k2" firstAttribute="centerY" secondItem="Zgb-x4-fey" secondAttribute="centerY" id="Ep1-cL-670"/>
-                                    <constraint firstItem="8u3-TN-INi" firstAttribute="bottom" secondItem="6As-Wf-5k2" secondAttribute="centerY" symbolic="YES" id="ejT-RI-D8m"/>
+                                    <constraint firstItem="8u3-TN-INi" firstAttribute="centerY" secondItem="6As-Wf-5k2" secondAttribute="centerY" constant="30" id="ejT-RI-D8m"/>
                                     <constraint firstItem="EM5-tU-EB2" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="vmo-2w-pWV"/>
                                 </constraints>
                             </view>
