@@ -27,16 +27,16 @@ extension Venue {
 		let defaults = NSUserDefaults.standardUserDefaults()
 		var fields = String()
 		if let options = defaults.dictionaryForKey("SeedingOptions") {
-			if let video = options["Facebook"]?["Video"] as? Bool where video == true {
-				fields += "videos.limit(3){source,description,from,updated_time}"
+			if let video = options["Facebook"]?["Video"] as? Int where video > 0 {
+				fields += "videos.limit(\(video)){source,description,from,updated_time}"
 			}
-			if let broad = options["Facebook"]?["Broadcast"] as? Bool where broad == true {
+			if let broad = options["Facebook"]?["Broadcast"] as? Int where broad > 0 {
 				fields += fields.isEmpty ? "" : ","
-				fields += "video_broadcasts.limit(3){video{source,description,from,updated_time}}"
+				fields += "video_broadcasts.limit(\(broad)){video{source,description,from,updated_time}}"
 			}
-			if let timeline = options["Facebook"]?["Timeline"] as? Bool where timeline == true {
+			if let timeline = options["Facebook"]?["Timeline"] as? Int where timeline > 0 {
 				fields += fields.isEmpty ? "" : ","
-				fields += "albums.limit(1){photos.limit(1){source,name,from,updated_time}}"
+				fields += "albums.limit(\(timeline)){photos.limit(1){source,name,from,updated_time}}"
 			}
 		}
         

@@ -240,11 +240,11 @@
 		<key>Facebook</key>
 		<dict>
 			<key>Video</key>
-			<true/>
+			<integer>3</integer>
 			<key>Timeline</key>
-			<true/>
+			<integer>1</integer>
 			<key>Broadcast</key>
-			<true/>
+			<integer>3</integer>
 		</dict>
 	</dict>
 </dict>
