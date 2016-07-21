@@ -185,10 +185,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			cell = tableView.dequeueReusableCellWithIdentifier("PartyAnimal", forIndexPath: indexPath) as! AnimalTableCell
 			switch indexPath.row {
 			case 0:
-				cell.title = NSLocalizedString("All Party Posts", comment: "All venues cell title prefix")
+				cell.title = NSLocalizedString("All Parties", comment: "All venues cell title prefix")
 				cell.venues = venues
 			case 1:
-				cell.title = NSLocalizedString("Pregame Party Posts", comment: "Pregame cell title prefix")
+				cell.title = NSLocalizedString("Pregame Parties", comment: "Pregame cell title prefix")
 				if let pregame = parties?.pregame {
 					cell.venues = [pregame]
 				} else {
