@@ -31,7 +31,7 @@
 			<key>country</key>
 			<string>Canada</string>
 			<key>name</key>
-			<string>Halifax</string>
+			<string>Downtown Halifax, Nova Scotia</string>
 		</dict>
 		<dict>
 			<key>coordinate</key>
@@ -48,8 +48,178 @@
 			<key>country</key>
 			<string>Canada</string>
 			<key>name</key>
-			<string>Sydney</string>
+			<string>Downtown Sydney, Nova Scotia</string>
 		</dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>43.6427</real>
+                <key>longitude</key>
+                <real>-79.3888</real>
+            </dict>
+            <key>city</key>
+            <string>Toronto</string>
+            <key>province</key>
+            <string>ON</string>
+            <key>country</key>
+            <string>Canada</string>
+            <key>name</key>
+            <string>Toronto Entertainment District</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>45.5124</real>
+                <key>longitude</key>
+                <real>-73.5632</real>
+            </dict>
+            <key>city</key>
+            <string>Montreal</string>
+            <key>province</key>
+            <string>QC</string>
+            <key>country</key>
+            <string>Canada</string>
+            <key>name</key>
+            <string>Quartier Des Spectacles, Montreal</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>40.7589</real>
+                <key>longitude</key>
+                <real>-73.9851</real>
+            </dict>
+            <key>city</key>
+            <string>New York</string>
+            <key>province</key>
+            <string>NY</string>
+            <key>country</key>
+            <string>United States</string>
+            <key>name</key>
+            <string>Times Square, New York City</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>40.787</real>
+                <key>longitude</key>
+                <real>-73.9754</real>
+            </dict>
+            <key>city</key>
+            <string>New York</string>
+            <key>province</key>
+            <string>NY</string>
+            <key>country</key>
+            <string>United States</string>
+            <key>name</key>
+            <string>Upper West Side, New York City</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>36.1147</real>
+                <key>longitude</key>
+                <real>-115.1728</real>
+            </dict>
+            <key>city</key>
+            <string>Las Vegas</string>
+            <key>province</key>
+            <string>NV</string>
+            <key>country</key>
+            <string>United States</string>
+            <key>name</key>
+            <string>Las Vegas Strip</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>34.0913</real>
+                <key>longitude</key>
+                <real>-118.3794</real>
+            </dict>
+            <key>city</key>
+            <string>Los Angeles</string>
+            <key>province</key>
+            <string>CA</string>
+            <key>country</key>
+            <string>United States</string>
+            <key>name</key>
+            <string>Sunset Strip, Los Angeles</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>34.0928</real>
+                <key>longitude</key>
+                <real>-118.3287</real>
+            </dict>
+            <key>city</key>
+            <string>Los Angeles</string>
+            <key>province</key>
+            <string>CA</string>
+            <key>country</key>
+            <string>United States</string>
+            <key>name</key>
+            <string>Hollywood Blvd, Los Angeles</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>38.8838</real>
+                <key>longitude</key>
+                <real>1.4059</real>
+            </dict>
+            <key>city</key>
+            <string>Playa D'en Bossa</string>
+            <key>province</key>
+            <string>IB</string>
+            <key>country</key>
+            <string>Spain</string>
+            <key>name</key>
+            <string>Playa D'en Bossa, Ibiza</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>38.9826</real>
+                <key>longitude</key>
+                <real>1.3015</real>
+            </dict>
+            <key>city</key>
+            <string>San Antonio</string>
+            <key>province</key>
+            <string>IB</string>
+            <key>country</key>
+            <string>Spain</string>
+            <key>name</key>
+            <string>San Antonio, Ibiza</string>
+        </dict>
+        <dict>
+            <key>coordinate</key>
+            <dict>
+                <key>latitude</key>
+                <real>25.7826</real>
+                <key>longitude</key>
+                <real>-80.1341</real>
+            </dict>
+            <key>city</key>
+            <string>Miami</string>
+            <key>province</key>
+            <string>FL</string>
+            <key>country</key>
+            <string>United States</string>
+            <key>name</key>
+            <string>South Beach, Miami</string>
+        </dict>
 	</array>
 	<key>Tutorial</key>
 	<true/>
