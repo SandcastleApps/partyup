@@ -55,7 +55,7 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 
 	var vitality: Int {
 		get {
-			return (samples?.count ?? 0) + (seeds?.count ?? 0)
+			return treats?.count ?? 0
 		}
 	}
 
