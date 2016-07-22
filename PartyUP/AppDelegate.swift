@@ -29,7 +29,10 @@ struct PartyUpPreferences
 	static let RemindersInterval = "RemindersInterval"
     static let SampleSuppressionThreshold = "SampleSuppressionThreshold"
     static let FeedNavigationArrows = "FeedNavigationArrows"
-	static let SeedingOptions = "SeedingOptions"
+	static let SeedFacebookVideo = "SeedFacebookVideo"
+    static let SeedFacebookBroadcast = "SeedFacebookBroadcast"
+    static let SeedFacebookTimeline = "SeedFacebookTimeline"
+    static let SeedStaleInterval = "SeedStaleInterval"
 }
 
 struct PartyUpConstants

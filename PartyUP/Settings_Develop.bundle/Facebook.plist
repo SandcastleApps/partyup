@@ -10,7 +10,7 @@
 			<key>Title</key>
 			<string>Photos Per Venue</string>
 			<key>Key</key>
-			<string>SeedingOptions.Facebook.Timeline</string>
+			<string>SeedFacebookTimeline</string>
 			<key>KeyboardType</key>
 			<string>Number Pad</string>
 			<key>DefaultValue</key>
@@ -22,7 +22,7 @@
 			<key>Title</key>
 			<string>Broadcasts Per Venue</string>
 			<key>Key</key>
-			<string>SeedingOptions.Facebook.Broadcast</string>
+			<string>SeedFacebookBroadcast</string>
 			<key>KeyboardType</key>
 			<string>NumberPad</string>
 			<key>DefaultValue</key>
@@ -34,7 +34,7 @@
 			<key>Title</key>
 			<string>Videos Per Venue</string>
 			<key>Key</key>
-			<string>SeedingOptions.Facebook.Video</string>
+			<string>SeedFacebookVideo</string>
 			<key>KeyboardType</key>
 			<string>NumberPad</string>
 			<key>DefaultValue</key>

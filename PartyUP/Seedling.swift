@@ -15,9 +15,9 @@ import Alamofire
 
 extension Venue {
 	func fetchSeedlings() {
-        func pack(item item: JSON, source: String = "source", time: String = "updated_time", comment: String = "description", alias: String = "from") -> Seedling? {
+        func pack(item item: JSON, source: String = "source", time: String = "updated_time", comment: String = "description", alias: String = "from", stale: NSDate = 7.days.ago) -> Seedling? {
             guard let source = item[source].string.flatMap({ NSURL(string: $0) }),
-                let time = item[time].string.flatMap({ $0.toDate(DateFormat.ISO8601) }) where time > 7.days.ago else { return nil }
+                let time = item[time].string.flatMap({ $0.toDate(DateFormat.ISO8601) }) where time > stale else { return nil }
 			let comment = item[comment].string
 			let alias = item[alias]["name"].string
             
@@ -26,19 +26,22 @@ extension Venue {
 
 		let defaults = NSUserDefaults.standardUserDefaults()
 		var fields = String()
-		if let options = defaults.dictionaryForKey("SeedingOptions") {
-			if let video = options["Facebook"]?["Video"] as? Int where video > 0 {
-				fields += "videos.limit(\(video)){source,description,from,updated_time}"
-			}
-			if let broad = options["Facebook"]?["Broadcast"] as? Int where broad > 0 {
-				fields += fields.isEmpty ? "" : ","
-				fields += "video_broadcasts.limit(\(broad)){video{source,description,from,updated_time}}"
-			}
-			if let timeline = options["Facebook"]?["Timeline"] as? Int where timeline > 0 {
-				fields += fields.isEmpty ? "" : ","
-				fields += "albums.limit(\(timeline)){photos.limit(1){source,name,from,updated_time}}"
-			}
-		}
+
+        let video = defaults.integerForKey(PartyUpPreferences.SeedFacebookVideo)
+        if video > 0 {
+            fields += "videos.limit(\(video)){source,description,from,updated_time}"
+        }
+        let broad = defaults.integerForKey(PartyUpPreferences.SeedFacebookBroadcast)
+        if broad > 0 {
+            fields += fields.isEmpty ? "" : ","
+            fields += "video_broadcasts.limit(\(broad)){video{source,description,from,updated_time}}"
+        }
+        let timeline = defaults.integerForKey(PartyUpPreferences.SeedFacebookTimeline)
+        if timeline > 0 {
+            fields += fields.isEmpty ? "" : ","
+            fields += "albums.limit(\(timeline)){photos.limit(1){source,name,from,updated_time}}"
+        }
+        let stale = defaults.integerForKey(PartyUpPreferences.SeedStaleInterval).seconds.ago
         
 		if let token = FBSDKAccessToken.currentAccessToken() {
 			Alamofire.request(.GET,
@@ -55,17 +58,17 @@ extension Venue {
 										let page = JSON(data)
 										for cast in page["video_broadcasts"]["data"].arrayValue {
 											let video = cast["video"]
-                                            if let seed = pack(item: video) {
+                                            if let seed = pack(item: video, stale: stale) {
 												seeders.append(seed)
 											}
                                         }
                                         for photo in page["albums"]["data"][0]["photos"]["data"].arrayValue {
-                                            if let seed = pack(item: photo, comment: "name") {
+                                            if let seed = pack(item: photo, comment: "name", stale: stale) {
                                                 seeders.append(seed)
                                             }
                                         }
 										for video in page["videos"]["data"].arrayValue {
-											if let seed = pack(item: video) {
+                                            if let seed = pack(item: video, stale: stale) {
 												seeders.append(seed)
 											}
 										}
