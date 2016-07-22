@@ -106,6 +106,20 @@
 			<key>MaximumValue</key>
 			<integer>5000</integer>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Seeding</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Facebook</string>
+			<key>File</key>
+			<string>Facebook</string>
+		</dict>
 	</array>
 </dict>
 </plist>
