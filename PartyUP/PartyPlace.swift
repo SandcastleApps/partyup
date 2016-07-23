@@ -19,7 +19,12 @@ class PartyPlace : FetchQueryable {
 		static let SampleUpdate = 30.00
 	}
 
-	let location: Address
+	private(set) var location: Address
+
+	var name: String? {
+		set { location.identifier = newValue }
+		get { return location.name }
+	}
 
 	let pregame: Venue
 	var venues = Set<Venue>() {

@@ -56,10 +56,16 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		}
 	}
 
+	func locationFavorited() {
+		tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
+	}
+
 	private var freshTimer: NSTimer?
 	private var searchController: UISearchController!
+	@IBOutlet weak var searchView: UIView!
 
 	@IBOutlet var partyTable: UITableView!
+	@IBOutlet var partyHeader: UIView!
     @IBOutlet var partyFooters: [UIView]! {
         didSet {
             partyFooters.forEach { $0.frame.size.height = 150 }
@@ -69,17 +75,19 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    NSBundle.mainBundle().loadNibNamed("PartyTableFooter", owner: self, options: nil)
+		NSBundle.mainBundle().loadNibNamed("PartyTableFooter", owner: self, options: nil)
 
 		searchController = UISearchController(searchResultsController: nil)
 		searchController.searchResultsUpdater = self
 		searchController.searchBar.delegate = self
 		searchController.dimsBackgroundDuringPresentation = false
 		searchController.hidesNavigationBarDuringPresentation = false
-		searchController.searchBar.sizeToFit()
 		searchController.searchBar.searchBarStyle = .Minimal
         searchController.searchBar.placeholder = NSLocalizedString("Filter Venues", comment: "City hub filter placeholder.")
-		tableView.tableHeaderView = searchController.searchBar
+		partyHeader.frame.size.height = searchController.searchBar.frame.height
+		searchView.addSubview(searchController.searchBar)
+		tableView.tableHeaderView = partyHeader
+		searchController.searchBar.sizeToFit()
 		definesPresentationContext = true
 
 		freshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(PartyPickerController.updateFreshnessIndicators), userInfo: nil, repeats: true)
@@ -146,7 +154,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Table view data source
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		let head = section == PartySections.animal ? (parties?.location.name ?? " ") : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
+		let head = section == PartySections.animal ? (parties?.name ?? " ") : NSLocalizedString("Party Places", comment: "Header for Venues list in  the primary table")
 		return " " + head + " "
 	}
 
@@ -271,6 +279,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	@IBAction func segueFromTasting(segue: UIStoryboardSegue) {
 		Flurry.logEvent("Returned_From_Tasting")
+	}
+
+	@IBAction func favoriteLocation(sender: UIButton) {
+		NSNotificationCenter.defaultCenter().postNotificationName(PartyUpConstants.FavoriteLocationNotification, object: self)
 	}
     
     @IBAction func ratePartyUp(sender: UIButton) {

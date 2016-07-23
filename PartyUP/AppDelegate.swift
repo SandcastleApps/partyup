@@ -37,6 +37,7 @@ struct PartyUpPreferences
 
 struct PartyUpConstants
 {
+	static let FavoriteLocationNotification = "FavoriteLocationNotification"
     static let RecordVideoNotification = "RecordVideoNotification"
     static let AppleStoreIdentifier = "***REMOVED***"
 	static let DefaultStoragePrefix = "media"

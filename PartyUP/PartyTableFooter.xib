@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,6 +8,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target">
             <connections>
+                <outlet property="partyHeader" destination="Mij-Y2-G49" id="d40-Wg-5zh"/>
+                <outlet property="searchView" destination="StC-Di-mAK" id="X3v-z2-kWD"/>
                 <outletCollection property="partyFooters" destination="iN0-l3-epB" collectionClass="NSMutableArray" id="O5o-2r-aNy"/>
                 <outletCollection property="partyFooters" destination="awW-qt-Jfm" collectionClass="NSMutableArray" id="Cp4-wu-5l8"/>
             </connections>
@@ -102,5 +104,39 @@
             </constraints>
             <point key="canvasLocation" x="1022" y="185"/>
         </view>
+        <view contentMode="scaleToFill" id="Mij-Y2-G49">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XR7-dX-JSH" userLabel="Favorite">
+                    <rect key="frame" x="0.0" y="-0.5" width="48" height="600"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="Ueu-DX-E7X"/>
+                    </constraints>
+                    <state key="normal" image="Star"/>
+                    <connections>
+                        <action selector="favoriteLocation:" destination="-1" eventType="touchUpInside" id="Dnn-sQ-Q2u"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="StC-Di-mAK" userLabel="Filter">
+                    <rect key="frame" x="40" y="0.0" width="560" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="StC-Di-mAK" firstAttribute="leading" secondItem="XR7-dX-JSH" secondAttribute="trailing" constant="-8" id="5YV-H0-5Ap"/>
+                <constraint firstAttribute="bottom" secondItem="StC-Di-mAK" secondAttribute="bottom" id="8Oe-Ji-i1T"/>
+                <constraint firstItem="XR7-dX-JSH" firstAttribute="height" secondItem="StC-Di-mAK" secondAttribute="height" id="WGl-05-gaR"/>
+                <constraint firstItem="XR7-dX-JSH" firstAttribute="centerY" secondItem="Mij-Y2-G49" secondAttribute="centerY" id="Xrf-Xn-bIX"/>
+                <constraint firstAttribute="trailing" secondItem="StC-Di-mAK" secondAttribute="trailing" id="a7O-qj-wX0"/>
+                <constraint firstItem="XR7-dX-JSH" firstAttribute="leading" secondItem="Mij-Y2-G49" secondAttribute="leading" id="gtJ-hw-XNS"/>
+                <constraint firstItem="StC-Di-mAK" firstAttribute="top" secondItem="Mij-Y2-G49" secondAttribute="top" id="xZ9-lB-ihE"/>
+            </constraints>
+            <point key="canvasLocation" x="1728" y="185"/>
+        </view>
     </objects>
+    <resources>
+        <image name="Star" width="18" height="20"/>
+    </resources>
 </document>

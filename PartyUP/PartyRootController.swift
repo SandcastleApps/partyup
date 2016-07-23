@@ -59,6 +59,7 @@ class PartyRootController: UIViewController {
                 self.performSegueWithIdentifier("Bake Sample Segue", sender: nil)
             }
         }
+		nc.addObserver(self, selector: #selector(PartyRootController.bookmarkLocation), name: PartyUpConstants.FavoriteLocationNotification, object: nil)
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
     }
@@ -201,19 +202,25 @@ class PartyRootController: UIViewController {
 	}
 	
 	@IBAction func favoriteLocation(sender: UILongPressGestureRecognizer) {
+		bookmarkLocation()
+	}
+
+	func bookmarkLocation() {
 		if var place = there?.location where favoriting == nil {
 			let alert = SCLAlertView()
 			let nameField = alert.addTextField(NSLocalizedString("Location Name", comment: "Favorite location text title"))
 			alert.addButton(NSLocalizedString("Add Favorite", comment: "Add favorite location button")) {
-					place.identifier = nameField.text
-					self.stickyTowns.append(place)
-					NSUserDefaults.standardUserDefaults().setObject(self.stickyTowns.map { $0.plist }, forKey: PartyUpPreferences.StickyTowns)
-				}
-			
+				place.identifier = nameField.text
+				self.stickyTowns.append(place)
+				NSUserDefaults.standardUserDefaults().setObject(self.stickyTowns.map { $0.plist }, forKey: PartyUpPreferences.StickyTowns)
+				self.there?.name = place.identifier
+				self.partyPicker.locationFavorited()
+			}
+
 			favoriting = alert.showEdit(NSLocalizedString("Favorite Location", comment: "Favorite location title"),
-			               subTitle: NSLocalizedString("Add selected location as a favorite.", comment: "Favorite location subtitle"),
-			               closeButtonTitle: NSLocalizedString("Cancel", comment: "Favorite location cancel"),
-			               colorStyle: 0xF45E63)
+			                            subTitle: NSLocalizedString("Add selected location as a favorite.", comment: "Favorite location subtitle"),
+			                            closeButtonTitle: NSLocalizedString("Cancel", comment: "Favorite location cancel"),
+			                            colorStyle: 0xF45E63)
 			favoriting?.setDismissBlock { self.favoriting = nil }
 		}
 	}
