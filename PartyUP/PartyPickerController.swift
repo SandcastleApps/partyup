@@ -226,7 +226,6 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
 		searchBar.searchBarStyle = .Minimal
-		updateSearchResultsForSearchController(searchController)
 	}
 
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
