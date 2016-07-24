@@ -10,7 +10,7 @@ import UIKit
 import MarqueeLabel
 
 class PartyTableCell: UITableViewCell {
-	@IBOutlet weak var vitalityDot: UILabel!
+	@IBOutlet weak var vitalityDot: UIImageView!
 	@IBOutlet weak var venueLabel: UILabel!
 	@IBOutlet weak var taglineLabel: MarqueeLabel!
 	@IBOutlet weak var vitalityLabel: UILabel!
@@ -75,14 +75,14 @@ class PartyTableCell: UITableViewCell {
 		var vitality = ""
 		switch videoTotal {
 		case 0:
-			vitality = "🎈"
+			vitality = "LowVitality"
 		case 1...5:
-			vitality = "💃🏻"
+			vitality = "MediumVitality"
 		default:
-			vitality = "🔥"
+			vitality = "HighVitality"
 		}
 
-		vitalityDot.text = vitality
+		vitalityDot.image = UIImage(named: vitality)
 		updateVitalityTime()
 		updateTagline()
 	}

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YPM-4j-oTK">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -141,32 +142,30 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Al8-pg-QDa" id="ThR-GC-Wot">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-hX-Wgr" userLabel="City">
-                                            <rect key="frame" x="59" y="24" width="500" height="20"/>
+                                            <rect key="frame" x="54" y="24" width="505" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="800" text="Tagline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5X-mt-rMi" userLabel="Tagline Label" customClass="MarqueeLabel">
-                                            <rect key="frame" x="59" y="48" width="38" height="14"/>
+                                            <rect key="frame" x="54" y="48" width="38" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="labelize" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🎈" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFf-Hu-FCF" userLabel="Vitality Dot">
-                                            <rect key="frame" x="14" y="22" width="30" height="36"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="251" image="LowVitality" translatesAutoresizingMaskIntoConstraints="NO" id="MnW-Bd-5Sd" userLabel="Vitality Dot">
+                                            <rect key="frame" x="6" y="20" width="40" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="Q1u-lD-0rU"/>
+                                                <constraint firstAttribute="width" constant="40" id="8Gt-6G-euJ"/>
+                                                <constraint firstAttribute="height" secondItem="MnW-Bd-5Sd" secondAttribute="width" multiplier="1:1" id="bfg-vD-QDU"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        </imageView>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Freshness" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jq-9a-QOQ" userLabel="Vitality Label">
                                             <rect key="frame" x="505" y="48" width="54" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -177,29 +176,21 @@
                                     <constraints>
                                         <constraint firstItem="1Jq-9a-QOQ" firstAttribute="height" secondItem="k5X-mt-rMi" secondAttribute="height" id="0xe-cq-ewT"/>
                                         <constraint firstItem="1Jq-9a-QOQ" firstAttribute="baseline" secondItem="k5X-mt-rMi" secondAttribute="baseline" id="CPG-6s-Ngs"/>
+                                        <constraint firstItem="MnW-Bd-5Sd" firstAttribute="leading" secondItem="ThR-GC-Wot" secondAttribute="leading" constant="6" id="Fx4-zB-4FV"/>
                                         <constraint firstItem="k5X-mt-rMi" firstAttribute="leading" secondItem="w2t-hX-Wgr" secondAttribute="leading" id="HWz-Kg-QFn"/>
-                                        <constraint firstItem="KFf-Hu-FCF" firstAttribute="leading" secondItem="ThR-GC-Wot" secondAttribute="leadingMargin" constant="6" id="Jna-e2-hS8"/>
-                                        <constraint firstItem="1Jq-9a-QOQ" firstAttribute="centerX" secondItem="KFf-Hu-FCF" secondAttribute="centerX" id="Mo8-n4-DKl"/>
-                                        <constraint firstItem="w2t-hX-Wgr" firstAttribute="leading" secondItem="KFf-Hu-FCF" secondAttribute="trailing" constant="15" id="VwB-A3-cAk"/>
-                                        <constraint firstItem="1Jq-9a-QOQ" firstAttribute="top" secondItem="KFf-Hu-FCF" secondAttribute="bottom" constant="3" id="WJo-eR-mgB"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="1Jq-9a-QOQ" secondAttribute="trailing" id="WvS-2m-Yfz"/>
-                                        <constraint firstItem="KFf-Hu-FCF" firstAttribute="centerY" secondItem="ThR-GC-Wot" secondAttribute="centerY" id="cJV-Nc-lE3"/>
+                                        <constraint firstItem="MnW-Bd-5Sd" firstAttribute="centerY" secondItem="ThR-GC-Wot" secondAttribute="centerY" id="Xvk-sG-f9U"/>
                                         <constraint firstItem="w2t-hX-Wgr" firstAttribute="centerY" secondItem="ThR-GC-Wot" secondAttribute="centerY" multiplier="6:7" id="dqK-9D-owE"/>
                                         <constraint firstItem="k5X-mt-rMi" firstAttribute="top" secondItem="w2t-hX-Wgr" secondAttribute="bottom" constant="4" id="hn6-12-gfN"/>
+                                        <constraint firstItem="w2t-hX-Wgr" firstAttribute="leading" secondItem="MnW-Bd-5Sd" secondAttribute="trailing" constant="8" symbolic="YES" id="kPL-Q1-cCb"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="w2t-hX-Wgr" secondAttribute="trailing" id="pNg-9m-WtO"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Mo8-n4-DKl"/>
-                                            <exclude reference="WJo-eR-mgB"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="taglineLabel" destination="k5X-mt-rMi" id="ofl-zS-SIs"/>
                                     <outlet property="venueLabel" destination="w2t-hX-Wgr" id="IfO-Li-iY1"/>
-                                    <outlet property="vitalityDot" destination="KFf-Hu-FCF" id="yMl-yK-6Df"/>
+                                    <outlet property="vitalityDot" destination="MnW-Bd-5Sd" id="ZFQ-Q3-HBt"/>
                                     <outlet property="vitalityLabel" destination="1Jq-9a-QOQ" id="ihM-Bo-k0a"/>
                                     <segue destination="ax0-KD-6QZ" kind="show" identifier="SampleTasteSegueAnimal" id="Ksl-nl-lBz"/>
                                 </connections>
@@ -208,17 +199,17 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3TU-OM-H3C" id="AWb-fz-eaa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-Ke-igB" userLabel="Venue">
-                                            <rect key="frame" x="59" y="24" width="500" height="20"/>
+                                            <rect key="frame" x="54" y="24" width="505" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tagline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehr-lb-jBg" userLabel="Tagline Label" customClass="MarqueeLabel">
-                                            <rect key="frame" x="59" y="48" width="38" height="14"/>
+                                            <rect key="frame" x="54" y="48" width="38" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
@@ -236,40 +227,36 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymt-jn-jpW">
-                                            <rect key="frame" x="29" y="61" width="0.0" height="0.0"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymt-jn-jpW">
+                                            <rect key="frame" x="8" y="-38" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🎈" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QbL-kc-epJ">
-                                            <rect key="frame" x="14" y="22" width="30" height="36"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LowVitality" translatesAutoresizingMaskIntoConstraints="NO" id="djh-7y-Nws" userLabel="Vitality Dot">
+                                            <rect key="frame" x="6" y="20" width="40" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="Dxm-hH-Jrv"/>
+                                                <constraint firstAttribute="width" constant="40" id="N1N-u2-j7p"/>
+                                                <constraint firstAttribute="width" secondItem="djh-7y-Nws" secondAttribute="height" multiplier="1:1" id="VVg-xn-ZU7"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ehr-lb-jBg" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="AWb-fz-eaa" secondAttribute="trailing" id="7aE-R3-HiI"/>
                                         <constraint firstItem="ehr-lb-jBg" firstAttribute="top" secondItem="2w9-Ke-igB" secondAttribute="bottom" constant="4" id="ByS-Bq-BWv"/>
                                         <constraint firstItem="ehr-lb-jBg" firstAttribute="leading" secondItem="2w9-Ke-igB" secondAttribute="leading" id="Jz5-s4-orG"/>
-                                        <constraint firstItem="QbL-kc-epJ" firstAttribute="leading" secondItem="AWb-fz-eaa" secondAttribute="leadingMargin" constant="6" id="KNl-tx-XwK"/>
-                                        <constraint firstItem="Ymt-jn-jpW" firstAttribute="centerX" secondItem="QbL-kc-epJ" secondAttribute="centerX" id="ZAZ-cT-wgM"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="2w9-Ke-igB" secondAttribute="trailing" id="b7x-Ft-3h9"/>
                                         <constraint firstItem="2w9-Ke-igB" firstAttribute="centerY" secondItem="AWb-fz-eaa" secondAttribute="centerY" multiplier="6:7" id="cEd-0K-qa9"/>
-                                        <constraint firstItem="Ymt-jn-jpW" firstAttribute="top" secondItem="QbL-kc-epJ" secondAttribute="bottom" constant="3" id="eNS-Au-EJj"/>
-                                        <constraint firstItem="2w9-Ke-igB" firstAttribute="leading" secondItem="QbL-kc-epJ" secondAttribute="trailing" constant="15" id="lJq-B0-05F"/>
-                                        <constraint firstItem="QbL-kc-epJ" firstAttribute="centerY" secondItem="AWb-fz-eaa" secondAttribute="centerY" id="pwr-u2-GW4"/>
+                                        <constraint firstItem="2w9-Ke-igB" firstAttribute="leading" secondItem="djh-7y-Nws" secondAttribute="trailing" constant="8" symbolic="YES" id="cox-kB-A3B"/>
+                                        <constraint firstItem="djh-7y-Nws" firstAttribute="centerY" secondItem="AWb-fz-eaa" secondAttribute="centerY" id="hNt-lv-hxx"/>
+                                        <constraint firstItem="djh-7y-Nws" firstAttribute="leading" secondItem="AWb-fz-eaa" secondAttribute="leading" constant="6" id="iMS-pu-Xwk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="taglineLabel" destination="ehr-lb-jBg" id="lyQ-CJ-xib"/>
                                     <outlet property="venueLabel" destination="2w9-Ke-igB" id="jcv-Yt-G5c"/>
-                                    <outlet property="vitalityDot" destination="QbL-kc-epJ" id="jcT-Su-JMP"/>
+                                    <outlet property="vitalityDot" destination="djh-7y-Nws" id="O0V-It-EZG"/>
                                     <outlet property="vitalityLabel" destination="Ymt-jn-jpW" id="6AG-yu-FKo"/>
                                     <segue destination="ax0-KD-6QZ" kind="show" identifier="SampleTasteSegueVenue" id="v4R-zo-FVe"/>
                                 </connections>
@@ -356,6 +343,7 @@
         <image name="Camera" width="35" height="30"/>
         <image name="Google" width="144" height="18"/>
         <image name="Logo" width="77" height="96"/>
+        <image name="LowVitality" width="133" height="133"/>
         <image name="Mark" width="30" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
