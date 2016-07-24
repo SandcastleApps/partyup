@@ -39,7 +39,7 @@ extension Venue {
         let timeline = defaults.integerForKey(PartyUpPreferences.SeedFacebookTimeline)
         if timeline > 0 {
             fields += fields.isEmpty ? "" : ","
-            fields += "albums.limit(\(timeline)){photos.limit(1){source,name,from,updated_time}}"
+            fields += "albums.limit(1){photos.limit(\(timeline)){source,name,from,updated_time}}"
         }
         let stale = defaults.integerForKey(PartyUpPreferences.SeedStaleInterval).seconds.ago
         
