@@ -22,7 +22,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	private var venues: [Venue]? {
 		didSet {
             venues?.sortInPlace{ $0.promotion?.placement > $1.promotion?.placement }
-			partyTable?.reloadData()
+			tableView?.reloadData()
 		}
 	}
 
@@ -31,7 +31,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	var isFetching = false {
         didSet {
             if isFetching != oldValue {
-                partyTable?.tableFooterView = isFetching ? partyFooters.first : partyFooters.last
+                tableView?.tableFooterView = isFetching ? partyFooters.first : partyFooters.last
             }
         }
     }
@@ -43,7 +43,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				venueTotal = parties?.venues.count ?? 0
 
 				if parties !== oldValue {
-					partyTable?.setContentOffset(CGPointZero, animated: false)
+					tableView?.setContentOffset(CGPointZero, animated: false)
 				}
 
 				if let avc = navigationController?.topViewController as? SampleTastingContoller
@@ -64,7 +64,6 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	private var searchController: UISearchController!
 	@IBOutlet weak var searchView: UIView!
 
-	@IBOutlet var partyTable: UITableView!
 	@IBOutlet var partyHeader: UIView!
     @IBOutlet var partyFooters: [UIView]! {
         didSet {
@@ -120,7 +119,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func updateFreshnessIndicators() {
-		partyTable.visibleCells.forEach { ($0 as? PartyTableCell)?.updateVitalityTime() }
+		tableView.visibleCells.forEach { ($0 as? PartyTableCell)?.updateVitalityTime() }
 	}
 
 	func updatePromotions(note: NSNotification) {
@@ -145,7 +144,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				if let src = src, dst = dst where src != dst {
 					venues?.removeAtIndex(src)
 					venues?.insert(what, atIndex: dst)
-					partyTable.moveRowAtIndexPath(NSIndexPath(forRow: src, inSection: 1), toIndexPath: NSIndexPath(forRow: dst, inSection: 1))
+					tableView.moveRowAtIndexPath(NSIndexPath(forRow: src, inSection: 1), toIndexPath: NSIndexPath(forRow: dst, inSection: 1))
 				}
 			}
 		}
@@ -252,7 +251,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
     }
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if let selection = (sender as? UITableViewCell).flatMap( {partyTable.indexPathForCell($0)} ) {
+		if let selection = (sender as? UITableViewCell).flatMap( {tableView.indexPathForCell($0)} ) {
 			if let viewerVC = segue.destinationViewController as? SampleTastingContoller {
 				switch (selection.section, selection.row) {
 				case (PartySections.venue, let row):

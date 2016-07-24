@@ -298,9 +298,6 @@
                             <action selector="updateLocalVenues" destination="r5F-kz-7J0" eventType="valueChanged" id="cXS-H1-vj6"/>
                         </connections>
                     </refreshControl>
-                    <connections>
-                        <outlet property="partyTable" destination="QhV-Jl-Gi4" id="55X-2Q-yP9"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ8-vF-11W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
