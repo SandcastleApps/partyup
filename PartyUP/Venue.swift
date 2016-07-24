@@ -32,24 +32,27 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
     
 	var seeds: [Seedling]? {
 		didSet {
-			done(delta: (seeds?.count ?? 0) - (oldValue?.count ?? 0))
+			done()
 		}
 	}
 
-    var treats: [Tastable]?
+    var treats: [Tastable]? {
+        didSet {
+            NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["old count" : oldValue?.count ?? 0])
+        }
+    }
 
 	var samples: [Sample]? {
 		didSet {
-			done(delta: (samples?.count ?? 0) - (oldValue?.count ?? 0))
+			done()
 		}
 	}
 
-	private func done(delta delta: Int) {
+	private func done() {
 		if let real = samples, fake = seeds {
 			lastFetchStatus = FetchStatus(completed: NSDate(), error: nil)
 			isFetching = false
             treats = (real.map({ $0 as Tastable }) + fake.map({ $0 as Tastable})).sort { $0.time > $1.time }
-			NSNotificationCenter.defaultCenter().postNotificationName(Venue.VitalityUpdateNotification, object: self, userInfo: ["delta" : delta])
 		}
 	}
 

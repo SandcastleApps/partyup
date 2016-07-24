@@ -60,9 +60,9 @@ class PartyTableCell: UITableViewCell {
 	}
 
 	func updateVitality(note: NSNotification) {
-		if let venue = note.object as? Venue, delta = note.userInfo?["delta"] as? Int {
-			videoTotal += delta
-			if venue.vitality >= delta {
+        if let venue = note.object as? Venue, oldCount = note.userInfo?["old count"] as? Int {
+            videoTotal += venue.vitality - oldCount
+            if venue.vitality >= oldCount {
 				videoDate = greaterDate(one: venue.treats?.first?.time, two: videoDate)
 			} else {
 				videoDate = venues?.reduce(nil) { greaterDate(one: $0, two: $1.treats?.first?.time) }
