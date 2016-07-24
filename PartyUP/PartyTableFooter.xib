@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target">
             <connections>
+                <outlet property="favoriteButton" destination="XR7-dX-JSH" id="gjo-Kg-WQa"/>
                 <outlet property="partyHeader" destination="Mij-Y2-G49" id="d40-Wg-5zh"/>
                 <outlet property="searchView" destination="StC-Di-mAK" id="X3v-z2-kWD"/>
                 <outletCollection property="partyFooters" destination="iN0-l3-epB" collectionClass="NSMutableArray" id="O5o-2r-aNy"/>
@@ -108,24 +109,25 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XR7-dX-JSH" userLabel="Favorite">
-                    <rect key="frame" x="0.0" y="-0.5" width="48" height="600"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XR7-dX-JSH" userLabel="Favorite">
+                    <rect key="frame" x="0.0" y="-0.5" width="55" height="600"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="48" id="Ueu-DX-E7X"/>
+                        <constraint firstAttribute="width" constant="55" id="Ueu-DX-E7X"/>
                     </constraints>
+                    <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <state key="normal" image="Star"/>
                     <connections>
                         <action selector="favoriteLocation:" destination="-1" eventType="touchUpInside" id="Dnn-sQ-Q2u"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="StC-Di-mAK" userLabel="Filter">
-                    <rect key="frame" x="40" y="0.0" width="560" height="600"/>
+                    <rect key="frame" x="45" y="0.0" width="555" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="StC-Di-mAK" firstAttribute="leading" secondItem="XR7-dX-JSH" secondAttribute="trailing" constant="-8" id="5YV-H0-5Ap"/>
+                <constraint firstItem="StC-Di-mAK" firstAttribute="leading" secondItem="XR7-dX-JSH" secondAttribute="trailing" constant="-10" id="5YV-H0-5Ap"/>
                 <constraint firstAttribute="bottom" secondItem="StC-Di-mAK" secondAttribute="bottom" id="8Oe-Ji-i1T"/>
                 <constraint firstItem="XR7-dX-JSH" firstAttribute="height" secondItem="StC-Di-mAK" secondAttribute="height" id="WGl-05-gaR"/>
                 <constraint firstItem="XR7-dX-JSH" firstAttribute="centerY" secondItem="Mij-Y2-G49" secondAttribute="centerY" id="Xrf-Xn-bIX"/>

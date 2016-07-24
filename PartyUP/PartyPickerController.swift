@@ -52,17 +52,28 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				}
 			}
 
+			updateFavoriteIndicator()
 			refreshControl?.endRefreshing()
 		}
 	}
 
+	private func updateFavoriteIndicator() {
+		if parties?.location.identifier != nil {
+			favoriteButton?.tintColor = UIColor(r: 253, g: 189, b: 79, alpha: 255)
+		} else {
+			favoriteButton?.tintColor = UIColor(r: 234, g: 235, b: 237, alpha: 255)
+		}
+	}
+
 	func locationFavorited() {
-		tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
+		tableView.reloadData()
+		updateFavoriteIndicator()
 	}
 
 	private var freshTimer: NSTimer?
 	private var searchController: UISearchController!
 	@IBOutlet weak var searchView: UIView!
+	@IBOutlet weak var favoriteButton: UIButton!
 
 	@IBOutlet var partyHeader: UIView!
     @IBOutlet var partyFooters: [UIView]! {
@@ -86,7 +97,6 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		partyHeader.frame.size.height = searchController.searchBar.frame.height
 		searchView.addSubview(searchController.searchBar)
 		tableView.tableHeaderView = partyHeader
-		searchController.searchBar.sizeToFit()
 		definesPresentationContext = true
 
 		freshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(PartyPickerController.updateFreshnessIndicators), userInfo: nil, repeats: true)
@@ -95,6 +105,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		nc.addObserver(self, selector: #selector(PartyPickerController.observeApplicationBecameActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
 		nc.addObserver(self, selector: #selector(PartyPickerController.observeApplicationBecameInactive), name: UIApplicationDidEnterBackgroundNotification, object: nil)
 		nc.addObserver(self, selector: #selector(PartyPickerController.updatePromotions(_:)), name: Venue.PromotionUpdateNotification, object: nil)
+
+		updateFavoriteIndicator()
     }
 
 	deinit {
@@ -148,6 +160,11 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 				}
 			}
 		}
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		searchController.searchBar.sizeToFit()
 	}
 
     // MARK: - Table view data source
@@ -237,7 +254,6 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		if let searchString = searchController.searchBar.text where searchController.active {
-			searchController.searchBar.searchBarStyle = .Prominent
 			venues = parties?.venues.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
 		} else {
             venues = parties.flatMap{Array($0.venues)}
