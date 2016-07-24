@@ -236,9 +236,9 @@
 	<key>FeedNavigatorArrows</key>
 	<false/>
 	<key>SeedFacebookTimeline</key>
-	<integer>1</integer>
-	<key>SeedFacebookBroadcast</key>
 	<integer>3</integer>
+	<key>SeedFacebookBroadcast</key>
+	<integer>1</integer>
 	<key>SeedFacebookVideo</key>
 	<integer>3</integer>
 	<key>SeedStaleInterval</key>

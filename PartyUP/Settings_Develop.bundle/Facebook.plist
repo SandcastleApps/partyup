@@ -14,7 +14,7 @@
 			<key>KeyboardType</key>
 			<string>Number Pad</string>
 			<key>DefaultValue</key>
-			<string>1</string>
+			<string>3</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -26,7 +26,7 @@
 			<key>KeyboardType</key>
 			<string>NumberPad</string>
 			<key>DefaultValue</key>
-			<string>3</string>
+			<string>1</string>
 		</dict>
 		<dict>
 			<key>Type</key>
