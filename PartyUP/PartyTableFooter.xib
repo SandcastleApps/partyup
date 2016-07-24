@@ -9,6 +9,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PartyPickerController" customModule="PartyUP" customModuleProvider="target">
             <connections>
                 <outlet property="favoriteButton" destination="XR7-dX-JSH" id="gjo-Kg-WQa"/>
+                <outlet property="footerButton" destination="n5I-zd-F4z" id="aVf-gL-tbv"/>
+                <outlet property="footerLabel" destination="QnC-xD-cXk" id="qZt-B2-g8N"/>
                 <outlet property="partyHeader" destination="Mij-Y2-G49" id="d40-Wg-5zh"/>
                 <outlet property="searchView" destination="StC-Di-mAK" id="X3v-z2-kWD"/>
                 <outletCollection property="partyFooters" destination="iN0-l3-epB" collectionClass="NSMutableArray" id="O5o-2r-aNy"/>
@@ -70,18 +72,15 @@
                                 <action selector="adjustLocation" destination="-1" eventType="touchUpInside" id="msL-fY-sFO"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love PartyUP?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnC-xD-cXk">
-                            <rect key="frame" x="244" y="91" width="112" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call To Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnC-xD-cXk">
+                            <rect key="frame" x="247.5" y="91" width="105" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5I-zd-F4z">
-                            <rect key="frame" x="218" y="116" width="164" height="30"/>
-                            <state key="normal" title="Rate it on the App Store"/>
-                            <connections>
-                                <action selector="ratePartyUp:" destination="-1" eventType="touchUpInside" id="S4U-CO-i6O"/>
-                            </connections>
+                            <rect key="frame" x="244" y="116" width="111" height="30"/>
+                            <state key="normal" title="Button to Action"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

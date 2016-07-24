@@ -81,6 +81,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
             partyFooters.forEach { $0.frame.size.height = 150 }
         }
     }
+	@IBOutlet weak var footerLabel: UILabel!
+	@IBOutlet weak var footerButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +109,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		nc.addObserver(self, selector: #selector(PartyPickerController.updatePromotions(_:)), name: Venue.PromotionUpdateNotification, object: nil)
 
 		updateFavoriteIndicator()
+		updateTableFooter()
     }
 
 	deinit {
@@ -299,9 +302,31 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	@IBAction func favoriteLocation(sender: UIButton) {
 		NSNotificationCenter.defaultCenter().postNotificationName(PartyUpConstants.FavoriteLocationNotification, object: self)
 	}
+
+	func updateTableFooter() {
+		if AuthenticationManager.shared.isLoggedIn {
+			footerLabel.text = NSLocalizedString("Love PartyUP?", comment: "Rate PartyUP footer label")
+			footerButton.setTitle(NSLocalizedString("Rate it on the App Store", comment: "Rate PartyUP footer button"), forState: .Normal)
+			footerButton.addTarget(self, action: #selector(PartyPickerController.ratePartyUp(_:)), forControlEvents: .TouchUpInside)
+		} else {
+			footerLabel.text = NSLocalizedString("Want more content?", comment: "Login footer label")
+			footerButton.setTitle(NSLocalizedString("Login with Facebook", comment: "Login footer button"), forState: .Normal)
+			footerButton.addTarget(self, action: #selector(PartyPickerController.promptUserAuthentication(_:)), forControlEvents: .TouchUpInside)		}
+	}
     
     @IBAction func ratePartyUp(sender: UIButton) {
         let url = "itms-apps://itunes.apple.com/app/id\(PartyUpConstants.AppleStoreIdentifier)"
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
+
+	@IBAction func promptUserAuthentication(sender: UIButton) {
+		if !AuthenticationManager.shared.isLoggedIn {
+			AuthenticationFlow.shared.startOnController(self).addAction { manager in
+				if manager.isLoggedIn {
+					self.updateTableFooter()
+					self.updateLocalVenues()
+				}
+			}
+		}
+	}
 }
