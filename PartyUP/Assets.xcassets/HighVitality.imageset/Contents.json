@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "fire emoji.png",
+      "filename" : "Fire_emoji.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "fire emoji-1.png",
+      "filename" : "Fire_emoji-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "fire emoji-2.png",
+      "filename" : "Fire_emoji-2.png",
       "scale" : "3x"
     }
   ],
