@@ -248,7 +248,7 @@ class PartyRootController: UIViewController {
 			}
 			alertFailureWithLocationServicesStatus(status)
 		}
-		locationPicker.pickCompletion = { picked in
+		locationPicker.pickCompletion = { [weak locationPicker] picked in
             let name : String? = picked.mapItem.phoneNumber == "Yep" ? picked.name : nil
             let address = Address(coordinate: picked.mapItem.placemark.coordinate, mapkitAddress: picked.addressDictionary!, name: name)
 			self.there = PartyPlace(location: address)
@@ -259,7 +259,10 @@ class PartyRootController: UIViewController {
 			self.fetchPlaceVenues(self.there)
 
 			Flurry.logEvent("Selected_Town", withParameters: ["town" : address.debugDescription])
+
+			locationPicker?.dismissViewControllerAnimated(true, completion: nil)
 		}
+		locationPicker.selectCompletion = locationPicker.pickCompletion
         locationPicker.alternativeLocationEditable = true
         locationPicker.deleteCompletion = { picked in
             if let index = self.stickyTowns.indexOf({ $0.name == picked.name && ($0.coordinate.latitude == picked.coordinate?.latitude && $0.coordinate.longitude == picked.coordinate?.longitude)}) {
@@ -267,7 +270,7 @@ class PartyRootController: UIViewController {
                 NSUserDefaults.standardUserDefaults().setObject(self.stickyTowns.map { $0.plist }, forKey: PartyUpPreferences.StickyTowns)
             }
         }
-        locationPicker.addBarButtons(UIBarButtonItem(title: NSLocalizedString("Let's Go!", comment: "Location picker select bar item"), style: .Done, target: nil, action: nil))
+        locationPicker.addBarButtons(UIBarButtonItem(title: "", style: .Done, target: nil, action: nil))
 		locationPicker.alternativeLocations = stickyTowns.map {
             let item = LocationItem(coordinate: (latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude), addressDictionary: $0.appleAddressDictionary)
             item.mapItem.phoneNumber = "Yep"
