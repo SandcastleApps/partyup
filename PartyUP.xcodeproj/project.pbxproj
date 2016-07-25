@@ -38,6 +38,7 @@
 		1F03C37C1BA8E1950037D7D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F03C37B1BA8E1950037D7D8 /* CoreLocation.framework */; };
 		1F08469D1C32C0490064FBDD /* VenueTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F08469C1C32C0490064FBDD /* VenueTableCell.swift */; };
 		1F10FD961C624A050090743C /* AnimalTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F10FD951C624A050090743C /* AnimalTableCell.swift */; };
+		1F1580391D464CBD00A338EB /* SharingOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1580381D464CBD00A338EB /* SharingOptionsController.swift */; };
 		1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */; };
 		1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */; };
 		1F2AA0C41C9B918000363DA8 /* FetchQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2AA0C31C9B918000363DA8 /* FetchQueryable.swift */; };
@@ -122,6 +123,7 @@
 		1F08469C1C32C0490064FBDD /* VenueTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueTableCell.swift; sourceTree = "<group>"; };
 		1F09183A1C6B80440020B498 /* Settings_Deploy.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Deploy.bundle; sourceTree = "<group>"; };
 		1F10FD951C624A050090743C /* AnimalTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalTableCell.swift; sourceTree = "<group>"; };
+		1F1580381D464CBD00A338EB /* SharingOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharingOptionsController.swift; sourceTree = "<group>"; };
 		1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakeRootController.swift; sourceTree = "<group>"; };
 		1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyDefaults.plist; sourceTree = "<group>"; };
 		1F263C811BE39A53009A3565 /* Settings_Develop.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Develop.bundle; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				1FBD40021C11DCCD0093D852 /* RecruitPageController.swift */,
 				1FBD40041C11E1060093D852 /* PageProtocol.swift */,
 				1F9C367E1C90594F006CD1FA /* AdvertisingOverlayController.swift */,
+				1F1580381D464CBD00A338EB /* SharingOptionsController.swift */,
 			);
 			name = "Taste Sample";
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				1FBD40051C11E1060093D852 /* PageProtocol.swift in Sources */,
 				1FC64B0C1CD6262D001C3C96 /* VideoUtilities.swift in Sources */,
 				1FD940AE1CB5DC8B006D01E4 /* TutorialOverlayManager.swift in Sources */,
+				1F1580391D464CBD00A338EB /* SharingOptionsController.swift in Sources */,
 				1FEF0D4D1BEE189F00A1F689 /* PartyRootController.swift in Sources */,
 				1F3010991C9102B80047FA40 /* Advertisement.swift in Sources */,
 				1F9997471BB48A99003457E2 /* SampleTastePageController.swift in Sources */,

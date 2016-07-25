@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -401,44 +401,24 @@ Video Unavailable</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zgb-x4-fey" userLabel="Options">
-                                <rect key="frame" x="20" y="364" width="560" height="164"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNx-Qn-6KE" userLabel="Options Holder">
+                                <rect key="frame" x="20" y="280" width="560" height="328"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="EM5-tU-EB2" userLabel="Post Button">
-                                        <rect key="frame" x="141" y="28" width="279" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="Post Your Own Video">
-                                            <color key="titleColor" red="0.95294117649999999" green="0.32549019610000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNe-XB-egy" userLabel="Options">
+                                        <rect key="frame" x="0.0" y="64" width="560" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="h9U-bE-Cbg"/>
+                                        </constraints>
                                         <connections>
-                                            <action selector="post:" destination="brb-Pr-cZY" eventType="touchUpInside" id="U0q-LF-bz8"/>
+                                            <segue destination="1Ij-wX-frQ" kind="embed" id="0Dv-ki-mby"/>
                                         </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6As-Wf-5k2">
-                                        <rect key="frame" x="272" y="71" width="17" height="22"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-TN-INi">
-                                        <rect key="frame" x="184" y="88" width="192" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="Share PartyUP">
-                                            <color key="titleColor" red="0.95294117649999999" green="0.32549019610000002" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="recruit:" destination="brb-Pr-cZY" eventType="touchUpInside" id="DxZ-mg-u3Q"/>
-                                        </connections>
-                                    </button>
+                                    </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="6As-Wf-5k2" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="1yh-C6-Z1x"/>
-                                    <constraint firstItem="8u3-TN-INi" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="4Rq-H0-bdZ"/>
-                                    <constraint firstItem="EM5-tU-EB2" firstAttribute="centerY" secondItem="6As-Wf-5k2" secondAttribute="centerY" constant="-30" id="671-qh-J78"/>
-                                    <constraint firstItem="6As-Wf-5k2" firstAttribute="centerY" secondItem="Zgb-x4-fey" secondAttribute="centerY" id="Ep1-cL-670"/>
-                                    <constraint firstItem="8u3-TN-INi" firstAttribute="centerY" secondItem="6As-Wf-5k2" secondAttribute="centerY" constant="30" id="ejT-RI-D8m"/>
-                                    <constraint firstItem="EM5-tU-EB2" firstAttribute="centerX" secondItem="Zgb-x4-fey" secondAttribute="centerX" id="vmo-2w-pWV"/>
+                                    <constraint firstItem="kNe-XB-egy" firstAttribute="leading" secondItem="DNx-Qn-6KE" secondAttribute="leading" id="3Wc-kN-hep"/>
+                                    <constraint firstAttribute="trailing" secondItem="kNe-XB-egy" secondAttribute="trailing" id="dbu-op-tL8"/>
+                                    <constraint firstItem="kNe-XB-egy" firstAttribute="centerY" secondItem="DNx-Qn-6KE" secondAttribute="centerY" id="w7Q-vz-eea"/>
                                 </constraints>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="0gR-y7-nrm">
@@ -454,33 +434,126 @@ Video Unavailable</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="1PP-YK-jxD"/>
-                            <constraint firstItem="Zgb-x4-fey" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="92" id="5N9-js-5ec"/>
                             <constraint firstItem="7gN-us-vbo" firstAttribute="top" secondItem="VqQ-di-9KS" secondAttribute="bottom" constant="8" symbolic="YES" id="8Py-N5-4oW"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="width" secondItem="Hvi-Rp-BID" secondAttribute="width" multiplier="6:7" id="Fip-03-qtd"/>
+                            <constraint firstItem="DNx-Qn-6KE" firstAttribute="top" secondItem="lgg-35-Bnb" secondAttribute="bottom" constant="8" symbolic="YES" id="ITJ-AJ-vGK"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="width" secondItem="Hvi-Rp-BID" secondAttribute="width" multiplier="3:4" id="Qv1-NC-qzB"/>
                             <constraint firstItem="7gN-us-vbo" firstAttribute="leading" secondItem="Hvi-Rp-BID" secondAttribute="leading" id="a5V-JR-nHg"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="ao1-P2-rVe"/>
-                            <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="Zgb-x4-fey" secondAttribute="bottom" constant="72" id="bZf-yB-xOy"/>
                             <constraint firstItem="0gR-y7-nrm" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="cyE-iI-b9j"/>
                             <constraint firstItem="0gR-y7-nrm" firstAttribute="bottom" secondItem="tPz-jc-M19" secondAttribute="top" constant="-50" id="gPa-Dn-b5s"/>
-                            <constraint firstItem="Zgb-x4-fey" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="mKY-jT-gBt"/>
                             <constraint firstItem="tPz-jc-M19" firstAttribute="centerY" secondItem="Hvi-Rp-BID" secondAttribute="centerY" multiplier="0.75" id="nlh-jZ-bTn"/>
                             <constraint firstItem="o5d-bc-fGg" firstAttribute="top" secondItem="7gN-us-vbo" secondAttribute="bottom" id="nx1-3h-9gP"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Zgb-x4-fey" secondAttribute="trailing" id="q7Q-Xw-DyH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DNx-Qn-6KE" secondAttribute="trailing" id="qMD-5A-Zis"/>
                             <constraint firstItem="lgg-35-Bnb" firstAttribute="top" secondItem="tPz-jc-M19" secondAttribute="bottom" constant="8" symbolic="YES" id="qgG-Mm-FU4"/>
                             <constraint firstAttribute="trailing" secondItem="7gN-us-vbo" secondAttribute="trailing" id="tPK-oL-JIs"/>
-                            <constraint firstItem="Zgb-x4-fey" firstAttribute="centerX" secondItem="Hvi-Rp-BID" secondAttribute="centerX" id="w85-do-dEH"/>
-                            <constraint firstItem="Zgb-x4-fey" firstAttribute="leading" secondItem="Hvi-Rp-BID" secondAttribute="leadingMargin" id="wNU-m4-mn0"/>
+                            <constraint firstItem="DNx-Qn-6KE" firstAttribute="leading" secondItem="Hvi-Rp-BID" secondAttribute="leadingMargin" id="tpQ-jr-I4r"/>
+                            <constraint firstItem="DNx-Qn-6KE" firstAttribute="bottom" secondItem="o5d-bc-fGg" secondAttribute="top" constant="8" symbolic="YES" id="uI2-HF-QJj"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="postButton" destination="EM5-tU-EB2" id="ewE-MC-AmJ"/>
-                        <outlet property="shareButton" destination="8u3-TN-INi" id="cnB-xm-KMX"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hl0-fJ-EV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3240" y="70"/>
+        </scene>
+        <!--Sharing Options Controller-->
+        <scene sceneID="eGr-to-NFU">
+            <objects>
+                <tableViewController id="1Ij-wX-frQ" customClass="SharingOptionsController" customModule="PartyUP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="50" sectionHeaderHeight="18" sectionFooterHeight="18" id="468-Sj-5C4">
+                        <rect key="frame" x="0.0" y="0.0" width="560" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="oD6-UK-GRd">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="RED-kA-0NY">
+                                        <rect key="frame" x="0.0" y="35" width="560" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RED-kA-0NY" id="ULz-73-yGf">
+                                            <rect key="frame" x="0.0" y="0.0" width="560" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="LkD-Tx-7pM">
+                                                    <rect key="frame" x="214.5" y="6.5" width="131" height="37"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
+                                                    <state key="normal" title="Authenticated">
+                                                        <color key="titleColor" red="0.96078431372549022" green="0.6588235294117647" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="login:" destination="1Ij-wX-frQ" eventType="touchUpInside" id="uTU-xy-FNI"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="LkD-Tx-7pM" firstAttribute="centerY" secondItem="ULz-73-yGf" secondAttribute="centerY" id="gDj-2U-GSz"/>
+                                                <constraint firstItem="LkD-Tx-7pM" firstAttribute="centerX" secondItem="ULz-73-yGf" secondAttribute="centerX" id="jao-5b-hmj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Ihf-ST-agk">
+                                        <rect key="frame" x="0.0" y="85" width="560" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ihf-ST-agk" id="BJZ-Mb-XCs">
+                                            <rect key="frame" x="0.0" y="0.0" width="560" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4g-6t-ybV">
+                                                    <rect key="frame" x="185" y="6" width="190" height="38"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <state key="normal" title="Post your own video">
+                                                        <color key="titleColor" red="0.96862745098039216" green="0.41960784313725491" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="post:" destination="1Ij-wX-frQ" eventType="touchUpInside" id="6Mn-dn-uWi"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="m4g-6t-ybV" firstAttribute="centerY" secondItem="BJZ-Mb-XCs" secondAttribute="centerY" id="2Pl-CB-tyJ"/>
+                                                <constraint firstItem="m4g-6t-ybV" firstAttribute="centerX" secondItem="BJZ-Mb-XCs" secondAttribute="centerX" id="eH0-ig-l3D"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="A64-oH-vjW">
+                                        <rect key="frame" x="0.0" y="135" width="560" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A64-oH-vjW" id="3cg-5w-c9f">
+                                            <rect key="frame" x="0.0" y="0.0" width="560" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7g-80-bwg">
+                                                    <rect key="frame" x="155" y="6" width="250" height="38"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <state key="normal" title="Share PartyUP with friends">
+                                                        <color key="titleColor" red="0.92941176470588238" green="0.16470588235294117" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="recruit:" destination="1Ij-wX-frQ" eventType="touchUpInside" id="bl7-SB-odX"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="I7g-80-bwg" firstAttribute="centerX" secondItem="3cg-5w-c9f" secondAttribute="centerX" id="AKI-e0-TNN"/>
+                                                <constraint firstItem="I7g-80-bwg" firstAttribute="centerY" secondItem="3cg-5w-c9f" secondAttribute="centerY" id="k3h-En-rU4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="1Ij-wX-frQ" id="ISn-Fe-xg4"/>
+                            <outlet property="delegate" destination="1Ij-wX-frQ" id="96P-gw-yYP"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="loginButton" destination="LkD-Tx-7pM" id="95o-i3-lag"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IkX-Kk-4Ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3240" y="652"/>
         </scene>
         <!--Advertising Overlay Controller-->
         <scene sceneID="1R9-fJ-LfP">
