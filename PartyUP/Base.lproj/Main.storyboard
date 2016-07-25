@@ -227,8 +227,8 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymt-jn-jpW">
-                                            <rect key="frame" x="8" y="-38" width="0.0" height="0.0"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymt-jn-jpW">
+                                            <rect key="frame" x="26" y="63" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                             <nil key="highlightedColor"/>
@@ -245,11 +245,13 @@
                                         <constraint firstItem="ehr-lb-jBg" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="AWb-fz-eaa" secondAttribute="trailing" id="7aE-R3-HiI"/>
                                         <constraint firstItem="ehr-lb-jBg" firstAttribute="top" secondItem="2w9-Ke-igB" secondAttribute="bottom" constant="4" id="ByS-Bq-BWv"/>
                                         <constraint firstItem="ehr-lb-jBg" firstAttribute="leading" secondItem="2w9-Ke-igB" secondAttribute="leading" id="Jz5-s4-orG"/>
+                                        <constraint firstItem="Ymt-jn-jpW" firstAttribute="top" secondItem="djh-7y-Nws" secondAttribute="bottom" constant="3" id="KJW-it-FE2"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="2w9-Ke-igB" secondAttribute="trailing" id="b7x-Ft-3h9"/>
                                         <constraint firstItem="2w9-Ke-igB" firstAttribute="centerY" secondItem="AWb-fz-eaa" secondAttribute="centerY" multiplier="6:7" id="cEd-0K-qa9"/>
                                         <constraint firstItem="2w9-Ke-igB" firstAttribute="leading" secondItem="djh-7y-Nws" secondAttribute="trailing" constant="8" symbolic="YES" id="cox-kB-A3B"/>
                                         <constraint firstItem="djh-7y-Nws" firstAttribute="centerY" secondItem="AWb-fz-eaa" secondAttribute="centerY" id="hNt-lv-hxx"/>
                                         <constraint firstItem="djh-7y-Nws" firstAttribute="leading" secondItem="AWb-fz-eaa" secondAttribute="leading" constant="6" id="iMS-pu-Xwk"/>
+                                        <constraint firstItem="Ymt-jn-jpW" firstAttribute="centerX" secondItem="djh-7y-Nws" secondAttribute="centerX" id="sft-Gg-DOE"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -343,7 +345,7 @@
         <image name="Camera" width="35" height="30"/>
         <image name="Google" width="144" height="18"/>
         <image name="Logo" width="77" height="96"/>
-        <image name="LowVitality" width="133" height="133"/>
+        <image name="LowVitality" width="135" height="133"/>
         <image name="Mark" width="30" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
