@@ -107,6 +107,10 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		nc.addObserver(self, selector: #selector(PartyPickerController.observeApplicationBecameActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
 		nc.addObserver(self, selector: #selector(PartyPickerController.observeApplicationBecameInactive), name: UIApplicationDidEnterBackgroundNotification, object: nil)
 		nc.addObserver(self, selector: #selector(PartyPickerController.updatePromotions(_:)), name: Venue.PromotionUpdateNotification, object: nil)
+        nc.addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: nil) { [weak self] _ in
+            self?.updateTableFooter()
+            NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : false, "forceUpdate" : true])
+        }
 
 		updateFavoriteIndicator()
 		updateTableFooter()
@@ -129,8 +133,8 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : true])
 	}
 
-	@IBAction func updateLocalVenues() {
-		NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : false])
+    @IBAction func updateLocalVenues() {
+        NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : false, "forceUpdate" : false])
 	}
 
 	func updateFreshnessIndicators() {
@@ -321,12 +325,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 
 	@IBAction func promptUserAuthentication(sender: UIButton) {
 		if !AuthenticationManager.shared.isLoggedIn {
-			AuthenticationFlow.shared.startOnController(self).addAction { manager in
-				if manager.isLoggedIn {
-					self.updateTableFooter()
-					self.updateLocalVenues()
-				}
-			}
+            AuthenticationFlow.shared.startOnController(self).addAction { _ in }
 		}
 	}
 }

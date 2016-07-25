@@ -68,10 +68,11 @@ class PartyRootController: UIViewController {
 		if let adjust = note.userInfo?["adjustLocation"] as? Bool where adjust {
 			chooseLocation()
 		} else {
+            let force = (note.userInfo?["forceUpdate"] as? Bool) ?? false
 			if there == nil {
 				resolveLocalPlacemark()
 			} else {
-				fetchPlaceVenues(there)
+				fetchPlaceVenues(there, force: force)
 			}
 		}
 	}
@@ -116,13 +117,13 @@ class PartyRootController: UIViewController {
 		partyPicker.isFetching = false
 	}
 
-	func fetchPlaceVenues(place: PartyPlace?) {
+    func fetchPlaceVenues(place: PartyPlace?, force: Bool = false) {
         if let place = place {
             partyPicker.isFetching = true
             
             if let categories = NSUserDefaults.standardUserDefaults().stringForKey(PartyUpPreferences.VenueCategories) {
                 let radius = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.ListingRadius)
-                place.fetch(radius, categories: categories)
+                place.fetch(radius, categories: categories, force: force)
 			}
 		}
 	}

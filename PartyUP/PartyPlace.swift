@@ -54,8 +54,8 @@ class PartyPlace : FetchQueryable {
 		Advertisement.fetch(location)
 	}
 
-	func fetch(radius: Int, categories: String) {
-		if abs(lastFetchStatus.completed.timeIntervalSinceNow) > ThrottlingIntervalConstants.CityUpdate || lastFetchStatus.error != nil  {
+    func fetch(radius: Int, categories: String, force: Bool = false) {
+		if abs(lastFetchStatus.completed.timeIntervalSinceNow) > ThrottlingIntervalConstants.CityUpdate || lastFetchStatus.error != nil {
 			if !isFetching {
 				isFetching = true
 				let params = ["location" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
@@ -65,14 +65,14 @@ class PartyPlace : FetchQueryable {
 				Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
 					.validate()
 					.responseJSON { response in
-						self.grokResponse(response)
+                        self.grokResponse(response)
 				}
 			}
 		} else {
 			let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
 			let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
 			venues.forEach {
-				$0.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
+                $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate, force: force)
 				$0.fetchPromotion(withTimeliness: ThrottlingIntervalConstants.SampleUpdate)
 			}
 			pregame.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
@@ -80,7 +80,7 @@ class PartyPlace : FetchQueryable {
 		}
 	}
 
-	func grokResponse(response: Response<AnyObject, NSError>) -> Void {
+    func grokResponse(response: Response<AnyObject, NSError>) -> Void {
 		if response.result.isSuccess {
 			let json = JSON(data: response.data!)
             let local = json["results"].arrayValue.map{Venue(venue: $0)}
@@ -90,7 +90,7 @@ class PartyPlace : FetchQueryable {
 				let stale = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval)
 				let suppress = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold)
 				self.venues.forEach {
-					$0.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
+                    $0.fetchSamples(withStaleInterval: stale, andSuppression: suppress, andTimeliness: ThrottlingIntervalConstants.SampleUpdate)
 					$0.fetchPromotion(withTimeliness: ThrottlingIntervalConstants.SampleUpdate)
 				}
 			}
@@ -100,7 +100,7 @@ class PartyPlace : FetchQueryable {
 					Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : PartyPlace.placesKey])
 						.validate()
 						.responseJSON { response in
-							self.grokResponse(response)
+                            self.grokResponse(response)
 					}
 				}
 			} else {

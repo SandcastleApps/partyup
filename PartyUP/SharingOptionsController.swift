@@ -38,7 +38,6 @@ class SharingOptionsController: UITableViewController {
 			AuthenticationFlow.shared.startOnController(self).addAction { manager in
 				if manager.isLoggedIn {
 					self.navigationController?.popToRootViewControllerAnimated(true)
-					NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : false])
 				}
 			}
 		}

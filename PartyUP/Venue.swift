@@ -137,9 +137,10 @@ final class Venue: Hashable, CustomDebugStringConvertible, FetchQueryable
 	func fetchSamples(
 		withStaleInterval stale: NSTimeInterval = NSUserDefaults.standardUserDefaults().doubleForKey(PartyUpPreferences.StaleSampleInterval),
 		andSuppression suppress: Int = NSUserDefaults.standardUserDefaults().integerForKey(PartyUpPreferences.SampleSuppressionThreshold),
-		andTimeliness timely: NSTimeInterval = 0) {
+		andTimeliness timely: NSTimeInterval = 0,
+        force: Bool = false) {
 
-			if abs(lastFetchStatus.completed.timeIntervalSinceNow) > timely || lastFetchStatus.error != nil {
+			if abs(lastFetchStatus.completed.timeIntervalSinceNow) > timely || lastFetchStatus.error != nil || force {
 				if !isFetching {
 					isFetching = true
 					let time = NSDate().timeIntervalSince1970 - stale
