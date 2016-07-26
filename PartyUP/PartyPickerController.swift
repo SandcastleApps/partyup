@@ -107,9 +107,11 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		nc.addObserver(self, selector: #selector(PartyPickerController.observeApplicationBecameActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
 		nc.addObserver(self, selector: #selector(PartyPickerController.observeApplicationBecameInactive), name: UIApplicationDidEnterBackgroundNotification, object: nil)
 		nc.addObserver(self, selector: #selector(PartyPickerController.updatePromotions(_:)), name: Venue.PromotionUpdateNotification, object: nil)
-        nc.addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.updateTableFooter()
-            NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : false, "forceUpdate" : true])
+        nc.addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: nil) { [weak self] note in
+            if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) != AuthenticationState.Transitioning {
+                self?.updateTableFooter()
+                NSNotificationCenter.defaultCenter().postNotificationName(PartyPickerController.VenueRefreshRequest, object: self, userInfo: ["adjustLocation" : false, "forceUpdate" : true])
+            }
         }
 
 		updateFavoriteIndicator()
