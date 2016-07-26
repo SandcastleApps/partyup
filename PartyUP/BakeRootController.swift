@@ -21,8 +21,8 @@ class BakeRootController: UIViewController {
 	var pregame: Venue?
 
 	private var locals: [Venue]!
-	private let locationRetryMax = 2
-    private let locationTimeoutTolerance = [INTULocationAccuracy.Neighborhood,INTULocationAccuracy.Block,INTULocationAccuracy.Block]
+	private let locationRetryMax = 3
+    private let locationTimeoutTolerance = [INTULocationAccuracy.City,INTULocationAccuracy.Neighborhood,INTULocationAccuracy.Block,INTULocationAccuracy.Block]
 	private var locationRequestId: INTULocationRequestID = 0
 
     override func viewDidLoad() {
@@ -75,15 +75,6 @@ class BakeRootController: UIViewController {
 		}
 	}
 
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-
-		if locals == nil {
-			waiting = alertWaitWithTitle(andDetail: NSLocalizedString("Determining Venue", comment: "Hud title for waiting for location determination"),
-			                             dismissHandler: { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) })
-		}
-	}
-
 	func collectSample(filteredVenues: [Venue]) {
 		locals = filteredVenues
 
@@ -94,21 +85,27 @@ class BakeRootController: UIViewController {
 		waiting?.setDismissBlock { }
 		waiting?.close()
 
-		if locals.count > 0 {
-			recordController.recordButton.enabled = true
-		} else {
+		if locals.isEmpty {
 			Flurry.logEvent("Neighborhood_No_Venues")
 			alertFailureWithTitle(NSLocalizedString("Unsupported Venue", comment: "Hud title for no nearby venue"),
 			                    andDetail: NSLocalizedString("You are not at a supported venue.", comment: "Hud detail for no nearby venue")) { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) }
+		} else {
+			acceptController.venues = locals
 		}
 	}
 
 	func recordedSample(videoUrl: NSURL?) {
 		if let url = videoUrl {
 			acceptController.videoUrl = url
-			acceptController.venues = locals
 			acceptController.transitionStartY = recordController.preview.frame.origin.y
 			swapControllers(from: recordController, to: acceptController)
+
+			if locals == nil {
+				waiting = alertWaitWithTitle(andDetail: NSLocalizedString("Determining Venue", comment: "Hud title for waiting for location determination"),
+				                             dismissHandler: { self.performSegueWithIdentifier("Sampling Done Segue", sender: nil) })
+			} else {
+				acceptController.venues = locals
+			}
 		} else {
 			performSegueWithIdentifier("Sampling Done Segue", sender: nil)
 		}
