@@ -310,6 +310,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
 
 	func updateTableFooter() {
+		footerButton.removeTarget(self, action: nil, forControlEvents: .TouchUpInside)
 		if AuthenticationManager.shared.isLoggedIn {
 			footerLabel.text = NSLocalizedString("Love PartyUP?", comment: "Rate PartyUP footer label")
 			footerButton.setTitle(NSLocalizedString("Rate it on the App Store", comment: "Rate PartyUP footer button"), forState: .Normal)
