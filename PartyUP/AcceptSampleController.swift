@@ -245,7 +245,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	@IBAction func selectAlias(sender: UIButton) {
 		view.endEditing(false)
 
-		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Alias", comment: "Title of the alias picker"),
+		let sheet = ActionSheetStringPicker(title: NSLocalizedString("Alias", comment: "Title of the alias picker"),
 			rows: aliases,
 			initialSelection: 0,
 			doneBlock: { (_, row, _) in
@@ -256,6 +256,8 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 				// cancelled
 			},
 			origin: sender)
+		sheet.toolbarButtonsColor = UIColor(r: 247, g: 126, b: 86, alpha: 255)
+		sheet.showActionSheetPicker()
 	}
 
 	// MARK: - Venue Picker
@@ -286,7 +288,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	@IBAction func selectVenue(sender: UIButton) {
 		view.endEditing(false)
 		
-		ActionSheetStringPicker.showPickerWithTitle(NSLocalizedString("Venue", comment: "Title of the venue picker"),
+		let sheet = ActionSheetStringPicker(title: NSLocalizedString("Venue", comment: "Title of the venue picker"),
 			rows: venues.map { $0.name },
 			initialSelection: 0,
 			doneBlock: { (_, row, _) in
@@ -297,6 +299,8 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 				// cancelled
 			},
 			origin: sender)
+		sheet.toolbarButtonsColor = UIColor(r: 247, g: 126, b: 86, alpha: 255)
+		sheet.showActionSheetPicker()
 	}
 
 	// MARK: - Text View
