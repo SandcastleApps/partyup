@@ -33,6 +33,8 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 			return coach.flatMap { $0.started } ?? false
 		}
 	}
+    
+    var completion: ((Bool) -> Void)?
 
 	private var coach: CoachMarksController?
 
@@ -85,7 +87,9 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 			target.navigationController?.view.userInteractionEnabled = false
 			target.view?.userInteractionEnabled = false
-		}
+        } else {
+            completion?(false)
+        }
 	}
 
 	func stop() {
@@ -132,6 +136,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		target?.view?.userInteractionEnabled = true
 		unseen.removeAll()
 		coach = nil
+        completion?(skipped)
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, constraintsForSkipView skipView: UIView, inParentView parentView: UIView) -> [NSLayoutConstraint]? {
