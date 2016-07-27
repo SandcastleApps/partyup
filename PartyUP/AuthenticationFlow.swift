@@ -18,6 +18,10 @@ class AuthenticationFlow {
         completers.append(action)
     }
     
+    func setPutoffs(putoffs: [String]) {
+        self.putoffs = putoffs
+    }
+    
     func startOnController(controller: UIViewController) -> AuthenticationFlow {
         if !isFlowing {
             isFlowing = true
@@ -47,7 +51,17 @@ class AuthenticationFlow {
         }
         alert.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
         }
-        alert.addButton(NSLocalizedString("Let me think about it", comment: "Login putoff"), action: AuthenticationFlow.stop(self))
+        
+        var off = putoffs.generate()
+        if let putoff = off.next() {
+            putoffButton = alert.addButton(putoff) { [weak self] in
+                if let put = off.next() {
+                    self?.putoffButton?.setTitle(put, forState: .Normal)
+                } else {
+                    self?.stop()
+                }
+            }
+        }
         
         let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
         let message: String? = file.flatMap { try? String.init(contentsOfFile: $0) }
@@ -90,6 +104,8 @@ class AuthenticationFlow {
 	private let manager = AuthenticationManager.shared
 	private var leader: SCLAlertViewResponder?
 	private var completers = [AuthenticationFlowCompletion]()
+    private var putoffs = [NSLocalizedString("Let me think about it", comment: "Login putoff")]
+    private var putoffButton: SCLButton?
 
     static var shared: AuthenticationFlow {
         flow = flow ?? AuthenticationFlow()
