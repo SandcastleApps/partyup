@@ -243,5 +243,7 @@
 	<integer>3</integer>
 	<key>SeedStaleInterval</key>
 	<integer>604800</integer>
+	<key>PromptAuthentication</key>
+	<true/>
 </dict>
 </plist>
