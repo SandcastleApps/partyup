@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -209,7 +209,7 @@ Video Unavailable</string>
                                             <outletCollection property="gestureRecognizers" destination="I3x-VG-PDu" appends="YES" id="HDi-zd-vt7"/>
                                         </connections>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9J-9m-TrD" userLabel="Share">
+                                    <view tag="3003" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9J-9m-TrD" userLabel="Share">
                                         <rect key="frame" x="69" y="0.0" width="531" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZXp-b5-ocj" userLabel="Seed">
@@ -264,7 +264,7 @@ Video Unavailable</string>
                                                             <action selector="shareSampleVia:" destination="qqy-na-3Zk" eventType="touchUpInside" id="nzX-tZ-oQ8"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="3003" contentMode="scaleAspectFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu" userLabel="•••">
+                                                    <button opaque="NO" contentMode="scaleAspectFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exw-3e-lvu" userLabel="•••">
                                                         <rect key="frame" x="487" y="0.0" width="44" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="FBe-uj-foL"/>

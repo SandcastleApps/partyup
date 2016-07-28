@@ -341,7 +341,8 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
     }
     
     private static let availableCoachMarks = [
-        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: NSLocalizedString("See what's going on,\nswipe through posts!", comment: "Taste video greeting coachmark"))]
+        TutorialMark(identifier: CoachIdentifier.Greeting.rawValue, hint: NSLocalizedString("See what's going on,\nswipe through posts!", comment: "Taste video greeting coachmark")),
+        TutorialMark(identifier: CoachIdentifier.Share.rawValue, hint: NSLocalizedString("Posts may come from other PartyUP users or from the Facebook pages of supported venues.  You may share and vote on PartyUP posts but not Facebook page posts.", comment: "Taste video share coachmark"))]
     
     private let tutorial = TutorialOverlayManager(marks: SampleTastePageController.availableCoachMarks)
 }
