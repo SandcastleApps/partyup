@@ -38,6 +38,7 @@ class AuthenticationFlow {
     }
 
 	private func beginOnController(controller: UIViewController) {
+        let themeColor = UIColor(r: 247, g: 126, b: 86, alpha: 255)
         let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: false, shouldAutoDismiss: false))
         let inLabel = NSLocalizedString("Log in with", comment: "Login service button label")
         let outLabel = NSLocalizedString("Log out of", comment: "Logout service button label")
@@ -49,12 +50,12 @@ class AuthenticationFlow {
             }
             button.setImage(auth.logo, forState: .Normal)
         }
-        alert.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action")) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
+        alert.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action"), backgroundColor: themeColor) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
         }
         
         var off = putoffs.generate()
         if let putoff = off.next() {
-            putoffButton = alert.addButton(putoff) { [weak self] in
+            putoffButton = alert.addButton(putoff, backgroundColor: themeColor) { [weak self] in
                 if let put = off.next() {
                     self?.putoffButton?.setTitle(put, forState: .Normal)
                 } else {
