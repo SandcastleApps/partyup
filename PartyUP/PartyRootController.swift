@@ -58,16 +58,20 @@ class PartyRootController: UIViewController {
             }
         }
 		nc.addObserver(self, selector: #selector(PartyRootController.bookmarkLocation), name: PartyUpConstants.FavoriteLocationNotification, object: nil)
-        nc.addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { note in
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) != .Authenticated && defaults.boolForKey(PartyUpPreferences.PromptAuthentication) {
-                defaults.setBool(false, forKey: PartyUpPreferences.PromptAuthentication)
-                let flow = AuthenticationFlow.shared
-                flow.setPutoffs(
-                    [NSLocalizedString("Eschew Facebook Posts", comment: "First ignore Facebook button")])
-				flow.addAction { [weak self] manager, cancelled in if let me = self { me.tutorial.start(me) } }
-                flow.startOnController(self)
-            }
+		nc.addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { note in
+			let defaults = NSUserDefaults.standardUserDefaults()
+			if defaults.boolForKey(PartyUpPreferences.PromptAuthentication) {
+				if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) != .Authenticated  {
+					defaults.setBool(false, forKey: PartyUpPreferences.PromptAuthentication)
+					let flow = AuthenticationFlow.shared
+					flow.setPutoffs(
+						[NSLocalizedString("Eschew Facebook Posts", comment: "First ignore Facebook button")])
+					flow.addAction { [weak self] manager, cancelled in if let me = self { me.tutorial.start(me) } }
+					flow.startOnController(self)
+				}
+			} else {
+				self.tutorial.start(self)
+			}
         }
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
