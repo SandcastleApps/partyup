@@ -35,7 +35,7 @@ class SharingOptionsController: UITableViewController {
 
 	@IBAction func login(sender: UIButton) {
 		if !AuthenticationManager.shared.isLoggedIn {
-			AuthenticationFlow.shared.startOnController(self).addAction { manager in
+			AuthenticationFlow.shared.startOnController(self).addAction { manager, cancelled in
 				if manager.isLoggedIn {
 					self.navigationController?.popToRootViewControllerAnimated(true)
 				}

@@ -186,7 +186,7 @@ class PartyRootController: UIViewController {
 		
 		if identifier == "Bake Sample Segue" {
             if !AuthenticationManager.shared.isLoggedIn {
-				AuthenticationFlow.shared.startOnController(self).addAction { manager in
+				AuthenticationFlow.shared.startOnController(self).addAction { manager, cancelled in
 					if manager.isLoggedIn {
 						if self.shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
 							self.performSegueWithIdentifier("Bake Sample Segue", sender: nil)

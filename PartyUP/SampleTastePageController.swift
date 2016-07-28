@@ -279,7 +279,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
 					Flurry.logEvent("Offensive_Sample_Reported", withParameters: [ "reporter" : user, "sample" : self.sample.media.description])
 				}
 			} else {
-				AuthenticationFlow.shared.startOnController(self).addAction { manager in
+				AuthenticationFlow.shared.startOnController(self).addAction { manager, cancelled in
 					if manager.isLoggedIn { self.placeVote(vote, andFlag: flag) } }
 			}
 		}

@@ -8,7 +8,7 @@
 
 import SCLAlertView
 
-typealias AuthenticationFlowCompletion = (AuthenticationManager) -> Void
+typealias AuthenticationFlowCompletion = (AuthenticationManager, Bool) -> Void
 
 class AuthenticationFlow {
 
@@ -58,7 +58,7 @@ class AuthenticationFlow {
                 if let put = off.next() {
                     self?.putoffButton?.setTitle(put, forState: .Normal)
                 } else {
-                    self?.stop()
+					self?.end(true)
                 }
             }
         }
@@ -70,9 +70,9 @@ class AuthenticationFlow {
                                   colorStyle: 0xf77e56)
 	}
 
-	private func end() {
+	private func end(cancelled: Bool = false) {
         stop()
-        self.completers.forEach { $0(self.manager) }
+        self.completers.forEach { $0(self.manager, cancelled) }
 	}
 
     init() {
@@ -90,11 +90,11 @@ class AuthenticationFlow {
 			case .Authenticated:
 				alertSuccessWithTitle(NSLocalizedString("Logged In", comment: "Logged in alert title"),
 				                                 andDetail: NSLocalizedString("Party Hearty!", comment: "Logged in alert detail"),
-				                                 closeLabel: nil, dismissHandler: AuthenticationFlow.end(self))
+				                                 closeLabel: nil, dismissHandler: { self.end(false) })
 			case .Unauthenticated:
 				alertFailureWithTitle(NSLocalizedString("Not Logged In", comment: "Not logged in alert title"),
 				                                 andDetail: NSLocalizedString("Better luck next time.", comment: "Not logged in alert detail"),
-				                                 closeLabel: nil, dismissHandler: AuthenticationFlow.end(self) )
+				                                 closeLabel: nil, dismissHandler: { self.end(false) })
 			case .Transitioning:
 				break
 			}
