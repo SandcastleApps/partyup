@@ -65,7 +65,7 @@ class PartyRootController: UIViewController {
 					defaults.setBool(false, forKey: PartyUpPreferences.PromptAuthentication)
 					let flow = AuthenticationFlow.shared
 					flow.setPutoffs(
-						[NSLocalizedString("Eschew Facebook Posts", comment: "First ignore Facebook button")])
+						[NSLocalizedString("Forgo Facebook Posts", comment: "First ignore Facebook button")])
 					flow.addAction { [weak self] manager, cancelled in if let me = self { me.tutorial.start(me) } }
 					flow.startOnController(self)
 				}
