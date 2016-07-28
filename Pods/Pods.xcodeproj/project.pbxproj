@@ -914,6 +914,7 @@
 		233FDBD4B92A3A6431A55F468F41709C /* CoachMarkBodyDefaultView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkBodyDefaultView.swift; path = Source/CoachMarkBodyDefaultView.swift; sourceTree = "<group>"; };
 		235B180AD40264F65B3AC1C3F48141C8 /* FBSDKInternalUtility.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKInternalUtility.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKInternalUtility.m; sourceTree = "<group>"; };
 		241E0DDFA86E6E93460091DE749DE68C /* NSLocale+SwiftDate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSLocale+SwiftDate.swift"; path = "Sources/SwiftDate/NSLocale+SwiftDate.swift"; sourceTree = "<group>"; };
+		25000E0F18484DA8E4E28F5809DDCE25 /* libFlurry_7.6.6.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurry_7.6.6.a; path = Flurry/libFlurry_7.6.6.a; sourceTree = "<group>"; };
 		254CBA58A63A6958EC8A213CF3BF3250 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		260AF8772F9DEB2CFEBB0254B90E7B6B /* CoachMarkBodyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkBodyView.swift; path = Source/CoachMarkBodyView.swift; sourceTree = "<group>"; };
 		26D329CB33B4FFD6B8AF3D3466B473C8 /* FBSDKBridgeAPIProtocolNativeV1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKBridgeAPIProtocolNativeV1.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/BridgeAPI/ProtocolVersions/FBSDKBridgeAPIProtocolNativeV1.h; sourceTree = "<group>"; };
@@ -1510,7 +1511,6 @@
 		FE76BFDA38374ADF11FFF2F89E6345FF /* NSDate+SwiftDate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSDate+SwiftDate.swift"; path = "Sources/SwiftDate/NSDate+SwiftDate.swift"; sourceTree = "<group>"; };
 		FE9F7C59F0A90234F8FDA4C3A1FE7762 /* BFAppLinkReturnToRefererView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkReturnToRefererView.m; path = Bolts/iOS/BFAppLinkReturnToRefererView.m; sourceTree = "<group>"; };
 		FEA4D83B0585A75624C19FA7F64655FD /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
-		FEB4478B2FC0D9A31E03AB73E75BC77F /* libFlurry_7.6.4.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurry_7.6.4.a; path = Flurry/libFlurry_7.6.4.a; sourceTree = "<group>"; };
 		FF4F002912FAA3691AA03E27FCEF14EE /* AWSValidation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AWSValidation.m; path = AWSCore/Serialization/AWSValidation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1888,14 +1888,6 @@
 			path = SCLAlertView;
 			sourceTree = "<group>";
 		};
-		330D4CDC28D9923BA528444E4598A08F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				FEB4478B2FC0D9A31E03AB73E75BC77F /* libFlurry_7.6.4.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		41DB7A5B5E594ECC95B8D63F86DB9D99 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1957,9 +1949,17 @@
 			children = (
 				4F3B396644D1C76EEE477532DF19E647 /* Flurry.h */,
 				9140A5BC7E0FB2FA5971DD4253270656 /* FlurryEmpty.m */,
-				330D4CDC28D9923BA528444E4598A08F /* Frameworks */,
+				596C59459896D8681B7CB3213522F351 /* Frameworks */,
 			);
 			name = FlurrySDK;
+			sourceTree = "<group>";
+		};
+		596C59459896D8681B7CB3213522F351 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				25000E0F18484DA8E4E28F5809DDCE25 /* libFlurry_7.6.6.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		5C409FE93AC1AD6D4B0E16932FF97A06 /* Support Files */ = {
