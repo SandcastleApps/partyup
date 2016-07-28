@@ -317,7 +317,7 @@ class PartyRootController: UIViewController {
 			if INTULocationManager.locationServicesState() == .Available && locationRequestId == 0 {
 				resolveLocalPlacemark()
 			}
-		} else if defaults.boolForKey(PartyUpPreferences.CameraJump) {
+		} else if defaults.boolForKey(PartyUpPreferences.CameraJump) && AuthenticationManager.shared.isLoggedIn {
 			if shouldPerformSegueWithIdentifier("Bake Sample Segue", sender: nil) {
 				performSegueWithIdentifier("Bake Sample Segue", sender: nil)
 			}
