@@ -60,13 +60,14 @@ class PartyRootController: UIViewController {
             }
         }
 		nc.addObserver(self, selector: #selector(PartyRootController.bookmarkLocation), name: PartyUpConstants.FavoriteLocationNotification, object: nil)
-        nc.addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: nil) { note in
+        nc.addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { note in
             let defaults = NSUserDefaults.standardUserDefaults()
             if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) != .Authenticated && defaults.boolForKey(PartyUpPreferences.PromptAuthentication) {
                 defaults.setBool(false, forKey: PartyUpPreferences.PromptAuthentication)
                 let flow = AuthenticationFlow.shared
                 flow.setPutoffs(
-                    [NSLocalizedString("Ignore Facebook Posts", comment: "First ignore Facebook button")])
+                    [NSLocalizedString("Eschew Facebook Posts", comment: "First ignore Facebook button")])
+				flow.addAction { [weak self] manager, cancelled in if let me = self { me.tutorial.start(me) } }
                 flow.startOnController(self)
             }
         }
@@ -167,11 +168,6 @@ class PartyRootController: UIViewController {
 		}
 	}
 
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		tutorial.start(self)
-	}
-
 	deinit {
 		adRefreshTimer?.invalidate()
 		NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -180,7 +176,7 @@ class PartyRootController: UIViewController {
     // MARK: - Navigation
 
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-		if tutorial.tutoring || presentedViewController != nil || navigationController?.topViewController != self {
+		if (tutorial.tutoring || presentedViewController != nil || navigationController?.topViewController != self) && identifier != "Party Embed Segue" {
 			return false
 		}
 		
