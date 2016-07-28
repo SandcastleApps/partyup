@@ -30,7 +30,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 	var tutoring: Bool {
 		get {
-			return coach.flatMap { $0.started } ?? false
+			return coach.flatMap { $0.started } ?? !unseen.isEmpty
 		}
 	}
     
