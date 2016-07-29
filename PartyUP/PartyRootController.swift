@@ -62,20 +62,28 @@ class PartyRootController: UIViewController {
 			let defaults = NSUserDefaults.standardUserDefaults()
 			if defaults.boolForKey(PartyUpPreferences.PromptAuthentication) {
 				if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) != .Authenticated  {
-					defaults.setBool(false, forKey: PartyUpPreferences.PromptAuthentication)
 					let flow = AuthenticationFlow.shared
 					flow.setPutoffs(
-						[NSLocalizedString("Forgo Facebook Posts", comment: "First ignore Facebook button")])
-					flow.addAction { [weak self] manager, cancelled in if let me = self { me.tutorial.start(me) } }
+						[NSLocalizedString("Miss out on Facebook Posts", comment: "First ignore Facebook button")])
+					flow.addAction { [weak self] manager, cancelled in if let me = self { defaults.setBool(false, forKey: PartyUpPreferences.PromptAuthentication); me.presentTutorial() } }
 					flow.startOnController(self)
 				}
-			} else {
-				self.tutorial.start(self)
 			}
         }
 
 		adRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: #selector(PartyRootController.refreshAdvertising), userInfo: nil, repeats: true)
     }
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		presentTutorial()
+	}
+
+	func presentTutorial() {
+		if !NSUserDefaults.standardUserDefaults().boolForKey(PartyUpPreferences.PromptAuthentication) {
+			tutorial.start(self)
+		}
+	}
 
 	func refreshSelectedRegion(note: NSNotification) {
 		if let adjust = note.userInfo?["adjustLocation"] as? Bool where adjust {
@@ -314,6 +322,8 @@ class PartyRootController: UIViewController {
     
 	func observeApplicationBecameActive() {
         let defaults = NSUserDefaults.standardUserDefaults()
+
+		presentTutorial()
         
 		if here == nil {
 			if INTULocationManager.locationServicesState() == .Available && locationRequestId == 0 {

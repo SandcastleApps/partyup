@@ -30,7 +30,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 	var tutoring: Bool {
 		get {
-			return coach.flatMap { $0.started } ?? !unseen.isEmpty
+			return coach.flatMap { $0.started } ?? false
 		}
 	}
     
@@ -80,13 +80,15 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 	func start(target: UIViewController) {
 		if !unseen.isEmpty {
-			coach = create()
-			coach?.skipView = unseen.count > 1 ? skip : nil
-			coach?.startOn(target)
-			self.target = target
+			if coach == nil {
+				coach = create()
+				coach?.skipView = unseen.count > 1 ? skip : nil
+				coach?.startOn(target)
+				self.target = target
 
-			target.navigationController?.view.userInteractionEnabled = false
-			target.view?.userInteractionEnabled = false
+				target.navigationController?.view.userInteractionEnabled = false
+				target.view?.userInteractionEnabled = false
+			}
         } else {
             completion?(false)
         }
