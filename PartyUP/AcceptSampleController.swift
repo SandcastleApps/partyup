@@ -348,6 +348,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
             }
             let share = UIActivityViewController(activityItems: [statement, url], applicationActivities: nil)
             share.popoverPresentationController?.sourceView = sender
+			share.popoverPresentationController?.sourceRect = sender.bounds
             self.presentViewController(share, animated: true, completion: nil)
             
             Flurry.logEvent("Sample_Shared_Externally")
