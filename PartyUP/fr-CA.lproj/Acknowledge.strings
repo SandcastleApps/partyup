@@ -1,0 +1,75 @@
+
+/* Class = "UILabel"; text = "Todd Mercer"; ObjectID = "33Y-fH-urV"; */
+"33Y-fH-urV.text" = "Todd Mercer";
+
+/* Class = "UIButton"; normalTitle = "Rate PartyUP!"; ObjectID = "6M7-gY-XJR"; */
+"6M7-gY-XJR.normalTitle" = "Rate PartyUP!";
+
+/* Class = "UILabel"; text = "Fritz Vander Heide"; ObjectID = "Alc-HN-12R"; */
+"Alc-HN-12R.text" = "Fritz Vander Heide";
+
+/* Class = "UILabel"; text = "Pixel Dyer"; ObjectID = "BVg-MT-fCF"; */
+"BVg-MT-fCF.text" = "Pixel Dyer";
+
+/* Class = "UILabel"; text = "Third Party Libraries"; ObjectID = "CeJ-gq-gEn"; */
+"CeJ-gq-gEn.text" = "Third Party Libraries";
+
+/* Class = "UITableViewSection"; headerTitle = "Sandcastle App Development"; ObjectID = "E50-SU-y0s"; */
+"E50-SU-y0s.headerTitle" = "Sandcastle App Development";
+
+/* Class = "UILabel"; text = "Julie O'Kruk"; ObjectID = "ELp-ko-W37"; */
+"ELp-ko-W37.text" = "Julie O'Kruk";
+
+/* Class = "UILabel"; text = "Terms of Service"; ObjectID = "HYg-5b-sCt"; */
+"HYg-5b-sCt.text" = "Terms of Service";
+
+/* Class = "UILabel"; text = "Laird"; ObjectID = "JHE-04-mfg"; */
+"JHE-04-mfg.text" = "Laird";
+
+/* Class = "UILabel"; text = "Feedback"; ObjectID = "Lx4-aQ-jyG"; */
+"Lx4-aQ-jyG.text" = "Feedback";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "ORv-mb-TPi"; */
+"ORv-mb-TPi.title" = " ";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "OhR-V4-9Aw"; */
+"OhR-V4-9Aw.text" = "Version";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "VTj-qJ-bCZ"; */
+"VTj-qJ-bCZ.title" = "Title";
+
+/* Class = "UITableViewSection"; headerTitle = "Acknowledgements"; ObjectID = "Z6h-8E-Ifd"; */
+"Z6h-8E-Ifd.headerTitle" = "Acknowledgements";
+
+/* Class = "UILabel"; text = "Documentation"; ObjectID = "csW-QC-mwU"; */
+"csW-QC-mwU.text" = "Documentation";
+
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "hPU-qk-jYw"; */
+"hPU-qk-jYw.title" = "About";
+
+/* Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "hjd-uh-nFr"; */
+"hjd-uh-nFr.headerTitle" = "Support";
+
+/* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "jV9-bY-GDK"; */
+"jV9-bY-GDK.headerTitle" = "Settings";
+
+/* Class = "UITableViewController"; title = "Ackowledgements"; ObjectID = "k3x-Sk-Gdv"; */
+"k3x-Sk-Gdv.title" = "Ackowledgements";
+
+/* Class = "UIButton"; normalTitle = "Recruit your friends"; ObjectID = "kDp-co-4A6"; */
+"kDp-co-4A6.normalTitle" = "Recruit your friends";
+
+/* Class = "UIButton"; normalTitle = "PartyUP Settings"; ObjectID = "kG6-wM-Hpp"; */
+"kG6-wM-Hpp.normalTitle" = "PartyUP Settings";
+
+/* Class = "UINavigationController"; title = "AcknowldgeRoot"; ObjectID = "lKr-Eh-10R"; */
+"lKr-Eh-10R.title" = "AcknowldgeRoot";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "luN-ZO-KJX"; */
+"luN-ZO-KJX.normalTitle" = "Login";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "oZo-JE-Rp0"; */
+"oZo-JE-Rp0.text" = "Privacy Policy";
+
+/* Class = "UILabel"; text = "Code Mason"; ObjectID = "r8W-hm-58R"; */
+"r8W-hm-58R.text" = "Code Mason";

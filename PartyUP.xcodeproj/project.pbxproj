@@ -151,6 +151,15 @@
 		1F43C5C71CC3AF8500FA4156 /* AuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationProvider.swift; sourceTree = "<group>"; };
 		1F43C5C91CC3B3AA00FA4156 /* FacebookAuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookAuthenticationProvider.swift; sourceTree = "<group>"; };
 		1F4650951CDCD60300957998 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		1F5B74501D5133A700A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Baking.strings"; sourceTree = "<group>"; };
+		1F5B74511D5133A700A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Main.strings"; sourceTree = "<group>"; };
+		1F5B74521D5133A700A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Tasting.strings"; sourceTree = "<group>"; };
+		1F5B74531D5133A700A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Acknowledge.strings"; sourceTree = "<group>"; };
+		1F5B74541D5133A700A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		1F5B74551D5133A800A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1F5B74561D5133A800A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1F5B74571D5133A800A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1F5B74581D5133A800A805DE /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1F69A6261CA5C73300A84731 /* NSDateComponentsFormatter+Postfix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateComponentsFormatter+Postfix.swift"; sourceTree = "<group>"; };
 		1F71B5DE1C0897E800F5740E /* Governors.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Governors.gpx; path = Globetrotter/Governors.gpx; sourceTree = SOURCE_ROOT; };
 		1F71B5DF1C0897E800F5740E /* Home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Home.gpx; path = Globetrotter/Home.gpx; sourceTree = SOURCE_ROOT; };
@@ -567,6 +576,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"fr-CA",
 			);
 			mainGroup = 1F4279F41BA59F4C00E622CF;
 			productRefGroup = 1F4279FE1BA59F4C00E622CF /* Products */;
@@ -804,6 +814,7 @@
 			children = (
 				1F427A051BA59F4C00E622CF /* Base */,
 				1FBD40061C120F6B0093D852 /* en */,
+				1F5B74511D5133A700A805DE /* fr-CA */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -813,6 +824,7 @@
 			children = (
 				1F427A0A1BA59F4C00E622CF /* Base */,
 				1FBD40071C120F6B0093D852 /* en */,
+				1F5B74541D5133A700A805DE /* fr-CA */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -822,6 +834,7 @@
 			children = (
 				1F8BF1C31C1C55DD00221D82 /* Base */,
 				1FF051E41C1FCB5900A7A67C /* en */,
+				1F5B74531D5133A700A805DE /* fr-CA */,
 			);
 			name = Acknowledge.storyboard;
 			sourceTree = "<group>";
@@ -831,6 +844,7 @@
 			children = (
 				1F98968D1C2239DE00B0DB29 /* Base */,
 				1F9896901C2239E300B0DB29 /* en */,
+				1F5B74501D5133A700A805DE /* fr-CA */,
 			);
 			name = Baking.storyboard;
 			sourceTree = "<group>";
@@ -840,6 +854,7 @@
 			children = (
 				1F9896921C2239F000B0DB29 /* Base */,
 				1F9896951C2239F300B0DB29 /* en */,
+				1F5B74521D5133A700A805DE /* fr-CA */,
 			);
 			name = Tasting.storyboard;
 			sourceTree = "<group>";
@@ -848,6 +863,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1FBD400B1C120F6B0093D852 /* en */,
+				1F5B74581D5133A800A805DE /* fr-CA */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -856,6 +872,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1FBD40101C120F6C0093D852 /* en */,
+				1F5B74571D5133A800A805DE /* fr-CA */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -864,6 +881,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1FBD40151C120F6C0093D852 /* en */,
+				1F5B74561D5133A800A805DE /* fr-CA */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -872,6 +890,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1FBD401A1C120F6C0093D852 /* en */,
+				1F5B74551D5133A800A805DE /* fr-CA */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

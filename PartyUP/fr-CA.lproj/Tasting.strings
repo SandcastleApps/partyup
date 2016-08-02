@@ -1,0 +1,42 @@
+
+/* Class = "UILabel"; text = "💢\nVideo Unavailable"; ObjectID = "BnE-ho-ATh"; */
+"BnE-ho-ATh.text" = "💢\nVideo Unavailable";
+
+/* Class = "UILabel"; text = "via"; ObjectID = "Drg-ok-6Sz"; */
+"Drg-ok-6Sz.text" = "via";
+
+/* Class = "UIButton"; normalTitle = "Share PartyUP with friends"; ObjectID = "I7g-80-bwg"; */
+"I7g-80-bwg.normalTitle" = "Share PartyUP with friends";
+
+/* Class = "UIButton"; normalTitle = "Authenticated"; ObjectID = "LkD-Tx-7pM"; */
+"LkD-Tx-7pM.normalTitle" = "Authenticated";
+
+/* Class = "UILabel"; text = "Time"; ObjectID = "Sy6-pN-RsA"; */
+"Sy6-pN-RsA.text" = "Time";
+
+/* Class = "UIPageViewController"; title = "Taste Pages Navigator"; ObjectID = "Tnu-BU-9Zn"; */
+"Tnu-BU-9Zn.title" = "Taste Pages Navigator";
+
+/* Class = "UIViewController"; title = "Taste Sample Root"; ObjectID = "ZcT-Fn-GTh"; */
+"ZcT-Fn-GTh.title" = "Taste Sample Root";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "jsX-uH-2fJ"; */
+"jsX-uH-2fJ.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Login to see Facebook post from parties."; ObjectID = "lgg-35-Bnb"; */
+"lgg-35-Bnb.text" = "Login to see Facebook post from parties.";
+
+/* Class = "UIButton"; normalTitle = "Post your own video"; ObjectID = "m4g-6t-ybV"; */
+"m4g-6t-ybV.normalTitle" = "Post your own video";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "n4K-5j-O8G"; */
+"n4K-5j-O8G.text" = "0";
+
+/* Class = "UIViewController"; title = "Taste Sample Page"; ObjectID = "qqy-na-3Zk"; */
+"qqy-na-3Zk.title" = "Taste Sample Page";
+
+/* Class = "UILabel"; text = "Crap! No More Videos"; ObjectID = "tPz-jc-M19"; */
+"tPz-jc-M19.text" = "Crap! No More Videos";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "vbL-OI-v96"; */
+"vbL-OI-v96.normalTitle" = "Button";

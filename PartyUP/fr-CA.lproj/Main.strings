@@ -1,0 +1,36 @@
+
+/* Class = "UILabel"; text = "Freshness"; ObjectID = "1Jq-9a-QOQ"; */
+"1Jq-9a-QOQ.text" = "Freshness";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "2us-ah-9tt"; */
+"2us-ah-9tt.title" = " ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2w9-Ke-igB"; */
+"2w9-Ke-igB.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Off 🔕"; ObjectID = "FcS-0x-nDp"; */
+"FcS-0x-nDp.normalTitle" = "Off 🔕";
+
+/* Class = "UIViewController"; title = "Pick Party"; ObjectID = "SEJ-wv-10Q"; */
+"SEJ-wv-10Q.title" = "Pick Party";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "WRy-pu-28X"; */
+"WRy-pu-28X.title" = " ";
+
+/* Class = "UINavigationController"; title = "PartyUP Navigator"; ObjectID = "YPM-4j-oTK"; */
+"YPM-4j-oTK.title" = "PartyUP Navigator";
+
+/* Class = "UIButton"; normalTitle = "🏆"; ObjectID = "ZEI-2q-XcN"; */
+"ZEI-2q-XcN.normalTitle" = "🏆";
+
+/* Class = "UILabel"; text = "Tagline"; ObjectID = "ehr-lb-jBg"; */
+"ehr-lb-jBg.text" = "Tagline";
+
+/* Class = "UILabel"; text = "Tagline"; ObjectID = "k5X-mt-rMi"; */
+"k5X-mt-rMi.text" = "Tagline";
+
+/* Class = "UITableViewController"; title = "Select Party"; ObjectID = "r5F-kz-7J0"; */
+"r5F-kz-7J0.title" = "Select Party";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "w2t-hX-Wgr"; */
+"w2t-hX-Wgr.text" = "Label";
