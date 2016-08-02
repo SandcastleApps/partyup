@@ -1,13 +1,13 @@
 PODS:
   - ActionSheetPicker-3.0 (2.2.0)
   - Alamofire (3.4.1)
-  - AWSCognito (2.4.5):
-    - AWSCore (= 2.4.5)
-  - AWSCore (2.4.5)
-  - AWSDynamoDB (2.4.5):
-    - AWSCore (= 2.4.5)
-  - AWSS3 (2.4.5):
-    - AWSCore (= 2.4.5)
+  - AWSCognito (2.4.6):
+    - AWSCore (= 2.4.6)
+  - AWSCore (2.4.6)
+  - AWSDynamoDB (2.4.6):
+    - AWSCore (= 2.4.6)
+  - AWSS3 (2.4.6):
+    - AWSCore (= 2.4.6)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -58,10 +58,10 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  AWSCognito: 96e1762404831ffb87f67c87a5ee68fde543bb69
-  AWSCore: 2f356385bcea9b81ea47f9be0228c71697d9597d
-  AWSDynamoDB: 284308e0f5164aa8178dd06505410390deb44a49
-  AWSS3: 8f73b439f12c4aaaea39fbec87f67a1f1e15bd42
+  AWSCognito: 761e811df8ec3d418274ad4248b4ac2e4727e65b
+  AWSCore: 402048153597591f2ec54b0f650b88dfb3a1b6ef
+  AWSDynamoDB: 8a30497066057ec4556ef693aad346de0ed8a368
+  AWSS3: 3ded64fc949e6b95e4ad80d8bee3a97199033c4e
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
