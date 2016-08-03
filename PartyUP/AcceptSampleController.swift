@@ -217,7 +217,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 	}
 	//MARK: - Alias Picker
 
-	private let aliases = [NSLocalizedString("Post Anonymously", comment: "anonymous user moniker")] + AuthenticationManager.shared.user.aliases
+	private let aliases = [NSLocalizedString("Post Anonymously", comment: "anonymous user moniker")] + AuthenticationManager.shared.user.aliases.values
 
 	@IBOutlet weak var alias: UIButton! {
 		didSet {

@@ -10,23 +10,32 @@ import Foundation
 import FBSDKCoreKit
 
 class User {
-	var aliases = [String]()
+	private(set) var aliases = [String:String]()
 
 	init() {
-		refresh()
+		fbNotificationToken = NSNotificationCenter.defaultCenter().addObserverForName(FBSDKAccessTokenDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [unowned self] note in
+			if let user = note.userInfo?[FBSDKAccessTokenDidChangeUserID] as? Bool where user == true {
+				self.refresh()
+			}
+		}
+	}
 
-		NSNotificationCenter.defaultCenter().addObserverForName(FBSDKAccessTokenDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { _ in self.refresh() }
+	deinit {
+		let _ = fbNotificationToken.flatMap { NSNotificationCenter.defaultCenter().removeObserver($0) }
 	}
 
 	func refresh() {
+		self.aliases.removeValueForKey("Facebook")
 		if let token = FBSDKAccessToken.currentAccessToken() where token.hasGranted("public_profile") {
 			FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"name"]).startWithCompletionHandler({ (connection, profile, error) in
 				if error == nil {
                     if let name = profile["name"] as? String {
-                        self.aliases.append(name)
+                        self.aliases["Facebook"] = name
                     }
 				}
 			})
 		}
 	}
+
+	private var fbNotificationToken: NSObjectProtocol?
 }

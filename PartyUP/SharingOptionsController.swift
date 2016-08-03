@@ -17,7 +17,7 @@ class SharingOptionsController: UITableViewController {
 			loginButton.setTitle(NSLocalizedString("Login to see more content", comment: "Recruitment page authenticate button"), forState: .Normal)
 			loginButton.enabled = true
 		} else {
-			let authenticated = NSLocalizedString("Hey", comment: "Recruitment page authenticated button") + " " + (AuthenticationManager.shared.user.aliases.first ?? "Anonymous")
+			let authenticated = NSLocalizedString("Hey", comment: "Recruitment page authenticated button") + " " + (AuthenticationManager.shared.user.aliases.values.first ?? "Anonymous")
 			loginButton.setTitle(authenticated, forState: .Disabled)
 		}
     }
