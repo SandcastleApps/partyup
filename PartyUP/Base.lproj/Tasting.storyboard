@@ -395,7 +395,7 @@ Video Unavailable</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to see Facebook post from parties." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgg-35-Bnb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login Status" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgg-35-Bnb">
                                 <rect key="frame" x="75" y="251" width="450" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -451,6 +451,9 @@ Video Unavailable</string>
                             <constraint firstItem="DNx-Qn-6KE" firstAttribute="bottom" secondItem="o5d-bc-fGg" secondAttribute="top" constant="8" symbolic="YES" id="uI2-HF-QJj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="loginLabel" destination="lgg-35-Bnb" id="toj-D3-CG5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hl0-fJ-EV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
