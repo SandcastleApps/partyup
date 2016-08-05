@@ -26,9 +26,9 @@ PODS:
   - INTULocationManager (4.2.0)
   - KeychainAccess (2.3.6)
   - LocationPickerViewController (1.2.0)
-  - MarqueeLabel (2.7.8):
-    - MarqueeLabel/ObjC (= 2.7.8)
-  - MarqueeLabel/ObjC (2.7.8)
+  - MarqueeLabel (2.7.9):
+    - MarqueeLabel/ObjC (= 2.7.9)
+  - MarqueeLabel/ObjC (2.7.9)
   - PBJVision (0.4.2)
   - SCLAlertView (0.5.9)
   - SwiftDate (3.0.8)
@@ -71,7 +71,7 @@ SPEC CHECKSUMS:
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   KeychainAccess: 7f10e2ef998ddf954a64d5d608be08677774684d
   LocationPickerViewController: 68054f63b9fb4a9e77f99e6402d811c061f22ee7
-  MarqueeLabel: 6fff28d8c12f30b4a8d01a9f5992b4924a857f2b
+  MarqueeLabel: 645cf4be33f8dca66fd7b15471e331d5a8d378df
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
   SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
