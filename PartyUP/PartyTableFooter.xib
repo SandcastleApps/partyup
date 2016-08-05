@@ -66,14 +66,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CyG-qi-bSl">
-                            <rect key="frame" x="265" y="45" width="70" height="30"/>
-                            <state key="normal" title="Look Here"/>
+                            <rect key="frame" x="219" y="45" width="163" height="30"/>
+                            <state key="normal" title="Tweak location to find it"/>
                             <connections>
                                 <action selector="adjustLocation" destination="-1" eventType="touchUpInside" id="msL-fY-sFO"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call To Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnC-xD-cXk">
-                            <rect key="frame" x="247.5" y="91" width="105" height="21"/>
+                            <rect key="frame" x="248" y="91" width="105" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
@@ -109,7 +109,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XR7-dX-JSH" userLabel="Favorite">
-                    <rect key="frame" x="0.0" y="-0.5" width="55" height="600"/>
+                    <rect key="frame" x="0.0" y="-1" width="55" height="601"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="Ueu-DX-E7X"/>
                     </constraints>
