@@ -90,7 +90,8 @@ public class LocationItem: NSObject, NSCoding {
         /// - Note: If you would like to format the address yourself, you can use `addressDictionary` property to create one.
     public var formattedAddressString: String? {
         get {
-            return (addressDictionary?["FormattedAddressLines"] as? [String])?[0]
+            let addressParts = (addressDictionary?["FormattedAddressLines"] as? [String])
+            return addressParts?.count > 1 ? addressParts?[1] : addressParts?[0]
         }
     }
     
@@ -138,15 +139,15 @@ public class LocationItem: NSObject, NSCoding {
     
     
     public required convenience init(coder decoder: NSCoder) {
-        let latitude = decoder.decodeObjectForKey("latitude") as! Double
-        let longitude = decoder.decodeObjectForKey("longitude") as! Double
+        let latitude = decoder.decodeDoubleForKey("latitude")
+        let longitude = decoder.decodeDoubleForKey("longitude")
         let addressDictionary = decoder.decodeObjectForKey("addressDictionary") as! [String: AnyObject]
         self.init(coordinate: (latitude, longitude), addressDictionary: addressDictionary)
     }
     
     public func encodeWithCoder(coder: NSCoder) {
-        coder.encodeObject(mapItem.placemark.coordinate.latitude, forKey: "latitude")
-        coder.encodeObject(mapItem.placemark.coordinate.longitude, forKey: "longitude")
+        coder.encodeDouble(mapItem.placemark.coordinate.latitude, forKey: "latitude")
+        coder.encodeDouble(mapItem.placemark.coordinate.longitude, forKey: "longitude")
         coder.encodeObject(addressDictionary, forKey: "addressDictionary")
     }
     

@@ -29,9 +29,9 @@
 import UIKit
 import MapKit
 
-public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
+public class LocationPicker: UIViewController, UIGestureRecognizerDelegate {
     
-    // MARK: - Completion closures
+    // MARK: Completion closures
     
     /**
      Completion closure executed after everytime user select a location.
@@ -249,12 +249,21 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         /// `mapView.scrollEnabled` is set to this property's value after view is loaded. __Default__ is __`true`__
     public var mapViewScrollEnabled = true
     
+    /// Whether redirect to the exact coordinate after queried. __Default__ is __`true`__
+    public var isRedirectToExactCoordinate = true
+    
     /**
      Whether the locations provided in `var alternativeLocations` or obtained from `func alternativeLocationAtIndex(index: Int) -> LocationItem` can be deleted. __Default__ is __`false`__
      - important:
      If this property is set to `true`, remember to update your models by closure, delegate, or override.
      */
     public var alternativeLocationEditable = false
+    
+    /**
+     Whether to force reverse geocoding or not. If this property is set to `true`, the location will be reverse geocoded. This is helpful if you require an exact location (e.g. providing street), but the user just searched for a town name.
+     The default behavior is to not geocode any additional search result.
+     */
+    public var forceReverseGeocoding = false
     
     
     
@@ -295,7 +304,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     
     
-    // MARK: - UI Elements
+    // MARK: UI Elements
     
     public let searchBar = UISearchBar()
     public let tableView = UITableView()
@@ -339,7 +348,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
 
     
     
-    // MARK: - View Controller
+    // MARK: View Controller
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -417,11 +426,9 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         pinView.translatesAutoresizingMaskIntoConstraints = false
         
         if #available(iOS 9.0, *) {
-            let margins = view.layoutMarginsGuide
-            
             searchBar.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor).active = true
-            searchBar.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor, constant: -view.layoutMargins.left * 2).active = true
-            searchBar.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor, constant: view.layoutMargins.right * 2).active = true
+            searchBar.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor).active = true
+            searchBar.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor).active = true
             
             tableView.topAnchor.constraintEqualToAnchor(searchBar.bottomAnchor).active = true
             tableView.leadingAnchor.constraintEqualToAnchor(searchBar.leadingAnchor).active = true
@@ -463,7 +470,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     
     
-    // MARK: - Customs
+    // MARK: Customs
     
     /**
      Add two bar buttons that confirm and cancel user's location pick.
@@ -559,6 +566,119 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     
     
+    /**
+     Decide if an item from MKLocalSearch should be displayed or not
+     
+     - parameter locationItem:      An instance of `LocationItem`
+     */
+    public func shouldShowSearchResult(mapItem: MKMapItem) -> Bool {
+        return true
+    }
+    
+    
+    
+    // MARK: Gesture Recognizer
+    
+    func panGestureInMapViewDidRecognize(sender: UIPanGestureRecognizer) {
+        switch(sender.state) {
+        case .Began:
+            mapViewCenterChanged = true
+            selectedLocationItem = nil
+            geocoder.cancelGeocode()
+            
+            searchBar.text = nil
+            if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+                tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
+            }
+            if let doneButtonItem = barButtonItems?.doneButtonItem {
+                doneButtonItem.enabled = false
+            }
+        default:
+            break
+        }
+    }
+    
+    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    
+    
+    // MARK: Buttons
+    
+    func doneButtonDidTap(sender: UIBarButtonItem) {
+        if let locationItem = selectedLocationItem {
+            dismissViewControllerAnimated(true, completion: nil)
+            locationDidPick(locationItem)
+        }
+    }
+    
+    func cancelButtonDidTap(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    
+    // MARK: UI Mainipulations
+    
+    private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) {
+        mapViewHeightConstraint.constant = mapViewHeight
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, 0 , distance)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    private func closeMapView() {
+        mapViewHeightConstraint.constant = 0
+    }
+    
+    
+    
+    // MARK: Location Handlers
+    
+    /**
+     Set the given LocationItem as the currently selected one. This will update the searchBar and show the map if possible.
+     
+     - parameter locationItem:      An instance of `LocationItem`
+     */
+    public func selectLocationItem(locationItem: LocationItem) {
+        selectedLocationItem = locationItem
+        searchBar.text = locationItem.name
+        if let coordinate = locationItem.coordinate {
+            showMapViewWithCenterCoordinate(coordinateObjectFromTuple(coordinate), WithDistance: longitudinalDistance)
+        } else {
+            closeMapView()
+        }
+        
+        barButtonItems?.doneButtonItem.enabled = true
+        locationDidSelect(locationItem)
+    }
+    
+    private func reverseGeocodeLocation(location: CLLocation) {
+        geocoder.cancelGeocode()
+        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            guard let placemarks = placemarks else { return }
+            
+            var placemark = placemarks[0]
+            if !self.isRedirectToExactCoordinate {
+                placemark = MKPlacemark(coordinate: location.coordinate, addressDictionary: placemark.addressDictionary as? [String : NSObject])
+            }
+            
+            if !self.searchBar.isFirstResponder() {
+                let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placemark))
+                self.selectLocationItem(LocationItem(mapItem: mapItem))
+            }
+        })
+    }
+    
+}
+
+extension LocationPicker {
+    
     // MARK: Callbacks
     
     /**
@@ -567,8 +687,8 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      - important:
      This method includes the following codes:
      
-            selectCompletion?(locationItem)
-            delegate?.locationDidSelect?(locationItem)
+     selectCompletion?(locationItem)
+     delegate?.locationDidSelect?(locationItem)
      
      So, if you override it without calling `super.locationDidSelect(locationItem)`, completion closure and delegate method would not be called.
      
@@ -605,8 +725,8 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      - important:
      This method includes the following codes:
      
-            pickCompletion?(locationItem)
-            delegate?.locationDidPick?(locationItem)
+     pickCompletion?(locationItem)
+     delegate?.locationDidPick?(locationItem)
      
      So, if you override it without calling `super.locationDidPick(locationItem)`, completion closure and delegate method would not be called.
      
@@ -643,8 +763,8 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      - important:
      This method includes the following codes:
      
-            deleteCompletion?(locationItem)
-            dataSource?.commitAlternativeLocationDeletion?(locationItem)
+     deleteCompletion?(locationItem)
+     dataSource?.commitAlternativeLocationDeletion?(locationItem)
      
      So, if you override it without calling `super.alternativeLocationDidDelete(locationItem)`, completion closure and delegate method would not be called.
      
@@ -679,8 +799,8 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      - important:
      This method includes the following codes:
      
-            locationDeniedHandler?(self)
-            delegate?.locationDidDeny?(self)
+     locationDeniedHandler?(self)
+     delegate?.locationDidDeny?(self)
      
      So, if you override it without calling `super.locationDidDeny(locationPicker)`, completion closure and delegate method would not be called.
      
@@ -726,34 +846,9 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         }
     }
     
-    
-    
-    // MARK: - Gesture Recognizer
-    
-    func panGestureInMapViewDidRecognize(sender: UIPanGestureRecognizer) {
-        switch(sender.state) {
-        case .Began:
-            mapViewCenterChanged = true
-            selectedLocationItem = nil
-            geocoder.cancelGeocode()
-            
-            searchBar.text = nil
-            if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
-                tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
-            }
-            if let doneButtonItem = barButtonItems?.doneButtonItem {
-                doneButtonItem.enabled = false
-            }
-        default:
-            break
-        }
-    }
-    
-    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    
+}
+
+extension LocationPicker: UISearchBarDelegate {
     
     // MARK: Search Bar Delegate
     
@@ -778,7 +873,9 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
                         return
                 }
                 
-                self.searchResultLocations = localSearchResponse.mapItems.map({ LocationItem(mapItem: $0) })
+                self.searchResultLocations = localSearchResponse.mapItems.filter({ (mapItem) -> Bool in
+                    return self.shouldShowSearchResult(mapItem)
+                }).map({ LocationItem(mapItem: $0) })
                 
                 if self.allowArbitraryLocation {
                     let locationFound = self.searchResultLocations.filter({
@@ -809,9 +906,11 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         searchBar.endEditing(true)
     }
     
+}
+
+extension LocationPicker: UITableViewDelegate, UITableViewDataSource {
     
-    
-    // MAKR: Table View Delegate and Data Source
+    // MARK: Table View Delegate and Data Source
     
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -866,7 +965,12 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         } else {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! LocationCell
             let locationItem = cell.locationItem!
-            selectLocationItem(locationItem)
+            let coordinate = locationItem.coordinate
+            if (coordinate != nil && self.forceReverseGeocoding) {
+                reverseGeocodeLocation(CLLocation(latitude: coordinate!.latitude, longitude: coordinate!.longitude))
+            } else {
+                selectLocationItem(locationItem)
+            }
         }
         
     }
@@ -888,7 +992,9 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         }
     }
     
-    
+}
+
+extension LocationPicker: MKMapViewDelegate {
     
     // MARK: Map View Delegate
     
@@ -904,8 +1010,13 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         longitudinalDistance = longitudinalDistanceFromMapRect(mapView.visibleMapRect)
         if mapViewCenterChanged {
             mapViewCenterChanged = false
-            let revisedCoordinate = gcj2wgs(mapView.centerCoordinate)
-            reverseGeocodeLocation(CLLocation(latitude: revisedCoordinate.latitude, longitude: revisedCoordinate.longitude))
+            if #available(iOS 10, *) {
+                let coordinate = mapView.centerCoordinate
+                reverseGeocodeLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude))
+            } else {
+                let adjustedCoordinate = gcj2wgs(mapView.centerCoordinate)
+                reverseGeocodeLocation(CLLocation(latitude: adjustedCoordinate.latitude, longitude: adjustedCoordinate.longitude))
+            }
         }
         
         if !animated {
@@ -915,39 +1026,11 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         }
     }
     
+}
+
+extension LocationPicker: CLLocationManagerDelegate {
     
-    
-    // MARK: Buttons
-    
-    func doneButtonDidTap(sender: UIBarButtonItem) {
-        if let locationItem = selectedLocationItem {
-            dismissViewControllerAnimated(true, completion: nil)
-            locationDidPick(locationItem)
-        }
-    }
-    
-    func cancelButtonDidTap(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
-    
-    // MARK: - UI Mainipulations
-    
-    private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) {
-        mapViewHeightConstraint.constant = mapViewHeight
-        
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, 0 , distance)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
-    private func closeMapView() {
-        mapViewHeightConstraint.constant = 0
-    }
-    
-    
-    
-    // MARK: - Location Manager Delegate
+    // MARK: Location Manager Delegate
     
     public func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print(error)
@@ -962,39 +1045,6 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
                 locationManager.stopUpdatingLocation()
             }
         }
-    }
-    
-    
-    
-    // MARK: Location Handlers
-    
-    private func selectLocationItem(locationItem: LocationItem) {
-        selectedLocationItem = locationItem
-        searchBar.text = locationItem.name
-        if let coordinate = locationItem.coordinate {
-            showMapViewWithCenterCoordinate(coordinateObjectFromTuple(coordinate), WithDistance: longitudinalDistance)
-        } else {
-            closeMapView()
-        }
-        
-        barButtonItems?.doneButtonItem.enabled = true
-        locationDidSelect(locationItem)
-    }
-    
-    private func reverseGeocodeLocation(location: CLLocation) {
-        geocoder.cancelGeocode()
-        geocoder.reverseGeocodeLocation(location, completionHandler: { (placeMarks, error) -> Void in
-            guard error == nil else {
-                print(error)
-                return
-            }
-            guard let placeMarks = placeMarks else { return }
-            
-            if !self.searchBar.isFirstResponder() {
-                let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placeMarks[0]))
-                self.selectLocationItem(LocationItem(mapItem: mapItem))
-            }
-        })
     }
     
 }
