@@ -17,7 +17,7 @@ extension Venue {
 	func fetchSeedlings() {
         func pack(item item: JSON, source: String = "source", time: String = "updated_time", comment: String = "description", alias: String = "from", stale: NSDate = 7.days.ago) -> Seedling? {
             guard let source = item[source].string.flatMap({ NSURL(string: $0) }),
-                let time = item[time].string.flatMap({ $0.toDate(DateFormat.ISO8601) }) where time > stale else { return nil }
+                let time = item[time].string.flatMap({ $0.toDate(DateFormat.ISO8601Format(.Full)) }) where time > stale else { return nil }
 			let comment = item[comment].string
 			let alias = item[alias]["name"].string
             
