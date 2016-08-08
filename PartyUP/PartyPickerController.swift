@@ -74,7 +74,9 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	private var searchController: UISearchController!
 	@IBOutlet weak var searchView: UIView!
 	@IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var searchTrailing: NSLayoutConstraint!
 	@IBOutlet weak var searchLeading: NSLayoutConstraint!
+    @IBOutlet weak var searchLeadingActive: NSLayoutConstraint!
 
 	@IBOutlet var partyHeader: UIView!
     @IBOutlet var partyFooters: [UIView]! {
@@ -262,6 +264,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		if let searchString = searchBar.text {
 			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
+        searchLeadingActive.priority = 250
 		searchBar.searchBarStyle = .Minimal
 		favoriteButton.hidden = false
 	}
@@ -269,6 +272,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		if let searchString = searchController.searchBar.text where searchController.active {
 			searchController.searchBar.searchBarStyle = .Prominent
+            searchLeadingActive.priority = 800
 			favoriteButton.hidden = true
 			venues = parties?.venues.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
 		} else {

@@ -13,6 +13,8 @@
                 <outlet property="footerLabel" destination="QnC-xD-cXk" id="qZt-B2-g8N"/>
                 <outlet property="partyHeader" destination="Mij-Y2-G49" id="d40-Wg-5zh"/>
                 <outlet property="searchLeading" destination="5YV-H0-5Ap" id="Gl4-ik-eAU"/>
+                <outlet property="searchLeadingActive" destination="JgW-ma-7je" id="O33-Fj-8WO"/>
+                <outlet property="searchTrailing" destination="a7O-qj-wX0" id="dbh-zF-UyY"/>
                 <outlet property="searchView" destination="StC-Di-mAK" id="X3v-z2-kWD"/>
                 <outletCollection property="partyFooters" destination="iN0-l3-epB" collectionClass="NSMutableArray" id="O5o-2r-aNy"/>
                 <outletCollection property="partyFooters" destination="awW-qt-Jfm" collectionClass="NSMutableArray" id="Cp4-wu-5l8"/>
@@ -110,7 +112,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XR7-dX-JSH" userLabel="Favorite">
-                    <rect key="frame" x="0.0" y="-0.5" width="55" height="600"/>
+                    <rect key="frame" x="0.0" y="-1" width="55" height="601"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="Ueu-DX-E7X"/>
                     </constraints>
@@ -127,11 +129,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="StC-Di-mAK" firstAttribute="leading" secondItem="XR7-dX-JSH" secondAttribute="trailing" constant="-10" id="5YV-H0-5Ap"/>
+                <constraint firstItem="StC-Di-mAK" firstAttribute="leading" secondItem="XR7-dX-JSH" secondAttribute="trailing" priority="750" constant="-10" id="5YV-H0-5Ap"/>
                 <constraint firstAttribute="bottom" secondItem="StC-Di-mAK" secondAttribute="bottom" id="8Oe-Ji-i1T"/>
+                <constraint firstItem="StC-Di-mAK" firstAttribute="leading" secondItem="Mij-Y2-G49" secondAttribute="leading" priority="250" id="JgW-ma-7je"/>
                 <constraint firstItem="XR7-dX-JSH" firstAttribute="height" secondItem="StC-Di-mAK" secondAttribute="height" id="WGl-05-gaR"/>
                 <constraint firstItem="XR7-dX-JSH" firstAttribute="centerY" secondItem="Mij-Y2-G49" secondAttribute="centerY" id="Xrf-Xn-bIX"/>
-                <constraint firstAttribute="trailing" secondItem="StC-Di-mAK" secondAttribute="trailing" id="a7O-qj-wX0"/>
+                <constraint firstItem="StC-Di-mAK" firstAttribute="trailing" secondItem="Mij-Y2-G49" secondAttribute="trailing" id="a7O-qj-wX0"/>
                 <constraint firstItem="XR7-dX-JSH" firstAttribute="leading" secondItem="Mij-Y2-G49" secondAttribute="leading" id="gtJ-hw-XNS"/>
                 <constraint firstItem="StC-Di-mAK" firstAttribute="top" secondItem="Mij-Y2-G49" secondAttribute="top" id="xZ9-lB-ihE"/>
             </constraints>
