@@ -21,6 +21,16 @@
 				<key>range</key>
 				<integer>20</integer>
 			</dict>
+			<dict>
+				<key>weekday</key>
+				<integer>7</integer>
+				<key>hour</key>
+				<integer>20</integer>
+				<key>minute</key>
+				<integer>0</integer>
+				<key>range</key>
+				<integer>20</integer>
+			</dict>
 		</array>
 		<key>prebook</key>
 		<integer>-1</integer>
