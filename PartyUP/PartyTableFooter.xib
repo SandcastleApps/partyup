@@ -12,6 +12,7 @@
                 <outlet property="footerButton" destination="n5I-zd-F4z" id="aVf-gL-tbv"/>
                 <outlet property="footerLabel" destination="QnC-xD-cXk" id="qZt-B2-g8N"/>
                 <outlet property="partyHeader" destination="Mij-Y2-G49" id="d40-Wg-5zh"/>
+                <outlet property="searchLeading" destination="5YV-H0-5Ap" id="Gl4-ik-eAU"/>
                 <outlet property="searchView" destination="StC-Di-mAK" id="X3v-z2-kWD"/>
                 <outletCollection property="partyFooters" destination="iN0-l3-epB" collectionClass="NSMutableArray" id="O5o-2r-aNy"/>
                 <outletCollection property="partyFooters" destination="awW-qt-Jfm" collectionClass="NSMutableArray" id="Cp4-wu-5l8"/>
@@ -109,7 +110,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XR7-dX-JSH" userLabel="Favorite">
-                    <rect key="frame" x="0.0" y="-1" width="55" height="601"/>
+                    <rect key="frame" x="0.0" y="-0.5" width="55" height="600"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="Ueu-DX-E7X"/>
                     </constraints>

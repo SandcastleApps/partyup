@@ -74,6 +74,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	private var searchController: UISearchController!
 	@IBOutlet weak var searchView: UIView!
 	@IBOutlet weak var favoriteButton: UIButton!
+	@IBOutlet weak var searchLeading: NSLayoutConstraint!
 
 	@IBOutlet var partyHeader: UIView!
     @IBOutlet var partyFooters: [UIView]! {
@@ -90,13 +91,16 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		NSBundle.mainBundle().loadNibNamed("PartyTableFooter", owner: self, options: nil)
 
 		searchController = UISearchController(searchResultsController: nil)
+		let bar = searchController.searchBar
 		searchController.searchResultsUpdater = self
-		searchController.searchBar.delegate = self
 		searchController.dimsBackgroundDuringPresentation = false
 		searchController.hidesNavigationBarDuringPresentation = false
-		searchController.searchBar.searchBarStyle = .Minimal
-        searchController.searchBar.placeholder = NSLocalizedString("Filter Venues", comment: "City hub filter placeholder.")
-		partyHeader.frame.size.height = searchController.searchBar.frame.height
+		bar.delegate = self
+		bar.searchBarStyle = .Minimal
+        bar.placeholder = NSLocalizedString("Filter Venues", comment: "City hub filter placeholder.")
+		bar.barTintColor = UIColor(r: 245, g: 168, b: 64, alpha: 255)
+		bar.tintColor = UIColor(r:237, g: 42, b: 135, alpha: 255)
+		partyHeader.frame.size.height = bar.frame.height
 		searchView.addSubview(searchController.searchBar)
 		tableView.tableHeaderView = partyHeader
 		definesPresentationContext = true
@@ -259,10 +263,13 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
 		searchBar.searchBarStyle = .Minimal
+		favoriteButton.hidden = false
 	}
 
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		if let searchString = searchController.searchBar.text where searchController.active {
+			searchController.searchBar.searchBarStyle = .Prominent
+			favoriteButton.hidden = true
 			venues = parties?.venues.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
 		} else {
             venues = parties.flatMap{Array($0.venues)}
