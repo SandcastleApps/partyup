@@ -10,7 +10,7 @@ import UIKit
 import Flurry_iOS_SDK
 import CoreLocation
 
-class PartyPickerController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
+class PartyPickerController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
 
 	static let VenueRefreshRequest = "VenueListRefreshRequest"
 
@@ -95,6 +95,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		searchController = UISearchController(searchResultsController: nil)
 		let bar = searchController.searchBar
 		searchController.searchResultsUpdater = self
+        searchController.delegate = self
 		searchController.dimsBackgroundDuringPresentation = false
 		searchController.hidesNavigationBarDuringPresentation = false
 		bar.delegate = self
@@ -264,21 +265,32 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 		if let searchString = searchBar.text {
 			Flurry.logEvent("Venues_Filtered", withParameters: [ "search" : searchString])
 		}
-        searchLeadingActive.priority = 250
-		searchBar.searchBarStyle = .Minimal
-		favoriteButton.hidden = false
 	}
 
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		if let searchString = searchController.searchBar.text where searchController.active {
-			searchController.searchBar.searchBarStyle = .Prominent
-            searchLeadingActive.priority = 800
-			favoriteButton.hidden = true
+
 			venues = parties?.venues.filter{ $0.name.rangeOfString(searchString, options: .CaseInsensitiveSearch) != nil }
 		} else {
             venues = parties.flatMap{Array($0.venues)}
 		}
 	}
+    
+    func willPresentSearchController(searchController: UISearchController) {
+        searchController.searchBar.searchBarStyle = .Prominent
+        searchLeadingActive.priority = 800
+        favoriteButton.hidden = true
+    }
+    
+    func willDismissSearchController(searchController: UISearchController) {
+        searchLeadingActive.priority = 250
+        searchController.searchBar.searchBarStyle = .Minimal
+        favoriteButton.hidden = false
+    }
+    
+    func didDismissSearchController(searchController: UISearchController) {
+        searchController.searchBar.sizeToFit()
+    }
 
     // MARK: - Navigation
     
