@@ -207,7 +207,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
         
         tutorial.start(self)
 
-		Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description], timed: true)
+        Flurry.logEvent("Sample_Tasted", withParameters: ["timestamp" : sample.time.description, "via" : sample.via], timed: true)
 	}
 
 	override func viewDidDisappear(animated: Bool) {
