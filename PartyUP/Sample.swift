@@ -74,18 +74,20 @@ final class Sample: Votable, Equatable
 	}
 
     convenience init(event: Venue, alias: String? = nil, comment: String? = nil) {
+        let tag = UInt8(arc4random() & 0xe0)
+        let stamp = StampFactory.stamper | tag
 		self.init(
 			user: AuthenticationManager.shared.identity!,
             event: event,
 			time: NSDate(),
 			alias: alias,
 			comment: comment,
-			stamp: StampFactory.stamper,
+			stamp: stamp,
 			rating: [0,0],
             prefix: PartyUpConstants.DefaultStoragePrefix
 		)
 
-		StampFactory.stamper = StampFactory.stamper &+ 1
+		StampFactory.stamper = (StampFactory.stamper &+ 1) & 0x1f
 	}
 
 	func setVote(vote: Vote, andFlag flag: Bool = false) {
