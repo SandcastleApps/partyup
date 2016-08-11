@@ -7,6 +7,7 @@
 //
 
 import AWSDynamoDB
+import AWSCognito
 
 final class Sample: Votable, Equatable
 {
@@ -74,8 +75,7 @@ final class Sample: Votable, Equatable
 	}
 
     convenience init(event: Venue, alias: String? = nil, comment: String? = nil) {
-        let tag = UInt8(arc4random() & 0xe0)
-        let stamp = StampFactory.stamper | tag
+		let stamp = Sample.stamper.next
 		self.init(
 			user: AuthenticationManager.shared.identity!,
             event: event,
@@ -86,8 +86,6 @@ final class Sample: Votable, Equatable
 			rating: [0,0],
             prefix: PartyUpConstants.DefaultStoragePrefix
 		)
-
-		StampFactory.stamper = (StampFactory.stamper &+ 1) & 0x1f
 	}
 
 	func setVote(vote: Vote, andFlag flag: Bool = false) {
@@ -213,10 +211,34 @@ final class Sample: Votable, Equatable
 
 	private struct StampFactory
 	{
-		private static let path: String! = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first?.stringByAppendingString("/UsageStamp.dat")
-		static var stamper: UsageStamp =
-			{ if let raw = NSData(contentsOfFile: path) { return UnsafePointer<UInt8>(raw.bytes).memory } else { return 0 }  }()
-			{ didSet { NSData(bytes: &stamper, length: 1).writeToFile(path, atomically: true)} }
+		private var data: AWSCognitoDataset?
+
+		init() {
+			NSNotificationCenter.defaultCenter().addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { note in
+				if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) == .Authenticated  {
+					self.data = AWSCognito.defaultCognito().openOrCreateDataset("SampleStamp")
+					self.data?.synchronizeOnConnectivity().continueWithBlock { task in
+						return nil
+					}
+				}
+			}
+		}
+
+		var next: UsageStamp {
+			let current = UsageStamp(data?.stringForKey("counter") ?? "0") ?? 0
+			data?.setString("\(current &+ 1)", forKey: "counter")
+			data?.synchronizeOnConnectivity().continueWithBlock { task in
+				return nil
+			}
+
+			return current
+		}
+	}
+
+	private static var stamper: StampFactory!
+
+	static func InitializeStamps() {
+		stamper = StampFactory()
 	}
     
     //MARK - Internal Dynamo Vote

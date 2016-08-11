@@ -125,6 +125,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.observeSettingsChange), name: NSUserDefaultsDidChangeNotification, object: nil)
 
+		Sample.InitializeStamps()
+
 		return AuthenticationManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 	}
 
