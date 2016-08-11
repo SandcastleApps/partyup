@@ -209,15 +209,15 @@ final class Sample: Votable, Equatable
 
 	private let stamp: UsageStamp
 
-	private struct StampFactory
+	private class StampFactory
 	{
 		private var data: AWSCognitoDataset?
 
 		init() {
-			NSNotificationCenter.defaultCenter().addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { note in
-				if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) == .Authenticated  {
-					self.data = AWSCognito.defaultCognito().openOrCreateDataset("SampleStamp")
-					self.data?.synchronizeOnConnectivity().continueWithBlock { task in
+			NSNotificationCenter.defaultCenter().addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [weak self] note in
+				if let me = self, state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) == .Authenticated  {
+					me.data = AWSCognito.defaultCognito().openOrCreateDataset("SampleStamp")
+					me.data?.synchronizeOnConnectivity().continueWithBlock { task in
 						return nil
 					}
 				}
