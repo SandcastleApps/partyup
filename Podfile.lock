@@ -1,13 +1,13 @@
 PODS:
   - ActionSheetPicker-3.0 (2.2.0)
   - Alamofire (3.4.1)
-  - AWSCognito (2.4.6):
-    - AWSCore (= 2.4.6)
-  - AWSCore (2.4.6)
-  - AWSDynamoDB (2.4.6):
-    - AWSCore (= 2.4.6)
-  - AWSS3 (2.4.6):
-    - AWSCore (= 2.4.6)
+  - AWSCognito (2.4.7):
+    - AWSCore (= 2.4.7)
+  - AWSCore (2.4.7)
+  - AWSDynamoDB (2.4.7):
+    - AWSCore (= 2.4.7)
+  - AWSS3 (2.4.7):
+    - AWSCore (= 2.4.7)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -22,7 +22,7 @@ PODS:
   - Flurry-iOS-SDK (7.6.6):
     - Flurry-iOS-SDK/FlurrySDK (= 7.6.6)
   - Flurry-iOS-SDK/FlurrySDK (7.6.6)
-  - Instructions (0.4.2)
+  - Instructions (0.4.3)
   - INTULocationManager (4.2.0)
   - KeychainAccess (2.3.6)
   - LocationPickerViewController (2.0.0)
@@ -58,16 +58,16 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  AWSCognito: 761e811df8ec3d418274ad4248b4ac2e4727e65b
-  AWSCore: 402048153597591f2ec54b0f650b88dfb3a1b6ef
-  AWSDynamoDB: 8a30497066057ec4556ef693aad346de0ed8a368
-  AWSS3: 3ded64fc949e6b95e4ad80d8bee3a97199033c4e
+  AWSCognito: 6aa404f15d1eb2b4b51f45322a409257b3248e79
+  AWSCore: 9a729a3c0050a51ece3547d546c327acdac7838a
+  AWSDynamoDB: 95c8d325fad2bea4d4ca70576876d9893d9dedd3
+  AWSS3: 0f3c8ed11e04cd78cf86ed396c06330ab142db7a
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
   FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
   Flurry-iOS-SDK: 97bbeec09cca666c2f1772f6e161c4f8ccff611e
-  Instructions: acb639e81dbbab70c92d35bc08f4f831fec84e0c
+  Instructions: 18124d63eb8b08828e1124432de115aa48db3669
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   KeychainAccess: 7f10e2ef998ddf954a64d5d608be08677774684d
   LocationPickerViewController: 600d08aba48879a920dbaf1c12d19a2292f2bbed
