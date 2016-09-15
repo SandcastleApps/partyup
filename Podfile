@@ -19,7 +19,7 @@ target 'PartyUP' do
 	pod 'MarqueeLabel'
 	pod 'Instructions'
 	pod 'FBSDKLoginKit'
-	pod 'KeychainAccess'
+	pod 'KeychainAccess', '~> 2.4'
 	pod 'LocationPickerViewController'
 	pod 'SwiftDate'
 end

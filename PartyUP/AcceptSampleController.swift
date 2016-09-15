@@ -120,8 +120,8 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
             shareButton?.hidden = true
             encodingProgress?.startAnimating()
             let output = input.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("PartyUp.mp4")
-            let _ = try? NSFileManager.defaultManager().removeItemAtURL(output)
-            exporter = applyToVideo(fromInput: input, toOutput: output, effectApplicator: AcceptSampleController.generateOverlayOnComposition(self), exportCompletionHander: { status in
+            let _ = try? NSFileManager.defaultManager().removeItemAtURL(output!)
+            exporter = applyToVideo(fromInput: input, toOutput: output!, effectApplicator: AcceptSampleController.generateOverlayOnComposition(self), exportCompletionHander: { status in
                 self.encodingProgress?.stopAnimating()
                 self.shareButton?.hidden = false
                 self.shareButton?.enabled = status == .Completed
@@ -394,7 +394,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 				#if (arch(i386) || arch(x86_64)) && os(iOS)
 					try NSFileManager.defaultManager().copyItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
 				#else
-					try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
+					try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!)!)
 				#endif
                 let submission = Submission(sample: sample)
 				submission.submitWithCompletionHander(completionHandlerForSubmission)

@@ -31,7 +31,7 @@ final class Sample: Votable, Equatable
 	}
 
 	var media: NSURL {
-        get { return NSURL(fileURLWithPath: prefix + "/" + user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4") }
+        get { return NSURL(fileURLWithPath: prefix + "/" + user.UUIDString + String(stamp)).URLByAppendingPathExtension("mp4")! }
 	}
 
 	var identifier: NSData {

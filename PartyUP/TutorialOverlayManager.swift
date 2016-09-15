@@ -110,7 +110,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		return unseen.count
 	}
 
-	func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
+	func coachMarksController(coachMarksController: CoachMarksController, coachMarkForIndex index: Int) -> CoachMark {
 		if unseen[index].view == nil {
 			unseen[index].view = UIApplication.sharedApplication().keyWindow?.viewWithTag(unseen[index].identifier)
 		}

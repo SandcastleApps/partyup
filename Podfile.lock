@@ -26,7 +26,7 @@ PODS:
     - Instructions/Core (= 0.5.0)
   - Instructions/Core (0.5.0)
   - INTULocationManager (4.2.0)
-  - KeychainAccess (3.0.0)
+  - KeychainAccess (2.4.0)
   - LocationPickerViewController (2.0.0)
   - MarqueeLabel (2.7.10):
     - MarqueeLabel/ObjC (= 2.7.10)
@@ -48,7 +48,7 @@ DEPENDENCIES:
   - Flurry-iOS-SDK
   - Instructions
   - INTULocationManager
-  - KeychainAccess
+  - KeychainAccess (~> 2.4)
   - LocationPickerViewController
   - MarqueeLabel
   - PBJVision
@@ -71,7 +71,7 @@ SPEC CHECKSUMS:
   Flurry-iOS-SDK: 97bbeec09cca666c2f1772f6e161c4f8ccff611e
   Instructions: 6976f674ce788aefec475be6f18500572f1645d4
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
-  KeychainAccess: 412bf2650d9aebfc8135a58103b90ec38caad7f8
+  KeychainAccess: c2a71459af5bddf720a51806046a598500976c04
   LocationPickerViewController: 600d08aba48879a920dbaf1c12d19a2292f2bbed
   MarqueeLabel: 5d722a0bef353178feb301130621b9b8e8b3fcb5
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
@@ -80,6 +80,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VIMVideoPlayer: f4ed0a9986294ec3684a2e6bdc738e30051ef4ef
 
-PODFILE CHECKSUM: 16e8935bd23830ab123afaccd8c3ef4da39a7272
+PODFILE CHECKSUM: fc96fdcb004424ff29585a76913eb4bc7bc80be9
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.2
