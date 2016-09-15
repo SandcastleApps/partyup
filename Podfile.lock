@@ -1,13 +1,13 @@
 PODS:
   - ActionSheetPicker-3.0 (2.2.0)
-  - Alamofire (3.4.1)
-  - AWSCognito (2.4.7):
-    - AWSCore (= 2.4.7)
-  - AWSCore (2.4.7)
-  - AWSDynamoDB (2.4.7):
-    - AWSCore (= 2.4.7)
-  - AWSS3 (2.4.7):
-    - AWSCore (= 2.4.7)
+  - Alamofire (3.5.0)
+  - AWSCognito (2.4.8):
+    - AWSCore (= 2.4.8)
+  - AWSCore (2.4.8)
+  - AWSDynamoDB (2.4.8):
+    - AWSCore (= 2.4.8)
+  - AWSS3 (2.4.8):
+    - AWSCore (= 2.4.8)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -15,20 +15,22 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
   - DACircularProgress (2.3.1)
-  - FBSDKCoreKit (4.14.0):
+  - FBSDKCoreKit (4.15.1):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.14.0):
+  - FBSDKLoginKit (4.15.1):
     - FBSDKCoreKit
   - Flurry-iOS-SDK (7.6.6):
     - Flurry-iOS-SDK/FlurrySDK (= 7.6.6)
   - Flurry-iOS-SDK/FlurrySDK (7.6.6)
-  - Instructions (0.4.3)
+  - Instructions (0.5.0):
+    - Instructions/Core (= 0.5.0)
+  - Instructions/Core (0.5.0)
   - INTULocationManager (4.2.0)
-  - KeychainAccess (2.3.6)
+  - KeychainAccess (3.0.0)
   - LocationPickerViewController (2.0.0)
-  - MarqueeLabel (2.7.9):
-    - MarqueeLabel/ObjC (= 2.7.9)
-  - MarqueeLabel/ObjC (2.7.9)
+  - MarqueeLabel (2.7.10):
+    - MarqueeLabel/ObjC (= 2.7.10)
+  - MarqueeLabel/ObjC (2.7.10)
   - PBJVision (0.4.2)
   - SCLAlertView (0.6.0)
   - SwiftDate (3.0.8)
@@ -57,21 +59,21 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  AWSCognito: 6aa404f15d1eb2b4b51f45322a409257b3248e79
-  AWSCore: 9a729a3c0050a51ece3547d546c327acdac7838a
-  AWSDynamoDB: 95c8d325fad2bea4d4ca70576876d9893d9dedd3
-  AWSS3: 0f3c8ed11e04cd78cf86ed396c06330ab142db7a
+  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  AWSCognito: 63ae70c4ff94656f7a36892c45680bbb311b7381
+  AWSCore: 7bc7e845f532dedc65b133cdf518bb44a2e28dfe
+  AWSDynamoDB: aff5790ebf397c1865f99b7f764b67a3e7f379e0
+  AWSS3: f48121d50ddd73e830c3522c44772a70fce29f27
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
-  FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
+  FBSDKCoreKit: fc7fa53d16b095ee3fd53f0cd59f1df8bcbb634d
+  FBSDKLoginKit: 073f79b3b2e762fc6f54a283fe15f45372d59f5f
   Flurry-iOS-SDK: 97bbeec09cca666c2f1772f6e161c4f8ccff611e
-  Instructions: 18124d63eb8b08828e1124432de115aa48db3669
+  Instructions: 6976f674ce788aefec475be6f18500572f1645d4
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
-  KeychainAccess: 7f10e2ef998ddf954a64d5d608be08677774684d
+  KeychainAccess: 412bf2650d9aebfc8135a58103b90ec38caad7f8
   LocationPickerViewController: 600d08aba48879a920dbaf1c12d19a2292f2bbed
-  MarqueeLabel: 645cf4be33f8dca66fd7b15471e331d5a8d378df
+  MarqueeLabel: 5d722a0bef353178feb301130621b9b8e8b3fcb5
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SCLAlertView: 0f6b3c23a48b4993564ff1dd3c065782e4b2b687
   SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
