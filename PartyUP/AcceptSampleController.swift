@@ -392,7 +392,7 @@ class AcceptSampleController: UIViewController, VIMVideoPlayerViewDelegate, UITe
 				let sample = Sample(event: place, alias: alias, comment: statement)
 				Flurry.logEvent("Sample_Accepted", withParameters: ["timestamp" : sample.time, "comment" : sample.comment?.characters.count ?? 0, "venue" : place.unique, "alias" : alias ?? "Anon"], timed: true)
 				#if (arch(i386) || arch(x86_64)) && os(iOS)
-					try NSFileManager.defaultManager().copyItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!))
+					try NSFileManager.defaultManager().copyItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!)!)
 				#else
 					try NSFileManager.defaultManager().moveItemAtURL(url, toURL: NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(sample.media.path!)!)
 				#endif

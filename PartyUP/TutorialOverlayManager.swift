@@ -30,7 +30,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 	var tutoring: Bool {
 		get {
-			return coach.flatMap { $0.started } ?? false
+			return coach.flatMap { $0.flow.started } ?? false
 		}
 	}
     
@@ -61,7 +61,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 	@objc
 	private func filterMarks() {
-		if let marks = marks where !marks.isEmpty{
+		if let marks = marks  where !marks.isEmpty{
 			if let seen = defaults.arrayForKey(PartyUpPreferences.TutorialViewed) as? [Int] {
 				unseen = marks.filter { !seen.contains($0.identifier) }
 			}
@@ -74,7 +74,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		let coach = CoachMarksController()
 		coach.dataSource = self
 		coach.delegate = self
-		coach.overlayBackgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.4)
+		coach.overlay.color = UIColor.darkGrayColor().colorWithAlphaComponent(0.4)
 		return coach
 	}
 
@@ -114,13 +114,13 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		if unseen[index].view == nil {
 			unseen[index].view = UIApplication.sharedApplication().keyWindow?.viewWithTag(unseen[index].identifier)
 		}
-		return coachMarksController.coachMarkForView(unseen[index].view)
+		return coachMarksController.helper.coachMarkForView(unseen[index].view)
 	}
 
 	func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
 		let hint = NSLocalizedString(unseen[index].hint, comment: "Tutorial Mark \(unseen[index].identifier)")
 		let next = NSLocalizedString("ok", comment: "Tutorial next label")
-		var coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation, hintText: hint, nextText: next)
+		var coachViews = coachMarksController.helper.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation, hintText: hint, nextText: next)
 		coachViews.bodyView.hintLabel.textAlignment = .Center
 		if unseen[index].identifier < 0 {
 			coachViews.arrowView = nil

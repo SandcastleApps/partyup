@@ -21,5 +21,5 @@ target 'PartyUP' do
 	pod 'FBSDKLoginKit'
 	pod 'KeychainAccess', '~> 2.4'
 	pod 'LocationPickerViewController'
-	pod 'SwiftDate'
+	pod 'SwiftDate', :git => 'https://github.com/malcommac/SwiftDate.git', :branch => 'feature/swift_23'
 end

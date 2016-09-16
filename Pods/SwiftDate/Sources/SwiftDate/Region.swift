@@ -34,6 +34,12 @@ public typealias DateRegion = Region
 ///
 @available(*, introduced=2.0)
 public struct Region: Equatable {
+	
+	/// Define the default region to use when you avoid to pass a valid Region() as parameter inside the library itself.
+	/// Default region is composed by
+	public static var defaultRegion: Region = {
+		return Region()
+	}()
 
     /// Calendar to interpret date values. You can alter the calendar to adjust the representation
     /// of date to your needs.
@@ -63,7 +69,7 @@ public struct Region: Equatable {
     ///     - timeZone: the time zone to work with
     ///     - locale: the locale to work with
     ///
-    internal init(
+    public init(
         calendar: NSCalendar,
         timeZone: NSTimeZone? = nil,
         locale: NSLocale? = nil) {

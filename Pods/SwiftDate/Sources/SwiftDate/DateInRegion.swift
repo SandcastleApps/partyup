@@ -67,6 +67,13 @@ public struct DateInRegion {
     /// If you want to assign a new value then you must assign it to a new instance of DateInRegion.
 	///
     public let absoluteTime: NSDate!
+	
+	/// This method return an NSDate object which contains the absolute representation of datetime
+	/// in region specified timezone.
+	public var localAbsoluteDate: NSDate {
+		let seconds = self.timeZone.secondsFromGMTForDate(self.absoluteTime)
+		return NSDate(timeInterval: NSTimeInterval(seconds), sinceDate: self.absoluteTime)
+	}
 
     /// The region where the date lives. Use it to represent the date.
     public let region: Region
@@ -101,7 +108,7 @@ public struct DateInRegion {
     ///
     public init(absoluteTime newDate: NSDate? = nil, region newRegion: Region? = nil) {
         absoluteTime = newDate ?? NSDate()
-        region = newRegion ?? Region()
+        region = newRegion ?? Region.defaultRegion
     }
 
     /// Initialise a `DateInRegion` object from a set of date components. Default values will be
@@ -252,6 +259,40 @@ public struct DateInRegion {
             self.init(newComponents)
     }
 
+    /**
+     Initialise a `DateInRegion` object from a julian day.
+     
+     - Parameters:
+     - fromJulianDay: the julian day from which to get the date
+     - region: region to set (optional)
+     */
+    public init(
+        fromJulianDay: Double,
+        region: Region? = nil) {
+        
+        let refDate = NSDate(timeIntervalSinceReferenceDate: 0)
+        let timeInterval = (fromJulianDay - refDate.julianDay()) * 86400.0
+        
+        self.init(absoluteTime: NSDate(timeIntervalSinceReferenceDate: timeInterval), region: region)
+    }
+
+    /**
+     Initialise a `DateInRegion` object from a modified julian day.
+     
+     - Parameters:
+     - fromModifiedJulianDay: the modified julian day from which to get the date
+     - region: region to set (optional)
+     */
+    public init(
+        fromModifiedJulianDay: Double,
+        region: Region? = nil) {
+        
+        let refDate = NSDate(timeIntervalSinceReferenceDate: 0)
+        let timeInterval = (fromModifiedJulianDay - refDate.modifiedJulianDay()) * 86400.0
+        
+        self.init(absoluteTime: NSDate(timeIntervalSinceReferenceDate: timeInterval), region: region)
+    }
+
 
     /// Initialize a new DateInRegion string from a specified date string, a given format and a
     /// destination region for the date
@@ -264,7 +305,7 @@ public struct DateInRegion {
     public init?(fromString dateString: String, format: DateFormat,
         region nilRegion: Region? = nil) {
 
-            let region = nilRegion ?? Region()
+            let region = nilRegion ?? Region.defaultRegion
 
 			let cFormatter = sharedDateFormatter()
 			let parsedDate = cFormatter.beginSessionContext { () -> (NSDate?) in
@@ -274,10 +315,11 @@ public struct DateInRegion {
 
                 let parsedDate: NSDate?
 
-                let stringWithTimeZone = dateString.hasSuffix("Z")
-                    ? dateString.substringToIndex(dateString.endIndex.advancedBy(-1)) + "+0000"
-                    : dateString
-
+				var stringWithTimeZone = dateString
+				if dateString.hasSuffix("Z") == true && dateString.rangeOfString(".") == nil && dateString.rangeOfString("+") == nil {
+					stringWithTimeZone = dateString.substringToIndex(dateString.endIndex.advancedBy(-1)) + "+0000"
+				}
+				
 				switch format {
 				case .ISO8601Date:
 					cFormatter.dateFormat = "yyyy-MM-dd"
@@ -302,6 +344,10 @@ public struct DateInRegion {
 				case .Custom(let dateFormat):
 					cFormatter.dateFormat = dateFormat
 					parsedDate = cFormatter.dateFromString(stringWithTimeZone)
+				case .DotNET:
+					guard let secondsInString = dateString.dotNet_secondsFromString() else { return nil }
+					
+					parsedDate = NSDate(timeIntervalSince1970: secondsInString)
 				}
 				return parsedDate
 			}

@@ -33,7 +33,7 @@ PODS:
   - MarqueeLabel/ObjC (2.7.10)
   - PBJVision (0.4.2)
   - SCLAlertView (0.6.0)
-  - SwiftDate (3.0.8)
+  - SwiftDate (3.0.9)
   - SwiftyJSON (2.3.2)
   - VIMVideoPlayer (6.0.1)
 
@@ -53,9 +53,19 @@ DEPENDENCIES:
   - MarqueeLabel
   - PBJVision
   - SCLAlertView
-  - SwiftDate
+  - SwiftDate (from `https://github.com/malcommac/SwiftDate.git`, branch `feature/swift_23`)
   - SwiftyJSON
   - VIMVideoPlayer
+
+EXTERNAL SOURCES:
+  SwiftDate:
+    :branch: feature/swift_23
+    :git: https://github.com/malcommac/SwiftDate.git
+
+CHECKOUT OPTIONS:
+  SwiftDate:
+    :commit: 1608e37a42a4f1fec52b324f4f96726d414bd04b
+    :git: https://github.com/malcommac/SwiftDate.git
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
@@ -76,10 +86,10 @@ SPEC CHECKSUMS:
   MarqueeLabel: 5d722a0bef353178feb301130621b9b8e8b3fcb5
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SCLAlertView: 0f6b3c23a48b4993564ff1dd3c065782e4b2b687
-  SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
+  SwiftDate: fa487d9b7d8c3070ea2553486902494f4915465d
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VIMVideoPlayer: f4ed0a9986294ec3684a2e6bdc738e30051ef4ef
 
-PODFILE CHECKSUM: fc96fdcb004424ff29585a76913eb4bc7bc80be9
+PODFILE CHECKSUM: 3cea169b015bc59453b28a5c73a675c86bac9242
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.0.1

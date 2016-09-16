@@ -40,7 +40,7 @@ public extension DateInRegion {
     ///
     /// - note: This value is calculated in the context of the calendar of the receiver
     ///
-    public func difference(toDate: DateInRegion, unitFlags: NSCalendarUnit) -> NSDateComponents? {
+    public func difference(toDate: DateInRegion, unitFlags: NSCalendarUnit) -> NSDateComponents {
         return calendar.components(unitFlags, fromDate: self.absoluteTime,
             toDate: toDate.absoluteTime, options: NSCalendarOptions(rawValue: 0))
     }
@@ -64,12 +64,20 @@ public extension DateInRegion {
         return newDate
     }
 
+	/**
+	Add components to an existing date in region instance
+	
+	- parameter components: components to add
+	
+	- returns: return a new DateInRegion
+	*/
     public func add(components: NSDateComponents) -> DateInRegion {
         let absoluteTime = region.calendar.dateByAddingComponents(components,
             toDate: self.absoluteTime, options: NSCalendarOptions(rawValue: 0))!
         return DateInRegion(absoluteTime: absoluteTime, region: self.region)
     }
 
+	@available(*, deprecated=3.0.5, message="Use add(components) or + instead")
     public func add(components dict: [NSCalendarUnit : AnyObject]) -> DateInRegion {
         let components = dict.components()
         return self.add(components)
