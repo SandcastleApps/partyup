@@ -1,4 +1,4 @@
-# ![Instructions](http://i.imgur.com/2Wy44G6.png)
+# ![Instructions](http://i.imgur.com/K51lqvW.png)
 
 [![Travis build status](https://img.shields.io/travis/ephread/Instructions.svg)](https://travis-ci.org/ephread/Instructions) [![codebeat badge](https://codebeat.co/badges/7bbb17b5-2cde-4108-aac0-eefcd439cf9f)](https://codebeat.co/projects/github-com-ephread-instructions) [![CocoaPods Shield](https://img.shields.io/cocoapods/v/Instructions.svg)](https://cocoapods.org/pods/Instructions) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Join the chat at https://gitter.im/ephread/Instructions](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ephread/Instructions?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -48,6 +48,8 @@ Add customizable coach marks into your iOS project. Available for both iPhone an
 
 ## Requirements
 - Xcode 7 / Swift 2.2
+- Xcode 8 / Swift 2.3 (use `master` instead of `0.5.0`)
+- Xcode 8 / Swift 3 (use [`swift3`](https://github.com/ephread/Instructions/tree/swift3))
 - iOS 8.0+
 
 ## Asking Questions / Contributing

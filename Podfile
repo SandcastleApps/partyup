@@ -17,7 +17,7 @@ target 'PartyUP' do
 	pod 'SCLAlertView'
 	pod 'Flurry-iOS-SDK'
 	pod 'MarqueeLabel'
-	pod 'Instructions'
+	pod 'Instructions', :git => 'https://github.com/ephread/Instructions.git', :branch => 'master'
 	pod 'FBSDKLoginKit'
 	pod 'KeychainAccess', '~> 2.4'
 	pod 'LocationPickerViewController'

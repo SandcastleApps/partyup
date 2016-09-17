@@ -46,7 +46,7 @@ DEPENDENCIES:
   - DACircularProgress
   - FBSDKLoginKit
   - Flurry-iOS-SDK
-  - Instructions
+  - Instructions (from `https://github.com/ephread/Instructions.git`, branch `master`)
   - INTULocationManager
   - KeychainAccess (~> 2.4)
   - LocationPickerViewController
@@ -58,11 +58,17 @@ DEPENDENCIES:
   - VIMVideoPlayer
 
 EXTERNAL SOURCES:
+  Instructions:
+    :branch: master
+    :git: https://github.com/ephread/Instructions.git
   SwiftDate:
     :branch: feature/swift_23
     :git: https://github.com/malcommac/SwiftDate.git
 
 CHECKOUT OPTIONS:
+  Instructions:
+    :commit: e8334f2b3b880a994fd86e719831479909d2fb17
+    :git: https://github.com/ephread/Instructions.git
   SwiftDate:
     :commit: 1608e37a42a4f1fec52b324f4f96726d414bd04b
     :git: https://github.com/malcommac/SwiftDate.git
@@ -90,6 +96,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VIMVideoPlayer: f4ed0a9986294ec3684a2e6bdc738e30051ef4ef
 
-PODFILE CHECKSUM: 3cea169b015bc59453b28a5c73a675c86bac9242
+PODFILE CHECKSUM: 127a7064d4aa8bb272d68fa9b4a8317654d8948b
 
 COCOAPODS: 1.1.0.rc.2
