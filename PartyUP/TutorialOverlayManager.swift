@@ -145,7 +145,7 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 
 		var constraints: [NSLayoutConstraint] = []
 
-		constraints.append(NSLayoutConstraint(item: skipView, attribute: .Leading , relatedBy: .Equal, toItem: parentView, attribute: .LeadingMargin, multiplier: 1.0, constant: 0))
+		constraints.append(NSLayoutConstraint(item: skipView, attribute: .CenterX, relatedBy: .Equal, toItem: parentView, attribute: .CenterX, multiplier: 1.0, constant: 0))
 		constraints.append(NSLayoutConstraint(item: skipView, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .BottomMargin, multiplier: 1.0, constant: 0))
 
 		return constraints
