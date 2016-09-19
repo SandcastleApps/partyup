@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>152</string>
+	<string>154</string>
 	<key>FacebookAppID</key>
 	<string>***REMOVED***</string>
 	<key>FacebookDisplayName</key>
@@ -105,8 +105,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>PartyUP needs access to the camera so you can submit videos from parties you attend.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>PartyUP needs to know where you are in order to display venues near you.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>If you wish to save videos to your photo library, please provide access to PartyUP.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
