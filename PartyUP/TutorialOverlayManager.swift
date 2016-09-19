@@ -75,6 +75,8 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 		coach.dataSource = self
 		coach.delegate = self
 		coach.overlay.color = UIColor.darkGrayColor().colorWithAlphaComponent(0.4)
+		coach.overlay.allowTap = true
+		coach.overlay.allowTouchInsideCutoutPath = false
 		return coach
 	}
 
@@ -85,9 +87,6 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 				coach?.skipView = unseen.count > 1 ? skip : nil
 				coach?.startOn(target)
 				self.target = target
-
-				target.navigationController?.view.userInteractionEnabled = false
-				target.view?.userInteractionEnabled = false
 			}
         } else {
             completion?(false)
@@ -134,8 +133,6 @@ class TutorialOverlayManager: CoachMarksControllerDataSource, CoachMarksControll
 			defaults.setObject(seen, forKey: PartyUpPreferences.TutorialViewed)
 		}
 
-		target?.navigationController?.view.userInteractionEnabled = true
-		target?.view?.userInteractionEnabled = true
 		unseen.removeAll()
 		coach = nil
         completion?(skipped)
