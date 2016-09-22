@@ -42,45 +42,4 @@
 //viewport.setProgress(0.5)
 //viewport.tintColor = UIColor.redColor()
 
-func something(index: Int)(status: Bool, message: String)(boo: Double) -> String {
-    return "\(index) \(status) \(message) \(boo)"
-}
-
-let specificSomething = something(42)
-print(specificSomething(status: true, message: "hi"), terminator: "\n")
-print(specificSomething(status: false, message: "bye")(boo: 3.5), terminator: "\n")
-
-func indirectSomething(message: String, back: (Double) -> String) -> String {
-    return "Indirect: \(back(5.0))"
-}
-
-print(indirectSomething("Howdy", back: specificSomething(status: true, message: "bark")), terminator: "\n")
-
-class One {
-    var num = 0
-    
-    func thumb(un: Int, du: Int) -> Int {
-        return num + (un * du)
-    }
-    
-    func finger(tre: Int)(qu: Int) -> (Int, Int) {
-        return (num * tre - qu, num / tre + qu)
-    }
-}
-
-func indirectOne(numb: (Int, Int) -> Int) -> Int {
-    return numb(5, 4)
-}
-
-let one = One()
-one.num = 40
-
-print("\(indirectOne(one.thumb))")
-
-let fi = one.finger(42)
-let (a,b) = fi(qu: 4)
-print("\(a) and \(b)", terminator: "\n")
-let fii = One.finger(one)(54)
-let (c,d) = fii(qu: 5)
-print("\(c) and \(d)", terminator: "\n")
 
