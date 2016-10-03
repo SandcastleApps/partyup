@@ -9,7 +9,7 @@ target 'PartyUP' do
 	pod 'AWSCognito'
 	pod 'DACircularProgress'
 	pod 'Alamofire'
-	pod 'SwiftyJSON'
+	pod 'SwiftyJSON', '~> 2'
 	pod 'INTULocationManager'
 	pod 'PBJVision'
 	pod 'VIMVideoPlayer'
