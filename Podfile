@@ -14,7 +14,7 @@ target 'PartyUP' do
 	pod 'PBJVision'
 	pod 'VIMVideoPlayer'
 	pod 'ActionSheetPicker-3.0'
-	pod 'SCLAlertView'
+    pod 'SCLAlertView', :git => 'https://github.com/vikmeup/SCLAlertView-Swift.git', :branch => 'swift-2.3'
 	pod 'Flurry-iOS-SDK'
 	pod 'MarqueeLabel'
 	pod 'Instructions', :git => 'https://github.com/ephread/Instructions.git', :branch => 'master'
