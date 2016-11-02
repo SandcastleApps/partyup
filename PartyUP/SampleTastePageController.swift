@@ -40,7 +40,7 @@ class SampleTastePageController: UIViewController, PageProtocol, VIMVideoPlayerV
     var sample: Tastable! {
         didSet {
 			if sample.media.host == nil {
-				media = NSURL(string: sample.media.path!, relativeToURL: PartyUpConstants.ContentDistribution)
+				media = NSURL(string: sample.media.path!, relativeToURL: PartyUpPaths.ContentRootUrl)
 			} else {
 				media = sample.media
 			}

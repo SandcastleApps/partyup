@@ -47,24 +47,24 @@ class AcknowledgementsController: UITableViewController {
     }
 
 	@IBAction func pushFeedback() {
-		pushWebViewWithContent(NSURL(string: "https://www.surveymonkey.com/r/***REMOVED***"), andTitle: NSLocalizedString("Feedback", comment: "Title of the Feedback webview"))
+		pushWebViewWithContent(PartyUpPaths.FeedbackUrl, andTitle: NSLocalizedString("Feedback", comment: "Title of the Feedback webview"))
     }
     
     @IBAction func ratePartyUp() {
-        let url = "itms-apps://itunes.apple.com/app/id\(PartyUpConstants.AppleStoreIdentifier)"
+        let url = "itms-apps://itunes.apple.com/app/id\(PartyUpKeys.AppleStoreIdentifier)"
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
 	
 	@IBAction func pushSupport() {
-		pushWebViewWithContent(NSURL(string: "support.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Support", comment: "Title of the Support webview"))
+		pushWebViewWithContent(PartyUpPaths.SupportUrl, andTitle: NSLocalizedString("Support", comment: "Title of the Support webview"))
 	}
 
 	@IBAction func pushTerms() {
-		pushWebViewWithContent(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Terms of Service", comment: "Title of the Terms webview"))
+		pushWebViewWithContent(PartyUpPaths.TermsUrl, andTitle: NSLocalizedString("Terms of Service", comment: "Title of the Terms webview"))
 	}
     
     @IBAction func pushPrivacy() {
-        pushWebViewWithContent(NSURL(string: "privacy.html", relativeToURL: PartyUpConstants.PartyUpWebsite), andTitle: NSLocalizedString("Privacy Policy", comment: "Title of the Privacy Policy webview"))
+        pushWebViewWithContent(PartyUpPaths.PrivacyUrl, andTitle: NSLocalizedString("Privacy Policy", comment: "Title of the Privacy Policy webview"))
     }
     
 	func updateLogin() {

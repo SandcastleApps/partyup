@@ -345,7 +345,7 @@ class PartyPickerController: UITableViewController, UISearchResultsUpdating, UIS
 	}
     
     @IBAction func ratePartyUp(sender: UIButton) {
-        let url = "itms-apps://itunes.apple.com/app/id\(PartyUpConstants.AppleStoreIdentifier)"
+        let url = "itms-apps://itunes.apple.com/app/id\(PartyUpKeys.AppleStoreIdentifier)"
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
 

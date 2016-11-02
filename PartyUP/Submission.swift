@@ -70,7 +70,7 @@ class Submission
         uploadExpr.setValue(sample.identifier.base64EncodedStringWithOptions([]), forRequestParameter: "x-amz-meta-id")
         
         let task = transfer.uploadFile(url,
-            bucket: PartyUpConstants.StorageBucket,
+            bucket: PartyUpPaths.StorageBucket,
             key: name,
             contentType: url.mime,
             expression: uploadExpr,

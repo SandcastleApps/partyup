@@ -40,8 +40,6 @@ class PartyPlace : FetchQueryable {
 	private(set) var lastFetchStatus = FetchStatus(completed: NSDate(timeIntervalSince1970: 0), error: nil)
 	private(set) var isFetching = false
 
-	private static let placesKey = "***REMOVED***"
-
 	init(location: Address) {
 		self.location = location
 
@@ -61,7 +59,7 @@ class PartyPlace : FetchQueryable {
 				let params = ["location" : "\(location.coordinate.latitude),\(location.coordinate.longitude)",
 					"types" : categories,
 					"rankby" : "distance",
-					"key" : PartyPlace.placesKey]
+					"key" : PartyUpKeys.GooglePlaces]
 				Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: params)
 					.validate()
 					.responseJSON { response in
@@ -97,7 +95,7 @@ class PartyPlace : FetchQueryable {
 
 			if let next = json["next_page_token"].string {
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
-					Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : PartyPlace.placesKey])
+					Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: ["pagetoken" : next, "key" : PartyUpKeys.GooglePlaces])
 						.validate()
 						.responseJSON { response in
                             self.grokResponse(response)

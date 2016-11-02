@@ -39,6 +39,7 @@
 		1F08469D1C32C0490064FBDD /* VenueTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F08469C1C32C0490064FBDD /* VenueTableCell.swift */; };
 		1F10FD961C624A050090743C /* AnimalTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F10FD951C624A050090743C /* AnimalTableCell.swift */; };
 		1F1580391D464CBD00A338EB /* SharingOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1580381D464CBD00A338EB /* SharingOptionsController.swift */; };
+		1F17124E1DCA539200829FA2 /* PartyKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F17124D1DCA539200829FA2 /* PartyKeys.swift */; };
 		1F226D3C1BEC2CEE00BB85E2 /* BakeRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */; };
 		1F263C801BE19C1B009A3565 /* PartyDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */; };
 		1F2AA0C41C9B918000363DA8 /* FetchQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2AA0C31C9B918000363DA8 /* FetchQueryable.swift */; };
@@ -125,6 +126,7 @@
 		1F09183A1C6B80440020B498 /* Settings_Deploy.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Deploy.bundle; sourceTree = "<group>"; };
 		1F10FD951C624A050090743C /* AnimalTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalTableCell.swift; sourceTree = "<group>"; };
 		1F1580381D464CBD00A338EB /* SharingOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharingOptionsController.swift; sourceTree = "<group>"; };
+		1F17124D1DCA539200829FA2 /* PartyKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyKeys.swift; sourceTree = "<group>"; };
 		1F226D3B1BEC2CEE00BB85E2 /* BakeRootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BakeRootController.swift; sourceTree = "<group>"; };
 		1F263C7F1BE19C1B009A3565 /* PartyDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PartyDefaults.plist; sourceTree = "<group>"; };
 		1F263C811BE39A53009A3565 /* Settings_Develop.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Develop.bundle; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				1F427A0C1BA59F4C00E622CF /* Info.plist */,
 				1FF505D21CE2187C009F0893 /* Utilities */,
 				1F69A6251CA5C64200A84731 /* Extensions */,
+				1F17124D1DCA539200829FA2 /* PartyKeys.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -772,6 +775,7 @@
 				1F93D48E1D2560860053AA98 /* User.swift in Sources */,
 				1F8BF1C11C1C55C500221D82 /* AcknowledgementsController.swift in Sources */,
 				1FBD401D1C14609C0093D852 /* PartyPlace.swift in Sources */,
+				1F17124E1DCA539200829FA2 /* PartyKeys.swift in Sources */,
 				1F43C5C61CC3A40D00FA4156 /* AuthenticationManager.swift in Sources */,
 				1F7687941BFE278200D96768 /* HudUtilities.swift in Sources */,
 				1F08469D1C32C0490064FBDD /* VenueTableCell.swift in Sources */,

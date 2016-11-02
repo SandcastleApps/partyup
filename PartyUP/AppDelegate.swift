@@ -40,12 +40,7 @@ struct PartyUpConstants
 {
 	static let FavoriteLocationNotification = "FavoriteLocationNotification"
     static let RecordVideoNotification = "RecordVideoNotification"
-    static let AppleStoreIdentifier = "***REMOVED***"
 	static let DefaultStoragePrefix = "media"
-    static let PartyUpWebsite = NSURL(scheme: "http", host: "www.partyuptonight.com/v1", path: "/")!
-	static let ContentDistribution = NSURL(scheme: "http", host: "media.partyuptonight.com", path: "/")!
-    static let AdvertisementDistribution = ContentDistribution.URLByAppendingPathComponent("ads", isDirectory: true)
-	static let StorageBucket = "com.sandcastleapps.partyup"
 	static let TitleLogo: ()->UIImageView = {
 		let logoView = UIImageView(image: UIImage(named: "Logo"))
 		logoView.contentMode = .ScaleAspectFit
@@ -57,11 +52,6 @@ struct PartyUpConstants
 struct FacebookConstants
 {
 	static let GraphApiHost = NSURL(scheme: "https", host: "graph.facebook.com/v2.7", path: "/")!
-}
-
-struct FlurryConstants
-{
-	static let ApplicationIdentifier = "***REMOVED***"
 }
 
 @UIApplicationMain
@@ -85,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		})
 
 		Flurry.setUserID(UIDevice.currentDevice().identifierForVendor?.UUIDString)
-		Flurry.startSession(FlurryConstants.ApplicationIdentifier)
+		Flurry.startSession(PartyUpKeys.FlurryIdentifier)
 
 		let tint = UIColor(r: 247, g: 126, b: 86, alpha: 255)
 

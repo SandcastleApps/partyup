@@ -50,7 +50,7 @@ class AuthenticationFlow {
             }
             button.setImage(auth.logo, forState: .Normal)
         }
-        alert.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action"), backgroundColor: themeColor) { UIApplication.sharedApplication().openURL(NSURL(string: "terms.html", relativeToURL: PartyUpConstants.PartyUpWebsite)!)
+        alert.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action"), backgroundColor: themeColor) { UIApplication.sharedApplication().openURL(PartyUpPaths.TermsUrl!)
         }
         
         var off = putoffs.generate()

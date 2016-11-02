@@ -114,12 +114,6 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
 	private let keychain = Keychain(service: NSBundle.mainBundle().bundleIdentifier!)
 	private var authenticators = [AuthenticationProviding]()
 	private var credentialsProvider: AWSCognitoCredentialsProvider?
-
-	private struct AwsConstants
-	{
-		static let RegionType = AWSRegionType.USEast1
-		static let IdentityPool = "***REMOVED***"
-	}
     
     private func resumeSession() {
         for auth in authenticators {
@@ -135,11 +129,11 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
     
     private func initialize() -> AWSTask? {
         credentialsProvider = AWSCognitoCredentialsProvider(
-            regionType: AwsConstants.RegionType,
-            identityPoolId: AwsConstants.IdentityPool,
+            regionType: PartyUpKeys.AwsRegionType,
+            identityPoolId: PartyUpKeys.AwsIdentityPool,
 			identityProviderManager: self)
         let configuration = AWSServiceConfiguration(
-            region: AwsConstants.RegionType,
+            region: PartyUpKeys.AwsRegionType,
             credentialsProvider: credentialsProvider)
         
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
