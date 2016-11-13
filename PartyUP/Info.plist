@@ -30,13 +30,13 @@
 	<key>CFBundleVersion</key>
 	<string>156</string>
 	<key>FacebookAppID</key>
-	<string>***REMOVED***</string>
+	<string>$(FACEBOOK_APP_ID)</string>
 	<key>FacebookDisplayName</key>
 	<string>PartyUP</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<true/>
 	<key>ITSEncryptionExportComplianceCode</key>
-	<string>***REMOVED***</string>
+	<string>$(ENCRYPTION_EXPORT_COMPLIANCE)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -132,5 +132,15 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>AppleStoreID</key>
+	<string>$(APPLE_STORE_ID)</string>
+	<key>FlurryAppID</key>
+	<string>$(FLURRY_APP_ID)</string>
+	<key>AwsIdentityPool</key>
+	<string>$(AWS_IDENTITY_POOL)</string>
+	<key>GooglePlacesID</key>
+	<string>$(GOOGLE_PLACES_ID)</string>
+	<key>SurveyMonkeyID</key>
+	<string>$(SURVEY_MONKEY_ID)</string>
 </dict>
 </plist>

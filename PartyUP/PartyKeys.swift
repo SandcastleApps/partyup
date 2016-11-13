@@ -11,11 +11,12 @@ import AWSCore
 
 
 struct PartyUpKeys {
-    static let AppleStoreIdentifier = "***REMOVED***"
-    static let FlurryIdentifier = "***REMOVED***"
+    static let AppleStoreIdentifier = NSBundle.mainBundle().objectForInfoDictionaryKey("AppleStoreID") as! String
+    static let FlurryIdentifier = NSBundle.mainBundle().objectForInfoDictionaryKey("FlurryAppID") as! String
     static let AwsRegionType = AWSRegionType.USEast1
-    static let AwsIdentityPool = "***REMOVED***"
-    static let GooglePlaces = "***REMOVED***"
+    static let AwsIdentityPool = NSBundle.mainBundle().objectForInfoDictionaryKey("AwsIdentityPool") as! String
+    static let GooglePlaces = NSBundle.mainBundle().objectForInfoDictionaryKey("GooglePlacesID") as! String
+    static let SurveyMonkey = NSBundle.mainBundle().objectForInfoDictionaryKey("SurveyMonkeyID") as! String
 }
 
 struct PartyUpPaths {
@@ -26,5 +27,5 @@ struct PartyUpPaths {
     static let PrivacyUrl = NSURL(string: "privacy.html", relativeToURL: WebsiteUrl)
     static let ContentRootUrl = NSURL(scheme: "http", host: "media.partyuptonight.com", path: "/")!
     static let AdvertisementUrl = NSURL(string: "ads/", relativeToURL: ContentRootUrl)
-    static let FeedbackUrl = NSURL(scheme: "https", host: "www.surveymonkey.com", path: "/r/***REMOVED***")!
+    static let FeedbackUrl = NSURL(scheme: "https", host: "www.surveymonkey.com", path: "/r/\(PartyUpKeys.SurveyMonkey)")!
 }
