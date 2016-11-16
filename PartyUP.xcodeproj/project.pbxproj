@@ -559,7 +559,6 @@
 				TargetAttributes = {
 					1F4279FC1BA59F4C00E622CF = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = BF5YT9TQE8;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Keychain = {
