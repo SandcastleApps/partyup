@@ -1,7 +1,7 @@
 {
   "name": "Instructions",
   "cocoapods_version": ">= 0.39",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "summary": "Create walkthroughs and guided tours (with coach marks) in a simple way, using Swift.",
   "homepage": "https://github.com/ephread/Instructions",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/ephread/Instructions.git",
-    "tag": "0.5.0"
+    "tag": "0.5.1"
   },
   "platforms": {
     "ios": "8.0"

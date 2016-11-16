@@ -1,13 +1,13 @@
 PODS:
   - ActionSheetPicker-3.0 (2.2.0)
   - Alamofire (3.5.1)
-  - AWSCognito (2.4.11):
-    - AWSCore (= 2.4.11)
-  - AWSCore (2.4.11)
-  - AWSDynamoDB (2.4.11):
-    - AWSCore (= 2.4.11)
-  - AWSS3 (2.4.11):
-    - AWSCore (= 2.4.11)
+  - AWSCognito (2.4.12):
+    - AWSCore (= 2.4.12)
+  - AWSCore (2.4.12)
+  - AWSDynamoDB (2.4.12):
+    - AWSCore (= 2.4.12)
+  - AWSS3 (2.4.12):
+    - AWSCore (= 2.4.12)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -15,22 +15,22 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
   - DACircularProgress (2.3.1)
-  - FBSDKCoreKit (4.16.0):
+  - FBSDKCoreKit (4.17.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.16.1):
+  - FBSDKLoginKit (4.17.0):
     - FBSDKCoreKit
-  - Flurry-iOS-SDK (7.8.0):
-    - Flurry-iOS-SDK/FlurrySDK (= 7.8.0)
-  - Flurry-iOS-SDK/FlurrySDK (7.8.0)
-  - Instructions (0.5.0):
-    - Instructions/Core (= 0.5.0)
-  - Instructions/Core (0.5.0)
+  - Flurry-iOS-SDK (7.8.1):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.8.1)
+  - Flurry-iOS-SDK/FlurrySDK (7.8.1)
+  - Instructions (0.5.1):
+    - Instructions/Core (= 0.5.1)
+  - Instructions/Core (0.5.1)
   - INTULocationManager (4.2.0)
   - KeychainAccess (2.4.0)
   - LocationPickerViewController (2.0.0)
-  - MarqueeLabel (3.0.0):
-    - MarqueeLabel/ObjC (= 3.0.0)
-  - MarqueeLabel/ObjC (3.0.0)
+  - MarqueeLabel (3.0.1):
+    - MarqueeLabel/ObjC (= 3.0.1)
+  - MarqueeLabel/ObjC (3.0.1)
   - PBJVision (0.4.2)
   - SCLAlertView (0.6.0)
   - SwiftDate (3.0.9)
@@ -39,14 +39,14 @@ PODS:
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0
-  - Alamofire
+  - Alamofire (~> 3)
   - AWSCognito
   - AWSDynamoDB
   - AWSS3
   - DACircularProgress
   - FBSDKLoginKit
   - Flurry-iOS-SDK
-  - Instructions (from `https://github.com/ephread/Instructions.git`, branch `master`)
+  - Instructions (from `https://github.com/ephread/Instructions.git`, branch `swift2`)
   - INTULocationManager
   - KeychainAccess (~> 2.4)
   - LocationPickerViewController
@@ -54,12 +54,12 @@ DEPENDENCIES:
   - PBJVision
   - SCLAlertView (from `https://github.com/vikmeup/SCLAlertView-Swift.git`, branch `swift-2.3`)
   - SwiftDate (from `https://github.com/malcommac/SwiftDate.git`, branch `feature/swift_23`)
-  - SwiftyJSON (~> 2)
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `swift2`)
   - VIMVideoPlayer
 
 EXTERNAL SOURCES:
   Instructions:
-    :branch: master
+    :branch: swift2
     :git: https://github.com/ephread/Instructions.git
   SCLAlertView:
     :branch: swift-2.3
@@ -67,10 +67,13 @@ EXTERNAL SOURCES:
   SwiftDate:
     :branch: feature/swift_23
     :git: https://github.com/malcommac/SwiftDate.git
+  SwiftyJSON:
+    :branch: swift2
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
   Instructions:
-    :commit: fe7c74af0e1e8f1f7f30488e0b09a82ea9938197
+    :commit: 7c6f351092004696aeed1a0ecc3ab5ddeea140a2
     :git: https://github.com/ephread/Instructions.git
   SCLAlertView:
     :commit: 34e266d379d4edb961a87f4cc21122eb320e447e
@@ -78,30 +81,33 @@ CHECKOUT OPTIONS:
   SwiftDate:
     :commit: 1608e37a42a4f1fec52b324f4f96726d414bd04b
     :git: https://github.com/malcommac/SwiftDate.git
+  SwiftyJSON:
+    :commit: 54017d514a87b2b855b407131292c510cdeb65f8
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
-  AWSCognito: e086ad6f499e309dbf0030170cffc65a0bfd27c6
-  AWSCore: e66b0f50d68f9897cc9e68471062f0cb5379eec5
-  AWSDynamoDB: 1d54c63fe63c2afcd0caea5ce709d1a0b213213f
-  AWSS3: 2f90735901744687eaeb91621fa62ee921db6510
+  AWSCognito: 3c897210f6bfbb04585332388dff2036a3f39540
+  AWSCore: 8ee5b1dc06a0fd562429fe7120113ca93cbfbca6
+  AWSDynamoDB: f78e38016afa783c9c3d7d0f1c33c8c283eee8d9
+  AWSS3: 7bb3e095a37ed8334a0b868bbca74ab574b37a4f
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  FBSDKCoreKit: 7a6baaed4a2b2a244ba253346713bdbc74df135b
-  FBSDKLoginKit: 469a56cebe2e1ed62b1621d0b155970fd6aac2d8
-  Flurry-iOS-SDK: 388df247b9d92659527b608c891c7e474cd9d00e
-  Instructions: 6976f674ce788aefec475be6f18500572f1645d4
+  FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
+  FBSDKLoginKit: 42b7129ac0373ca99eaf4cbebf4d07bd42371f59
+  Flurry-iOS-SDK: 3d1daff95d43b8fead3bb43590d54c6e8244d410
+  Instructions: 2a9977f3d75532d535e329759e4d2480897ca0fb
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   KeychainAccess: c2a71459af5bddf720a51806046a598500976c04
   LocationPickerViewController: 600d08aba48879a920dbaf1c12d19a2292f2bbed
-  MarqueeLabel: a53e806b65587c9f543dd1c9d4d5c19761192a80
+  MarqueeLabel: 80ba85d2b76a9f5fa6c13de337db80bcd94feb1d
   PBJVision: fe43c9a58bb1c1277d16fd802fa836d25e034a45
   SCLAlertView: 0f6b3c23a48b4993564ff1dd3c065782e4b2b687
   SwiftDate: fa487d9b7d8c3070ea2553486902494f4915465d
   SwiftyJSON: 96918c1bf505efa50c4f72957018dd3452090c9c
   VIMVideoPlayer: f4ed0a9986294ec3684a2e6bdc738e30051ef4ef
 
-PODFILE CHECKSUM: 7ace9abf4d6c48259244dd192cebc002b8071f9c
+PODFILE CHECKSUM: f032a6cdd96ebe2e8e274e0e767f238c7cffdf51
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.1.1

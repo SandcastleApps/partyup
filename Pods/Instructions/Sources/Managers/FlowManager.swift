@@ -179,6 +179,12 @@ public class FlowManager {
     internal func createAndShowCoachMark(shouldCallDelegate: Bool = true) {
         if disableFlow { return }
 
+        guard delegate?.coachMarkWillLoadForIndex(currentIndex) ?? false else {
+            canShowCoachMark = true
+            showNextCoachMark(hidePrevious: false)
+            return
+        }
+
         // Retrieves the current coach mark structure from the datasource.
         // It can't be nil, that's why we'll force unwrap it everywhere.
         currentCoachMark = self.dataSource!.coachMarkForIndex(currentIndex)
@@ -230,7 +236,7 @@ extension FlowManager: CoachMarksViewControllerDelegate {
     }
 
     func didTapSkipView(skipView: CoachMarkSkipView?) {
-        stopFlow()
+        stopFlow(immediately: false, userDidSkip: true, shouldCallDelegate: true)
     }
 
     func willTransition() {
