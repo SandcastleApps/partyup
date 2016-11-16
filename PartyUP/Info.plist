@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AppleStoreID</key>
+	<string>$(APPLE_STORE_ID)</string>
+	<key>AwsIdentityPool</key>
+	<string>$(AWS_IDENTITY_POOL)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -15,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.7.5</string>
+	<string>1.8.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -28,11 +32,15 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>156</string>
+	<string>163</string>
 	<key>FacebookAppID</key>
 	<string>$(FACEBOOK_APP_ID)</string>
 	<key>FacebookDisplayName</key>
 	<string>PartyUP</string>
+	<key>FlurryAppID</key>
+	<string>$(FLURRY_APP_ID)</string>
+	<key>GooglePlacesID</key>
+	<string>$(GOOGLE_PLACES_ID)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<true/>
 	<key>ITSEncryptionExportComplianceCode</key>
@@ -113,6 +121,8 @@
 	<string>PartyUP would like to access the microphone so you can submit videos from parties you attend.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>If you wish to save videos to your photo library, please provide access to PartyUP.</string>
+	<key>SurveyMonkeyID</key>
+	<string>$(SURVEY_MONKEY_ID)</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -132,15 +142,5 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-	<key>AppleStoreID</key>
-	<string>$(APPLE_STORE_ID)</string>
-	<key>FlurryAppID</key>
-	<string>$(FLURRY_APP_ID)</string>
-	<key>AwsIdentityPool</key>
-	<string>$(AWS_IDENTITY_POOL)</string>
-	<key>GooglePlacesID</key>
-	<string>$(GOOGLE_PLACES_ID)</string>
-	<key>SurveyMonkeyID</key>
-	<string>$(SURVEY_MONKEY_ID)</string>
 </dict>
 </plist>
