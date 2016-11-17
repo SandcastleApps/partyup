@@ -245,5 +245,7 @@
 	<integer>604800</integer>
 	<key>PromptAuthentication</key>
 	<true/>
+	<key>AllowAuthenticationPutoff</key>
+	<false/>
 </dict>
 </plist>

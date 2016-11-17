@@ -34,6 +34,7 @@ struct PartyUpPreferences
     static let SeedFacebookTimeline = "SeedFacebookTimeline"
     static let SeedStaleInterval = "SeedStaleInterval"
     static let PromptAuthentication = "PromptAuthentication"
+    static let AllowAuthenticationPutoff = "AllowAuthenticationPutoff"
 }
 
 struct PartyUpConstants

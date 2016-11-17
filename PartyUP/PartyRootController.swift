@@ -63,9 +63,15 @@ class PartyRootController: UIViewController {
 			if defaults.boolForKey(PartyUpPreferences.PromptAuthentication) {
 				if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) != .Authenticated  {
 					let flow = AuthenticationFlow.shared
-					flow.setPutoffs(
-						[NSLocalizedString("Miss out on Facebook Posts", comment: "First ignore Facebook button")])
-					flow.addAction { [weak self] manager, cancelled in if let me = self { defaults.setBool(false, forKey: PartyUpPreferences.PromptAuthentication); me.presentTutorial() } }
+                    let allowPutoff = defaults.boolForKey(PartyUpPreferences.AllowAuthenticationPutoff)
+                    flow.setPutoffs( allowPutoff ?
+                            [NSLocalizedString("Miss out on Facebook Posts", comment: "First ignore Facebook button")] : [])
+					flow.addAction { [weak self] manager, cancelled in
+                        if let me = self {
+                            if allowPutoff { defaults.setBool(false, forKey: PartyUpPreferences.PromptAuthentication) }
+                            me.presentTutorial()
+                        }
+                    }
 					flow.startOnController(self)
 				}
 			}
