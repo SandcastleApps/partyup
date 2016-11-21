@@ -4,7 +4,7 @@ PartyUP is a lifestyle application developed by [Sandcastle Application Developm
 
 Sandcastle is pleased to make the PartyUP iOS application available as open source.  You are free to fork the project, change the branding, and create your own product.  Alternatively, you can submit pull requests to this repository if you wish to see PartyUP, as distributed by Sandcastle, improve.
 
-The [user manual](http://www.partyuptonight.com/v1/support.html) for PartyUP describes the usage scenarios for the product. The manual is a web site linked to by the PartyUP application, it has been made available as open source in the [partyuptonight](partyuptonight) repository.
+The [user manual](http://www.partyuptonight.com/v1/support.html) for PartyUP describes the usage scenarios for the product. The manual is a web site linked to by the PartyUP application, it has been made available as open source in the [partyuptonight](https://github.com/SandcastleApps/partyuptonight) repository.
 
 ## Platform and Tool Requirements
 
@@ -28,7 +28,7 @@ PartyUP presents data from a number of backend services.  The secret keys for th
 
 If you choose to fork and create your own application, you will have to adapt the application to use your own collection of services. The services currently required by PartyUP are described in the project wiki.
 
-Would you like to contribute to PartyUP as distributed by Sandcastle? You will need some keys for the backend services to test your improvements. [Let us know](todd@sandcastleapps.com) if you would like to contribute to Sandcastles PartyUP distribution.  Instructions for setting up your development environment for building and testing PartyUP is available on the project wiki. 
+Would you like to contribute to PartyUP as distributed by Sandcastle? You will need some keys for the backend services to test your improvements. [Let us know](mail:todd@sandcastleapps.com) if you would like to contribute to Sandcastle's PartyUP distribution.  Instructions for setting up your development environment for building and testing PartyUP is available on the project wiki. 
 
 ## License
 
