@@ -28,7 +28,11 @@ PartyUP presents data from a number of backend services.  The secret keys for th
 
 If you choose to fork and create your own application, you will have to adapt the application to use your own collection of services. The services currently required by PartyUP are described in the project wiki.
 
-Would you like to contribute to PartyUP as distributed by Sandcastle? You will need some keys for the backend services to test your improvements. [Let us know](mail:todd@sandcastleapps.com) if you would like to contribute to Sandcastle's PartyUP distribution.  Instructions for setting up your development environment for building and testing PartyUP is available on the project wiki. 
+Would you like to contribute to PartyUP as distributed by Sandcastle? You will need some keys for the backend services to test your improvements. [Let us know](mail:todd@sandcastleapps.com) if you would like to contribute to Sandcastle's PartyUP distribution.
+
+## Developer Documentation
+
+Descriptions of the backend services, development environment setup, and anything else development related are being put on the [PartyUP Developer](https://github.com/SandcastleApps/partyup/wiki) wiki.  
 
 ## License
 
