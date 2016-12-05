@@ -21,7 +21,7 @@
 #import "AWSLogging.h"
 #import "AWSCategory.h"
 
-NSString *const AWSiOSSDKVersion = @"2.4.12";
+NSString *const AWSiOSSDKVersion = @"2.4.14";
 NSString *const AWSServiceErrorDomain = @"com.amazonaws.AWSServiceErrorDomain";
 
 static NSString *const AWSServiceConfigurationUnknown = @"Unknown";
@@ -238,6 +238,7 @@ static NSString *const AWSServiceNameCloudWatch = @"monitoring";
 static NSString *const AWSServiceNameCognitoIdentity = @"cognito-identity";
 static NSString *const AWSServiceNameCognitoIdentityProvider = @"cognito-idp";
 static NSString *const AWSServiceNameCognitoSync = @"cognito-sync";
+static NSString *const AWSServiceNameLexRuntime = @"runtime.lex";
 static NSString *const AWSServiceNameDynamoDB = @"dynamodb";
 static NSString *const AWSServiceNameEC2 = @"ec2";
 static NSString *const AWSServiceNameElasticLoadBalancing = @"elasticloadbalancing";
@@ -248,6 +249,8 @@ static NSString *const AWSServiceNameKinesis = @"kinesis";
 static NSString *const AWSServiceNameLambda = @"lambda";
 static NSString *const AWSServiceNameMachineLearning = @"machinelearning";
 static NSString *const AWSServiceNameMobileAnalytics = @"mobileanalytics";
+static NSString *const AWSServiceNamePolly = @"polly";
+static NSString *const AWSServiceNameMobileTargeting = @"mobiletargeting";
 static NSString *const AWSServiceNameS3 = @"s3";
 static NSString *const AWSServiceNameSES = @"email";
 static NSString *const AWSServiceNameSimpleDB = @"sdb";
@@ -260,7 +263,6 @@ static NSString *const AWSServiceNameSTS = @"sts";
 - (void) setRegion:(AWSRegionType)regionType service:(AWSServiceType)serviceType;
 
 @end
-
 
 @implementation AWSEndpoint
 
@@ -306,7 +308,7 @@ static NSString *const AWSServiceNameSTS = @"sts";
     if (self = [super init]) {
         _regionType = regionType;
         _serviceType = serviceType;
-        _useUnsafeURL = NO;
+        _useUnsafeURL = [[URL scheme] isEqualToString:@"http"];
         _regionName = [self regionNameFromType:regionType];
         _serviceName = [self serviceNameFromType:serviceType];
         _URL = URL;
@@ -389,6 +391,8 @@ static NSString *const AWSServiceNameSTS = @"sts";
             return AWSServiceNameCognitoIdentityProvider;
         case AWSServiceCognitoSync:
             return AWSServiceNameCognitoSync;
+        case AWSServiceLexRuntime:
+            return AWSServiceNameLexRuntime;
         case AWSServiceDynamoDB:
             return AWSServiceNameDynamoDB;
         case AWSServiceEC2:
@@ -409,6 +413,10 @@ static NSString *const AWSServiceNameSTS = @"sts";
             return AWSServiceNameMachineLearning;
         case AWSServiceMobileAnalytics:
             return AWSServiceNameMobileAnalytics;
+        case AWSServicePolly:
+            return AWSServiceNamePolly;
+        case AWSServiceMobileTargeting:
+            return AWSServiceNameMobileTargeting;
         case AWSServiceS3:
             return AWSServiceNameS3;
         case AWSServiceSES:
@@ -470,6 +478,8 @@ static NSString *const AWSServiceNameSTS = @"sts";
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://iot%@%@.amazonaws.com", HTTPType, separator, regionName]];
     } else if (serviceType == AWSServiceIoTData) {
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://data%@iot%@%@.amazonaws.com", HTTPType, separator, separator, regionName]];
+    } else if (serviceType == AWSServiceMobileTargeting) {
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://pinpoint%@%@.amazonaws.com", HTTPType, separator, regionName]];
     } else {
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@%@.amazonaws.com", HTTPType, serviceName, separator, regionName]];
     }

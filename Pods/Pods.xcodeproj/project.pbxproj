@@ -1138,6 +1138,7 @@
 		6B9F7F7D17EE47FFDCB4F9F746206A20 /* AWSExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AWSExecutor.h; path = AWSCore/Bolts/AWSExecutor.h; sourceTree = "<group>"; };
 		6BD5B412E4935D002BCF111782A6E726 /* AWSXMLWriter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AWSXMLWriter.m; path = AWSCore/XMLWriter/AWSXMLWriter.m; sourceTree = "<group>"; };
 		6C876BE54C61D13985132FE48069FACF /* NSDate+SwiftDate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSDate+SwiftDate.swift"; path = "Sources/SwiftDate/NSDate+SwiftDate.swift"; sourceTree = "<group>"; };
+		6C9C922151C4FB104C111C2FCA6B4986 /* libFlurry_7.8.2.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurry_7.8.2.a; path = Flurry/libFlurry_7.8.2.a; sourceTree = "<group>"; };
 		6CD82C62C8B2D9BB558FE351956BFD83 /* AWSSTSResources.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AWSSTSResources.m; path = AWSCore/STS/AWSSTSResources.m; sourceTree = "<group>"; };
 		6D87EDB9FF0ABC85341B181984933A74 /* AWSDynamoDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = AWSDynamoDB.modulemap; sourceTree = "<group>"; };
 		6E6DC1FB9D0E8835F74520DEE8667D4F /* ActionSheetCustomPickerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ActionSheetCustomPickerDelegate.h; path = Pickers/ActionSheetCustomPickerDelegate.h; sourceTree = "<group>"; };
@@ -1516,7 +1517,6 @@
 		EA4A7F51E318CF1407F89EB984B2D3CB /* FBSDKLoginConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKLoginConstants.h; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKLoginConstants.h; sourceTree = "<group>"; };
 		ED0969F4FB0A6D04EBE86A27BA417B83 /* AWSKSReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AWSKSReachability.m; path = AWSCore/KSReachability/AWSKSReachability.m; sourceTree = "<group>"; };
 		ED1C81411D629D8FC704F8062F382075 /* FBSDKLoginConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKLoginConstants.m; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKLoginConstants.m; sourceTree = "<group>"; };
-		ED8F97F59E9AADFC37AE94C1AFAC65A2 /* libFlurry_7.8.1.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurry_7.8.1.a; path = Flurry/libFlurry_7.8.1.a; sourceTree = "<group>"; };
 		ED92AEB70144172389D09D23F325EC2B /* FBSDKUIUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKUIUtility.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/UI/FBSDKUIUtility.h; sourceTree = "<group>"; };
 		EDC0BE12826B0D4266AFCDE31FDFC078 /* FBSDKIcon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKIcon.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/UI/FBSDKIcon.m; sourceTree = "<group>"; };
 		EDC78C1EE28035A9D041F8DB349F8637 /* FBSDKServerConfigurationManager+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBSDKServerConfigurationManager+Internal.h"; path = "FBSDKCoreKit/FBSDKCoreKit/Internal/ServerConfiguration/FBSDKServerConfigurationManager+Internal.h"; sourceTree = "<group>"; };
@@ -1896,7 +1896,7 @@
 				8A65339B4F182D1A607B73772218CA1D /* Flurry.h */,
 				3BEE70798C37287B0F092EAF1C7F5E46 /* FlurryEmpty.m */,
 				02D39BDED10E14B99326E1E25941C16C /* FlurrySessionBuilder.h */,
-				D65F73C5DC469D96BC82EFA6D8B42AE2 /* Frameworks */,
+				30EF295FA51FD1D3F8E3577C1AE39416 /* Frameworks */,
 			);
 			name = FlurrySDK;
 			sourceTree = "<group>";
@@ -1985,6 +1985,14 @@
 			);
 			name = Alamofire;
 			path = Alamofire;
+			sourceTree = "<group>";
+		};
+		30EF295FA51FD1D3F8E3577C1AE39416 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C9C922151C4FB104C111C2FCA6B4986 /* libFlurry_7.8.2.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		33245945E99BBF336A77FFECCE0A5EBD /* Resources */ = {
@@ -2770,14 +2778,6 @@
 			);
 			name = PBJVision;
 			path = PBJVision;
-			sourceTree = "<group>";
-		};
-		D65F73C5DC469D96BC82EFA6D8B42AE2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				ED8F97F59E9AADFC37AE94C1AFAC65A2 /* libFlurry_7.8.1.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D839AF4C05F6F908E604EB8FD4D3E8D7 /* Support Files */ = {

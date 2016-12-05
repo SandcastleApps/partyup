@@ -1,13 +1,13 @@
 PODS:
   - ActionSheetPicker-3.0 (2.2.0)
   - Alamofire (3.5.1)
-  - AWSCognito (2.4.12):
-    - AWSCore (= 2.4.12)
-  - AWSCore (2.4.12)
-  - AWSDynamoDB (2.4.12):
-    - AWSCore (= 2.4.12)
-  - AWSS3 (2.4.12):
-    - AWSCore (= 2.4.12)
+  - AWSCognito (2.4.14):
+    - AWSCore (= 2.4.14)
+  - AWSCore (2.4.14)
+  - AWSDynamoDB (2.4.14):
+    - AWSCore (= 2.4.14)
+  - AWSS3 (2.4.14):
+    - AWSCore (= 2.4.14)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -15,13 +15,13 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
   - DACircularProgress (2.3.1)
-  - FBSDKCoreKit (4.17.0):
+  - FBSDKCoreKit (4.18.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.17.0):
+  - FBSDKLoginKit (4.18.0):
     - FBSDKCoreKit
-  - Flurry-iOS-SDK (7.8.1):
-    - Flurry-iOS-SDK/FlurrySDK (= 7.8.1)
-  - Flurry-iOS-SDK/FlurrySDK (7.8.1)
+  - Flurry-iOS-SDK (7.8.2):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.8.2)
+  - Flurry-iOS-SDK/FlurrySDK (7.8.2)
   - Instructions (0.5.1):
     - Instructions/Core (= 0.5.1)
   - Instructions/Core (0.5.1)
@@ -88,15 +88,15 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: d11a4c12c6aaf704b8a3f56d179198c99f3e41e6
   Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
-  AWSCognito: 3c897210f6bfbb04585332388dff2036a3f39540
-  AWSCore: 8ee5b1dc06a0fd562429fe7120113ca93cbfbca6
-  AWSDynamoDB: f78e38016afa783c9c3d7d0f1c33c8c283eee8d9
-  AWSS3: 7bb3e095a37ed8334a0b868bbca74ab574b37a4f
+  AWSCognito: d77561939518929ae526b792970637a36e15abe4
+  AWSCore: 9eb19b80ceb8cee6b2a2b2639f4f34349df387ed
+  AWSDynamoDB: 5b146feef50e07909b9033e5afbb0340cc6c26dd
+  AWSS3: 2c1d05b89f7c11fa0fe5d722b5682d5490c5867e
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
-  FBSDKLoginKit: 42b7129ac0373ca99eaf4cbebf4d07bd42371f59
-  Flurry-iOS-SDK: 3d1daff95d43b8fead3bb43590d54c6e8244d410
+  FBSDKCoreKit: 15fef8804a4629f98c6f4e55e81a76c9d725d85e
+  FBSDKLoginKit: 6773073e970b2b15fb12e451ce7f11da0532b880
+  Flurry-iOS-SDK: 8ed76252016d0162a893363c108a010ab97d424c
   Instructions: 2a9977f3d75532d535e329759e4d2480897ca0fb
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   KeychainAccess: c2a71459af5bddf720a51806046a598500976c04
