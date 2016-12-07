@@ -33,21 +33,84 @@ The Xcode project gets service keys from environment variables. At Sandcastle we
 * `PARTYUP_SURVEY_MONKEY_ID` - On the acknowlegements page we ask for feedback which is collected via Survey Monkey.  This variable identifies the survey. Source: [Survey Monkey](https://www.surveymonkey.com)
 * `PARTYUP_DEVELOPMENT_TEAM_ID` - I tried to use an environment variable to set the Apple team identifier for PartyUP used for application provisioning.  Thus far, this variable does not work, you will have to go into the project settings and set your team identifier there, then be careful not to check it in. Source: [Apple Developer Portal](https://developer.apple.com) 
 
-## Backend Service Requirements
+## PartyUP Backend Services
 
-PartyUP presents data from a number of backend services.  The secret keys for these services have been stripped from the source code.  You will be able to build and run PartyUP but it will not connect to the services.  It makes use of the following backend services:
+PartyUP makes use of backend services from Amazon, Google and Facebook to store and purvey videos from venues identified as likely nightlife spots. The secret keys for these services have been stripped from the source code. You will be able to build and run PartyUP but it will not connect to the services. This page describes how those services are used to aid those forking PartyUP in setting up those services.
 
-* Amazon Web Services are used to store and distribute videos, votes and comments submitted through PartyUP.
-* Google Places is used to find nearby venues relevant to PartyUP users (bars and other nightlife establishments).
-* Facebook is used to verify user identity and collect seed images and videos submitted by nearby venues.
+### Google Places
 
-If you choose to fork and create your own application, you will have to adapt the application to use your own collection of services. The services currently required by PartyUP are described in the project wiki.
+Nearby venues are found using the Google Places REST API.  The unique venue identifiers assigned by Google are used to identify venues throughout PartyUP and venue names and locations come from Google Places.
+
+### Amazon Web Services
+
+Amazon Web Services are used to store and distribute the submissions, videos, votes, promotions, and advertising seen in PartyUP.  
+
+#### DynamoDB Tables
+
+DynamoDB is a NoSQL database that is used by partyUP to store and distribute information about video submissions, votes, and advertising.  The AWS iOS SDK is used in the application to access the tables and most records are mapped to Swift classes using the Dynamo Object Mapping classes.
+
+##### Video Submissions
+
+Video submissions (samples) are recorded in DynamoDB in the `Samples` table, fields include:
+
+* `Event (string, hash key)`: the unique venue identifier retrieved from Google Places or the pattern `city$province$country` of the city in which the submission was made if no venue was specified.
+* `Id (binary, range key)`: a base64 encoding of the submitting user's Cognito identifier UUID with a device specific submission count appended.
+* `Timestamp (double)`: the time the video was submitted as seconds since January 1, 1970.
+* `Up and Down (int)`:  the numbers of up and down votes the sample has gotten. Need to be handled atomically as multiple clients may be reading and writing it concurrently.
+* `Comment (string, optional)`: an description provided by the user.
+* `Prefix (string, nil by default)`: a lambda may move videos around in S3 to change thier longevity.  Nil in this field is interpreted as 'media'.
+
+###### Votes and Offensive Video Reports
+
+Each user's vote on a sample is recorded in the `Votes` DynamoDB table (accumulated votes are written to the `Samples` table as noted above).  Fields include:
+
+* `Sample (binary, hash key)`: the identifier of the sample voted on, foreign key corresponding to the `Samples` table Id field.
+* `User (binary, range key)`: a base64 encoding of the Incognito identifier UUID of the user submitting the vote.
+* `Vote (int)`: the vote submitted by the user, 1 is up, -1 is down, 0 is meh.
+* `Flag (bool)`: indicates whether the user reported the sample inappropriate.
+
+###### Promotions
+
+Promotions record venue specific information changing their display in city hub.  The Promotions DynamoDB table fields:
+
+* `Venue (string, hash key)`: the venue unique identifier (supplied by Google Places) the promotion applies to.
+* `City (string)`: the city of in which the venue resides, used by data entry folk, not PartyUP.
+* `Name (string)`: the name of the venue, used by data entry folk, not PartyUP.
+* `Placement (int)`: the relative placement of the venue in the city hub, higher numbers are better (they appear first in the city hub venue list). These need not be unique, the integer acts as a tier rather than an index.  The cells of venues promoted to a tier higher than 0 also get a colored background.
+* `Tagline (string)`: a sting that will appear with the venue name in the venue's cell of the city hub.  Usually indicates special events or deals.
+
+##### Advertising
+
+The advertisements that appear in the video feed are represented by the `Advertisements` DynamoDB table.  The ads themselves are web pages stored on S3. Fields include:
+
+* `Administration (string, hash key)`: identifies the area in which the advertisement has effect.  Has the pattern province$country.  PartyUP retrieve advertising only for area the user is in. 
+* `Media (string, range key)`: the first character identifies a variation of the ad. The rest is the tail of the URL identifying the ad (loaded from Cloudfront).
+* `Feeds (set of strings)`: indicate which city or venue video feeds an ad should appear in.  The first character identifies the type of feed (a - all feed, p - pregame, v - venue) and the remainder is a regex that must be matched for ads to appear in the feed.  Eg, `a:(Halifax|Sydney)` would have ads appear in the all feeds of Halifax or Sydney, but not Antigonish.
+* `Pages (set of int)`: the pages of the video feeds identified by feeds on which the ad will appear.
+* `Style (int)`: the display style of the ad, 0 puts the ad on it own page, 1 displays it as an overlay on a video page.
+
+#### Simple Storage Service
+
+An S3 bucket, `com.sandcastleapps.partyup`, is used to store submitted videos.  The videos are batched together with a few prefixes (media, favorites, and stick) that is reflected in the `Samples` table.  The name of the video file is generated from the submitter's Cognito identifier UUID with the submission count appended.  All videos should be set for reduced redundancy when submitted.
+
+#### Cloudfront
+Videos are distributed to PartyUP via streaming from Cloudfront.  The base URL for videos is `media.partyyuptonight.com`.  Advertising webpages are also served via Cloudfront at `media.partyuptonight.com/ads`.
+
+#### Cognito
+
+Cognito is used to authorize AWS access via both authenticated and unauthenticated access. Facebook login is used to authenticate users and provide authentication tokens to Cognito.  Authenticated users may take actions that change DynamoDB records (submit videos and vote) while unauthenticated users cannot take those actions.
+
+### Facebook
+
+User identity is authenticated using the Facebook Login API.  An authenticated user may opt to make a user name visible with submitted videos.  Logging in with Facebook also allows PartyUP to seed the venue feeds from supported venues with videos and pictures posted by the venue.  Authentication via Facebook is optional, though some PartyUP features are restricted to authenticated users.
+
+### Flurry
+
+Analytics for PartyUP are recorded via Flurry.  The Flurry iOS SDK is used to report user actions and errors. 
+
+## Contributing to PartyUP
 
 Would you like to contribute to PartyUP as distributed by Sandcastle? You will need some keys for the backend services to test your improvements. [Let us know](mail:todd@sandcastleapps.com) if you would like to contribute to Sandcastle's PartyUP distribution.
-
-## Developer Documentation
-
-Descriptions of the backend services, development environment setup, and anything else development related are being put on the [PartyUP Developer](https://github.com/SandcastleApps/partyup/wiki) wiki.  
 
 ## License
 
