@@ -40,7 +40,6 @@ class AuthenticationManager: NSObject, AWSIdentityProviderManager {
 
 	private(set) var state: AuthenticationState = .Transitioning
     
-    
     override init() {
 		authenticators = [FacebookAuthenticationProvider(keychain: keychain)]
 		super.init()

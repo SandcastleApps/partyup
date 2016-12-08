@@ -22,10 +22,10 @@ class AuthenticationFlow {
         self.putoffs = putoffs
     }
     
-    func startOnController(controller: UIViewController) -> AuthenticationFlow {
+    func startOnController(controller: UIViewController, withAuthenticator authenticator: AuthenticationProvider? = nil) -> AuthenticationFlow {
         if !isFlowing {
             isFlowing = true
-            beginOnController(controller)
+            beginOnController(controller, withAuthenticator: authenticator)
         }
         return self
     }
@@ -33,42 +33,46 @@ class AuthenticationFlow {
     func stop() {
         if let leader = leader {
             leader.close()
-            AuthenticationFlow.flow = nil
         }
+        AuthenticationFlow.flow = nil
     }
 
-	private func beginOnController(controller: UIViewController) {
-        let themeColor = UIColor(r: 247, g: 126, b: 86, alpha: 255)
-        let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: false, shouldAutoDismiss: false))
-        let inLabel = NSLocalizedString("Log in with", comment: "Login service button label")
-        let outLabel = NSLocalizedString("Log out of", comment: "Logout service button label")
-        for auth in manager.authentics {
-            let label = "  " + (auth.isLoggedIn ? outLabel : inLabel) + " \(auth.name)"
-            let button = alert.addButton(label, backgroundColor: auth.color) {
-                [unowned alert] in alert.hideView()
-                self.manager.loginToProvider(auth, fromViewController: controller)
+    private func beginOnController(controller: UIViewController, withAuthenticator authenticator: AuthenticationProvider?) {
+        if let auth = authenticator {
+            self.manager.loginToProvider(auth, fromViewController: controller)
+        } else {
+            let themeColor = UIColor(r: 247, g: 126, b: 86, alpha: 255)
+            let alert = SCLAlertView(appearance: SCLAlertView.SCLAppearance(showCloseButton: false, shouldAutoDismiss: false))
+            let inLabel = NSLocalizedString("Log in with", comment: "Login service button label")
+            let outLabel = NSLocalizedString("Log out of", comment: "Logout service button label")
+            for auth in manager.authentics {
+                let label = "  " + (auth.isLoggedIn ? outLabel : inLabel) + " \(auth.name)"
+                let button = alert.addButton(label, backgroundColor: auth.color) {
+                    [unowned alert] in alert.hideView()
+                    self.manager.loginToProvider(auth, fromViewController: controller)
+                }
+                button.setImage(auth.logo, forState: .Normal)
             }
-            button.setImage(auth.logo, forState: .Normal)
-        }
-        alert.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action"), backgroundColor: themeColor) { UIApplication.sharedApplication().openURL(PartyUpPaths.TermsUrl!)
-        }
-        
-        var off = putoffs.generate()
-        if let putoff = off.next() {
-            putoffButton = alert.addButton(putoff, backgroundColor: themeColor) { [weak self] in
-                if let put = off.next() {
-                    self?.putoffButton?.setTitle(put, forState: .Normal)
-                } else {
-					self?.end(true)
+            alert.addButton(NSLocalizedString("Read Terms of Service", comment: "Terms alert full terms action"), backgroundColor: themeColor) { UIApplication.sharedApplication().openURL(PartyUpPaths.TermsUrl!)
+            }
+            
+            var off = putoffs.generate()
+            if let putoff = off.next() {
+                putoffButton = alert.addButton(putoff, backgroundColor: themeColor) { [weak self] in
+                    if let put = off.next() {
+                        self?.putoffButton?.setTitle(put, forState: .Normal)
+                    } else {
+                        self?.end(true)
+                    }
                 }
             }
+            
+            let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
+            let message: String? = file.flatMap { try? String.init(contentsOfFile: $0) }
+            leader = alert.showNotice(NSLocalizedString("Log in", comment: "Login Title"),
+                                      subTitle: message!,
+                                      colorStyle: 0xf77e56)
         }
-        
-        let file = NSBundle.mainBundle().pathForResource("Conduct", ofType: "txt")
-        let message: String? = file.flatMap { try? String.init(contentsOfFile: $0) }
-        leader = alert.showNotice(NSLocalizedString("Log in", comment: "Login Title"),
-                                  subTitle: message!,
-                                  colorStyle: 0xf77e56)
 	}
 
 	private func end(cancelled: Bool = false) {
@@ -93,9 +97,11 @@ class AuthenticationFlow {
 				                                 andDetail: NSLocalizedString("Party Hearty!", comment: "Logged in alert detail"),
 				                                 closeLabel: nil, dismissHandler: { self.end(false) })
 			case .Unauthenticated:
+                if let raw = note.userInfo?["old"] as? Int, let state = AuthenticationState(rawValue: raw) where state == .Transitioning {
 				alertFailureWithTitle(NSLocalizedString("Not Logged In", comment: "Not logged in alert title"),
 				                                 andDetail: NSLocalizedString("Better luck next time.", comment: "Not logged in alert detail"),
 				                                 closeLabel: nil, dismissHandler: { self.end(false) })
+                }
 			case .Transitioning:
 				break
 			}

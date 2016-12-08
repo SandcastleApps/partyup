@@ -61,7 +61,7 @@ class PartyRootController: UIViewController {
 		nc.addObserverForName(AuthenticationManager.AuthenticationStatusChangeNotification, object: nil, queue: NSOperationQueue.mainQueue()) { note in
 			let defaults = NSUserDefaults.standardUserDefaults()
 			if defaults.boolForKey(PartyUpPreferences.PromptAuthentication) {
-				if let state = note.userInfo?["new"] as? Int where AuthenticationState(rawValue: state) != .Authenticated  {
+                if let new = AuthenticationState(rawValue: note.userInfo?["new"] as! Int), let old = AuthenticationState(rawValue: note.userInfo?["old"] as! Int) where new == .Unauthenticated && old == .Transitioning  {
 					let flow = AuthenticationFlow.shared
                     let allowPutoff = defaults.boolForKey(PartyUpPreferences.AllowAuthenticationPutoff)
                     flow.setPutoffs( allowPutoff ?

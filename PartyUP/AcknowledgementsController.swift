@@ -76,6 +76,7 @@ class AcknowledgementsController: UITableViewController {
     
     @IBAction func authenticate(sender: UIButton) {
         let manager = AuthenticationManager.shared
+        let flow = AuthenticationFlow.shared
         var message: String?
         var actions = [UIAlertAction]()
         
@@ -87,7 +88,7 @@ class AcknowledgementsController: UITableViewController {
         } else {
             message = NSLocalizedString("Login using", comment: "Login sheet message")
             for auth in manager.authentics {
-                actions.append(UIAlertAction(title: auth.name, style: .Default) { _ in manager.loginToProvider(auth, fromViewController: self) })
+                actions.append(UIAlertAction(title: auth.name, style: .Default) { _ in flow.startOnController(self, withAuthenticator: auth) })
             }
         }
         
